@@ -1,0 +1,15 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "about": "Sobre mí",
+    "projects": "Proyectos",
+    "talks": "Charlas, cursos y notas",
+    "lab": "Laboratorio",
+    "contact": "Contacto"
+  },
+  "common": {
+    "skipToContent": "Saltar al contenido",
+    "toggleTheme": "Cambiar tema",
+    "toggleLanguage": "Cambiar idioma"
+  }
+}

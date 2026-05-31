@@ -1,0 +1,466 @@
+/* ===========================================================
+   OnMars / MarsUI — Colors & Type tokens
+   Inspired by space & Mars. Sober and minimalist for apps,
+   expressive and creative for landing pages.
+   =========================================================== */
+
+/* --- Fonts ---------------------------------------------- */
+/* Open Sauce Two is now LOCAL (woff2/woff) — brand UI face.
+   Lastik (display) still substituted with Google's Sora.
+   JetBrains Mono is the exact match.
+   Use ONE relative font path so this file works whether it's
+   loaded from /preview/, /ui_kits/<x>/ or root — we resolve
+   via the project root by using a path relative to the CSS file. */
+
+@font-face {
+  font-family: 'Open Sauce Two';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src:
+    url('/fonts/open-sauce-two-latin-300-normal.woff2') format('woff2'),
+    url('/fonts/open-sauce-two-latin-300-normal.woff') format('woff');
+}
+@font-face {
+  font-family: 'Open Sauce Two';
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src:
+    url('/fonts/open-sauce-two-latin-300-italic.woff2') format('woff2'),
+    url('/fonts/open-sauce-two-latin-300-italic.woff') format('woff');
+}
+@font-face {
+  font-family: 'Open Sauce Two';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    url('/fonts/open-sauce-two-latin-400-normal.woff2') format('woff2'),
+    url('/fonts/open-sauce-two-latin-400-normal.woff') format('woff');
+}
+@font-face {
+  font-family: 'Open Sauce Two';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    url('/fonts/open-sauce-two-latin-400-italic.woff2') format('woff2'),
+    url('/fonts/open-sauce-two-latin-400-italic.woff') format('woff');
+}
+@font-face {
+  font-family: 'Open Sauce Two';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src:
+    url('/fonts/open-sauce-two-latin-500-normal.woff2') format('woff2'),
+    url('/fonts/open-sauce-two-latin-500-normal.woff') format('woff');
+}
+@font-face {
+  font-family: 'Open Sauce Two';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src:
+    url('/fonts/open-sauce-two-latin-500-italic.woff2') format('woff2'),
+    url('/fonts/open-sauce-two-latin-500-italic.woff') format('woff');
+}
+@font-face {
+  font-family: 'Open Sauce Two';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src:
+    url('/fonts/open-sauce-two-latin-600-normal.woff2') format('woff2'),
+    url('/fonts/open-sauce-two-latin-600-normal.woff') format('woff');
+}
+@font-face {
+  font-family: 'Open Sauce Two';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src:
+    url('/fonts/open-sauce-two-latin-600-italic.woff2') format('woff2'),
+    url('/fonts/open-sauce-two-latin-600-italic.woff') format('woff');
+}
+@font-face {
+  font-family: 'Open Sauce Two';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src:
+    url('/fonts/open-sauce-two-latin-700-normal.woff2') format('woff2'),
+    url('/fonts/open-sauce-two-latin-700-normal.woff') format('woff');
+}
+@font-face {
+  font-family: 'Open Sauce Two';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src:
+    url('/fonts/open-sauce-two-latin-700-italic.woff2') format('woff2'),
+    url('/fonts/open-sauce-two-latin-700-italic.woff') format('woff');
+}
+@font-face {
+  font-family: 'Open Sauce Two';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src:
+    url('/fonts/open-sauce-two-latin-800-normal.woff2') format('woff2'),
+    url('/fonts/open-sauce-two-latin-800-normal.woff') format('woff');
+}
+@font-face {
+  font-family: 'Open Sauce Two';
+  font-style: italic;
+  font-weight: 800;
+  font-display: swap;
+  src:
+    url('/fonts/open-sauce-two-latin-800-italic.woff2') format('woff2'),
+    url('/fonts/open-sauce-two-latin-800-italic.woff') format('woff');
+}
+@font-face {
+  font-family: 'Open Sauce Two';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src:
+    url('/fonts/open-sauce-two-latin-900-normal.woff2') format('woff2'),
+    url('/fonts/open-sauce-two-latin-900-normal.woff') format('woff');
+}
+@font-face {
+  font-family: 'Open Sauce Two';
+  font-style: italic;
+  font-weight: 900;
+  font-display: swap;
+  src:
+    url('/fonts/open-sauce-two-latin-900-italic.woff2') format('woff2'),
+    url('/fonts/open-sauce-two-latin-900-italic.woff') format('woff');
+}
+
+:root {
+  /* === Brand core ========================================= */
+  --brand-deep-space: #1f1331; /* Logo ground; deep violet-black */
+  --brand-mars-red: #e64241; /* Logo gradient start */
+  --brand-mars-orange: #e9603a; /* Logo gradient end */
+  --brand-gradient: linear-gradient(90deg, #e64241 0%, #e9603a 100%);
+
+  /* === Primary (Violet — signature MarsUI purple) ========= */
+  --primary-50: #f4f3ff;
+  --primary-100: #e9e4fa;
+  --primary-200: #cfc2f0;
+  --primary-300: #b29be4;
+  --primary-400: #9c7cdb;
+  --primary-500: #845abe; /* Primary brand UI accent */
+  --primary-600: #6f46a4;
+  --primary-700: #5f3993; /* Deeper accent */
+  --primary-800: #432767;
+  --primary-900: #2b1846;
+  --primary-950: #1a0f2c;
+
+  /* === Secondary (Mars Orange) ============================ */
+  --secondary-50: #fff2eb;
+  --secondary-100: #ffe0ce;
+  --secondary-200: #ffc29f;
+  --secondary-300: #ff9b66;
+  --secondary-400: #f77f3a;
+  --secondary-500: #e9603a; /* Mars orange */
+  --secondary-600: #c94a26;
+  --secondary-700: #9b3718;
+  --secondary-800: #6a2310;
+  --secondary-900: #3c130a;
+
+  /* === Tertiary (Magenta) ================================= */
+  --tertiary-50: #ffeef6;
+  --tertiary-100: #ffd0e7;
+  --tertiary-200: #f6a4cd;
+  --tertiary-300: #ec69a8;
+  --tertiary-400: #e63e8f;
+  --tertiary-500: #d11772;
+  --tertiary-600: #a9105e;
+  --tertiary-700: #7d0b47;
+  --tertiary-800: #4e0630;
+  --tertiary-900: #2d031c;
+
+  /* === Functional ========================================= */
+  --info-50: #e7f6fe;
+  --info-100: #c2e7fc;
+  --info-300: #4ec1f3;
+  --info-500: #08a1db;
+  --info-700: #0a5d7e;
+
+  --success-50: #edf7ec;
+  --success-100: #d1eccf;
+  --success-300: #9cda9b;
+  --success-500: #409b3f;
+  --success-700: #1f5b1f;
+
+  --warning-50: #fff8db;
+  --warning-100: #ffe9a8;
+  --warning-300: #f8c765;
+  --warning-500: #e69612;
+  --warning-700: #8c5a06;
+
+  --danger-50: #fceaea;
+  --danger-100: #f8c5c4;
+  --danger-300: #f19997;
+  --danger-500: #f05149;
+  --danger-700: #a1211b;
+
+  /* === Gray (cool neutral) ================================ */
+  --gray-50: #f2f2f4;
+  --gray-100: #ececf0;
+  --gray-200: #dcdce2;
+  --gray-300: #c3c6cc;
+  --gray-400: #adb0b7;
+  --gray-500: #8c929c;
+  --gray-600: #6e747e;
+  --gray-700: #5b616d;
+  --gray-800: #3e424b;
+  --gray-900: #242930;
+  --gray-950: #0a0c11;
+
+  /* === Dark (for dark-mode chrome) ======================== */
+  --dark-50: #f5f5f5;
+  --dark-100: #e3e3e3;
+  --dark-200: #c8c8c8;
+  --dark-300: #a8a8a8;
+  --dark-400: #7a7a7a;
+  --dark-500: #4a4a4a;
+  --dark-600: #363636;
+  --dark-700: #242424;
+  --dark-800: #171717;
+  --dark-900: #0a0a0a;
+
+  /* === Neutral alpha scales (Figma: Black 3..96) ========== */
+  --black-3: rgba(0, 0, 0, 0.03);
+  --black-6: rgba(0, 0, 0, 0.06);
+  --black-9: rgba(0, 0, 0, 0.09);
+  --black-12: rgba(0, 0, 0, 0.12);
+  --black-18: rgba(0, 0, 0, 0.18);
+  --black-24: rgba(0, 0, 0, 0.24);
+  --black-32: rgba(0, 0, 0, 0.32);
+  --black-40: rgba(0, 0, 0, 0.4);
+  --black-48: rgba(0, 0, 0, 0.48);
+  --black-56: rgba(0, 0, 0, 0.56);
+  --black-64: rgba(0, 0, 0, 0.64);
+  --black-72: rgba(0, 0, 0, 0.72);
+  --black-88: rgba(0, 0, 0, 0.88);
+
+  --white-3: rgba(255, 255, 255, 0.03);
+  --white-6: rgba(255, 255, 255, 0.06);
+  --white-9: rgba(255, 255, 255, 0.09);
+  --white-12: rgba(255, 255, 255, 0.12);
+  --white-18: rgba(255, 255, 255, 0.18);
+  --white-24: rgba(255, 255, 255, 0.24);
+  --white-32: rgba(255, 255, 255, 0.32);
+  --white-48: rgba(255, 255, 255, 0.48);
+  --white-64: rgba(255, 255, 255, 0.64);
+  --white-80: rgba(255, 255, 255, 0.8);
+  --white-88: rgba(255, 255, 255, 0.88);
+  --white: #ffffff;
+
+  /* === Semantic (light theme) ============================= */
+  --bg: #ffffff;
+  --bg-subtle: #f9f9fa; /* Surface 1 */
+  --bg-muted: #f2f2f4; /* Surface 2 */
+  --bg-sunken: #ececf0; /* Surface 3 */
+  --bg-inverse: #0a0c11;
+
+  --fg: #0a0c11; /* Primary text */
+  --fg-muted: #5b616d; /* Secondary text */
+  --fg-subtle: #8c929c; /* Tertiary text */
+  --fg-disabled: #c3c6cc;
+  --fg-on-accent: #ffffff;
+  --fg-on-dark: #ffffff;
+
+  --border: rgba(0, 0, 0, 0.08);
+  --border-strong: rgba(0, 0, 0, 0.18);
+  --divider: rgba(0, 0, 0, 0.06);
+
+  --accent: var(--primary-500);
+  --accent-hover: var(--primary-600);
+  --accent-press: var(--primary-700);
+  --accent-fg: #ffffff;
+
+  /* === Surfaces (dark, Figma-literal) ==================== */
+  --dark-surface-1: #0a0a0a; /* Button backdrop */
+  --dark-surface-2: #171717;
+  --dark-surface-3: #242424; /* Elevated dark card */
+
+  /* === Radii (MarsUI is rounded-soft, not pill-by-default) */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px; /* Swatch, input */
+  --radius-lg: 14px; /* Button */
+  --radius-xl: 20px;
+  --radius-2xl: 32px;
+  --radius-3xl: 40px; /* Section card */
+  --radius-pill: 999px;
+
+  /* === Elevation (Figma: layered small shadows) =========== */
+  --shadow-e1: 0 1px 1px -0.5px rgba(0, 0, 0, 0.08);
+  --shadow-e2: 0 3px 3px -1.5px rgba(0, 0, 0, 0.08), 0 1px 1px -0.5px rgba(0, 0, 0, 0.08);
+  --shadow-e3:
+    0 20px 20px -12px rgba(0, 0, 0, 0.08), 0 3px 3px -1.5px rgba(0, 0, 0, 0.08),
+    0 1px 1px -0.5px rgba(0, 0, 0, 0.08);
+  --shadow-e4:
+    0 32px 32px -16px rgba(0, 0, 0, 0.08),
+    0 20px 20px -12px rgba(0, 0, 0, 0.08),
+    0 3px 3px -1.5px rgba(0, 0, 0, 0.08),
+    0 1px 1px -0.5px rgba(0, 0, 0, 0.08);
+  --shadow-e5:
+    0 56px 56px -28px rgba(0, 0, 0, 0.08),
+    0 32px 32px -16px rgba(0, 0, 0, 0.08),
+    0 20px 20px -12px rgba(0, 0, 0, 0.08),
+    0 3px 3px -1.5px rgba(0, 0, 0, 0.08),
+    0 1px 1px -0.5px rgba(0, 0, 0, 0.08);
+  --shadow-e6:
+    0 72px 72px -36px rgba(0, 0, 0, 0.08),
+    0 56px 56px -28px rgba(0, 0, 0, 0.08),
+    0 32px 32px -16px rgba(0, 0, 0, 0.08),
+    0 20px 20px -12px rgba(0, 0, 0, 0.08),
+    0 3px 3px -1.5px rgba(0, 0, 0, 0.08),
+    0 1px 1px -0.5px rgba(0, 0, 0, 0.08);
+
+  /* Inner highlight used on primary buttons (white-5% + white-3%) */
+  --inner-light: inset 0 1px 0 rgba(255, 255, 255, 0.12), inset 0 -1px 0 rgba(0, 0, 0, 0.12);
+
+  /* === Spacing (4px grid) ================================= */
+  --sp-0: 0;
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-7: 32px;
+  --sp-8: 40px;
+  --sp-9: 48px;
+  --sp-10: 64px;
+  --sp-11: 80px;
+  --sp-12: 96px;
+
+  /* === Type (family) ====================================== */
+  --font-sans:
+    'Open Sauce Two', 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: 'Sora', 'Lastik', 'Open Sauce Two', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* === Type scale (Open-Sauce-style ramp) ================= */
+  /* sizes / line-heights mirror the Figma Typescale block    */
+  --tx-overline: 500 10px / 14px var(--font-sans);
+  --tx-cap-1: 500 11px / 16px var(--font-sans);
+  --tx-cap-2: 500 12px / 16px var(--font-sans);
+  --tx-para: 400 13px / 20px var(--font-sans);
+  --tx-body-1: 500 13px / 20px var(--font-sans);
+  --tx-body-2: 500 15px / 24px var(--font-sans);
+  --tx-title-1: 600 15px / 24px var(--font-sans);
+  --tx-title-2: 600 18px / 26px var(--font-sans);
+  --tx-h1: 600 22px / 28px var(--font-sans);
+  --tx-h2: 600 26px / 32px var(--font-display);
+  --tx-h3: 600 32px / 38px var(--font-display);
+  --tx-h4: 700 42px / 48px var(--font-display);
+  --tx-h5: 700 52px / 56px var(--font-display);
+  --tx-h6: 700 62px / 64px var(--font-display);
+  --tx-display-1: 700 76px / 78px var(--font-display);
+  --tx-display-2: 700 88px / 88px var(--font-display);
+  --tx-display-3: 700 104px / 104px var(--font-display);
+  --tx-code: 500 13px / 20px var(--font-mono);
+
+  /* letter-spacing rules: tighter as size grows */
+  --ls-tight: -0.02em;
+  --ls-display: -0.03em;
+}
+
+/* ======================================================== */
+/*  Base semantic styles                                    */
+/* ======================================================== */
+html {
+  color: var(--fg);
+  background: var(--bg);
+  font: var(--tx-body-2);
+  -webkit-font-smoothing: antialiased;
+}
+body {
+  margin: 0;
+}
+
+h1 {
+  font: var(--tx-h4);
+  letter-spacing: var(--ls-display);
+  margin: 0;
+}
+h2 {
+  font: var(--tx-h3);
+  letter-spacing: var(--ls-display);
+  margin: 0;
+}
+h3 {
+  font: var(--tx-h2);
+  letter-spacing: var(--ls-tight);
+  margin: 0;
+}
+h4 {
+  font: var(--tx-h1);
+  letter-spacing: var(--ls-tight);
+  margin: 0;
+}
+h5 {
+  font: var(--tx-title-2);
+  margin: 0;
+}
+h6 {
+  font: var(--tx-title-1);
+  margin: 0;
+}
+p {
+  font: var(--tx-body-2);
+  color: var(--fg);
+  margin: 0;
+}
+small {
+  font: var(--tx-cap-2);
+  color: var(--fg-muted);
+}
+code,
+kbd,
+pre {
+  font: var(--tx-code);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+/* Display helpers */
+.display-1 {
+  font: var(--tx-display-1);
+  letter-spacing: var(--ls-display);
+}
+.display-2 {
+  font: var(--tx-display-2);
+  letter-spacing: var(--ls-display);
+}
+.display-3 {
+  font: var(--tx-display-3);
+  letter-spacing: var(--ls-display);
+}
+.overline {
+  font: var(--tx-overline);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--fg-muted);
+}
+.muted {
+  color: var(--fg-muted);
+}
+.mono {
+  font-family: var(--font-mono);
+}

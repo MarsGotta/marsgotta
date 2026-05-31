@@ -1,0 +1,15 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "talks": "Talks, courses & notes",
+    "lab": "Lab",
+    "contact": "Contact"
+  },
+  "common": {
+    "skipToContent": "Skip to content",
+    "toggleTheme": "Toggle theme",
+    "toggleLanguage": "Toggle language"
+  }
+}

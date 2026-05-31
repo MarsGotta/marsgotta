@@ -3097,3 +3097,36 @@ textarea.contact-input {
     grid-column: 1 / -1;
   }
 }
+
+/* contact social links ------------------------------------------------- */
+.contact-social {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  font-size: 0.95rem;
+}
+.contact-social li {
+  display: inline-flex;
+  align-items: center;
+}
+.contact-social li + li::before {
+  content: '·';
+  margin-right: 1rem;
+  opacity: 0.4;
+}
+.contact-social a {
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--text-dim);
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+.contact-social a:hover,
+.contact-social a:focus-visible {
+  color: var(--accent, currentColor);
+  border-bottom-color: currentColor;
+}

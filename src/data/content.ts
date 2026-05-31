@@ -2,8 +2,7 @@
  * Site content — typed source of truth.
  * Replaces the legacy `window.MARS_DATA` from the static design.
  *
- * Hero shape is locked (v3 — Senior Product Engineer · agent harnesses).
- * Other sections carry TODO F3 placeholders but expose the final TS shape.
+ * F3 closed 2026-06-01: all sections populated with content decided in design sessions.
  */
 
 import type { Locale } from '@/i18n/routing';
@@ -65,6 +64,11 @@ export type LabContent = {
   experiments: LabExperiment[];
 };
 
+export type SocialLink = {
+  label: string;
+  url: string;
+};
+
 export type ContactContent = {
   title: string;
   sub: string;
@@ -74,6 +78,7 @@ export type ContactContent = {
   sent: string;
   ai: string;
   aiPh: string;
+  social: SocialLink[];
 };
 
 export type Content = {
@@ -112,98 +117,100 @@ export const content: Record<Locale, Content> = {
         { icon: '🗣️', text: 'Activando mi inglés cada día con un equipo cross-cultural' },
       ],
     },
-    // TODO F3: rewrite about copy aligned with Senior Product Engineer / agent harnesses narrative.
     about: {
-      title: 'Hola, soy Marcela',
+      title: 'Hola, soy Mars',
       paragraphs: [
-        'Senior Product Engineer con 16 años construyendo software. Vengo del frontend profundo y la arquitectura — hoy mi obsesión es la infraestructura de agentes: cómo se conectan a sistemas reales, cómo se aprueban sus acciones, cómo se vuelven productivos sin convertirse en demos.',
-        'Construyo agent harnesses open source (Deimos, Orbit, Lunar) y los uso a diario. Lo que aprendo lo traigo a producto: arquitectura, product craft, integración con equipos humanos.',
-        'Vivo en Madrid. Me gusta la física, los videojuegos, y convertir ideas raras en código que se despliega.',
+        'Llevo 16 años construyendo software. Empecé como full-stack, me enamoré del frontend, lideré equipos durante años entregando producto y arquitectura, y desde 2024 me he obsesionado con la infraestructura que va a sostener los agentes de IA cuando dejen de ser demo.',
+        'Creo que la IA es la herramienta más potente que hemos tenido nunca — pero solo si los humanos quedamos del lado que la dirige, no del que la sufre. Mi trabajo open source (Deimos, Orbit, Lunar) intenta construir esa parte: harnesses agnósticos, identidad y memoria para agentes que sirvan al equipo, no al revés.',
+        'Vivo en Madrid con un pequeño zoológico. Me gusta la física, los videojuegos, escribir, y convertir ideas raras en código que funciona.',
       ],
       facts: [
         { k: 'Ubicación', v: 'Madrid, España' },
-        { k: 'Idiomas', v: 'Español (nativo) · English (B2)' },
-        { k: 'Rol actual', v: 'Senior Product Engineer' },
-        { k: 'Enfoque', v: 'Agent harnesses · product craft' },
+        { k: 'Idiomas', v: 'Español (nativo) · English (B2 activo, práctica diaria)' },
+        { k: 'Rol actual', v: 'Senior Product Engineer · OSS Agent Harness' },
+        { k: 'Enfoque', v: 'Local-first AI ops · Agent infrastructure' },
       ],
       roles: [
         {
           year: '2024 — hoy',
-          role: 'Agent infra engineer (paralelo)',
-          detail: 'Construyendo Deimos, Orbit y Lunar — agent harnesses open source.',
+          role: 'OSS Agent Infrastructure',
+          detail:
+            'Construyo Deimos, Orbit y Lunar. Investigación aplicada a producción: harness engineering, MCP/ACP, local-first AI ops.',
         },
         {
           year: '2019 — hoy',
-          role: 'Software Tech Lead',
+          role: 'Senior Product Engineer · Tech Lead',
           detail:
-            'Arquitectura, liderazgo de equipos, product craft. IA aplicada al stack del equipo.',
+            'Arquitectura, liderazgo, mentoría. IA como herramienta del equipo, no como gimmick.',
         },
         {
-          year: '2015 — 2019',
-          role: 'Senior Frontend Developer',
-          detail: 'Proyectos a gran escala en banca, sostenibilidad, telco.',
+          year: '2017 — 2019',
+          role: 'Senior Engineer',
+          detail: 'Aplicaciones complejas en banca y sostenibilidad.',
         },
         {
-          year: '2008 — 2015',
-          role: 'Full Stack Developer',
+          year: '2008 — 2017',
+          role: 'Software Engineer · Full-stack',
           detail: 'Desde e-commerce hasta universidades y ONGs.',
         },
       ],
     },
-    // TODO F3: skill groups deberían reflejar también agent-infra (MCP, ACP, harness eng).
     skills: {
       groups: [
         {
           title: 'Lenguajes',
-          items: ['TypeScript', 'JavaScript', 'Rust (learning)', 'Python', 'HTML/CSS'],
+          items: ['TypeScript', 'JavaScript', 'Rust (learning)', 'Python', 'HTML / CSS'],
         },
         {
           title: 'Frameworks',
-          items: ['React', 'Next.js', 'Angular', 'Vue', 'Lit', 'LitElement', 'Stencil'],
+          items: ['React', 'Next.js', 'Lit', 'Angular', 'Vue'],
         },
         {
           title: 'Arquitectura',
           items: ['Microfrontends', 'Web Components', 'Design Systems', 'Monorepos', 'Testing'],
         },
         {
-          title: 'Agentes & IA',
-          items: ['MCP', 'ACP', 'Harness engineering', 'Prompt engineering', 'LLM integration'],
+          title: 'Agent infrastructure',
+          items: ['MCP', 'ACP', 'AGENTS.md', 'Harness engineering', 'Local-first AI ops'],
         },
       ],
     },
-    // TODO F3: portafolio web — NO incluir clientes Sngular. Sustituir por proyectos OSS (Deimos/Orbit/Lunar) + side projects.
     projects: [
       {
         code: '01',
         name: 'Deimos',
-        tag: 'Agent harness · OSS',
+        tag: 'Agent persistente · OSS',
         summary:
-          'Mi agent harness personal. Memoria persistente, plugin layer sobre OpenClaw, integración Discord/Slack/Zed/Mac vía ACP. Lo uso 24/7.',
-        tech: ['TypeScript', 'Node', 'ACP', 'MCP', 'OpenClaw'],
-        role: 'Solo',
+          'Mi agente personal con memoria persistente, identidad propia y presencia continua. Vive en un servidor 24/7, accesible desde Discord, Zed y CLI. Construido sobre OpenClaw + ACP + Brain Postgres.',
+        tech: ['TypeScript', 'Node', 'ACP', 'MCP', 'Postgres', 'OpenClaw'],
+        role: 'Solo · OSS',
       },
       {
         code: '02',
         name: 'Orbit',
-        tag: 'Harness builder · WIP',
+        tag: 'Harness builder · OSS',
         summary:
-          'Harness builder pensado para que un agente viaje entre runtimes (CLI, server, embedded) manteniendo identidad y memoria.',
-        tech: ['TypeScript', 'ACP', 'Plugin architecture'],
-        role: 'Solo',
+          'Builder de harnesses portables y agnósticos del runtime. Define skills, MCPs, AGENTS.md y memoria una sola vez; cualquier runtime (Claude Code, Cursor, Codex, Gemini CLI) los carga. Gobernanza en pirámide org → cliente → developer.',
+        tech: ['TypeScript', 'AGENTS.md', 'SKILL.md', 'MCP', 'ACP'],
+        role: 'Solo · OSS',
       },
       {
         code: '03',
         name: 'Lunar',
         tag: 'ACP TUI client · Rust',
         summary:
-          'Cliente ACP en Rust, fork ligero de Nori. Foco en multidevice y experiencia local del usuario.',
-        tech: ['Rust', 'ACP', 'TUI'],
-        role: 'Solo',
+          'Cliente ACP terminal escrito en Rust. Fork ligero de Nori. Pensado para multidevice y para exponer tools locales del Mac (screenshot, clipboard, audio, osascript) al agente vía métodos `onmars/*`.',
+        tech: ['Rust', 'ACP', 'sacp', 'Ratatui'],
+        role: 'Solo · OSS',
       },
-      // TODO F3: añadir 2-3 side projects / talks pet projects sin clientes Sngular.
     ],
     talks: [
-      // TODO F3: actualizar lista de charlas (mantener Codemotion, añadir 2026 si aplica).
+      {
+        year: '2026',
+        type: 'En preparación',
+        title: 'Agent harness engineering desde cero',
+        venue: 'TBD',
+      },
       { year: '2022', type: 'Curso', title: 'Web Components desde 0', venue: 'Codemotion' },
       {
         year: '2021',
@@ -226,38 +233,43 @@ export const content: Record<Locale, Content> = {
     ],
     lab: {
       intro:
-        'Experimentos en curso. Aquí investigo cómo la infraestructura de agentes se vuelve producto real — no demos, código que se despliega.',
+        'Aquí guardo lo que voy probando fuera del trabajo principal: experimentos chiquitos, ideas a medio cocer, posts en preparación. No son demos comerciales — son cosas que me dan curiosidad.',
       experiments: [
-        // TODO F3: alinear con proyectos reales (Deimos/Orbit/Lunar) y experiment notes recientes.
         {
-          tag: 'EN VIVO',
-          title: 'Deimos brain — memoria curada',
-          desc: 'Sistema de memoria persistente con hooks de autosave/recall. Convierte conversaciones en knowledge curado por entidad.',
-          stack: 'TypeScript · Postgres · OpenClaw hooks',
+          tag: 'WIP',
+          title: 'Harness 101',
+          desc: '4-5 posts cortos explicando qué es agent harness engineering para devs que vienen de Cursor o Claude Code sin conocer el espacio. Sin curso largo, sin academic — voz directa y diagramas honestos.',
+          stack: 'Markdown · /lab/posts',
         },
         {
           tag: 'WIP',
-          title: 'Orbit — harness portable',
-          desc: 'Builder que empaqueta un agente con su identidad y memoria para correr en cualquier runtime.',
-          stack: 'TypeScript · ACP · Plugin layer',
+          title: 'Agent plays Snake',
+          desc: 'Un agente jugando Snake en el navegador con su razonamiento mostrándose en directo en una columna lateral. Educativo y accesible — el clásico "agente juega un juego" bien hecho.',
+          stack: 'Canvas · ACP · streaming chunks',
         },
         {
           tag: 'WIP',
-          title: 'Lunar — TUI cliente ACP',
-          desc: 'Cliente ACP en Rust, multidevice. Mi excusa para aprender Rust con un proyecto que uso.',
-          stack: 'Rust · ACP · TUI',
+          title: 'Agents.md Linter',
+          desc: 'CLI que valida tu `.agents/AGENTS.md` contra el estándar Linux Foundation. Apunta errores y sugiere skills y MCPs que faltan según el contexto del repo. Para que escribir un harness portable deje de ser arqueología.',
+          stack: 'Rust · Tree-sitter · AGENTS.md spec',
+        },
+        {
+          tag: 'WIP',
+          title: 'Laboratorio físico para agentes',
+          desc: 'Un agente que opera dentro de una simulación física simple: "mueve la pelota azul al área verde sin tocar la roja". Cruce entre mi obsesión por la física y la pregunta de qué tan bien razona un agente en el espacio.',
+          stack: 'Babylon.js · ACP · Vision tools',
         },
         {
           tag: 'IDEA',
-          title: 'Corpus — RAG multi-vault',
-          desc: 'Biblioteca profesional curada con tolerancia 0 a alucinaciones. Citas obligatorias.',
-          stack: 'Vector DB · LLM · TypeScript',
+          title: 'Skill Browser',
+          desc: 'Interfaz para navegar repos de Agent Skills (Anthropic). Filtros por categoría, preview del `SKILL.md`, copy-to-clipboard. Como un package registry, pero para skills modulares.',
+          stack: 'Lit · TypeScript · Búsqueda en cliente',
         },
       ],
     },
     contact: {
       title: 'Hablemos',
-      sub: '¿Tienes un proyecto complicado? ¿Quieres explorar agentes con tu equipo? Escríbeme y charlamos.',
+      sub: '¿Algo que construir? ¿Una pregunta sobre agentes? ¿Ganas de comparar notas sobre product craft? Escríbeme.',
       email: 'me@marcelagotta.com',
       placeholders: {
         name: 'Tu nombre',
@@ -266,8 +278,12 @@ export const content: Record<Locale, Content> = {
       },
       send: 'Enviar mensaje',
       sent: '¡Mensaje recibido! Te contesto en breve.',
-      ai: 'O pregunta a mi IA',
-      aiPh: 'Pregúntale algo sobre mí o mi trabajo...',
+      ai: 'O habla con Deimos, mi agente personal',
+      aiPh: 'Pregúntale a Deimos sobre mi trabajo, mis proyectos o lo que se te ocurra…',
+      social: [
+        { label: 'GitHub', url: 'https://github.com/marsgotta' },
+        { label: 'LinkedIn', url: 'https://www.linkedin.com/in/marcelagotta' },
+      ],
     },
   },
   en: {
@@ -292,37 +308,38 @@ export const content: Record<Locale, Content> = {
       ],
     },
     about: {
-      title: "Hi, I'm Marcela",
+      title: "Hi, I'm Mars",
       paragraphs: [
-        "Senior Product Engineer with 16 years shipping software. I come from deep frontend and architecture — these days I'm obsessed with agent infrastructure: how agents connect to real systems, how their actions get approved, how they become productive without devolving into demos.",
-        'I build open source agent harnesses (Deimos, Orbit, Lunar) and use them daily. What I learn there flows back into product work: architecture, product craft, integration with human teams.',
-        'I live in Madrid. I like physics, videogames, and turning weird ideas into code that ships.',
+        "I've spent 16 years building software. Started full-stack, fell in love with frontend, led teams for years shipping product and architecture, and since 2024 I've been obsessed with the infrastructure that will hold AI agents up when they stop being demos.",
+        'I believe AI is the most powerful tool we’ve ever had — but only if humans stay on the side that drives it, not the one that suffers it. My open source work (Deimos, Orbit, Lunar) tries to build that part: runtime-agnostic harnesses, identity and memory for agents that serve the team, not the other way around.',
+        'I live in Madrid with a small zoo. I like physics, videogames, writing, and turning weird ideas into working code.',
       ],
       facts: [
         { k: 'Location', v: 'Madrid, Spain' },
-        { k: 'Languages', v: 'Spanish (native) · English (B2)' },
-        { k: 'Current role', v: 'Senior Product Engineer' },
-        { k: 'Focus', v: 'Agent harnesses · product craft' },
+        { k: 'Languages', v: 'Spanish (native) · English (B2 active, daily practice)' },
+        { k: 'Current role', v: 'Senior Product Engineer · OSS Agent Harness' },
+        { k: 'Focus', v: 'Local-first AI ops · Agent infrastructure' },
       ],
       roles: [
         {
           year: '2024 — today',
-          role: 'Agent infra engineer (parallel)',
-          detail: 'Building Deimos, Orbit and Lunar — open source agent harnesses.',
+          role: 'OSS Agent Infrastructure',
+          detail:
+            'Building Deimos, Orbit and Lunar. Research applied to production: harness engineering, MCP/ACP, local-first AI ops.',
         },
         {
           year: '2019 — today',
-          role: 'Software Tech Lead',
-          detail: 'Architecture, team leadership, product craft. AI applied to the team stack.',
+          role: 'Senior Product Engineer · Tech Lead',
+          detail: 'Architecture, leadership, mentoring. AI as a team tool, not as a gimmick.',
         },
         {
-          year: '2015 — 2019',
-          role: 'Senior Frontend Developer',
-          detail: 'Large-scale projects in banking, sustainability, telco.',
+          year: '2017 — 2019',
+          role: 'Senior Engineer',
+          detail: 'Complex applications in banking and sustainability.',
         },
         {
-          year: '2008 — 2015',
-          role: 'Full Stack Developer',
+          year: '2008 — 2017',
+          role: 'Software Engineer · Full-stack',
           detail: 'From e-commerce to universities and NGOs.',
         },
       ],
@@ -331,19 +348,19 @@ export const content: Record<Locale, Content> = {
       groups: [
         {
           title: 'Languages',
-          items: ['TypeScript', 'JavaScript', 'Rust (learning)', 'Python', 'HTML/CSS'],
+          items: ['TypeScript', 'JavaScript', 'Rust (learning)', 'Python', 'HTML / CSS'],
         },
         {
           title: 'Frameworks',
-          items: ['React', 'Next.js', 'Angular', 'Vue', 'Lit', 'LitElement', 'Stencil'],
+          items: ['React', 'Next.js', 'Lit', 'Angular', 'Vue'],
         },
         {
           title: 'Architecture',
           items: ['Microfrontends', 'Web Components', 'Design Systems', 'Monorepos', 'Testing'],
         },
         {
-          title: 'Agents & AI',
-          items: ['MCP', 'ACP', 'Harness engineering', 'Prompt engineering', 'LLM integration'],
+          title: 'Agent infrastructure',
+          items: ['MCP', 'ACP', 'AGENTS.md', 'Harness engineering', 'Local-first AI ops'],
         },
       ],
     },
@@ -351,31 +368,38 @@ export const content: Record<Locale, Content> = {
       {
         code: '01',
         name: 'Deimos',
-        tag: 'Agent harness · OSS',
+        tag: 'Persistent agent · OSS',
         summary:
-          'My personal agent harness. Persistent memory, plugin layer on top of OpenClaw, Discord/Slack/Zed/Mac integration via ACP. I use it 24/7.',
-        tech: ['TypeScript', 'Node', 'ACP', 'MCP', 'OpenClaw'],
-        role: 'Solo',
+          'My personal agent with persistent memory, identity and continuous presence. Lives on a server 24/7, accessible from Discord, Zed and CLI. Built on top of OpenClaw + ACP + Brain Postgres.',
+        tech: ['TypeScript', 'Node', 'ACP', 'MCP', 'Postgres', 'OpenClaw'],
+        role: 'Solo · OSS',
       },
       {
         code: '02',
         name: 'Orbit',
-        tag: 'Harness builder · WIP',
+        tag: 'Harness builder · OSS',
         summary:
-          'Harness builder designed so an agent can travel across runtimes (CLI, server, embedded) keeping its identity and memory intact.',
-        tech: ['TypeScript', 'ACP', 'Plugin architecture'],
-        role: 'Solo',
+          'Builder for portable, runtime-agnostic harnesses. Define skills, MCPs, AGENTS.md and memory once; any runtime (Claude Code, Cursor, Codex, Gemini CLI) loads them. Governance pyramid org → client → developer.',
+        tech: ['TypeScript', 'AGENTS.md', 'SKILL.md', 'MCP', 'ACP'],
+        role: 'Solo · OSS',
       },
       {
         code: '03',
         name: 'Lunar',
         tag: 'ACP TUI client · Rust',
-        summary: 'ACP client in Rust, lightweight fork of Nori. Focus on multidevice and local UX.',
-        tech: ['Rust', 'ACP', 'TUI'],
-        role: 'Solo',
+        summary:
+          'ACP terminal client written in Rust. Lightweight fork of Nori. Designed for multidevice and for exposing local Mac tools (screenshot, clipboard, audio, osascript) to the agent via `onmars/*` methods.',
+        tech: ['Rust', 'ACP', 'sacp', 'Ratatui'],
+        role: 'Solo · OSS',
       },
     ],
     talks: [
+      {
+        year: '2026',
+        type: 'In the oven',
+        title: 'Agent harness engineering from scratch',
+        venue: 'TBD',
+      },
       { year: '2022', type: 'Course', title: 'Web Components from scratch', venue: 'Codemotion' },
       {
         year: '2021',
@@ -398,37 +422,43 @@ export const content: Record<Locale, Content> = {
     ],
     lab: {
       intro:
-        'Experiments in progress. This is where I research how agent infrastructure becomes real product — not demos, code that ships.',
+        'This is where I keep what I tinker with outside my main work: tiny experiments, half-baked ideas, posts in the oven. Not commercial demos — just things that spark my curiosity.',
       experiments: [
         {
-          tag: 'LIVE',
-          title: 'Deimos brain — curated memory',
-          desc: 'Persistent memory system with autosave/recall hooks. Turns conversations into knowledge curated by entity.',
-          stack: 'TypeScript · Postgres · OpenClaw hooks',
+          tag: 'WIP',
+          title: 'Harness 101',
+          desc: '4-5 short posts explaining what agent harness engineering is, for devs coming from Cursor or Claude Code without knowing the space. No long course, no academic tone — just direct voice and honest diagrams.',
+          stack: 'Markdown · /lab/posts',
         },
         {
           tag: 'WIP',
-          title: 'Orbit — portable harness',
-          desc: 'Builder that packages an agent with its identity and memory so it can run in any runtime.',
-          stack: 'TypeScript · ACP · Plugin layer',
+          title: 'Agent plays Snake',
+          desc: 'An agent playing Snake in the browser with its reasoning streaming live in a side column. Educational and accessible — the classic "agent plays game" done well.',
+          stack: 'Canvas · ACP · streaming chunks',
         },
         {
           tag: 'WIP',
-          title: 'Lunar — ACP TUI client',
-          desc: 'ACP client in Rust, multidevice. My excuse to learn Rust with a project I actually use.',
-          stack: 'Rust · ACP · TUI',
+          title: 'Agents.md Linter',
+          desc: 'CLI that validates your `.agents/AGENTS.md` against the Linux Foundation standard. Spots errors and suggests missing skills and MCPs based on repo context. So that writing a portable harness stops being archaeology.',
+          stack: 'Rust · Tree-sitter · AGENTS.md spec',
+        },
+        {
+          tag: 'WIP',
+          title: 'Physics playground for agents',
+          desc: 'An agent operating inside a simple physics sim: "move the blue ball into the green zone without touching the red one." A crossover between my obsession with physics and the question of how well an agent reasons in space.',
+          stack: 'Babylon.js · ACP · Vision tools',
         },
         {
           tag: 'IDEA',
-          title: 'Corpus — multi-vault RAG',
-          desc: 'Curated professional library with zero tolerance for hallucinations. Citations mandatory.',
-          stack: 'Vector DB · LLM · TypeScript',
+          title: 'Skill Browser',
+          desc: 'UI to browse Agent Skills repos (Anthropic). Filter by category, preview the `SKILL.md`, copy-to-clipboard. Like a package registry, but for modular skills.',
+          stack: 'Lit · TypeScript · Client-side search',
         },
       ],
     },
     contact: {
       title: "Let's talk",
-      sub: "Got a tricky project? Want to explore agents with your team? Write to me and let's chat.",
+      sub: 'Something to build? A question about agents? Want to compare notes on product craft? Drop me a line.',
       email: 'me@marcelagotta.com',
       placeholders: {
         name: 'Your name',
@@ -437,8 +467,12 @@ export const content: Record<Locale, Content> = {
       },
       send: 'Send message',
       sent: "Got it! I'll get back to you soon.",
-      ai: 'Or ask my AI',
-      aiPh: 'Ask anything about me or my work...',
+      ai: 'Or talk to Deimos, my personal agent',
+      aiPh: 'Ask Deimos about my work, my projects, or whatever crosses your mind…',
+      social: [
+        { label: 'GitHub', url: 'https://github.com/marsgotta' },
+        { label: 'LinkedIn', url: 'https://www.linkedin.com/in/marcelagotta' },
+      ],
     },
   },
 };

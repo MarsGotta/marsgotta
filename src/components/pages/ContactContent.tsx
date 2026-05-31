@@ -83,6 +83,17 @@ export function ContactContent({ content }: Props) {
                 {c.email}
               </a>
             </div>
+            {c.social.length > 0 && (
+              <ul className="contact-social">
+                {c.social.map((link) => (
+                  <li key={link.url}>
+                    <a href={link.url} target="_blank" rel="noopener noreferrer" data-hover>
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </div>

@@ -1553,11 +1553,13 @@ button {
   border-bottom: 1px solid var(--mars-accent-2);
 }
 
-/* AI section */
+/* AI section — full-bleed across the viewport regardless of parent padding */
 .cosmic-ai {
   position: relative;
   z-index: 1;
-  margin: 96px -48px 0;
+  margin-top: 96px;
+  margin-inline: calc(50% - 50vw);
+  width: 100vw;
   padding: 96px 48px;
   background:
     radial-gradient(600px at 20% 20%, rgba(132, 90, 190, 0.25), transparent 60%),
@@ -1567,6 +1569,7 @@ button {
   -webkit-backdrop-filter: blur(14px) saturate(1.1);
   border-top: 1px solid var(--mars-border);
   border-bottom: 1px solid var(--mars-border);
+  overflow-x: clip;
 }
 [data-theme='light'] .cosmic-ai {
   background:

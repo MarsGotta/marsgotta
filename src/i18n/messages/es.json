@@ -10,6 +10,73 @@
   "common": {
     "skipToContent": "Saltar al contenido",
     "toggleTheme": "Cambiar tema",
-    "toggleLanguage": "Cambiar idioma"
+    "toggleLanguage": "Cambiar idioma",
+    "scroll": "Desplázate",
+    "viewAllProjects": "Ver todos los proyectos",
+    "backToTop": "Volver al inicio"
+  },
+  "metadata": {
+    "home": "Inicio",
+    "about": "Sobre mí",
+    "projects": "Proyectos",
+    "talks": "Charlas, cursos y notas",
+    "lab": "Laboratorio",
+    "contact": "Contacto"
+  },
+  "footer": {
+    "mission": "Misión en curso",
+    "missionName": "Senior Product Engineer · Building agent harnesses",
+    "status": "Operativa",
+    "navLabel": "Navegación",
+    "connectLabel": "Conectar",
+    "quadrant": "Cuadrante",
+    "distance": "Distancia a Marte",
+    "signal": "Señal",
+    "sol": "SOL marciano",
+    "utc": "Hora UTC",
+    "signature": "Construido con ❤ y mucho ☕.",
+    "rights": "Todos los derechos reservados.",
+    "talksLink": "Charlas y cursos",
+    "allSystemsOk": "Todos los sistemas OK"
+  },
+  "home": {
+    "overlineTechStack": "// Constelación técnica",
+    "techStackTitle": "Mi sistema solar",
+    "techStackSub": "Pasa el cursor para explorar las conexiones entre tecnologías.",
+    "featuredOverline": "// Proyectos destacados",
+    "featuredTitle": "Últimas misiones",
+    "aiBadge": "Experimentando con IA",
+    "aiTitleLine1": "La IA no reemplaza al desarrollador.",
+    "aiTitleEm": "Lo multiplica.",
+    "aiSub": "En cada proyecto que lidero, la IA entra como parte del equipo: revisión de código, generación de tests, exploración de soluciones. Formo al equipo para que use los modelos de lenguaje con criterio, no con miedo.",
+    "aiCta": "Ver el laboratorio",
+    "konamiTitle": "🚀 ¡Modo cohete activado!",
+    "konamiSub": "Has encontrado el huevo de Pascua cósmico.",
+    "nowLabel": "// Now"
+  },
+  "about": {
+    "overline": "// Sobre mí",
+    "journey": "Trayectoria",
+    "skills": "Habilidades",
+    "contactCta": "Contáctame"
+  },
+  "projects": {
+    "overline": "// Proyectos",
+    "title": "Misiones",
+    "lede": "Una selección de proyectos donde he arquitectado sistemas, liderado equipos o aplicado IA de forma real."
+  },
+  "talks": {
+    "overline": "// Charlas y cursos",
+    "title": "Compartir lo aprendido",
+    "lede": "Llevo años enseñando JavaScript, Web Components y arquitectura frontend. Creo que explicar fuerza a entender."
+  },
+  "lab": {
+    "overline": "// Laboratorio",
+    "title": "Experimentos con agentes"
+  },
+  "contact": {
+    "overline": "// Contacto",
+    "or": "O directamente:",
+    "ask": "Preguntar"
   }
 }

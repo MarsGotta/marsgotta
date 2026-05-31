@@ -3020,3 +3020,80 @@ textarea.contact-input {
     padding: 0 24px 48px;
   }
 }
+
+/* =====================================================================
+   F2 additions — now-bar (replaces legacy stats block) + skip link
+   ===================================================================== */
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 10000;
+  background: var(--mars-accent-2, #e9603a);
+  color: #fff;
+  padding: 12px 20px;
+  font-family: var(--font-mono, monospace);
+  font-size: 13px;
+  text-decoration: none;
+  border-radius: 0 0 8px 0;
+}
+.skip-to-content:focus {
+  left: 0;
+}
+
+.cosmic-now-bar {
+  grid-template-columns: 1fr;
+  background: transparent;
+  border: 1px solid var(--mars-border);
+  padding: 24px;
+  gap: 12px;
+}
+.cosmic-now-bar .cosmic-stat-reveal {
+  display: contents;
+}
+.cosmic-now-head {
+  display: block;
+  margin-bottom: 8px;
+}
+.cosmic-now-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--mars-fg-muted);
+  text-transform: uppercase;
+}
+.cosmic-now-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--mars-card);
+  border: 1px solid var(--mars-border);
+  border-radius: var(--radius-xl, 12px);
+  transition:
+    border-color 0.25s,
+    background 0.25s;
+}
+.cosmic-now-item:hover {
+  border-color: var(--mars-accent);
+  background: var(--mars-bg-alt);
+}
+.cosmic-now-icon {
+  font-size: 24px;
+  line-height: 1;
+  flex: 0 0 32px;
+  text-align: center;
+}
+.cosmic-now-text {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--mars-fg);
+}
+@media (min-width: 640px) {
+  .cosmic-now-bar {
+    grid-template-columns: 1fr 1fr;
+  }
+  .cosmic-now-head {
+    grid-column: 1 / -1;
+  }
+}

@@ -10,6 +10,73 @@
   "common": {
     "skipToContent": "Skip to content",
     "toggleTheme": "Toggle theme",
-    "toggleLanguage": "Toggle language"
+    "toggleLanguage": "Toggle language",
+    "scroll": "Scroll",
+    "viewAllProjects": "View all projects",
+    "backToTop": "Back to top"
+  },
+  "metadata": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "talks": "Talks, courses & notes",
+    "lab": "Lab",
+    "contact": "Contact"
+  },
+  "footer": {
+    "mission": "Mission in progress",
+    "missionName": "Senior Product Engineer · Building agent harnesses",
+    "status": "Operational",
+    "navLabel": "Navigation",
+    "connectLabel": "Connect",
+    "quadrant": "Quadrant",
+    "distance": "Distance to Mars",
+    "signal": "Signal",
+    "sol": "Martian SOL",
+    "utc": "UTC time",
+    "signature": "Built with ❤ and lots of ☕.",
+    "rights": "All rights reserved.",
+    "talksLink": "Talks & courses",
+    "allSystemsOk": "All systems OK"
+  },
+  "home": {
+    "overlineTechStack": "// Tech constellation",
+    "techStackTitle": "My solar system",
+    "techStackSub": "Hover to explore the connections between technologies.",
+    "featuredOverline": "// Featured projects",
+    "featuredTitle": "Latest missions",
+    "aiBadge": "Experimenting with AI",
+    "aiTitleLine1": "AI doesn't replace the developer.",
+    "aiTitleEm": "It multiplies them.",
+    "aiSub": "In every project I lead, AI joins the team: code review, test generation, solution exploration. I train the team to use language models with judgement, not fear.",
+    "aiCta": "Enter the lab",
+    "konamiTitle": "🚀 Rocket mode on!",
+    "konamiSub": "You found the cosmic easter egg.",
+    "nowLabel": "// Now"
+  },
+  "about": {
+    "overline": "// About",
+    "journey": "Journey",
+    "skills": "Skills",
+    "contactCta": "Contact me"
+  },
+  "projects": {
+    "overline": "// Projects",
+    "title": "Missions",
+    "lede": "A selection of projects where I've architected systems, led teams or applied AI for real."
+  },
+  "talks": {
+    "overline": "// Talks & courses",
+    "title": "Sharing what I learn",
+    "lede": "I've spent years teaching JavaScript, Web Components and frontend architecture. I think explaining forces you to understand."
+  },
+  "lab": {
+    "overline": "// Lab",
+    "title": "Agent experiments"
+  },
+  "contact": {
+    "overline": "// Contact",
+    "or": "Or directly:",
+    "ask": "Ask"
   }
 }

@@ -1,8 +1,12 @@
 import type { Metadata, Viewport } from 'next';
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { ReactNode } from 'react';
+import { CustomCursor } from '@/components/CustomCursor';
+import { Footer } from '@/components/Footer';
+import { ThemeProvider } from '@/components/ThemeProvider';
+import { TopBar } from '@/components/TopBar';
 import { routing } from '@/i18n/routing';
 import '@/styles/theme.css';
 import '@/styles/styles.css';
@@ -29,8 +33,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
+    { media: '(prefers-color-scheme: light)', color: '#f6e4d3' },
+    { media: '(prefers-color-scheme: dark)', color: '#0a0614' },
   ],
 };
 
@@ -51,11 +55,24 @@ export default async function LocaleLayout({ children, params }: Props) {
   }
 
   setRequestLocale(locale);
+  const tCommon = await getTranslations('common');
 
   return (
-    <html lang={locale} data-theme="dark" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <ThemeProvider>
+            <a className="skip-to-content" href="#main">
+              {tCommon('skipToContent')}
+            </a>
+            <CustomCursor />
+            <TopBar />
+            <main id="main" className="mars-main">
+              {children}
+            </main>
+            <Footer />
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

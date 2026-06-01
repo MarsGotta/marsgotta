@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { Link } from '@/i18n/navigation';
+import { OrbitSatellite } from './cosmic/OrbitSatellite';
 
 /**
  * Cosmic footer with live clock + Mars sol + faux telemetry.
@@ -51,6 +52,7 @@ export function Footer() {
 
   return (
     <footer className="mars-footer cosmic-footer">
+      <OrbitSatellite />
       <div className="cosmic-footer-strip">
         <div className="cfs-left">
           <span className="cfs-live-dot" />
@@ -170,7 +172,20 @@ export function Footer() {
           <span className="cfs-sep">{'//'}</span>
           <span>{t('rights')}</span>
         </div>
-        <div className="cfbb-mid">{t('signature')}</div>
+        <div className="cfbb-mid">
+          {t.rich('signature', {
+            heart: () => (
+              <span className="cfbb-emoji" role="img" aria-label="heart">
+                {'❤️'}
+              </span>
+            ),
+            coffee: () => (
+              <span className="cfbb-emoji" role="img" aria-label="coffee">
+                {'☕️'}
+              </span>
+            ),
+          })}
+        </div>
         <div className="cfbb-right">
           <button
             type="button"

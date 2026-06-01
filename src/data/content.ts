@@ -101,7 +101,7 @@ export const content: Record<Locale, Content> = {
       overline: 'Senior Product Engineer · Building agent harnesses',
       name: 'Marcela Gotta',
       headline: ['Construyo software', 'que piensa contigo.'],
-      sub: '16 años construyendo software, especializada en product craft y arquitectura. Desde 2024 también construyo agent harnesses open source — la infraestructura que hace que los agentes de IA dejen de ser demo y se vuelvan parte real del equipo.',
+      sub: '16 años construyendo software, especializada en product craft y arquitectura. Desde 2024 también construyo agent harnesses open source: la infraestructura que hace que los agentes de IA dejen de ser demo y se vuelvan parte real del equipo.',
       cta1: 'Ver el laboratorio',
       cta2: 'Mis proyectos',
       now: [
@@ -121,7 +121,7 @@ export const content: Record<Locale, Content> = {
       title: 'Hola, soy Mars',
       paragraphs: [
         'Llevo 16 años construyendo software. Empecé como full-stack, me enamoré del frontend, lideré equipos durante años entregando producto y arquitectura, y desde 2024 me he obsesionado con la infraestructura que va a sostener los agentes de IA cuando dejen de ser demo.',
-        'Creo que la IA es la herramienta más potente que hemos tenido nunca — pero solo si los humanos quedamos del lado que la dirige, no del que la sufre. Mi trabajo open source (Deimos, Orbit, Lunar) intenta construir esa parte: harnesses agnósticos, identidad y memoria para agentes que sirvan al equipo, no al revés.',
+        'Creo que la IA es la herramienta más potente que hemos tenido nunca, pero solo si los humanos quedamos del lado que la dirige, no del que la sufre. Mi trabajo open source (Deimos, Orbit, Lunar) intenta construir esa parte: harnesses agnósticos, identidad y memoria para agentes que sirvan al equipo, no al revés.',
         'Vivo en Madrid con un pequeño zoológico. Me gusta la física, los videojuegos, escribir, y convertir ideas raras en código que funciona.',
       ],
       facts: [
@@ -132,24 +132,24 @@ export const content: Record<Locale, Content> = {
       ],
       roles: [
         {
-          year: '2024 — hoy',
+          year: '2024-hoy',
           role: 'OSS Agent Infrastructure',
           detail:
             'Construyo Deimos, Orbit y Lunar. Investigación aplicada a producción: harness engineering, MCP/ACP, local-first AI ops.',
         },
         {
-          year: '2019 — hoy',
+          year: '2019-hoy',
           role: 'Senior Product Engineer · Tech Lead',
           detail:
             'Arquitectura, liderazgo, mentoría. IA como herramienta del equipo, no como gimmick.',
         },
         {
-          year: '2017 — 2019',
+          year: '2017-2019',
           role: 'Senior Engineer',
           detail: 'Aplicaciones complejas en banca y sostenibilidad.',
         },
         {
-          year: '2008 — 2017',
+          year: '2008-2017',
           role: 'Software Engineer · Full-stack',
           detail: 'Desde e-commerce hasta universidades y ONGs.',
         },
@@ -219,7 +219,7 @@ export const content: Record<Locale, Content> = {
         venue: 'Devcast Codemotion',
       },
       {
-        year: '2019—2021',
+        year: '2019-2021',
         type: 'Profesora',
         title: 'Diversos cursos de desarrollo web',
         venue: 'Academia',
@@ -233,18 +233,18 @@ export const content: Record<Locale, Content> = {
     ],
     lab: {
       intro:
-        'Aquí guardo lo que voy probando fuera del trabajo principal: experimentos chiquitos, ideas a medio cocer, posts en preparación. No son demos comerciales — son cosas que me dan curiosidad.',
+        'Aquí guardo lo que voy probando fuera del trabajo principal: experimentos chiquitos, ideas a medio cocer, posts en preparación. No son demos comerciales, son cosas que me dan curiosidad.',
       experiments: [
         {
           tag: 'WIP',
           title: 'Harness 101',
-          desc: '4-5 posts cortos explicando qué es agent harness engineering para devs que vienen de Cursor o Claude Code sin conocer el espacio. Sin curso largo, sin academic — voz directa y diagramas honestos.',
+          desc: '4-5 posts cortos explicando qué es agent harness engineering para devs que vienen de Cursor o Claude Code sin conocer el espacio. Sin curso largo, sin academic: voz directa y diagramas honestos.',
           stack: 'Markdown · /lab/posts',
         },
         {
           tag: 'WIP',
           title: 'Agent plays Snake',
-          desc: 'Un agente jugando Snake en el navegador con su razonamiento mostrándose en directo en una columna lateral. Educativo y accesible — el clásico "agente juega un juego" bien hecho.',
+          desc: 'Un agente jugando Snake en el navegador con su razonamiento mostrándose en directo en una columna lateral. Educativo y accesible: el clásico "agente juega un juego" bien hecho.',
           stack: 'Canvas · ACP · streaming chunks',
         },
         {
@@ -291,7 +291,7 @@ export const content: Record<Locale, Content> = {
       overline: 'Senior Product Engineer · Building agent harnesses',
       name: 'Marcela Gotta',
       headline: ['I build software', 'that thinks with you.'],
-      sub: '16 years shipping software, with a focus on product craft and architecture. Since 2024 I also build open source agent harnesses — the infrastructure that turns AI agents from demos into real teammates.',
+      sub: '16 years shipping software, with a focus on product craft and architecture. Since 2024 I also build open source agent harnesses: the infrastructure that turns AI agents from demos into real teammates.',
       cta1: 'See the lab',
       cta2: 'My projects',
       now: [
@@ -311,7 +311,7 @@ export const content: Record<Locale, Content> = {
       title: "Hi, I'm Mars",
       paragraphs: [
         "I've spent 16 years building software. Started full-stack, fell in love with frontend, led teams for years shipping product and architecture, and since 2024 I've been obsessed with the infrastructure that will hold AI agents up when they stop being demos.",
-        'I believe AI is the most powerful tool we’ve ever had — but only if humans stay on the side that drives it, not the one that suffers it. My open source work (Deimos, Orbit, Lunar) tries to build that part: runtime-agnostic harnesses, identity and memory for agents that serve the team, not the other way around.',
+        'I believe AI is the most powerful tool we’ve ever had, but only if humans stay on the side that drives it, not the one that suffers it. My open source work (Deimos, Orbit, Lunar) tries to build that part: runtime-agnostic harnesses, identity and memory for agents that serve the team, not the other way around.',
         'I live in Madrid with a small zoo. I like physics, videogames, writing, and turning weird ideas into working code.',
       ],
       facts: [
@@ -322,23 +322,23 @@ export const content: Record<Locale, Content> = {
       ],
       roles: [
         {
-          year: '2024 — today',
+          year: '2024-today',
           role: 'OSS Agent Infrastructure',
           detail:
             'Building Deimos, Orbit and Lunar. Research applied to production: harness engineering, MCP/ACP, local-first AI ops.',
         },
         {
-          year: '2019 — today',
+          year: '2019-today',
           role: 'Senior Product Engineer · Tech Lead',
           detail: 'Architecture, leadership, mentoring. AI as a team tool, not as a gimmick.',
         },
         {
-          year: '2017 — 2019',
+          year: '2017-2019',
           role: 'Senior Engineer',
           detail: 'Complex applications in banking and sustainability.',
         },
         {
-          year: '2008 — 2017',
+          year: '2008-2017',
           role: 'Software Engineer · Full-stack',
           detail: 'From e-commerce to universities and NGOs.',
         },
@@ -408,7 +408,7 @@ export const content: Record<Locale, Content> = {
         venue: 'Devcast Codemotion',
       },
       {
-        year: '2019—2021',
+        year: '2019-2021',
         type: 'Teacher',
         title: 'Various web development courses',
         venue: 'Academy',
@@ -422,18 +422,18 @@ export const content: Record<Locale, Content> = {
     ],
     lab: {
       intro:
-        'This is where I keep what I tinker with outside my main work: tiny experiments, half-baked ideas, posts in the oven. Not commercial demos — just things that spark my curiosity.',
+        'This is where I keep what I tinker with outside my main work: tiny experiments, half-baked ideas, posts in the oven. Not commercial demos, just things that spark my curiosity.',
       experiments: [
         {
           tag: 'WIP',
           title: 'Harness 101',
-          desc: '4-5 short posts explaining what agent harness engineering is, for devs coming from Cursor or Claude Code without knowing the space. No long course, no academic tone — just direct voice and honest diagrams.',
+          desc: '4-5 short posts explaining what agent harness engineering is, for devs coming from Cursor or Claude Code without knowing the space. No long course, no academic tone, just direct voice and honest diagrams.',
           stack: 'Markdown · /lab/posts',
         },
         {
           tag: 'WIP',
           title: 'Agent plays Snake',
-          desc: 'An agent playing Snake in the browser with its reasoning streaming live in a side column. Educational and accessible — the classic "agent plays game" done well.',
+          desc: 'An agent playing Snake in the browser with its reasoning streaming live in a side column. Educational and accessible: the classic "agent plays game" done well.',
           stack: 'Canvas · ACP · streaming chunks',
         },
         {

@@ -1149,9 +1149,19 @@ button {
   align-items: center;
   min-height: 500px;
   gap: 20px;
+  /* Contain the planet's scroll-driven transform so its scaled bounding
+     box doesn't bleed past the column on wide viewports. */
+  overflow: clip;
 }
 
 .cosmic-orbit {
+  /* The orbit is laid out in a fixed 540x540 logical coordinate system
+     (rings use `inset: <px>`, moons are positioned via JS in pixel
+     space). To make it responsive we use `zoom`, which rescales the
+     entire layout box so no JS or per-element media queries are
+     required. Supported in Chrome/Safari for years; Firefox 126+ (2024)
+     also ships it. The per-viewport `zoom` overrides live in the
+     responsive media-query block at the bottom of this file. */
   position: relative;
   width: 540px;
   height: 540px;
@@ -1565,7 +1575,8 @@ button {
   font-family: var(--font-sans);
   font-weight: 600;
   font-size: 14px;
-  padding: 4px 0;
+  padding: 12px 0;
+  min-height: 44px;
   border-bottom: 1px solid var(--mars-accent-2);
 }
 
@@ -3008,7 +3019,134 @@ textarea.contact-input {
   font-family: var(--font-sans);
 }
 
-/* Responsive */
+/* =====================================================================
+   Mobile nav drawer — hamburger button + slide-down panel.
+   Defined BEFORE the responsive media-query block so the `display: flex`
+   override inside `@media (max-width: 900px)` correctly wins on cascade
+   (later source order). Hidden on desktop by default.
+   ===================================================================== */
+.mars-mobile-nav {
+  display: none; /* shown via media query at ≤900px */
+  align-items: center;
+}
+.mars-mobile-burger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: var(--mars-card);
+  border: 1px solid var(--mars-border);
+  border-radius: var(--radius-lg);
+  color: var(--mars-fg);
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+.mars-mobile-burger:hover {
+  border-color: var(--mars-accent);
+}
+.mars-mobile-burger svg {
+  width: 22px;
+  height: 22px;
+}
+.mars-mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(320px, 80vw);
+  background: var(--mars-bg);
+  border-left: 1px solid var(--mars-border);
+  box-shadow: -20px 0 60px -20px rgba(0, 0, 0, 0.4);
+  z-index: 200;
+  transform: translateX(100%);
+  transition: transform 0.25s ease-out;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 24px 16px;
+}
+.mars-mobile-drawer.open {
+  transform: translateX(0);
+}
+.mars-mobile-drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px 16px;
+  border-bottom: 1px solid var(--mars-border);
+  margin-bottom: 12px;
+}
+.mars-mobile-drawer-close {
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: 0;
+  color: var(--mars-fg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.mars-mobile-drawer .mars-nav-link {
+  display: flex;
+  align-items: center;
+  padding: 14px 12px;
+  font-size: 16px;
+  min-height: 48px;
+}
+.mars-mobile-drawer .mars-nav-link.active {
+  background: var(--mars-bg-alt);
+}
+.mars-mobile-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 199;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease-out;
+}
+.mars-mobile-scrim.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+[data-theme='light'] .mars-mobile-scrim {
+  background: rgba(58, 26, 14, 0.35);
+}
+
+/* =====================================================================
+   Responsive — desktop-first @media (max-width). Order: 1024 -> 900 -> 540.
+   Mobile-first wasn't chosen because the rest of the codebase is desktop-
+   first; mixing patterns would be more confusing than this baseline.
+   ===================================================================== */
+
+/* Tablet landscape: keep two columns but make the orbit fluid + rebalance
+   the column ratio so the hero title breathes (was wrapping to 4 lines at
+   1024 with the desktop 1.1fr/0.9fr split). The right column shrinks to
+   accommodate the zoomed orbit, the left widens for the type. Title font
+   cap drops to 64px so two-word lines like "Construyo software" stay on
+   one line at ~600px column width. */
+@media (max-width: 1024px) {
+  .cosmic-hero {
+    grid-template-columns: 1.6fr 0.4fr;
+    gap: 24px;
+    padding: 64px 0 48px;
+  }
+  .cosmic-title {
+    font-size: clamp(40px, 5.6vw, 64px);
+  }
+  .cosmic-orbit {
+    zoom: 0.55;
+  }
+  .cosmic-hero-right {
+    min-height: 320px;
+  }
+}
+
+/* Tablet portrait / small laptop: stack hero, grids -> 1col, scale orbit
+   more aggressively, reflow topbar. */
 @media (max-width: 900px) {
   .cosmic-hero,
   .about-grid,
@@ -3035,22 +3173,340 @@ textarea.contact-input {
   .editorial-feature-body {
     columns: 1;
   }
-  .mars-topbar-inner {
-    flex-wrap: wrap;
-  }
+
+  /* Topbar — desktop nav is hidden, hamburger takes over. The
+     <NavLinks> renders the desktop pills; <MobileNav> renders the
+     hamburger + drawer. */
   .mars-nav {
-    order: 3;
-    width: 100%;
-    overflow-x: auto;
+    display: none;
   }
+  .mars-mobile-nav {
+    display: flex;
+    margin-left: auto;
+  }
+  .mars-toggles {
+    margin-left: 8px;
+  }
+
   .exp-status {
     grid-template-columns: repeat(3, 1fr);
   }
   .page-inner {
-    padding: 48px 24px;
+    padding: 56px 24px;
   }
   .cosmic-home {
     padding: 0 24px 48px;
+  }
+
+  /* Cosmic hero on tablet */
+  .cosmic-hero {
+    min-height: auto;
+    padding: 48px 0 32px;
+    gap: 32px;
+  }
+  .cosmic-hero-right {
+    min-height: auto;
+  }
+  .cosmic-orbit {
+    zoom: 0.7;
+  }
+  /* Push scroll hint out of the way of the orbit on stacked layouts. */
+  .cosmic-scroll-hint {
+    position: static;
+    margin-top: 8px;
+    justify-content: center;
+  }
+  /* HUD is decorative; hide on smaller screens to free space. */
+  .cosmic-hud {
+    display: none;
+  }
+
+  /* About panel breathes less */
+  .about-hero-panel {
+    padding: 40px 32px 36px;
+  }
+  .about-grid {
+    gap: 32px;
+    margin-top: 32px;
+  }
+
+  /* Timeline — pull rail closer */
+  .timeline::before {
+    left: 84px;
+  }
+  .timeline-item {
+    grid-template-columns: 84px 20px 1fr;
+    gap: 12px;
+  }
+
+  /* AI section padding */
+  .cosmic-ai {
+    margin-top: 64px;
+    padding: 64px 24px;
+  }
+
+  /* Constellation height reduced for narrow viewports */
+  .cosmic-constellation-wrap {
+    height: 380px;
+  }
+
+  /* Cosmic section spacing */
+  .cosmic-constellation-section {
+    margin: 64px 0;
+  }
+  .cosmic-featured {
+    margin: 48px 0;
+  }
+  .cosmic-stats {
+    margin: 48px 0;
+  }
+}
+
+/* Phone: single-column everywhere, tighter padding, larger touch targets. */
+@media (max-width: 540px) {
+  /* Topbar */
+  .mars-topbar {
+    padding: 12px 16px;
+  }
+  .mars-topbar-inner {
+    gap: 12px;
+  }
+  .mars-brand {
+    min-height: 44px;
+    padding: 6px 4px;
+    margin-left: -4px;
+  }
+  .mars-brand-name {
+    font-size: 14px;
+  }
+  .mars-brand-logo {
+    width: 28px;
+    height: 28px;
+  }
+  /* Make icon-only toggles hit 44x44 a11y target */
+  .mars-toggle-btn.icon-only {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+  }
+  .mars-toggle-btn {
+    min-height: 44px;
+  }
+
+  /* Hero typography fits narrow viewports without breaking words. */
+  .cosmic-title {
+    font-size: clamp(40px, 11vw, 64px);
+    margin: 16px 0 20px;
+  }
+  .cosmic-sub {
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
+  .cosmic-ctas {
+    width: 100%;
+    gap: 8px;
+  }
+  .cosmic-ctas .cosmic-cta-magnetic {
+    flex: 1 1 auto;
+  }
+  .cosmic-cta {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 18px;
+    min-height: 48px;
+  }
+  .cosmic-orbit {
+    zoom: 0.55;
+  }
+
+  /* Featured / projects / cards padding */
+  .cosmic-project,
+  .project-card,
+  .talk-card,
+  .lab-card,
+  .skill-group,
+  .contact-form,
+  .contact-ai,
+  .cosmic-tilt {
+    padding: 24px;
+  }
+  .cosmic-project-name {
+    font-size: 22px;
+  }
+  .project-name,
+  .lab-title {
+    font-size: 20px;
+  }
+  .cosmic-section-title {
+    font-size: clamp(28px, 7vw, 40px);
+  }
+
+  /* AI section */
+  .cosmic-ai {
+    padding: 56px 20px;
+    margin-top: 48px;
+  }
+  .cosmic-ai-title {
+    font-size: clamp(28px, 8vw, 44px);
+    margin: 16px 0;
+  }
+  .cosmic-ai-sub {
+    font-size: 15px;
+  }
+
+  /* About */
+  .about-hero-panel {
+    padding: 28px 20px 24px;
+    border-radius: 16px;
+  }
+  .about-bio p {
+    font-size: 16px;
+  }
+
+  /* Timeline single-col stack */
+  .timeline::before {
+    display: none;
+  }
+  .timeline-item {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--mars-border);
+  }
+  .timeline-item:last-of-type {
+    border-bottom: 0;
+  }
+  .timeline-dot {
+    display: none;
+  }
+  .timeline-year {
+    font-size: 11px;
+  }
+  .timeline-role {
+    font-size: 18px;
+  }
+
+  /* Page inner padding tighter on phone */
+  .page-inner {
+    padding: 40px 16px;
+  }
+  .page-title {
+    font-size: clamp(36px, 10vw, 64px);
+  }
+  .page-lede {
+    font-size: 16px;
+  }
+  .cosmic-home {
+    padding: 0 16px 32px;
+  }
+
+  /* Footer */
+  .cosmic-footer-strip {
+    padding: 10px 16px;
+    gap: 8px;
+    font-size: 9px;
+  }
+  .cosmic-footer-body {
+    padding: 40px 16px;
+    gap: 28px;
+  }
+  .cosmic-footer-bottom {
+    padding: 20px 16px 24px;
+    gap: 14px;
+  }
+  .cfbb-mid {
+    font-size: 10px;
+  }
+  .cfbb-top {
+    min-height: 44px;
+    padding: 10px 14px;
+  }
+  .cfb-wordmark {
+    font-size: 32px;
+  }
+  .cfb-wordmark .cfb-dot {
+    font-size: 40px;
+  }
+  /* Footer external links grow to 44 high */
+  .cfb-link {
+    padding: 14px 0;
+  }
+  .cosmic-footer-watermark {
+    padding: 0 16px 16px;
+  }
+
+  /* Constellation lower on phone */
+  .cosmic-constellation-wrap {
+    height: 320px;
+  }
+
+  /* Now-bar single column on phone (override the 640+ rule via specificity
+     by using the same selector + max-width media query that follows in
+     source order). */
+  .cosmic-now-item {
+    padding: 14px 16px;
+  }
+
+  /* Contact form fields breathe a bit less */
+  .contact-grid {
+    gap: 16px;
+  }
+  .contact-input {
+    font-size: 16px; /* Prevent iOS zoom on focus */
+  }
+  /* Contact social + direct email links — bigger tap area on phone */
+  .contact-social a,
+  .contact-direct a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 6px 4px;
+  }
+  .contact-social {
+    gap: 8px 16px;
+  }
+}
+
+/* Very small phones (e.g. iPhone SE 1st gen, 320×568) */
+@media (max-width: 380px) {
+  .cosmic-orbit {
+    zoom: 0.48;
+  }
+  .cosmic-title {
+    font-size: clamp(34px, 10vw, 48px);
+  }
+  .mars-brand-name {
+    font-size: 13px;
+  }
+}
+
+/* Override the @media(min-width: 640px) two-column now-bar on phones —
+   keep it single column on phone widths so the icon + text stay legible. */
+@media (max-width: 540px) {
+  .cosmic-now-bar {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =====================================================================
+   Accessibility — respect user's reduced-motion preference. Disables
+   all decorative loops (planet spin, moons drift, marquee, footer spin,
+   konami shake, glitch, etc.) and shrinks reveal transitions.
+   ===================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* Keep cosmic-reveal visible (its hidden state is opacity:0 +
+     transform; disabling the transition would leave it invisible). */
+  .cosmic-reveal {
+    opacity: 1;
+    transform: none;
   }
 }
 

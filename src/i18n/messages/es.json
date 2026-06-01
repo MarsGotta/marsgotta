@@ -13,7 +13,9 @@
     "toggleLanguage": "Cambiar idioma",
     "scroll": "Desplázate",
     "viewAllProjects": "Ver todos los proyectos",
-    "backToTop": "Volver al inicio"
+    "backToTop": "Volver al inicio",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
   },
   "metadata": {
     "home": "Inicio",

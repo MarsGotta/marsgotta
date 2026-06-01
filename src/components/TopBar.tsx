@@ -2,15 +2,20 @@ import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { LangToggle } from './LangToggle';
+import { MobileNav } from './MobileNav';
 import { NavLinks } from './NavLinks';
 import { ThemeToggle } from './ThemeToggle';
 
 /**
  * Sticky top navigation. Server Component — nav links + brand are static
- * server-rendered; only the theme/lang toggles are client islands.
+ * server-rendered; only the theme/lang toggles + mobile drawer are
+ * client islands. Desktop nav (`<NavLinks>`) and mobile nav (`<MobileNav>`)
+ * are both rendered server-side; visibility is toggled with CSS so the
+ * server output is identical regardless of viewport (no hydration risk).
  */
 export async function TopBar() {
   const t = await getTranslations('nav');
+  const tCommon = await getTranslations('common');
 
   const navItems = [
     { id: 'home', href: '/' as const, label: t('home') },
@@ -38,6 +43,11 @@ export async function TopBar() {
           </span>
         </Link>
         <NavLinks items={navItems} />
+        <MobileNav
+          items={navItems}
+          openLabel={tCommon('openMenu')}
+          closeLabel={tCommon('closeMenu')}
+        />
         <div className="mars-toggles">
           <LangToggle />
           <ThemeToggle />

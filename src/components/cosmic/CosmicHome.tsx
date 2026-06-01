@@ -7,6 +7,7 @@ import { useRouter } from '@/i18n/navigation';
 import { MagneticCTA } from './MagneticCTA';
 import { Moon } from './Moon';
 import { NebulaWebGL } from './NebulaWebGL';
+import { OrbitSatellite } from './OrbitSatellite';
 import { Planet } from './Planet';
 import { Reveal } from './Reveal';
 import { Starfield } from './Starfield';
@@ -336,6 +337,8 @@ export function CosmicHome({ content }: Props) {
           </div>
         </Reveal>
       </section>
+
+      <OrbitSatellite />
 
       {konami && (
         <div className="cosmic-konami">

@@ -267,6 +267,11 @@ button {
   overflow: hidden;
   color: var(--mars-fg);
 }
+[data-theme='light'] .mars-footer {
+  background:
+    radial-gradient(800px at 15% 0%, rgba(193, 74, 30, 0.1), transparent 60%),
+    radial-gradient(600px at 85% 100%, rgba(245, 178, 122, 0.18), transparent 60%), var(--mars-bg);
+}
 .mars-footer::before {
   /* starfield dots as static background */
   content: '';
@@ -607,14 +612,15 @@ button {
 .cfbb-mid {
   justify-content: center;
   text-align: center;
-  font-size: 14px;
   font-family:
     var(--font-mono), 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
 }
 .cfbb-mid .cfbb-emoji {
-  font-size: 1.4em;
-  vertical-align: -2px;
+  display: inline-block;
+  font-size: 1.6em;
+  vertical-align: middle;
   line-height: 1;
+  margin: 0 0.15em;
   font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
 }
 .cfbb-right {

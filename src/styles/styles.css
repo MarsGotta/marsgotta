@@ -2727,6 +2727,10 @@ button {
   border: 1px solid var(--mars-border);
   border-radius: var(--radius-2xl);
   padding: 32px;
+  color: var(--mars-fg);
+  -webkit-text-fill-color: var(--mars-fg);
+  font: inherit;
+  text-align: left;
   transition:
     transform 0.25s,
     border-color 0.25s;

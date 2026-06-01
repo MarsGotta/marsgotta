@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { Link, usePathname } from '@/i18n/navigation';
 
@@ -16,29 +17,24 @@ type Props = {
 };
 
 /**
- * Mobile navigation drawer. Hidden on desktop via CSS (handled by the
- * `.mars-mobile-nav` rule in styles.css; rendered only ≤900px viewport).
- * Renders a hamburger button that opens a slide-in drawer with the same
- * nav items as the desktop `<NavLinks>`. Closes on:
- *   - Link click
- *   - Escape key
- *   - Scrim click
- *   - Resize back to desktop
+ * Mobile navigation drawer with editorial layout: numbered list of links
+ * (01-06) with display-font labels and an up-right arrow per row.
+ * Hidden on desktop via CSS (`.mars-mobile-nav` rule, rendered only ≤900px).
+ * Closes on: Link click, Escape, scrim click, resize back to desktop.
  */
 export function MobileNav({ items, closeLabel, openLabel }: Props) {
+  const t = useTranslations('common');
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  // Close on route change. `pathname` is intentionally listed as a dependency
-  // even though the callback doesn't read it: we want the effect to RE-RUN
-  // whenever the URL changes so the drawer auto-closes after a Link click.
-  // Removing `pathname` (biome's suggested fix) would break that behaviour.
+  // Close on route change. The dep on `pathname` is intentional: we re-run
+  // the effect whenever the URL changes so the drawer auto-closes after a
+  // Link click. Removing the dep (biome's suggested fix) breaks that.
   // biome-ignore lint/correctness/useExhaustiveDependencies: route-change trigger
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
-  // Close on Escape.
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -48,7 +44,6 @@ export function MobileNav({ items, closeLabel, openLabel }: Props) {
     return () => window.removeEventListener('keydown', onKey);
   }, [open]);
 
-  // Lock body scroll when drawer is open.
   useEffect(() => {
     if (!open) return;
     const prev = document.body.style.overflow;
@@ -58,7 +53,6 @@ export function MobileNav({ items, closeLabel, openLabel }: Props) {
     };
   }, [open]);
 
-  // Close if viewport widens past mobile breakpoint.
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 901px)');
     const onChange = () => {
@@ -104,9 +98,6 @@ export function MobileNav({ items, closeLabel, openLabel }: Props) {
         aria-hidden={!open}
       >
         <div className="mars-mobile-drawer-head">
-          <span className="mars-brand-name">
-            marcela<span className="accent">.</span>gotta
-          </span>
           <button
             type="button"
             className="mars-mobile-drawer-close"
@@ -124,21 +115,49 @@ export function MobileNav({ items, closeLabel, openLabel }: Props) {
             </svg>
           </button>
         </div>
-        {items.map((item) => {
-          const active = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href);
-          return (
-            <Link
-              key={item.id}
-              href={item.href}
-              className={`mars-nav-link ${active ? 'active' : ''}`}
-              aria-current={active ? 'page' : undefined}
-              data-hover
-              tabIndex={open ? 0 : -1}
-            >
-              {item.label}
-            </Link>
-          );
-        })}
+
+        <ol className="mars-mobile-menu">
+          {items.map((item, i) => {
+            const active = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href);
+            return (
+              <li key={item.id} className={`mars-mobile-menu-item ${active ? 'active' : ''}`}>
+                <Link
+                  href={item.href}
+                  aria-current={active ? 'page' : undefined}
+                  data-hover
+                  tabIndex={open ? 0 : -1}
+                >
+                  <span className="mars-mobile-menu-num" aria-hidden="true">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span className="mars-mobile-menu-label">{item.label}</span>
+                  <svg
+                    className="mars-mobile-menu-arrow"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M7 17L17 7m0 0H9m8 0v8"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </Link>
+              </li>
+            );
+          })}
+        </ol>
+
+        <div className="mars-mobile-drawer-foot">
+          <span>{t('menuFooterCoords')}</span>
+          <span className="sep">{'//'}</span>
+          <span>{t('menuFooterLocation')}</span>
+        </div>
       </nav>
     </div>
   );

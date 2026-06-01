@@ -3053,20 +3053,15 @@ textarea.contact-input {
 }
 .mars-mobile-drawer {
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: min(320px, 80vw);
+  inset: 0;
   background: var(--mars-bg);
-  border-left: 1px solid var(--mars-border);
-  box-shadow: -20px 0 60px -20px rgba(0, 0, 0, 0.4);
   z-index: 200;
   transform: translateX(100%);
-  transition: transform 0.25s ease-out;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 24px 16px;
+  padding: 16px 0 24px;
+  overflow-y: auto;
 }
 .mars-mobile-drawer.open {
   transform: translateX(0);
@@ -3074,10 +3069,8 @@ textarea.contact-input {
 .mars-mobile-drawer-head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 4px 16px;
-  border-bottom: 1px solid var(--mars-border);
-  margin-bottom: 12px;
+  justify-content: flex-end;
+  padding: 0 20px 8px;
 }
 .mars-mobile-drawer-close {
   width: 44px;
@@ -3088,16 +3081,99 @@ textarea.contact-input {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  border-radius: var(--radius-pill);
+  transition: background 0.2s;
 }
-.mars-mobile-drawer .mars-nav-link {
+.mars-mobile-drawer-close:hover {
+  background: var(--mars-bg-alt);
+}
+
+/* Editorial numbered menu */
+.mars-mobile-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.mars-mobile-menu-item {
+  border-top: 1px solid var(--mars-border);
+}
+.mars-mobile-menu-item:last-child {
+  border-bottom: 1px solid var(--mars-border);
+}
+.mars-mobile-menu-item a {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+  min-height: 72px;
+  color: var(--mars-fg);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.mars-mobile-menu-item a:hover,
+.mars-mobile-menu-item a:focus-visible {
+  text-decoration: none;
+  color: var(--mars-accent);
+}
+.mars-mobile-menu-num {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--mars-fg-muted);
+  font-feature-settings: 'tnum' 1;
+}
+.mars-mobile-menu-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(28px, 8vw, 38px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--mars-fg);
+  transition: color 0.2s ease;
+}
+.mars-mobile-menu-arrow {
+  color: var(--mars-fg-muted);
+  transition:
+    color 0.2s ease,
+    transform 0.25s ease;
+  flex-shrink: 0;
+}
+.mars-mobile-menu-item a:hover .mars-mobile-menu-arrow,
+.mars-mobile-menu-item a:focus-visible .mars-mobile-menu-arrow {
+  color: var(--mars-accent);
+  transform: translate(2px, -2px);
+}
+.mars-mobile-menu-item.active .mars-mobile-menu-num,
+.mars-mobile-menu-item.active .mars-mobile-menu-label,
+.mars-mobile-menu-item.active .mars-mobile-menu-arrow {
+  color: var(--mars-accent);
+}
+
+.mars-mobile-drawer-foot {
+  margin-top: auto;
+  padding: 24px 20px 0;
   display: flex;
   align-items: center;
-  padding: 14px 12px;
-  font-size: 16px;
-  min-height: 48px;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--mars-fg-muted);
+  flex-wrap: wrap;
 }
-.mars-mobile-drawer .mars-nav-link.active {
-  background: var(--mars-bg-alt);
+.mars-mobile-drawer-foot .sep {
+  opacity: 0.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mars-mobile-drawer,
+  .mars-mobile-menu-arrow {
+    transition: none;
+  }
 }
 .mars-mobile-scrim {
   position: fixed;

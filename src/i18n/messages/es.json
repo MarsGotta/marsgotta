@@ -15,7 +15,9 @@
     "viewAllProjects": "Ver todos los proyectos",
     "backToTop": "Volver al inicio",
     "openMenu": "Abrir menú",
-    "closeMenu": "Cerrar menú"
+    "closeMenu": "Cerrar menú",
+    "menuFooterCoords": "40.42°N · 3.70°W",
+    "menuFooterLocation": "MADRID, TIERRA"
   },
   "metadata": {
     "home": "Inicio",

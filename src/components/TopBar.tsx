@@ -43,14 +43,14 @@ export async function TopBar() {
           </span>
         </Link>
         <NavLinks items={navItems} />
-        <MobileNav
-          items={navItems}
-          openLabel={tCommon('openMenu')}
-          closeLabel={tCommon('closeMenu')}
-        />
         <div className="mars-toggles">
           <LangToggle />
           <ThemeToggle />
+          <MobileNav
+            items={navItems}
+            openLabel={tCommon('openMenu')}
+            closeLabel={tCommon('closeMenu')}
+          />
         </div>
       </div>
     </div>

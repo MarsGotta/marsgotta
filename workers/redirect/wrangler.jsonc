@@ -1,0 +1,13 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "marcelagotta-redirect",
+  "main": "index.ts",
+  "compatibility_date": "2026-10-21",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [
+    { "pattern": "www.marcelagotta.com", "custom_domain": true },
+    { "pattern": "marsgotta.com", "custom_domain": true },
+    { "pattern": "www.marsgotta.com", "custom_domain": true },
+  ],
+}

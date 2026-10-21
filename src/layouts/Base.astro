@@ -7,6 +7,7 @@ import '../styles/tokens.css';
 import '../styles/global.css';
 import headlineFont from '@fontsource/sora/files/sora-latin-700-normal.woff2?url';
 import Footer from '../components/layout/Footer.astro';
+import SeoHead from '../components/layout/SeoHead.astro';
 import SvgDefs from '../components/layout/SvgDefs.astro';
 import Nav from '../components/nav/Nav.astro';
 import { getMessages, type Lang } from '../i18n';
@@ -15,12 +16,15 @@ import type { RouteKey } from '../i18n/routes';
 
 interface Props {
   lang: Lang;
-  route: RouteKey;
+  /** Null for the 404 page, which sits outside the navigation. */
+  route: RouteKey | null;
 }
 
 const { lang, route } = Astro.props;
 const t = getMessages(lang);
-const { title, description } = pageMeta(route, lang);
+const { title, description } = route
+  ? pageMeta(route, lang)
+  : { title: '404 · Marcela Gotta', description: pageMeta('home', lang).description };
 ---
 
 <!doctype html>
@@ -29,8 +33,9 @@ const { title, description } = pageMeta(route, lang);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    <meta name="description" content={description} />
+    <SeoHead lang={lang} route={route} title={title} description={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preload" href={headlineFont} as="font" type="font/woff2" crossorigin />
     <script is:inline>
       // Applies the saved theme and SIM pause before the first paint, so the page never flashes.

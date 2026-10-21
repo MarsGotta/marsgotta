@@ -7,7 +7,8 @@ import ThemeToggle from './ThemeToggle.astro';
 
 interface Props {
   lang: Lang;
-  route: RouteKey;
+  /** Current page, or null outside the navigation (404). */
+  route: RouteKey | null;
 }
 
 const { lang, route } = Astro.props;

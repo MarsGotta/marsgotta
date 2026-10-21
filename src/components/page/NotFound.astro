@@ -1,0 +1,30 @@
+---
+import { getMessages } from '../../i18n';
+import { localizedPath } from '../../i18n/routes';
+
+const es = getMessages('es');
+const en = getMessages('en');
+---
+
+<section class="sec sec--tight" aria-label="404">
+  <div class="wrap">
+    <p class="lead">[PENDIENTE: texto de la página 404]</p>
+    <div class="actions">
+      <a class="btn btn--primary" href={localizedPath('home', 'es')}>
+        {es.nav.inicio}
+      </a>
+      <a class="btn btn--ghost" href={localizedPath('home', 'en')} lang="en">
+        {en.nav.inicio}
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 40px;
+  }
+</style>

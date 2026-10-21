@@ -14,7 +14,7 @@ One thread runs through all three: what an agent shows you, what it remembers, a
 
 AI is the most powerful tool we've had, as long as people stay on the side that steers it.
 
-me@marcelagotta.com · [marcelagotta.com](https://marcelagotta.com) · [LinkedIn](https://www.linkedin.com/in/marcelagotta/) · [x](https://x.com/marcelagotta)
+me@marcelagotta.com · [marcelagotta.com](https://marcelagotta.com) · [LinkedIn](https://www.linkedin.com/in/marcelagotta/) · [x.com](https://x.com/marcelagotta)
 
 <!--
 **MarsGotta/marsgotta** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.

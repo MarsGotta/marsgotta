@@ -33,13 +33,16 @@ const { title, description } = pageMeta(route, lang);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preload" href={headlineFont} as="font" type="font/woff2" crossorigin />
     <script is:inline>
-      // Applies the saved theme before the first paint, so the page never flashes the wrong one.
+      // Applies the saved theme and SIM pause before the first paint, so the page never flashes.
       try {
         if (localStorage.getItem('theme') === 'light') {
           document.documentElement.dataset.theme = 'light';
         }
+        if (localStorage.getItem('motion') === 'off') {
+          document.documentElement.dataset.motion = 'off';
+        }
       } catch {
-        // Storage blocked: keep the dark default.
+        // Storage blocked: keep the defaults.
       }
     </script>
   </head>

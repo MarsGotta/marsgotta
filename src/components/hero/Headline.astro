@@ -1,0 +1,91 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+  id: string;
+}
+
+const { lang, id } = Astro.props;
+const { l1, l2, l3 } = getMessages(lang).hero;
+
+/* Words land one by one, 0.12 s apart; each line starts at the prototype's own time. */
+const WORD_STEP = 0.12;
+const lines = [
+  { words: l1, start: 0.35, className: '' },
+  { words: l2, start: 0.41, className: 'it' },
+  { words: l3, start: 0.49, className: 'gr' },
+];
+let previousWords = 0;
+const timed = lines.map((line) => {
+  const words = line.words.map((word, wordIndex) => ({
+    word,
+    delay: (line.start + (previousWords + wordIndex) * WORD_STEP).toFixed(2),
+  }));
+  previousWords += line.words.length;
+  return { ...line, words };
+});
+---
+
+<h1 class="display title" id={id}>
+  {timed.map((line, lineIndex) => (
+    <>
+      {lineIndex > 0 && <span class="gap"> </span>}
+      <span class:list={['ln', line.className === 'it' && 'it']}>
+        {line.words.map((item, wordIndex) => (
+          <>
+            {wordIndex > 0 && <span class="gap"> </span>}
+            <span
+              class:list={['w', line.className === 'gr' && 'gr']}
+              style={`animation-delay: ${item.delay}s`}
+            >
+              {item.word}
+            </span>
+          </>
+        ))}
+      </span>
+    </>
+  ))}
+</h1>
+
+<style>
+  .ln {
+    display: block;
+    white-space: nowrap;
+  }
+  /* The gap is a real space for copy and assistive tech; the margin draws it, as in the prototype. */
+  .gap {
+    font-size: 0;
+  }
+  .w {
+    display: inline-block;
+    margin-right: 0.21em;
+    animation: word 1.05s var(--ease-out) both;
+  }
+  .w:last-child {
+    margin-right: 0;
+  }
+  .it {
+    font-style: italic;
+    font-weight: 600;
+    color: var(--italic);
+    letter-spacing: -0.04em;
+  }
+  .gr {
+    padding-right: 0.05em;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  @media (max-width: 980px) {
+    .ln {
+      white-space: normal;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .w {
+      animation: none;
+    }
+  }
+</style>

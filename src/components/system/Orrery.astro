@@ -1,0 +1,156 @@
+---
+import type { ProjectKey } from '../../content/projects';
+import { getMessages, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+  active: ProjectKey;
+}
+
+const { lang, active } = Astro.props;
+const t = getMessages(lang);
+
+/* Kepler's third law, T² ∝ a³: with radii 118, 188 and 258, periods of 40 s, 80.4 s and 129.3 s.
+   Drawn outermost first so the inner rings stay on top for the pointer. */
+const rings: { key: ProjectKey; radius: number; label: string; labelOffset: string }[] = [
+  { key: 'orbit', radius: 258, label: t.sys.ringO, labelOffset: '3%' },
+  { key: 'jezero', radius: 188, label: t.sys.ringJ, labelOffset: '5%' },
+  { key: 'kimen', radius: 118, label: t.sys.ringK, labelOffset: '8%' },
+];
+const ringPath = (radius: number) =>
+  `M ${300 - radius},300 a ${radius},${radius} 0 1,1 ${radius * 2},0 a ${radius},${radius} 0 1,1 -${radius * 2},0`;
+---
+
+<figure class="orrery loop">
+  <svg viewBox="0 0 600 600" aria-hidden="true">
+    <defs>
+      {rings.map((ring) => (
+        <path id={`ring-path-${ring.key}`} d={ringPath(ring.radius)} />
+      ))}
+    </defs>
+    <circle class="ring-tick" cx="300" cy="300" r="290"></circle>
+    {rings.map((ring) => (
+      <g class:list={[`p-${ring.key}`, ring.key === active && 'is-on']} data-orrery-ring={ring.key}>
+        <circle class="ring" cx="300" cy="300" r={ring.radius} />
+        <text class="lbl">
+          <textPath href={`#ring-path-${ring.key}`} startOffset={ring.labelOffset}>
+            {ring.label}
+          </textPath>
+        </text>
+        <g class={`sat sat--${ring.key}`}>
+          <circle class="sat-halo" cx={300 + ring.radius} cy="300" r="10" />
+          <circle class="sat-dot" cx={300 + ring.radius} cy="300" r="6.5" />
+        </g>
+        <circle class="hit" cx="300" cy="300" r={ring.radius} data-orrery-hit={ring.key} />
+      </g>
+    ))}
+    <circle
+      cx="300"
+      cy="300"
+      r="52"
+      fill="none"
+      stroke="#E9603A"
+      stroke-opacity=".28"
+      stroke-width="1"
+    ></circle>
+    <circle cx="300" cy="300" r="46" fill="url(#planet-gradient)"></circle>
+    <circle cx="300" cy="300" r="46" fill="url(#planet-shade)"></circle>
+  </svg>
+  <figcaption class="label">{t.sys.kepler}</figcaption>
+</figure>
+
+<style>
+  .orrery {
+    position: relative;
+    width: 100%;
+    max-width: 620px;
+    margin: 0;
+    justify-self: center;
+  }
+  .orrery svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .ring {
+    fill: none;
+    stroke: var(--line-strong);
+    stroke-width: 1;
+    transition:
+      stroke 0.45s ease,
+      stroke-width 0.45s ease,
+      opacity 0.45s ease;
+  }
+  .ring-tick {
+    fill: none;
+    stroke: var(--line);
+    stroke-width: 6;
+    stroke-dasharray: 1 17.6;
+  }
+  .hit {
+    fill: none;
+    stroke: transparent;
+    stroke-width: 34;
+    pointer-events: stroke;
+    cursor: pointer;
+  }
+  .lbl {
+    font: 500 10px var(--mono);
+    letter-spacing: 0.22em;
+    fill: var(--fg-subtle);
+    text-transform: uppercase;
+    transition: fill 0.45s ease;
+  }
+  .sat-dot {
+    fill: var(--bg);
+    stroke: var(--fg-subtle);
+    stroke-width: 1.4;
+    transition:
+      fill 0.45s ease,
+      stroke 0.45s ease;
+  }
+  .sat-halo {
+    fill: none;
+    stroke: var(--pc);
+    stroke-width: 1;
+    opacity: 0;
+    transition: opacity 0.45s;
+  }
+  .is-on .ring {
+    stroke: var(--pc);
+    stroke-width: 1.6;
+  }
+  .is-on .lbl {
+    fill: var(--pc);
+  }
+  .is-on .sat-dot {
+    fill: var(--pc);
+    stroke: var(--pc);
+  }
+  .is-on .sat-halo {
+    opacity: 0.55;
+    animation: ping 2.4s ease-out infinite;
+  }
+  .sat {
+    transform-box: view-box;
+    transform-origin: 300px 300px;
+    animation: spin linear infinite;
+  }
+  .sat--kimen {
+    animation-duration: 40s;
+    animation-delay: -7s;
+  }
+  .sat--jezero {
+    animation-duration: 80.4s;
+    animation-delay: -52s;
+  }
+  .sat--orbit {
+    animation-duration: 129.3s;
+    animation-delay: -20s;
+  }
+  figcaption {
+    margin-top: 14px;
+    text-align: center;
+  }
+</style>

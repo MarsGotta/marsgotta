@@ -1,0 +1,42 @@
+---
+/* Perseverance's crater on the planet. The planet module places it and writes the simulated
+   local time, which matches the HUD's real LMST at page load. */
+---
+
+<div class="jz" data-jezero-marker>
+  <svg viewBox="0 0 14 14" fill="none" stroke="#FFF5EE" stroke-width="1.1">
+    <circle cx="7" cy="7" r="3.2"></circle>
+    <path d="M7 0v3M7 11v3M0 7h3M11 7h3"></path>
+  </svg>
+  <span>
+    JEZERO <b data-jezero-time></b>
+  </span>
+</div>
+
+<style>
+  .jz {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    opacity: 0;
+    will-change: transform, opacity;
+    font: 500 9.5px/1 var(--mono);
+    letter-spacing: 0.14em;
+    color: #fff5ee;
+    text-shadow: 0 1px 6px rgba(10, 6, 20, 0.9);
+  }
+  .jz svg {
+    width: 13px;
+    height: 13px;
+    margin-left: -6.5px;
+    flex: none;
+  }
+  .jz b {
+    font-weight: 500;
+    color: rgba(255, 245, 238, 0.72);
+  }
+</style>

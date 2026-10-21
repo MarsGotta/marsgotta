@@ -1,0 +1,190 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+import JezeroMarker from './JezeroMarker.astro';
+import Moon from './Moon.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const t = getMessages(Astro.props.lang);
+---
+
+<div class="sys-wrap when-dark">
+  <div class="sys loop" aria-hidden="true" data-planet-system>
+    <div class="sys__drift">
+      <div class="sys__arrive">
+        <div class="bloom"></div>
+        {/* Orbit ellipses in Mars radii, with ry/rx = sin 13°: far halves behind the planet... */}
+        <svg class="orbits orbits--back" viewBox="-8 -8 16 16">
+          <path class="o-de" d="M -6.922 0 A 6.922 1.557 0 0 1 6.922 0"></path>
+          <path class="o-ph" d="M -2.766 0 A 2.766 0.622 0 0 1 2.766 0"></path>
+        </svg>
+        <div class="orb"></div>
+        <canvas class="planet" data-planet-canvas></canvas>
+        <Moon name="phobos" label={t.hero.phobos} />
+        <Moon name="deimos" />
+        {/* ...and near halves in front of it. */}
+        <svg class="orbits orbits--front" viewBox="-8 -8 16 16">
+          <path class="o-de" d="M 6.922 0 A 6.922 1.557 0 0 1 -6.922 0"></path>
+          <path class="o-ph" d="M 2.766 0 A 2.766 0.622 0 0 1 -2.766 0"></path>
+        </svg>
+        <JezeroMarker />
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* --R is the radius of Mars on screen; every orbit is measured in Mars radii. */
+  .sys {
+    --R: min(15.6vw, 252px);
+    position: absolute;
+    z-index: 2;
+    left: calc(75.5vw - var(--R));
+    top: calc(612px - var(--R));
+    width: calc(var(--R) * 2);
+    height: calc(var(--R) * 2);
+    pointer-events: none;
+  }
+  .sys__drift {
+    position: absolute;
+    inset: 0;
+  }
+  @supports (animation-timeline: scroll()) {
+    .sys__drift {
+      animation-name: drift;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: scroll(root);
+      animation-range: 0 900px;
+    }
+  }
+  .sys__arrive {
+    position: absolute;
+    inset: 0;
+    animation: arrive 2.5s var(--ease-out) both;
+  }
+  .bloom {
+    position: absolute;
+    left: 44%;
+    top: 50%;
+    width: 640%;
+    height: 640%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+      closest-side,
+      rgba(233, 96, 58, 0.22),
+      rgba(230, 66, 65, 0.12) 26%,
+      rgba(209, 23, 114, 0.07) 46%,
+      rgba(132, 90, 190, 0.04) 64%,
+      transparent
+    );
+    pointer-events: none;
+  }
+  /* CSS sphere: shown until the WebGL planet is ready, and kept if WebGL is unavailable. */
+  .orb {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 34% 38%,
+      #ff9a66 0%,
+      #e9603a 24%,
+      #c8402f 46%,
+      #6e1e28 72%,
+      #1f0b19 100%
+    );
+    box-shadow: 0 0 60px rgba(233, 96, 58, 0.35);
+    transition: opacity 0.9s ease;
+  }
+  .sys[data-gl='on'] .orb {
+    opacity: 0;
+  }
+  .planet {
+    position: absolute;
+    z-index: 2;
+    left: -8.14%;
+    top: -8.14%;
+    width: 116.28%;
+    height: 116.28%;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.9s ease;
+  }
+  .sys[data-gl='on'] .planet {
+    opacity: 1;
+  }
+  .orbits {
+    position: absolute;
+    left: -700%;
+    top: -700%;
+    width: 1600%;
+    height: 1600%;
+    overflow: visible;
+    pointer-events: none;
+    animation: fade 1.4s ease 1.5s both;
+  }
+  .orbits--back {
+    z-index: 1;
+  }
+  .orbits--front {
+    z-index: 3;
+  }
+  .orbits path {
+    fill: none;
+    vector-effect: non-scaling-stroke;
+    stroke-width: 1;
+  }
+  .orbits .o-ph {
+    stroke: var(--orbit-a);
+  }
+  .orbits .o-de {
+    stroke: var(--orbit-b);
+  }
+  .orbits--back path {
+    opacity: 0.5;
+  }
+  @media (max-width: 980px) {
+    .sys-wrap {
+      position: relative;
+      height: calc(min(31vw, 230px) * 2 + 150px);
+      margin-top: 12px;
+    }
+    .sys {
+      --R: min(31vw, 230px);
+      position: relative;
+      left: auto;
+      top: auto;
+      margin: 40px auto 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sys__arrive,
+    .orbits {
+      animation: none;
+    }
+    .sys__drift {
+      animation: none;
+    }
+  }
+  @keyframes arrive {
+    0% {
+      transform: scale(0.16);
+      opacity: 0;
+    }
+    18% {
+      opacity: 1;
+    }
+    100% {
+      transform: none;
+      opacity: 1;
+    }
+  }
+  @keyframes drift {
+    to {
+      transform: translateY(150px) scale(0.94);
+    }
+  }
+</style>

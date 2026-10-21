@@ -1,19 +1,23 @@
 ---
+import Closing from '../components/close/Closing.astro';
+import Hero from '../components/hero/Hero.astro';
+import NowBand from '../components/now/NowBand.astro';
+import ProjectSystem from '../components/system/ProjectSystem.astro';
+import TransferOrbit from '../components/trajectory/TransferOrbit.astro';
+import type { Lang } from '../i18n';
 import Base from '../layouts/Base.astro';
-import { getMessages, type Lang } from '../i18n';
 
 interface Props {
   lang: Lang;
 }
 
 const { lang } = Astro.props;
-const t = getMessages(lang);
 ---
 
 <Base lang={lang} route="home">
-  <section class="sec">
-    <div class="wrap">
-      <h1 class="h1">{t.nav.inicio}</h1>
-    </div>
-  </section>
+  <Hero lang={lang} />
+  <NowBand lang={lang} />
+  <ProjectSystem lang={lang} />
+  <TransferOrbit lang={lang} />
+  <Closing lang={lang} />
 </Base>

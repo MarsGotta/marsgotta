@@ -1,0 +1,186 @@
+---
+import { starFields, twinkles } from '../../lib/decor';
+
+const depths = [
+  { name: 'far', shadows: starFields.far },
+  { name: 'mid', shadows: starFields.mid },
+  { name: 'near', shadows: starFields.near },
+];
+---
+
+<div class="space loop when-dark" aria-hidden="true">
+  <div class="nebula"></div>
+  {depths.map((depth) => (
+    <div class={`field field--${depth.name}`}>
+      <div class="par">
+        <span class="stars" style={`box-shadow: ${depth.shadows}`} />
+      </div>
+    </div>
+  ))}
+  {twinkles.map((star) => (
+    <i class="twinkle" style={`left: ${star.x}; top: ${star.y}; animation-delay: ${star.delay}`} />
+  ))}
+  <div class="warp"></div>
+</div>
+
+<style>
+  .space {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .nebula {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        60vw 48vw at 76% 64%,
+        rgba(233, 96, 58, 0.2),
+        rgba(209, 23, 114, 0.09) 42%,
+        rgba(132, 90, 190, 0.05) 64%,
+        transparent 78%
+      ),
+      radial-gradient(42vw 34vw at 8% 4%, rgba(132, 90, 190, 0.14), transparent 70%),
+      radial-gradient(90vw 40vw at 50% 118%, rgba(31, 19, 49, 0.9), transparent 70%);
+  }
+  /* The camera falls in from deep space: the nearer the layer, the further it travels. */
+  .field {
+    position: absolute;
+    inset: -12%;
+    transform-origin: 76% 62%;
+  }
+  .field--far {
+    animation: fallFar 2.6s var(--ease-out) both;
+  }
+  .field--mid {
+    animation: fallMid 2.6s var(--ease-out) both;
+  }
+  .field--near {
+    animation: fallNear 2.8s var(--ease-out) both;
+  }
+  /* Mouse parallax: Hero sets --mx and --my; each depth moves --k pixels at most. */
+  .par {
+    position: absolute;
+    inset: 0;
+    translate: calc(var(--mx, 0) * var(--k, 0px)) calc(var(--my, 0) * var(--k, 0px));
+    transition: translate 1.2s var(--ease-soft);
+  }
+  .field--far .par {
+    --k: 4px;
+  }
+  .field--mid .par {
+    --k: 10px;
+  }
+  .field--near .par {
+    --k: 18px;
+  }
+  .stars {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1px;
+    height: 1px;
+    border-radius: 50%;
+    background: transparent;
+  }
+  .twinkle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #fff5ee;
+    box-shadow: 0 0 6px 1px rgba(255, 245, 238, 0.7);
+    animation: twinkle 4.2s ease-in-out infinite;
+  }
+  .warp {
+    position: absolute;
+    inset: 0;
+    transform-origin: 76% 63%;
+    background:
+      repeating-conic-gradient(
+        from 0deg at 76% 63%,
+        transparent 0deg 1.65deg,
+        rgba(255, 245, 238, 0.26) 1.72deg 1.8deg,
+        transparent 1.86deg 3.1deg
+      ),
+      repeating-conic-gradient(
+        from 0.9deg at 76% 63%,
+        transparent 0deg 2.25deg,
+        rgba(178, 155, 228, 0.22) 2.3deg 2.4deg,
+        transparent 2.46deg 4.7deg
+      );
+    -webkit-mask: radial-gradient(circle at 76% 63%, transparent 0 9%, #000 30%, transparent 78%);
+    mask: radial-gradient(circle at 76% 63%, transparent 0 9%, #000 30%, transparent 78%);
+    opacity: 0;
+    animation: warp 1.5s cubic-bezier(0.3, 0, 0.2, 1) both;
+  }
+  @media (max-width: 980px) {
+    .field,
+    .warp {
+      transform-origin: 62% 70%;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .field {
+      animation: none;
+    }
+    .warp {
+      display: none;
+    }
+  }
+  @keyframes fallFar {
+    from {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    to {
+      transform: none;
+      opacity: 1;
+    }
+  }
+  @keyframes fallMid {
+    from {
+      transform: scale(0.55);
+      opacity: 0;
+    }
+    to {
+      transform: none;
+      opacity: 1;
+    }
+  }
+  @keyframes fallNear {
+    from {
+      transform: scale(0.24);
+      opacity: 0;
+    }
+    to {
+      transform: none;
+      opacity: 1;
+    }
+  }
+  @keyframes warp {
+    0% {
+      opacity: 0.95;
+      transform: scale(0.55);
+    }
+    55% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.9);
+    }
+  }
+  @keyframes twinkle {
+    0%,
+    100% {
+      opacity: 0.25;
+      transform: scale(0.7);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+</style>

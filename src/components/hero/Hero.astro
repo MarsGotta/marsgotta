@@ -1,0 +1,133 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+import { localizedPath } from '../../i18n/routes';
+import Headline from './Headline.astro';
+import Hud from './Hud.astro';
+import Legend from './Legend.astro';
+import PlanetSystem from './PlanetSystem.astro';
+import SpaceBackdrop from './SpaceBackdrop.astro';
+import SurfaceScene from './SurfaceScene.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = getMessages(lang);
+---
+
+<section class="hero" aria-labelledby="hero-title" data-hero>
+  <SpaceBackdrop />
+  <SurfaceScene />
+  <div class="wrap hero__in">
+    <p class="label hero__over">
+      <i aria-hidden="true"></i>
+      {t.hero.over}
+    </p>
+    <Headline lang={lang} id="hero-title" />
+    <p class="lead hero__sub">{t.hero.sub}</p>
+    <div class="hero__ctas">
+      <a class="btn btn--primary" href={localizedPath('projects', lang)}>
+        {t.hero.cta1}
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M4 12h15M13 6l6 6-6 6"></path>
+        </svg>
+      </a>
+      <a class="btn btn--ghost" href={localizedPath('contact', lang)}>
+        {t.hero.cta2}
+      </a>
+    </div>
+  </div>
+  <PlanetSystem lang={lang} />
+  <Hud lang={lang} />
+  <Legend lang={lang} />
+</section>
+
+<script>
+  import { initParallax } from '../../scripts/parallax';
+
+  initParallax();
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    min-height: 960px;
+    margin-top: calc(-1 * var(--nav-height));
+    padding-top: var(--nav-height);
+    overflow: clip;
+  }
+  .hero__in {
+    position: relative;
+    z-index: 5;
+    padding-top: clamp(64px, 6.6vw, 100px);
+    padding-bottom: 150px;
+  }
+  .hero__over {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0 0 30px;
+  }
+  .hero__over i {
+    display: block;
+    width: 30px;
+    height: 1px;
+    background: var(--warm);
+  }
+  .hero__sub {
+    max-width: 33em;
+    margin-top: 38px;
+    font-size: clamp(18px, 1.4vw, 20px);
+  }
+  .hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 40px;
+  }
+  .hero__over,
+  .hero__sub,
+  .hero__ctas {
+    animation: rise 0.9s var(--ease-out) both;
+  }
+  .hero__over {
+    animation-delay: 0.15s;
+  }
+  .hero__sub {
+    animation-delay: 1.25s;
+  }
+  .hero__ctas {
+    animation-delay: 1.45s;
+  }
+  @media (max-width: 980px) {
+    .hero {
+      min-height: 0;
+    }
+    :root[data-theme='light'] .hero {
+      padding-bottom: 230px;
+    }
+    .hero__in {
+      padding-top: 28px;
+      padding-bottom: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero__over,
+    .hero__sub,
+    .hero__ctas {
+      animation: none;
+    }
+  }
+</style>

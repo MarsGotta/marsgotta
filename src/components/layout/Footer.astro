@@ -1,6 +1,7 @@
 ---
 import { email, socialChannels } from '../../content/profile';
 import { getMessages, type Lang } from '../../i18n';
+import MotionToggle from '../motion/MotionToggle.astro';
 import Brand from '../nav/Brand.astro';
 
 interface Props {
@@ -38,7 +39,10 @@ const year = new Date().getFullYear();
     </div>
     <div class="foot__base">
       <span>Marcela Gotta · {year}</span>
-      <span>Madrid 40.42°N 3.70°W → Jezero 18.44°N 77.45°E</span>
+      <span class="foot__end">
+        <span>Madrid 40.42°N 3.70°W → Jezero 18.44°N 77.45°E</span>
+        <MotionToggle lang={lang} />
+      </span>
     </div>
   </div>
 </footer>
@@ -104,6 +108,12 @@ const year = new Date().getFullYear();
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--fg-subtle);
+  }
+  .foot__end {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 18px;
   }
   @media (max-width: 860px) {
     .foot__grid {

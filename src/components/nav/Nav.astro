@@ -80,7 +80,9 @@ const t = getMessages(lang);
   @supports (animation-timeline: scroll()) {
     .nav__bg {
       opacity: 0;
-      animation: fade linear both;
+      animation-name: fade;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
       animation-timeline: scroll(root);
       animation-range: 30px 220px;
     }

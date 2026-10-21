@@ -25,6 +25,9 @@
   --kimen: #ff7f4a;
   --jezero: #b29be4;
   --orbit: #fff5ee;
+  /* Small text needs 4.5:1 (HANDOFF §3): these stand in for --kimen and --accent in text. */
+  --kimen-text: #ff7f4a;
+  --accent-text: #b29be4;
   --ok: #9cda9b;
   --bad: #f19997;
   --status: #7ee2a8;
@@ -67,6 +70,8 @@
   --kimen: #c54a2e;
   --jezero: #6f46a4;
   --orbit: #3a1a0e;
+  --kimen-text: #9b3718;
+  --accent-text: #6f46a4;
   --ok: #1f5b1f;
   --bad: #a1211b;
   --status: #c54a2e;

@@ -1,0 +1,376 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+import DemoFrame from './DemoFrame.astro';
+
+interface Props {
+  lang: Lang;
+  hidden?: boolean;
+}
+
+const { lang, hidden } = Astro.props;
+const t = getMessages(lang);
+const k = t.demo.k;
+
+/* The agent's JSON is typed line by line, 0.22 s apart from 0.2 s. */
+const lineDelay = (line: number) => `animation-delay: ${(0.2 + line * 0.22).toFixed(2)}s`;
+const checks = [
+  { name: 'ki-card', ok: true, delay: '2.4s' },
+  { name: 'ki-badge', ok: true, delay: '2.6s' },
+  { name: 'ki-progress', ok: true, delay: '2.8s' },
+  { name: 'x-chart', ok: false, delay: '3.05s' },
+];
+---
+
+<DemoFrame
+  project="kimen"
+  alt={t.sys.items.kimen.alt}
+  title={`kimen · ${k.file}`}
+  meta={k.agent}
+  hidden={hidden}
+>
+  <div class="kd">
+    <div class="kd-code">
+      <span class="kd-l" style={lineDelay(0)}>
+        {'{'}
+      </span>
+      <span class="kd-l i1" style={lineDelay(1)}>
+        <span class="k">"type"</span>: <span class="s">"ki-card"</span>,
+      </span>
+      <span class="kd-l i1" style={lineDelay(2)}>
+        <span class="k">"title"</span>: <span class="s">"{k.cardTitle}"</span>,
+      </span>
+      <span class="kd-l i1" style={lineDelay(3)}>
+        <span class="k">"children"</span>: [
+      </span>
+      <span class="kd-l i2" style={lineDelay(4)}>
+        {'{ '}
+        <span class="k">"type"</span>: <span class="s">"ki-badge"</span>,{' '}
+        <span class="k">"tone"</span>: <span class="s">"success"</span>
+        {' },'}
+      </span>
+      <span class="kd-l i2" style={lineDelay(5)}>
+        {'{ '}
+        <span class="k">"type"</span>: <span class="s">"ki-progress"</span>,{' '}
+        <span class="k">"value"</span>: <span class="n">72</span>
+        {' },'}
+      </span>
+      <span class="kd-l i2 bad" style={lineDelay(6)}>
+        {'{ '}
+        <span class="k">"type"</span>: <span class="s">"x-chart"</span>
+        {' }'}
+      </span>
+      <span class="kd-l i1" style={lineDelay(7)}>
+        ]
+      </span>
+      <span class="kd-l" style={lineDelay(8)}>
+        {'}'}
+      </span>
+      <ul class="kd-checks">
+        {checks.map((check) => (
+          <li class={check.ok ? 'ok' : 'no'} style={`animation-delay: ${check.delay}`}>
+            {check.ok ? (
+              <svg
+                viewBox="0 0 12 12"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m2 6.4 2.6 2.4L10 3.2" />
+              </svg>
+            ) : (
+              <svg
+                viewBox="0 0 12 12"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+              >
+                <path d="M3 3l6 6M9 3 3 9" />
+              </svg>
+            )}
+            {check.name}
+            <span>{check.ok ? k.ok : k.no}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="kd-out">
+      <p class="label">{k.render}</p>
+      <div class="kd-card">
+        <div class="kd-card__head">
+          <span class="kd-card__title">{k.cardTitle}</span>
+          <span class="kd-badge">{k.badge}</span>
+        </div>
+        <div class="kd-bar">
+          <i></i>
+        </div>
+        <div class="kd-meta">
+          <span>ki-progress</span>
+          <span>72 %</span>
+        </div>
+      </div>
+      <p class="kd-sum">{k.sum}</p>
+    </div>
+  </div>
+</DemoFrame>
+
+<style>
+  .kd {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+    height: 100%;
+  }
+  .kd-code {
+    position: relative;
+    padding: 14px 16px 0;
+    border-right: 1px solid var(--line);
+    font: 500 11.5px/1.72 var(--mono);
+    color: var(--fg-subtle);
+    overflow: hidden;
+  }
+  .kd-l {
+    display: block;
+    white-space: nowrap;
+  }
+  .kd-l.i1 {
+    padding-left: 2ch;
+  }
+  .kd-l.i2 {
+    padding-left: 4ch;
+  }
+  .kd-l .k {
+    color: var(--fg-muted);
+  }
+  .kd-l .s {
+    color: var(--kimen-text);
+  }
+  .kd-l .n {
+    color: var(--accent-text);
+  }
+  .kd-l.bad {
+    position: relative;
+    opacity: 0.5;
+  }
+  .kd-l.bad::after {
+    content: '';
+    position: absolute;
+    left: 4ch;
+    right: 0;
+    top: 52%;
+    height: 1px;
+    background: var(--bad);
+  }
+  .kd-checks {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 12px;
+    display: grid;
+    gap: 5px;
+    margin: 0;
+    padding: 10px 12px;
+    list-style: none;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--card-solid);
+    font: 500 10.5px/1.25 var(--mono);
+  }
+  .kd-checks li {
+    display: grid;
+    grid-template-columns: 14px 1fr auto;
+    align-items: center;
+    gap: 8px;
+    color: var(--fg);
+  }
+  .kd-checks li span {
+    color: var(--fg-subtle);
+    letter-spacing: 0.04em;
+  }
+  .kd-checks svg {
+    width: 12px;
+    height: 12px;
+  }
+  .kd-checks .ok svg {
+    color: var(--ok);
+  }
+  .kd-checks .no,
+  .kd-checks .no span {
+    color: var(--bad);
+  }
+  .kd-out {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    padding: 18px;
+  }
+  .kd-card {
+    padding: 16px;
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    background: var(--card-solid);
+    box-shadow: var(--shadow);
+  }
+  .kd-card__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .kd-card__title {
+    font: 600 15px/1.2 var(--display);
+    letter-spacing: -0.01em;
+  }
+  .kd-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 22px;
+    padding: 0 9px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--ok) 16%, transparent);
+    color: var(--ok);
+    font: 600 11px/1 var(--sans);
+  }
+  .kd-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .kd-bar {
+    position: relative;
+    height: 8px;
+    margin-top: 16px;
+    border-radius: 99px;
+    background: var(--line);
+  }
+  .kd-bar i {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 72%;
+    border-radius: 99px;
+    background: var(--grad);
+    transform-origin: left;
+  }
+  .kd-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 9px;
+    font: 500 10.5px/1 var(--mono);
+    color: var(--fg-subtle);
+    letter-spacing: 0.06em;
+  }
+  .kd-sum {
+    margin: 0;
+    font: 500 10.5px/1.4 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+  }
+  :global(.is-play) .kd-l {
+    animation: typeIn 0.32s steps(14) both;
+  }
+  :global(.is-play) .kd-l.bad {
+    animation:
+      typeIn 0.32s steps(14) both,
+      kdDim 0.4s ease 3.2s both;
+  }
+  :global(.is-play) .kd-l.bad::after {
+    animation: kdStrike 0.5s ease 3.2s both;
+  }
+  :global(.is-play) .kd-checks {
+    animation: rise 0.5s var(--ease-out) 2.15s both;
+  }
+  :global(.is-play) .kd-checks li {
+    animation: fade 0.3s ease both;
+  }
+  :global(.is-play) .kd-card {
+    animation: kdCard 0.7s var(--ease-out) 3.5s both;
+  }
+  :global(.is-play) .kd-card__title {
+    animation: fade 0.4s ease 3.9s both;
+  }
+  :global(.is-play) .kd-badge {
+    animation: kdPop 0.45s cubic-bezier(0.3, 1.6, 0.5, 1) 4.15s both;
+  }
+  :global(.is-play) .kd-bar i {
+    animation: kdFill 1s var(--ease-soft) 4.35s both;
+  }
+  :global(.is-play) .kd-meta {
+    animation: fade 0.4s ease 4.6s both;
+  }
+  :global(.is-play) .kd-sum {
+    animation: rise 0.5s ease 5.1s both;
+  }
+  @media (max-width: 600px) {
+    .kd {
+      grid-template-columns: 1fr;
+      grid-template-rows: minmax(0, 1fr) auto;
+    }
+    .kd-code {
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .kd-out {
+      padding: 14px 16px 16px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.is-play) .kd *,
+    :global(.is-play) .kd *::after {
+      animation: none !important;
+    }
+  }
+  @keyframes kdDim {
+    to {
+      opacity: 0.42;
+    }
+  }
+  @keyframes kdStrike {
+    from {
+      transform: scaleX(0);
+      transform-origin: left;
+    }
+    to {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+  @keyframes kdCard {
+    from {
+      opacity: 0;
+      transform: translateY(14px) scale(0.96);
+      filter: blur(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+      filter: none;
+    }
+  }
+  @keyframes kdPop {
+    from {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  /* The prototype grows the width; scaling keeps the same fill without relayout. */
+  @keyframes kdFill {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: none;
+    }
+  }
+</style>

@@ -1,0 +1,47 @@
+---
+import type { ProjectKey } from '../../content/projects';
+
+interface Props {
+  /** Project shown first; on the home page the tabs change it. */
+  active: ProjectKey;
+  large?: boolean;
+  id?: string;
+}
+
+const { active, large = false, id } = Astro.props;
+---
+
+<div class:list={['stage', large && 'stage--lg']} id={id} data-demo-stage data-active={active}>
+  <slot />
+</div>
+
+<script>
+  import { initDemoStages } from '../../scripts/demos';
+
+  initDemoStages();
+</script>
+
+<style>
+  /* Without JavaScript, or with reduced motion, every demo shows its complete final state.
+     demos.ts adds .is-play once the stage is on screen, and the animation plays a single time. */
+  .stage {
+    position: relative;
+    height: 330px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    background: var(--card);
+    box-shadow: var(--shadow);
+  }
+  .stage--lg {
+    height: 400px;
+  }
+  @media (max-width: 600px) {
+    .stage[data-active='kimen'] {
+      height: 560px;
+    }
+    .stage[data-active='orbit'] {
+      height: 390px;
+    }
+  }
+</style>

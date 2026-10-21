@@ -1,0 +1,92 @@
+---
+import { projectKeys } from '../../content/projects';
+import { getMessages, type Lang } from '../../i18n';
+import { localizedPath } from '../../i18n/routes';
+import DemoStage from './DemoStage.astro';
+import JezeroDemo from './JezeroDemo.astro';
+import KimenDemo from './KimenDemo.astro';
+import Orrery from './Orrery.astro';
+import OrbitDemo from './OrbitDemo.astro';
+import ProjectTabs from './ProjectTabs.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = getMessages(lang);
+const active = 'kimen';
+---
+
+<section class="sec" id="sistema" aria-labelledby="system-title" data-project-system>
+  <div class="wrap">
+    <div class="head">
+      <p class="label rule">{t.sys.kicker}</p>
+      <h2 class="h2" id="system-title">
+        {t.sys.title}
+      </h2>
+      <p class="lead">{t.sys.lead}</p>
+    </div>
+    <div class="grid">
+      <Orrery lang={lang} active={active} />
+      <div class="panel">
+        <ProjectTabs lang={lang} active={active} controls="project-stage" />
+        <DemoStage id="project-stage" active={active}>
+          <KimenDemo lang={lang} />
+          <JezeroDemo lang={lang} hidden />
+          <OrbitDemo lang={lang} hidden />
+        </DemoStage>
+        <div class="panel__foot">
+          {projectKeys.map((key) => (
+            <a
+              class="arrow"
+              href={localizedPath('projects', lang, key)}
+              data-project={key}
+              hidden={key !== active}
+            >
+              {t.sys.items[key].cta}
+              <span aria-hidden="true">→</span>
+            </a>
+          ))}
+          {projectKeys.map((key) => (
+            <span class="label" data-project={key} hidden={key !== active}>
+              {t.sys.items[key].stack}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initProjectSystems } from '../../scripts/project-tabs';
+
+  initProjectSystems();
+</script>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.04fr) minmax(0, 1fr);
+    gap: clamp(36px, 5vw, 88px);
+    align-items: center;
+  }
+  .panel {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .panel__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  @media (max-width: 980px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

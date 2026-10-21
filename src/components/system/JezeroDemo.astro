@@ -1,0 +1,290 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+import DemoFrame from './DemoFrame.astro';
+
+interface Props {
+  lang: Lang;
+  hidden?: boolean;
+}
+
+const { lang, hidden } = Astro.props;
+const t = getMessages(lang);
+const j = t.demo.j;
+
+/* Sessions settle like sediment, one layer every 0.3 s; the search then scans them for the hit. */
+const layers = j.layers.map((layer, index) => ({
+  ...layer,
+  delay: `animation-delay: ${(0.2 + index * 0.3).toFixed(2)}s`,
+}));
+---
+
+<DemoFrame
+  project="jezero"
+  alt={t.sys.items.jezero.alt}
+  title={`jezero · ${j.bar}`}
+  meta="MCP · read-only"
+  hidden={hidden}
+>
+  <div class="jd">
+    <div class="jd-search">
+      <svg
+        viewBox="0 0 16 16"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      >
+        <circle cx="7" cy="7" r="4.6"></circle>
+        <path d="m10.4 10.4 3.6 3.6"></path>
+      </svg>
+      <span class="jd-q" style={`animation-timing-function: steps(${j.qn})`}>
+        {j.q}
+      </span>
+      <i class="jd-caret loop"></i>
+    </div>
+    <div class="jd-strata">
+      {layers.map((layer) => (
+        <div class:list={['jd-layer', 'hit' in layer && layer.hit && 'hit']} style={layer.delay}>
+          <span>{layer.a}</span>
+          <em>{layer.b}</em>
+        </div>
+      ))}
+      <i class="jd-scan"></i>
+      <div class="jd-res">
+        <p class="jd-res__k">{j.rk}</p>
+        <p class="jd-res__t">{j.rt}</p>
+        <p class="jd-res__s">{j.rs}</p>
+      </div>
+    </div>
+  </div>
+</DemoFrame>
+
+<style>
+  .jd {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 12px;
+    height: 100%;
+    padding: 14px 16px 16px;
+  }
+  .jd-search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 40px;
+    padding: 0 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    background: var(--card-solid);
+    font: 500 12.5px/1 var(--mono);
+    color: var(--fg);
+  }
+  .jd-search svg {
+    width: 15px;
+    height: 15px;
+    color: var(--jezero);
+    flex: none;
+  }
+  .jd-q {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .jd-caret {
+    width: 1.5px;
+    height: 15px;
+    background: var(--jezero);
+    animation: blink 1s steps(1) infinite;
+  }
+  .jd-strata {
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 3px;
+    overflow: hidden;
+  }
+  .jd-layer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 34px;
+    padding: 0 12px;
+    border-radius: 7px;
+    font: 500 10.5px/1 var(--mono);
+    letter-spacing: 0.03em;
+    color: var(--fg-muted);
+    transition: transform 0.5s;
+  }
+  .jd-layer em {
+    font-style: normal;
+    color: var(--fg-subtle);
+  }
+  .jd-layer:nth-child(6n + 1) {
+    background: rgba(233, 96, 58, 0.13);
+  }
+  .jd-layer:nth-child(6n + 2) {
+    background: rgba(178, 155, 228, 0.16);
+  }
+  .jd-layer:nth-child(6n + 3) {
+    background: rgba(255, 245, 238, 0.07);
+  }
+  .jd-layer:nth-child(6n + 4) {
+    background: rgba(209, 23, 114, 0.1);
+  }
+  .jd-layer:nth-child(6n + 5) {
+    background: rgba(178, 155, 228, 0.09);
+  }
+  .jd-layer:nth-child(6n + 6) {
+    background: rgba(233, 96, 58, 0.08);
+  }
+  :root[data-theme='light'] .jd-layer:nth-child(6n + 1) {
+    background: rgba(197, 74, 46, 0.14);
+  }
+  :root[data-theme='light'] .jd-layer:nth-child(6n + 2) {
+    background: rgba(111, 70, 164, 0.14);
+  }
+  :root[data-theme='light'] .jd-layer:nth-child(6n + 3) {
+    background: rgba(122, 61, 36, 0.1);
+  }
+  :root[data-theme='light'] .jd-layer:nth-child(6n + 4) {
+    background: rgba(209, 23, 114, 0.1);
+  }
+  :root[data-theme='light'] .jd-layer:nth-child(6n + 5) {
+    background: rgba(111, 70, 164, 0.08);
+  }
+  :root[data-theme='light'] .jd-layer:nth-child(6n + 6) {
+    background: rgba(197, 74, 46, 0.08);
+  }
+  .jd-layer.hit {
+    color: var(--fg);
+    box-shadow:
+      inset 0 0 0 1px var(--jezero),
+      0 0 24px color-mix(in srgb, var(--jezero) 30%, transparent);
+  }
+  .jd-scan {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--jezero) 20%,
+      var(--jezero) 80%,
+      transparent
+    );
+    box-shadow: 0 0 14px var(--jezero);
+    opacity: 0;
+  }
+  .jd-res {
+    position: absolute;
+    right: 10px;
+    bottom: 52px;
+    width: min(250px, 64%);
+    padding: 12px 14px;
+    border: 1px solid var(--jezero);
+    border-radius: 12px;
+    background: var(--card-solid);
+    box-shadow: var(--shadow);
+  }
+  .jd-res p {
+    margin: 0;
+  }
+  .jd-res__k {
+    font: 500 9.5px/1.3 var(--mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--jezero);
+  }
+  .jd-res .jd-res__t {
+    margin-top: 6px;
+    font-size: 13.5px;
+    line-height: 1.4;
+    color: var(--fg);
+  }
+  .jd-res .jd-res__s {
+    margin-top: 8px;
+    font: 500 9.5px/1.3 var(--mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fg-subtle);
+  }
+  :global(.is-play) .jd-layer {
+    animation: jdDrop 0.62s cubic-bezier(0.3, 1.35, 0.5, 1) both;
+  }
+  :global(.is-play) .jd-layer.hit {
+    animation:
+      jdDrop 0.62s cubic-bezier(0.3, 1.35, 0.5, 1) both,
+      jdHit 0.6s ease 4.55s both;
+  }
+  :global(.is-play) .jd-q {
+    animation: jdType 1s steps(18) 2.5s both;
+  }
+  :global(.is-play) .jd-scan {
+    animation: jdScan 1.25s cubic-bezier(0.5, 0, 0.3, 1) 3.45s both;
+  }
+  :global(.is-play) .jd-res {
+    animation: jdRes 0.6s var(--ease-out) 4.85s both;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.is-play) .jd * {
+      animation: none !important;
+    }
+  }
+  @keyframes jdDrop {
+    from {
+      opacity: 0;
+      transform: translateY(-230px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  /* Typing reveals the query and moves the caret with it, so this one animates the width. */
+  @keyframes jdType {
+    from {
+      max-width: 0;
+    }
+    to {
+      max-width: 40ch;
+    }
+  }
+  @keyframes jdScan {
+    0% {
+      opacity: 0;
+      transform: translateY(0);
+    }
+    12% {
+      opacity: 1;
+    }
+    82% {
+      opacity: 1;
+      transform: translateY(160px);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(166px);
+    }
+  }
+  @keyframes jdHit {
+    from {
+      transform: none;
+    }
+    to {
+      transform: translateX(-6px);
+    }
+  }
+  @keyframes jdRes {
+    from {
+      opacity: 0;
+      transform: translate(18px, 10px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>

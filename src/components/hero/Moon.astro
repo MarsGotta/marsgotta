@@ -1,0 +1,194 @@
+---
+/* A moon of Mars on its real orbit, seen from 13° above the equator. The orbit plane is squashed
+   with scaleY(.225) = sin 13°, and the moon body undoes it with scaleY(4.4444) so it stays round.
+   Periods at ×3600: Phobos 7 h 39 min → 7.654 s; Deimos 30 h 18 min → 30.312 s. Orbits are prograde,
+   so they turn anticlockwise on screen. Semi-major axes in Mars radii: Phobos 2.766, Deimos 6.922. */
+
+interface Props {
+  name: 'phobos' | 'deimos';
+  /** Visible tag next to the moon (only Phobos has one in the design). */
+  label?: string;
+}
+
+const { name, label } = Astro.props;
+---
+
+<div class:list={['moon', `moon--${name}`]}>
+  <div class="moon__arm">
+    <div class="moon__body">
+      <div class="moon__shape">
+        {name === 'phobos' ? (
+          <svg viewBox="0 0 18 14">
+            <path
+              d="M1.6 7.8C1 4.2 4.2 1.3 8.6 1.1c4.6-.2 8.2 2 8 5.5-.2 3.6-3.4 6.3-8.2 6.1C4.4 12.5 2.1 10.8 1.6 7.8Z"
+              fill="url(#moon-gradient)"
+            />
+            <circle cx="11.6" cy="7" r="1.5" fill="#2A1A20" opacity=".55" />
+            <circle cx="6.2" cy="5.2" r=".9" fill="#2A1A20" opacity=".35" />
+          </svg>
+        ) : (
+          <svg viewBox="0 0 10 9">
+            <path
+              d="M1 4.8C.8 2.4 2.6.8 5.2.8s4.2 1.6 4 3.8c-.2 2.4-2 3.8-4.4 3.7C2.6 8.2 1.2 6.8 1 4.8Z"
+              fill="url(#moon-gradient)"
+            />
+          </svg>
+        )}
+      </div>
+      {label && <span class="moon__tag">{label}</span>}
+    </div>
+  </div>
+</div>
+
+<style>
+  .moon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    transform: scaleY(0.225);
+    animation: orbitDepth linear infinite;
+  }
+  .moon__arm {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    animation: spin linear infinite;
+  }
+  .moon__body {
+    position: absolute;
+    top: 0;
+    animation: counterSpin linear infinite;
+  }
+  .moon__shape {
+    position: absolute;
+    inset: 0;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+  .moon__shape svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  /* Starting phases: Phobos at θ = 250° (−5.315 s), Deimos at θ = 235° (−19.787 s). */
+  .moon--phobos,
+  .moon--phobos .moon__arm,
+  .moon--phobos .moon__body,
+  .moon--phobos .moon__shape,
+  .moon--phobos .moon__tag {
+    animation-duration: 7.654s;
+    animation-delay: -5.315s;
+  }
+  .moon--deimos,
+  .moon--deimos .moon__arm,
+  .moon--deimos .moon__body,
+  .moon--deimos .moon__shape {
+    animation-duration: 30.312s;
+    animation-delay: -19.787s;
+  }
+  .moon--phobos .moon__body {
+    left: calc(var(--R) * 2.766);
+    width: 18px;
+    height: 14px;
+    margin: -7px 0 0 -9px;
+  }
+  .moon--deimos .moon__body {
+    left: calc(var(--R) * 6.922);
+    width: 10px;
+    height: 9px;
+    margin: -4.5px 0 0 -5px;
+  }
+  .moon--phobos .moon__shape {
+    animation-name: eclipsePhobos;
+  }
+  .moon--deimos .moon__shape {
+    animation-name: eclipseDeimos;
+  }
+  .moon__tag {
+    position: absolute;
+    left: 24px;
+    top: -3px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    font: 500 9.5px/1 var(--mono);
+    letter-spacing: 0.16em;
+    color: var(--fg-subtle);
+    animation: tagPhobos linear infinite;
+  }
+  .moon__tag::before {
+    content: '';
+    width: 14px;
+    height: 1px;
+    background: var(--line-strong);
+  }
+  /* The far half of each orbit passes behind Mars (z-index 1) and the near half in front (4). */
+  @keyframes orbitDepth {
+    0%,
+    49.9% {
+      z-index: 1;
+    }
+    50%,
+    100% {
+      z-index: 4;
+    }
+  }
+  @keyframes counterSpin {
+    from {
+      transform: rotate(0deg) scaleY(4.4444);
+    }
+    to {
+      transform: rotate(360deg) scaleY(4.4444);
+    }
+  }
+  /* Each moon dims while it crosses Mars' shadow: Phobos from 5.3 % to 16.9 % of its period,
+     Deimos from 8.8 % to 13.4 %. */
+  @keyframes eclipsePhobos {
+    0%,
+    4.6% {
+      opacity: 1;
+    }
+    5.9%,
+    16.3% {
+      opacity: 0.14;
+    }
+    17.6%,
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes eclipseDeimos {
+    0%,
+    8.3% {
+      opacity: 1;
+    }
+    9.3%,
+    12.9% {
+      opacity: 0.14;
+    }
+    13.9%,
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes tagPhobos {
+    0%,
+    10% {
+      opacity: 1;
+    }
+    13%,
+    84% {
+      opacity: 0;
+    }
+    88%,
+    100% {
+      opacity: 1;
+    }
+  }
+</style>

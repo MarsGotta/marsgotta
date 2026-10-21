@@ -1,0 +1,227 @@
+---
+/* Light theme: the view from Jezero facing south. The sun rises in the east (left) with the blue
+   Martian halo; Phobos crosses right to left in 255 s every 666 s, Deimos left to right in 3936 s (×60). */
+---
+
+<div class="surface loop when-light" aria-hidden="true">
+  <div class="halo"></div>
+  <div class="sun"></div>
+  <div class="skymoon skymoon--ph">
+    <i>
+      <svg viewBox="0 0 20 15" width="20" height="15">
+        <path
+          d="M2.2 8.4C1.6 4.6 5 1.6 9.6 1.4c4.8-.2 8.6 2.2 8.4 5.8-.2 3.8-3.6 6.6-8.6 6.4C5.2 13.4 2.7 11.6 2.2 8.4Z"
+          fill="url(#sky-moon-gradient)"
+        ></path>
+        <circle cx="12.6" cy="7.6" r="1.6" fill="#5A3E36" opacity=".6"></circle>
+      </svg>
+    </i>
+  </div>
+  <div class="skymoon skymoon--de">
+    <i></i>
+  </div>
+  <svg class="dunes" viewBox="0 0 1440 300" preserveAspectRatio="none">
+    <path
+      d="M0 132C110 118 240 104 380 112S620 96 760 101 905 108 958 104L986 128 1016 106C1110 92 1270 100 1440 86V300H0Z"
+      fill="#EBCFB6"
+    ></path>
+    <path
+      d="M0 132C110 118 240 104 380 112S620 96 760 101 905 108 958 104L986 128 1016 106C1110 92 1270 100 1440 86"
+      fill="none"
+      stroke="#F6E4D3"
+      stroke-opacity=".7"
+      stroke-width="1.2"
+    ></path>
+    <path
+      d="M0 196C150 172 300 184 430 170S700 190 830 176 1090 158 1210 178 1380 166 1440 172V300H0Z"
+      fill="#DFB797"
+    ></path>
+    <path
+      d="M0 246C180 228 360 242 560 228S900 248 1110 232 1340 242 1440 236V300H0Z"
+      fill="#C98F6B"
+    ></path>
+    <path d="M0 284C220 270 420 280 640 268S1040 284 1440 270V300H0Z" fill="#A86847"></path>
+    <path
+      d="M168 262c8-9 26-11 38-4 8 5 6 12-4 13-14 2-30 0-34-9Z"
+      fill="#7A3D24"
+      opacity=".75"
+    ></path>
+    <path
+      d="M1124 252c6-7 19-8 27-3 6 4 4 9-3 10-10 1-21 0-24-7Z"
+      fill="#7A3D24"
+      opacity=".7"
+    ></path>
+    <path
+      d="M1218 276c10-12 34-15 50-6 10 6 8 15-5 17-19 3-40 1-45-11Z"
+      fill="#5E2C18"
+      opacity=".7"
+    ></path>
+  </svg>
+  <svg class="rover" viewBox="0 0 40 22">
+    <path d="M7 13.2h23.5l2-4.4H9.4z"></path>
+    <rect x="24.6" y="2.6" width="1.5" height="7"></rect>
+    <rect x="22" y="1" width="6.6" height="2.6" rx=".7"></rect>
+    <path d="M31 10.6l5.6-2.8 1.4 1.1-5.2 3.4z"></path>
+    <circle cx="9.5" cy="17.6" r="3"></circle>
+    <circle cx="19" cy="17.6" r="3"></circle>
+    <circle cx="28.5" cy="17.6" r="3"></circle>
+    <path d="M6 20.6h28" stroke="#7A3D24" stroke-width=".8" opacity=".5"></path>
+  </svg>
+</div>
+
+<style>
+  .surface {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    background: linear-gradient(180deg, #f6e4d3 0%, #f4dec9 55%, #efd2ba 86%);
+  }
+  .sun {
+    position: absolute;
+    left: 12%;
+    top: 812px;
+    width: 22px;
+    height: 22px;
+    margin: -11px 0 0 -11px;
+    border-radius: 50%;
+    background: #fffdf8;
+    box-shadow:
+      0 0 18px 6px rgba(255, 255, 255, 0.85),
+      0 0 60px 18px rgba(196, 220, 242, 0.75);
+    animation: sunrise 160s cubic-bezier(0.3, 0, 0.2, 1) both;
+  }
+  .halo {
+    position: absolute;
+    left: 12%;
+    top: 812px;
+    width: 150vw;
+    height: 150vw;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+      closest-side,
+      rgba(232, 243, 253, 0.95) 0%,
+      rgba(196, 219, 240, 0.78) 4%,
+      rgba(170, 198, 228, 0.42) 11%,
+      rgba(190, 206, 224, 0.16) 22%,
+      rgba(246, 228, 211, 0) 40%
+    );
+    animation: sunrise 160s cubic-bezier(0.3, 0, 0.2, 1) both;
+  }
+  .dunes {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 300px;
+    width: 100%;
+  }
+  .rover {
+    position: absolute;
+    left: 75.5%;
+    bottom: 203px;
+    width: 40px;
+    height: 22px;
+    fill: #7a3d24;
+    opacity: 0.72;
+  }
+  .skymoon {
+    position: absolute;
+    left: 50%;
+    top: 1010px;
+    width: 0;
+    height: 0;
+  }
+  .skymoon i {
+    position: absolute;
+    display: block;
+  }
+  .skymoon--ph {
+    animation: skyPhobos 666s linear infinite;
+    animation-delay: -118s;
+  }
+  .skymoon--ph i {
+    left: -10px;
+    top: -780px;
+    width: 20px;
+    height: 15px;
+  }
+  .skymoon--de {
+    animation: skyDeimos 3936s linear infinite;
+    animation-delay: -900s;
+  }
+  .skymoon--de i {
+    left: -2px;
+    top: -780px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #fffdf8;
+    box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.8);
+  }
+  @media (max-width: 980px) {
+    .sun,
+    .halo {
+      top: auto;
+      bottom: 212px;
+      left: 16%;
+    }
+    .skymoon {
+      top: auto;
+      bottom: -60px;
+    }
+    .dunes {
+      height: 240px;
+    }
+    .rover {
+      left: 70%;
+      bottom: 162px;
+      width: 30px;
+      height: 17px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sun,
+    .halo {
+      animation: none;
+    }
+  }
+  @keyframes sunrise {
+    from {
+      translate: 0 34px;
+    }
+    to {
+      translate: 0 -46px;
+    }
+  }
+  /* Phobos is above the horizon for 255 s of each 666 s cycle (38.3 %). */
+  @keyframes skyPhobos {
+    0% {
+      transform: rotate(77deg);
+      opacity: 0;
+    }
+    0.8% {
+      opacity: 1;
+    }
+    37.6% {
+      opacity: 1;
+    }
+    38.3% {
+      transform: rotate(-77deg);
+      opacity: 0;
+    }
+    100% {
+      transform: rotate(-77deg);
+      opacity: 0;
+    }
+  }
+  @keyframes skyDeimos {
+    0% {
+      transform: rotate(-74deg);
+    }
+    100% {
+      transform: rotate(74deg);
+    }
+  }
+</style>

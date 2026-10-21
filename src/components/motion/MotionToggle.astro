@@ -1,0 +1,65 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const t = getMessages(Astro.props.lang);
+---
+
+<button
+  type="button"
+  class="sim"
+  data-motion-toggle
+  data-label-on={t.ui.pause}
+  data-label-off={t.ui.play}
+>
+  <span class="sr-only when-motion-on">{`${t.ui.pause}: `}</span>
+  <span class="sr-only when-motion-off">{`${t.ui.play}: `}</span>
+  SIM <span class="when-motion-on">×3600</span>
+  <span class="when-motion-off">×0</span>
+  <svg class="when-motion-on" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true">
+    <rect x="1.5" y="1" width="2.4" height="8" rx=".6"></rect>
+    <rect x="6.1" y="1" width="2.4" height="8" rx=".6"></rect>
+  </svg>
+  <svg class="when-motion-off" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true">
+    <path d="M2 1.2v7.6L8.6 5Z"></path>
+  </svg>
+</button>
+
+<script>
+  import { initMotionToggles } from '../../scripts/motion-toggle';
+
+  initMotionToggles();
+</script>
+
+<style>
+  .sim {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 30px;
+    padding: 0 10px;
+    margin-right: -10px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--fg);
+    font: 500 10.5px/1 var(--mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .sim:hover {
+    background: var(--line);
+  }
+  .sim svg {
+    width: 10px;
+    height: 10px;
+  }
+  :root[data-motion='off'] .when-motion-on,
+  :root:not([data-motion='off']) .when-motion-off {
+    display: none;
+  }
+</style>

@@ -43,6 +43,11 @@
   box-sizing: border-box;
 }
 
+/* Classes that set display (.arrow, .btn...) must not show elements hidden by the scripts. */
+[hidden] {
+  display: none !important;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -406,15 +411,18 @@ body {
   background: var(--line);
 }
 
-/* Project colours */
+/* Project colours: --pc for shapes and large text, --pc-text for small text. */
 .p-kimen {
   --pc: var(--kimen);
+  --pc-text: var(--kimen-text);
 }
 .p-jezero {
   --pc: var(--jezero);
+  --pc-text: var(--jezero);
 }
 .p-orbit {
   --pc: var(--orbit);
+  --pc-text: var(--orbit);
 }
 
 /* ---------- Theme transition: a sunrise ---------- */
@@ -446,7 +454,9 @@ body {
   );
 }
 
-/* ---------- Shared keyframes ---------- */
+/* ---------- Shared keyframes ----------
+   Scroll-driven animations are written with longhands and no duration: the CSS minifier would
+   otherwise fold animation-timeline into the animation shorthand, which browsers reject. */
 @keyframes fade {
   from {
     opacity: 0;
@@ -555,13 +565,20 @@ body {
 }
 
 /* ---------- Motion: the SIM pause (WCAG 2.2.2) and reduced motion ---------- */
+/* Pseudo-elements are listed apart: :is() cannot match them and they do not inherit the pause. */
 :root[data-motion='off'] .loop,
-:root[data-motion='off'] .loop * {
+:root[data-motion='off'] .loop *,
+:root[data-motion='off'] .loop::before,
+:root[data-motion='off'] .loop *::before,
+:root[data-motion='off'] .loop *::after {
   animation-play-state: paused !important;
 }
 @media (prefers-reduced-motion: reduce) {
   .loop,
-  .loop * {
+  .loop *,
+  .loop::before,
+  .loop *::before,
+  .loop *::after {
     animation-play-state: paused !important;
   }
   .dawn {

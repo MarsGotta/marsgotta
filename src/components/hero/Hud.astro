@@ -1,0 +1,118 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+import MotionToggle from '../motion/MotionToggle.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = getMessages(lang);
+---
+
+<aside class="hud" aria-label={t.hud.aria}>
+  <div class="hud__row">
+    <span>
+      LAT <span class="hud__v">40.42°N</span>
+    </span>
+    <span>
+      LON <span class="hud__v">3.70°W</span>
+    </span>
+  </div>
+  <div class="hud__row">
+    <span>{t.hud.mad}</span>
+    <span class="hud__v" data-hud-madrid>
+      --:--:--
+    </span>
+  </div>
+  <div class="hud__row">
+    <span>JEZERO</span>
+    <span class="hud__v">
+      SOL <span data-hud-sol>----</span> · <span data-hud-lmst>--:--</span> LMST
+    </span>
+  </div>
+  <div class="hud__sep"></div>
+  <div class="hud__row">
+    <span class="hud__ok">
+      <i class="dot loop"></i>SYS OK
+    </span>
+    <MotionToggle lang={lang} />
+  </div>
+</aside>
+
+<script>
+  import { initHud } from '../../scripts/hud';
+
+  initHud();
+</script>
+
+<style>
+  .hud {
+    position: absolute;
+    z-index: 6;
+    top: 92px;
+    right: var(--gutter);
+    width: 288px;
+    padding: 14px 16px 12px;
+    font: 500 10.5px/1.3 var(--mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    /* Corner brackets drawn with eight background lines. */
+    background:
+      linear-gradient(var(--line-strong), var(--line-strong)) left top/12px 1px no-repeat,
+      linear-gradient(var(--line-strong), var(--line-strong)) left top/1px 12px no-repeat,
+      linear-gradient(var(--line-strong), var(--line-strong)) right top/12px 1px no-repeat,
+      linear-gradient(var(--line-strong), var(--line-strong)) right top/1px 12px no-repeat,
+      linear-gradient(var(--line-strong), var(--line-strong)) left bottom/12px 1px no-repeat,
+      linear-gradient(var(--line-strong), var(--line-strong)) left bottom/1px 12px no-repeat,
+      linear-gradient(var(--line-strong), var(--line-strong)) right bottom/12px 1px no-repeat,
+      linear-gradient(var(--line-strong), var(--line-strong)) right bottom/1px 12px no-repeat;
+    animation: rise 0.9s var(--ease-out) 1.1s both;
+  }
+  .hud__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 22px;
+  }
+  .hud__v {
+    color: var(--fg);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.06em;
+  }
+  .hud__sep {
+    height: 1px;
+    margin: 6px 0;
+    background: var(--line);
+  }
+  .hud__ok {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--fg);
+  }
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--status);
+    box-shadow: 0 0 9px var(--status);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @media (max-width: 980px) {
+    .hud {
+      position: relative;
+      top: auto;
+      right: auto;
+      width: auto;
+      margin: 20px var(--gutter) 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hud {
+      animation: none;
+    }
+  }
+</style>

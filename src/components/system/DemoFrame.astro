@@ -1,0 +1,71 @@
+---
+import type { ProjectKey } from '../../content/projects';
+
+interface Props {
+  project: ProjectKey;
+  /** Describes the animation for assistive tech: the demo itself is decorative. */
+  alt: string;
+  title: string;
+  meta: string;
+  hidden?: boolean;
+}
+
+const { project, alt, title, meta, hidden = false } = Astro.props;
+---
+
+<div
+  class:list={['demo', `p-${project}`]}
+  role="img"
+  aria-label={alt}
+  data-project={project}
+  hidden={hidden}
+>
+  <div class="bar">
+    <i></i>
+    <span>{title}</span>
+    <span>{meta}</span>
+  </div>
+  <div class="body">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .demo {
+    position: absolute;
+    inset: 0;
+  }
+  .bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 14px;
+    border-bottom: 1px solid var(--line);
+    font: 500 10px/1 var(--mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg-subtle);
+  }
+  .bar i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--pc);
+    box-shadow: 0 0 8px var(--pc);
+  }
+  .bar span:last-child {
+    margin-left: auto;
+  }
+  .body {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 34px;
+    bottom: 0;
+  }
+</style>

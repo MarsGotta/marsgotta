@@ -1,0 +1,185 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+import { waveform } from '../../lib/decor';
+import DemoFrame from './DemoFrame.astro';
+
+interface Props {
+  lang: Lang;
+  hidden?: boolean;
+}
+
+const { lang, hidden } = Astro.props;
+const t = getMessages(lang);
+const o = t.demo.o;
+const bars = waveform();
+
+/* The meeting talks until 2.7 s, the wave collapses, and the notes are written line by line. */
+const notes = [
+  { kind: 't', text: o.title, delay: '3.2s' },
+  { kind: 'k', text: o.k1, delay: '3.55s' },
+  { kind: 'b', text: o.b1, delay: '3.8s' },
+  { kind: 'b', text: o.b2, delay: '4.15s' },
+  { kind: 'k', text: o.k2, delay: '4.5s' },
+  { kind: 'b', text: o.b3, delay: '4.75s' },
+];
+---
+
+<DemoFrame
+  project="orbit"
+  alt={t.sys.items.orbit.alt}
+  title="orbit · macOS"
+  meta="beta"
+  hidden={hidden}
+>
+  <div class="od">
+    <div class="od-top">
+      <span class="od-rec loop">REC</span>
+      <span>{o.meeting}</span>
+      <span>00:14:32</span>
+    </div>
+    <div class="od-wave loop">
+      {bars.map((bar) => (
+        <i style={`height: ${bar.height}; animation-delay: ${bar.delay}, 2.7s`} />
+      ))}
+    </div>
+    <div class="od-note">
+      {notes.map((note) => (
+        <p class={note.kind} style={`animation-delay: ${note.delay}`}>
+          {note.text}
+        </p>
+      ))}
+    </div>
+  </div>
+</DemoFrame>
+
+<style>
+  .od {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: 100%;
+    padding: 14px 16px 16px;
+  }
+  .od-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font: 500 10px/1 var(--mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+  }
+  .od-rec {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--fg);
+  }
+  .od-rec::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #f05149;
+    box-shadow: 0 0 8px #f05149;
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+  .od-top span:last-child {
+    margin-left: auto;
+  }
+  .od-wave {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    height: 82px;
+    flex: none;
+  }
+  .od-wave i {
+    flex: 1;
+    min-width: 2px;
+    border-radius: 2px;
+    background: var(--orbit);
+    opacity: 0.9;
+    transform: scaleY(0.06);
+    transform-origin: center;
+  }
+  .od-note {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--line-strong);
+  }
+  .od-note p {
+    margin: 0;
+    display: flex;
+    gap: 8px;
+    font-size: 13.5px;
+    line-height: 1.35;
+    color: var(--fg-muted);
+  }
+  .od-note .t {
+    font: 600 15px/1.2 var(--display);
+    letter-spacing: -0.01em;
+    color: var(--fg);
+  }
+  .od-note .k {
+    margin-top: 4px;
+    font: 500 9.5px/1.3 var(--mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg-subtle);
+  }
+  .od-note .b::before {
+    content: '';
+    flex: none;
+    width: 5px;
+    height: 5px;
+    margin-top: 7px;
+    border-radius: 50%;
+    background: var(--orbit);
+  }
+  :global(.is-play) .od-wave i {
+    animation:
+      odTalk 0.55s ease-in-out infinite alternate,
+      odCollapse 0.7s cubic-bezier(0.6, 0, 0.4, 1) 2.7s both;
+  }
+  :global(.is-play) .od-note {
+    animation: fade 0.3s ease 3.1s both;
+  }
+  :global(.is-play) .od-note p {
+    animation: typeIn 0.45s steps(16) both;
+  }
+  :global(.is-play) .od-rec {
+    animation: odStop 0.1s linear 2.7s both;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.is-play) .od *,
+    .od-rec::before {
+      animation: none !important;
+    }
+  }
+  @keyframes odTalk {
+    from {
+      transform: scaleY(0.25);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+  @keyframes odCollapse {
+    from {
+      transform: scaleY(1);
+      opacity: 0.9;
+    }
+    to {
+      transform: scaleY(0.06);
+      opacity: 0.5;
+    }
+  }
+  @keyframes odStop {
+    to {
+      opacity: 0.5;
+    }
+  }
+</style>

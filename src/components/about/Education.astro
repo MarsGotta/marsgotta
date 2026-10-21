@@ -1,0 +1,44 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const t = getMessages(Astro.props.lang).about;
+---
+
+<section class="sec sec--tight" aria-labelledby="education-title">
+  <div class="wrap">
+    <h2 class="label rule" id="education-title">
+      {t.eduT}
+    </h2>
+    <div class="edu">
+      <p>{t.edu}</p>
+      <span class="chip">{t.eduState}</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .edu {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 26px;
+    padding: 28px 32px;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    background: var(--card);
+  }
+  .edu p {
+    margin: 0;
+    font: 600 clamp(19px, 1.8vw, 24px) / 1.3 var(--display);
+    letter-spacing: -0.015em;
+  }
+  .chip {
+    color: var(--warm-text);
+  }
+</style>

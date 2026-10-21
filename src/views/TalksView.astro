@@ -1,19 +1,18 @@
 ---
-import Base from '../layouts/Base.astro';
+import PageHeader from '../components/page/PageHeader.astro';
+import TalkList from '../components/talks/TalkList.astro';
 import { getMessages, type Lang } from '../i18n';
+import Base from '../layouts/Base.astro';
 
 interface Props {
   lang: Lang;
 }
 
 const { lang } = Astro.props;
-const t = getMessages(lang);
+const t = getMessages(lang).talks;
 ---
 
 <Base lang={lang} route="talks">
-  <section class="sec">
-    <div class="wrap">
-      <h1 class="h1">{t.nav.charlas}</h1>
-    </div>
-  </section>
+  <PageHeader kicker={t.kicker} title={t.h1a} accent={t.h1b} caption={t.caption} />
+  <TalkList lang={lang} />
 </Base>

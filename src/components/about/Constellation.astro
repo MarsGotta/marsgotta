@@ -1,0 +1,298 @@
+---
+import { projectKeys } from '../../content/projects';
+import { techLinks, techStars, type TechStar } from '../../content/tech';
+import { getMessages, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const messages = getMessages(Astro.props.lang);
+const t = messages.about;
+const filters = [
+  { key: 'all', label: t.all },
+  ...projectKeys.map((key) => ({ key, label: messages.sys.items[key].name })),
+];
+const labelOf = (star: TechStar) =>
+  typeof star.label === 'string' ? star.label : String(t[star.label.copy]);
+const projectsOf = (star: TechStar) => star.projects?.join(' ');
+---
+
+<section class="sec sec--tight tech" aria-labelledby="tech-title" data-constellation data-p="all">
+  <div class="wrap">
+    <div class="head">
+      <p class="label rule">{t.techK}</p>
+      <h2 class="h2" id="tech-title">
+        {t.techT}
+      </h2>
+      <p class="lead">{t.techLead}</p>
+    </div>
+    <div class="filter" role="group" aria-label={t.filterLabel}>
+      {filters.map((filter) => (
+        <button
+          type="button"
+          class={filter.key === 'all' ? undefined : `p-${filter.key}`}
+          aria-pressed={filter.key === 'all' ? 'true' : 'false'}
+          data-filter={filter.key}
+        >
+          <i />
+          {filter.label}
+        </button>
+      ))}
+    </div>
+    <div class="constel">
+      <svg class="lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        {techLinks.map((link) => (
+          <line
+            class={link.project}
+            x1={link.from[0]}
+            y1={link.from[1]}
+            x2={link.to[0]}
+            y2={link.to[1]}
+          />
+        ))}
+      </svg>
+      {t.groups.map((group) => (
+        <span class="group" style={`left: ${group.x}; top: ${group.y}`}>
+          {group.label}
+        </span>
+      ))}
+      <ul class="stars">
+        {techStars.map((star) => (
+          <li
+            class:list={['star', star.learning && 'learn']}
+            style={`left: ${star.x}%; top: ${star.y}%`}
+            data-projects={projectsOf(star)}
+          >
+            <i />
+            {labelOf(star)}
+            {star.learning && <em>{t.learning}</em>}
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="techlist">
+      {t.groups.map((group, index) => (
+        <div>
+          <p class="label">{group.label}</p>
+          <ul>
+            {techStars
+              .filter((star) => star.group === index)
+              .map((star) => (
+                <li class="item" data-projects={projectsOf(star)}>
+                  {labelOf(star)}
+                  {star.learning && ` · ${t.learning}`}
+                </li>
+              ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initConstellations } from '../../scripts/constellation';
+
+  initConstellations();
+</script>
+
+<style>
+  .tech {
+    padding-top: 24px;
+  }
+  .tech .head {
+    margin-bottom: 0;
+  }
+  /* Only the sky takes the picked project's colour: the filter buttons keep their own. */
+  .tech[data-p='kimen'] :is(.constel, .techlist) {
+    --pc: var(--kimen);
+  }
+  .tech[data-p='jezero'] :is(.constel, .techlist) {
+    --pc: var(--jezero);
+  }
+  .tech[data-p='orbit'] :is(.constel, .techlist) {
+    --pc: var(--orbit);
+  }
+  .filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 26px;
+  }
+  .filter button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 16px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--fg-muted);
+    font: 500 14px/1 var(--sans);
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .filter button i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--pc, var(--fg-subtle));
+  }
+  .filter button:hover {
+    color: var(--fg);
+    border-color: var(--fg);
+  }
+  .filter button[aria-pressed='true'] {
+    color: var(--fg);
+    border-color: var(--pc, var(--fg));
+    background: color-mix(in srgb, var(--pc, var(--fg)) 12%, transparent);
+  }
+  .constel {
+    position: relative;
+    height: 560px;
+    margin-top: 32px;
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    overflow: hidden;
+    background: radial-gradient(
+      70% 90% at 50% 50%,
+      color-mix(in srgb, var(--bg-deep) 60%, transparent),
+      transparent
+    );
+  }
+  .lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .lines line {
+    display: none;
+    stroke: var(--pc);
+    stroke-width: 1.2;
+    vector-effect: non-scaling-stroke;
+    stroke-dasharray: 4 4;
+    opacity: 0.9;
+    animation: fade 0.6s ease both;
+  }
+  .tech[data-p='kimen'] line.kimen,
+  .tech[data-p='jezero'] line.jezero,
+  .tech[data-p='orbit'] line.orbit {
+    display: inline;
+  }
+  .group {
+    position: absolute;
+    font: 500 10px/1 var(--mono);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg-subtle);
+    opacity: 0.85;
+  }
+  .stars {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .star {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    transform: translate(-5px, -50%);
+    white-space: nowrap;
+    font-size: 13.5px;
+    line-height: 1;
+    color: var(--fg-muted);
+    transition:
+      color 0.4s,
+      opacity 0.4s;
+  }
+  .star i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--fg-subtle);
+    flex: none;
+    transition: all 0.4s;
+  }
+  .star.learn i {
+    background: transparent;
+    border: 1.3px solid var(--fg-subtle);
+  }
+  .star em {
+    font: 500 9.5px/1 var(--mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg-subtle);
+    font-style: normal;
+  }
+  /* Picking a project lights up the technologies it uses and dims the rest. The prototype faded
+     whole labels to 32 %; only the dots fade here, so dimmed names keep 5:1 contrast (WCAG 1.4.3). */
+  .tech:not([data-p='all']) .star {
+    color: var(--fg-subtle);
+  }
+  .tech:not([data-p='all']) .star i {
+    opacity: 0.32;
+  }
+  .tech[data-p='kimen'] .star[data-projects~='kimen'],
+  .tech[data-p='jezero'] .star[data-projects~='jezero'],
+  .tech[data-p='orbit'] .star[data-projects~='orbit'] {
+    color: var(--fg);
+  }
+  .tech[data-p='kimen'] .star[data-projects~='kimen'] i,
+  .tech[data-p='jezero'] .star[data-projects~='jezero'] i,
+  .tech[data-p='orbit'] .star[data-projects~='orbit'] i {
+    opacity: 1;
+    background: var(--pc);
+    border-color: var(--pc);
+    box-shadow:
+      0 0 0 4px color-mix(in srgb, var(--pc) 22%, transparent),
+      0 0 16px var(--pc);
+  }
+  .techlist {
+    display: none;
+    margin-top: 28px;
+    gap: 22px;
+  }
+  .techlist div {
+    display: grid;
+    gap: 10px;
+  }
+  .techlist ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .item {
+    padding: 7px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 14px;
+    color: var(--fg-muted);
+  }
+  .tech[data-p='kimen'] .item[data-projects~='kimen'],
+  .tech[data-p='jezero'] .item[data-projects~='jezero'],
+  .tech[data-p='orbit'] .item[data-projects~='orbit'] {
+    color: var(--fg);
+    border-color: var(--pc);
+  }
+  @media (max-width: 860px) {
+    .constel {
+      display: none;
+    }
+    .techlist {
+      display: grid;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lines line {
+      animation: none;
+    }
+  }
+</style>

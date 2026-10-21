@@ -1,0 +1,186 @@
+---
+import type { ProjectKey } from '../../content/projects';
+import { getMessages, type Lang } from '../../i18n';
+import DemoStage from '../system/DemoStage.astro';
+import JezeroDemo from '../system/JezeroDemo.astro';
+import KimenDemo from '../system/KimenDemo.astro';
+import OrbitDemo from '../system/OrbitDemo.astro';
+
+interface Props {
+  lang: Lang;
+  project: ProjectKey;
+  index: number;
+}
+
+const { lang, project, index } = Astro.props;
+const t = getMessages(lang);
+const item = t.pj.items[project];
+const summary = t.sys.items[project];
+const Demo = { kimen: KimenDemo, jezero: JezeroDemo, orbit: OrbitDemo }[project];
+const titleId = `project-${project}`;
+---
+
+<article class:list={['chap', `p-${project}`]} id={project} aria-labelledby={titleId}>
+  <div class="grid">
+    <div>
+      <p class="idx">
+        <span>0{index + 1}</span>
+        <i></i>
+        <span>{item.role}</span>
+      </p>
+      <h2 class="name" id={titleId}>
+        {summary.name}
+      </h2>
+      <p class="sub">{item.sub}</p>
+      <div class="meta">
+        {summary.chips.map((chip) => (
+          <span class="chip">{chip}</span>
+        ))}
+        {item.links.map((link) => (
+          <a class="ext" href={link.href} target="_blank" rel="noopener noreferrer">
+            {link.label}
+            <span aria-hidden="true">↗</span>
+          </a>
+        ))}
+        {'soon' in item && item.soon && <span class="ext">{t.pj.soon}</span>}
+      </div>
+      <p class="desc">{item.desc}</p>
+      <ul class="bullets">
+        {item.bullets.map((bullet) => (
+          <li>{bullet}</li>
+        ))}
+      </ul>
+      {'note' in item && (
+        <p class="note">
+          <em>{item.noteK}</em> {item.note}
+        </p>
+      )}
+      <p class="stack">
+        <span class="label">Stack</span>
+        {item.stack}
+      </p>
+    </div>
+    <div class="demo">
+      <DemoStage active={project} large>
+        <Demo lang={lang} />
+      </DemoStage>
+    </div>
+  </div>
+</article>
+
+<style>
+  .chap {
+    position: relative;
+    padding-block: clamp(80px, 9vw, 140px);
+    border-bottom: 1px solid var(--line);
+    scroll-margin-top: 96px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(36px, 5.5vw, 96px);
+    align-items: start;
+  }
+  .idx {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0;
+    color: var(--pc-text);
+  }
+  .idx i {
+    width: 46px;
+    height: 1px;
+    background: currentColor;
+  }
+  .idx span {
+    font: 500 11px/1 var(--mono);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .name {
+    margin: 22px 0 0;
+    font: 700 clamp(64px, 9.4vw, 150px) / 0.9 var(--display);
+    letter-spacing: -0.05em;
+  }
+  .sub {
+    margin: 14px 0 0;
+    font: 600 clamp(20px, 2vw, 28px) / 1.2 var(--display);
+    letter-spacing: -0.02em;
+    color: var(--pc-text);
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 14px;
+    margin-top: 26px;
+    color: var(--pc-text);
+  }
+  .meta .ext {
+    color: var(--fg-muted);
+  }
+  .desc {
+    margin: 28px 0 0;
+    font-size: clamp(18px, 1.4vw, 20px);
+    line-height: 1.6;
+    color: var(--fg);
+  }
+  .bullets {
+    display: grid;
+    gap: 12px;
+    margin: 24px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .bullets li {
+    display: grid;
+    grid-template-columns: 18px minmax(0, 1fr);
+    gap: 10px;
+    color: var(--fg-muted);
+    font-size: 16.5px;
+    line-height: 1.55;
+  }
+  .bullets li::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    margin-top: 9px;
+    border-radius: 50%;
+    border: 1.4px solid var(--pc);
+  }
+  .note {
+    margin: 26px 0 0;
+    padding: 18px 20px;
+    border: 1px dashed var(--line-strong);
+    border-radius: 16px;
+    color: var(--fg-muted);
+    font-size: 15.5px;
+    line-height: 1.6;
+  }
+  .note em {
+    font-style: italic;
+    color: var(--fg);
+  }
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 14px;
+    margin: 28px 0 0;
+    color: var(--fg-muted);
+    font-size: 15px;
+  }
+  .demo {
+    position: sticky;
+    top: 110px;
+  }
+  @media (max-width: 980px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+    .demo {
+      position: static;
+    }
+  }
+</style>

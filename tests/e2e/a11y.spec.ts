@@ -11,11 +11,21 @@ for (const theme of ['dark', 'light']) {
       await page.goto(route);
       const results = await new AxeBuilder({ page })
         .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
-        // The rejected line in the Kimen demo is dimmed on purpose. The demo is an illustration with
-        // a text alternative (role="img"), so its text is incidental under WCAG 1.4.3.
-        .exclude('.kd-l.bad')
+        // The project demos are illustrations with a text alternative (role="img"): the text drawn
+        // inside them is incidental under WCAG 1.4.3. The role="img" element itself is still checked.
+        .exclude('[data-demo-stage] [role="img"] > *')
         .analyze();
       expect(results.violations).toEqual([]);
     });
   }
+}
+
+for (const project of ['Kimen', 'Jezero', 'Orbit']) {
+  test(`the constellation filtered by ${project} keeps every label legible`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/sobre-mi');
+    await page.getByRole('button', { name: project, exact: true }).click();
+    const results = await new AxeBuilder({ page }).include('[data-constellation]').analyze();
+    expect(results.violations).toEqual([]);
+  });
 }

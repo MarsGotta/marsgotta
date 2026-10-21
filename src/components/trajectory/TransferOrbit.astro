@@ -1,6 +1,7 @@
 ---
 import { getMessages, type Lang } from '../../i18n';
 import { localizedPath } from '../../i18n/routes';
+import TransferDiagram from './TransferDiagram.astro';
 
 interface Props {
   lang: Lang;
@@ -8,10 +9,6 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = getMessages(lang);
-
-/* Real Hohmann half-ellipses between circular orbits r = 56, 112 and 180 around the sun:
-   a = (r1 + r2) / 2 and b = √(r1·r2). The path draws itself as the figure scrolls into view. */
-const PATH = 'M224 190 A84 79.2 0 0 1 392 190 A146 141.99 0 0 1 100 190';
 ---
 
 <section class="sec sec--tight" aria-labelledby="trajectory-title">
@@ -26,38 +23,34 @@ const PATH = 'M224 190 A84 79.2 0 0 1 392 190 A146 141.99 0 0 1 100 190';
         <span aria-hidden="true">→</span>
       </a>
     </div>
-    <figure class="xfer">
-      <svg viewBox="0 0 560 380" role="img" aria-label={t.traj.alt}>
-        <circle class="sun" cx="280" cy="190" r="3.5"></circle>
-        <circle class="orb" cx="280" cy="190" r="56"></circle>
-        <circle class="orb" cx="280" cy="190" r="112"></circle>
-        <circle class="orb" cx="280" cy="190" r="180"></circle>
-        <path class="ghost" d={PATH}></path>
-        <path class="path" pathLength="1" d={PATH}></path>
-        <circle class="ms" cx="224" cy="190" r="5"></circle>
-        <circle class="ms" cx="392" cy="190" r="5"></circle>
-        <circle class="ms now" cx="100" cy="190" r="6"></circle>
-        <circle class="probe" r="3.5"></circle>
-        <text class="y" x="232" y="216">
-          2014
-        </text>
-        <text x="232" y="232">
-          {t.traj.m1}
-        </text>
-        <text class="y" x="400" y="216">
-          2019
-        </text>
-        <text x="400" y="232">
-          {t.traj.m2}
-        </text>
-        <text class="y" x="110" y="216">
-          2024
-        </text>
-        <text x="110" y="232">
-          {t.traj.m3}
-        </text>
-      </svg>
-    </figure>
+    <TransferDiagram
+      width={560}
+      height={380}
+      radii={[56, 112, 180]}
+      label={t.traj.alt}
+      dotRadius={3.5}
+      nowRadius={6}
+      drivenBy="figure"
+    >
+      <text class="y" x="232" y="216">
+        2014
+      </text>
+      <text x="232" y="232">
+        {t.traj.m1}
+      </text>
+      <text class="y" x="400" y="216">
+        2019
+      </text>
+      <text x="400" y="232">
+        {t.traj.m2}
+      </text>
+      <text class="y" x="110" y="216">
+        2024
+      </text>
+      <text x="110" y="232">
+        {t.traj.m3}
+      </text>
+    </TransferDiagram>
   </div>
 </section>
 
@@ -72,94 +65,9 @@ const PATH = 'M224 190 A84 79.2 0 0 1 392 190 A146 141.99 0 0 1 100 190';
     margin: 22px 0 34px;
     max-width: 17em;
   }
-  .xfer {
-    margin: 0;
-    width: 100%;
-    max-width: 640px;
-    justify-self: end;
-    view-timeline-name: --xfer;
-  }
-  .xfer svg {
-    display: block;
-    width: 100%;
-    height: auto;
-    overflow: visible;
-  }
-  .orb {
-    fill: none;
-    stroke: var(--line-strong);
-    stroke-width: 1;
-    vector-effect: non-scaling-stroke;
-  }
-  .path {
-    fill: none;
-    stroke: var(--warm);
-    stroke-width: 1.6;
-    stroke-dasharray: 1;
-    stroke-dashoffset: 0;
-    vector-effect: non-scaling-stroke;
-    stroke-linecap: round;
-  }
-  .ghost {
-    fill: none;
-    stroke: var(--warm);
-    stroke-width: 1;
-    stroke-dasharray: 3 5;
-    opacity: 0.35;
-    vector-effect: non-scaling-stroke;
-  }
-  .ms {
-    fill: var(--bg);
-    stroke: var(--warm);
-    stroke-width: 1.6;
-  }
-  .ms.now {
-    fill: var(--warm);
-  }
-  .sun {
-    fill: var(--fg-subtle);
-  }
-  text {
-    font: 500 10.5px var(--mono);
-    letter-spacing: 0.12em;
-    fill: var(--fg-muted);
-    text-transform: uppercase;
-  }
-  text.y {
-    fill: var(--fg);
-    font-weight: 600;
-  }
-  .probe {
-    fill: var(--fg);
-    offset-path: path('M224 190 A84 79.2 0 0 1 392 190 A146 141.99 0 0 1 100 190');
-    offset-distance: 100%;
-    offset-rotate: 0deg;
-  }
-  /* Progressive enhancement: without scroll-driven animations the trajectory is already drawn. */
-  @supports (animation-timeline: view()) {
-    .path,
-    .probe {
-      animation-timing-function: linear;
-      animation-fill-mode: both;
-      animation-timeline: --xfer;
-      animation-range: entry 30% cover 55%;
-    }
-    .path {
-      animation-name: draw;
-    }
-    .probe {
-      animation-name: probe;
-    }
-  }
   @media (max-width: 980px) {
     .grid {
       grid-template-columns: 1fr;
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .path,
-    .probe {
-      animation: none;
     }
   }
 </style>

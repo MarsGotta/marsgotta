@@ -1,0 +1,122 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+import TransferDiagram from './TransferDiagram.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const t = getMessages(Astro.props.lang).about;
+/** Periods such as «abr 2019 – feb 2022» get their starting year as a machine-readable date. */
+const startYear = (period: string) => period.match(/\d{4}/)?.[0];
+---
+
+<section class="sec sec--tight" aria-labelledby="roles-title">
+  <div class="wrap">
+    <div class="head">
+      <p class="label rule">{t.trajK}</p>
+      <h2 class="h2" id="roles-title">
+        {t.trajT}
+      </h2>
+    </div>
+    <div class="timeline">
+      <ol class="roles">
+        {t.roles.map((role) => (
+          <li>
+            <time datetime={startYear(role.when)}>{role.when}</time>
+            <div>
+              <h3 class="h4">{role.what}</h3>
+              <p>{role.detail}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <TransferDiagram
+        width={640}
+        height={640}
+        radii={[44, 84, 128, 176, 228, 284]}
+        label={t.trajAlt}
+        dotRadius={4}
+        nowRadius={6.5}
+        drivenBy="roles"
+        caption={t.trajCap}
+      >
+        <text class="y" x="283" y="344">
+          2014
+        </text>
+        <text class="y" x="411" y="344">
+          2018
+        </text>
+        <text class="y" x="199" y="344">
+          2019
+        </text>
+        <text class="y" x="503" y="344">
+          2022
+        </text>
+        <text class="y" x="99" y="344">
+          2024
+        </text>
+        <text class="y" x="611" y="306">
+          2026
+        </text>
+      </TransferDiagram>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* The trajectory draws itself while the list of roles scrolls past. */
+  .timeline {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(36px, 5vw, 88px);
+    align-items: start;
+    timeline-scope: --roles;
+  }
+  .timeline > :global(.xfer) {
+    position: sticky;
+    top: 110px;
+  }
+  .roles {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+    view-timeline-name: --roles;
+  }
+  .roles li {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: 20px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  time {
+    font: 500 11px/1.5 var(--mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--warm-text);
+    padding-top: 5px;
+  }
+  .roles p {
+    margin: 6px 0 0;
+    color: var(--fg-muted);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  @media (max-width: 980px) {
+    .timeline {
+      grid-template-columns: 1fr;
+    }
+    .timeline > :global(.xfer) {
+      position: static;
+      order: -1;
+    }
+  }
+  @media (max-width: 560px) {
+    .roles li {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+  }
+</style>

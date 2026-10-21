@@ -1,19 +1,18 @@
 ---
-import Base from '../layouts/Base.astro';
+import ContactSection from '../components/contact/ContactSection.astro';
+import PageHeader from '../components/page/PageHeader.astro';
 import { getMessages, type Lang } from '../i18n';
+import Base from '../layouts/Base.astro';
 
 interface Props {
   lang: Lang;
 }
 
 const { lang } = Astro.props;
-const t = getMessages(lang);
+const t = getMessages(lang).contact;
 ---
 
 <Base lang={lang} route="contact">
-  <section class="sec">
-    <div class="wrap">
-      <h1 class="h1">{t.nav.contacto}</h1>
-    </div>
-  </section>
+  <PageHeader kicker={t.kicker} title={t.h1} lead={t.lead} gradient />
+  <ContactSection lang={lang} />
 </Base>

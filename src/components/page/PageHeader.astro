@@ -1,0 +1,104 @@
+---
+interface Props {
+  kicker: string;
+  /** First words of the title; `accent` follows in lilac italics. */
+  title: string;
+  accent?: string;
+  /** Contact paints its one-word title with the gradient of «contigo.». */
+  gradient?: boolean;
+  lead?: string;
+  /** A short line in label style instead of a lead (Talks). */
+  caption?: string;
+}
+
+const { kicker, title, accent, gradient = false, lead, caption } = Astro.props;
+---
+
+<header class="phead">
+  <div class="deco loop" aria-hidden="true">
+    <svg viewBox="0 0 1040 420">
+      <ellipse cx="520" cy="200" rx="380" ry="84"></ellipse>
+      <ellipse cx="520" cy="200" rx="230" ry="51" opacity=".7"></ellipse>
+      <circle class="planet" cx="520" cy="200" r="58"></circle>
+      <circle cx="520" cy="200" r="58" fill="url(#planet-shade)"></circle>
+      <circle class="moon" r="4"></circle>
+    </svg>
+  </div>
+  <div class="wrap">
+    <p class="label rule">{kicker}</p>
+    <h1 class="h1">
+      <span class:list={['w', gradient && 'gr']}>{title}</span>
+      {accent && (
+        <>
+          {' '}
+          <span class="w it accent">{accent}</span>
+        </>
+      )}
+    </h1>
+    {lead && <p class="lead intro">{lead}</p>}
+    {caption && <p class="label intro">{caption}</p>}
+    <slot />
+  </div>
+</header>
+
+<style>
+  .phead {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    margin-top: calc(-1 * var(--nav-height));
+    padding-top: calc(var(--nav-height) + clamp(72px, 8vw, 132px));
+    padding-bottom: clamp(64px, 6.6vw, 104px);
+    border-bottom: 1px solid var(--line);
+  }
+  .phead .label {
+    margin-bottom: 26px;
+  }
+  .intro {
+    max-width: 36em;
+    margin-top: 32px;
+  }
+  .deco {
+    position: absolute;
+    z-index: -1;
+    right: -6vw;
+    top: 40px;
+    width: 58vw;
+    max-width: 820px;
+    opacity: 0.9;
+    pointer-events: none;
+  }
+  .deco svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .deco ellipse {
+    fill: none;
+    stroke: var(--line-strong);
+    vector-effect: non-scaling-stroke;
+  }
+  .planet {
+    fill: url(#planet-gradient);
+  }
+  .moon {
+    fill: var(--warm);
+    offset-path: path('M 140 200 A 380 84 0 1 0 900 200 A 380 84 0 1 0 140 200');
+    offset-rotate: 0deg;
+    animation: probe 54s linear infinite;
+  }
+  .w {
+    display: inline-block;
+    animation: word 1s var(--ease-out) both;
+  }
+  .accent {
+    font-weight: 600;
+    animation-delay: 0.16s;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .w {
+      animation: none;
+    }
+  }
+</style>

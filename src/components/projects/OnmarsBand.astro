@@ -1,0 +1,60 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const t = getMessages(Astro.props.lang).pj;
+---
+
+<section class="sec sec--tight" aria-labelledby="onmars-title">
+  <h2 class="sr-only" id="onmars-title">
+    onmars
+  </h2>
+  <div class="onmars">
+    <svg viewBox="0 0 560 560" aria-hidden="true">
+      <use href="#brand-mark" width="560" height="560"></use>
+    </svg>
+    <p>
+      {t.onmarsA} <strong>onmars</strong>
+      {t.onmarsB}
+    </p>
+    <a class="arrow" href="https://onmars.tech" target="_blank" rel="noopener noreferrer">
+      onmars.tech<span aria-hidden="true">↗</span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .onmars {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 28px;
+    padding: 32px 36px;
+    border: 1px solid var(--line);
+    border-radius: 26px;
+    background: var(--card);
+  }
+  .onmars p {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--fg-muted);
+  }
+  .onmars strong {
+    color: var(--fg);
+    font-weight: 600;
+  }
+  .onmars svg {
+    width: 46px;
+    height: 46px;
+  }
+  @media (max-width: 860px) {
+    .onmars {
+      grid-template-columns: 1fr;
+      padding: 26px;
+    }
+  }
+</style>

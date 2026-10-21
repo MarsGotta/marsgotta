@@ -1,19 +1,26 @@
 ---
-import Base from '../layouts/Base.astro';
+import Constellation from '../components/about/Constellation.astro';
+import Education from '../components/about/Education.astro';
+import Intro from '../components/about/Intro.astro';
+import Leadership from '../components/about/Leadership.astro';
+import PageHeader from '../components/page/PageHeader.astro';
+import TransferTimeline from '../components/trajectory/TransferTimeline.astro';
 import { getMessages, type Lang } from '../i18n';
+import Base from '../layouts/Base.astro';
 
 interface Props {
   lang: Lang;
 }
 
 const { lang } = Astro.props;
-const t = getMessages(lang);
+const t = getMessages(lang).about;
 ---
 
 <Base lang={lang} route="about">
-  <section class="sec">
-    <div class="wrap">
-      <h1 class="h1">{t.nav.sobre}</h1>
-    </div>
-  </section>
+  <PageHeader kicker={t.kicker} title={t.h1a} accent={t.h1b} />
+  <Intro lang={lang} />
+  <Leadership lang={lang} />
+  <TransferTimeline lang={lang} />
+  <Education lang={lang} />
+  <Constellation lang={lang} />
 </Base>

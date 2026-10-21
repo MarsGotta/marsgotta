@@ -1,0 +1,54 @@
+---
+import { projectKeys } from '../../content/projects';
+import { getMessages, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const t = getMessages(Astro.props.lang);
+---
+
+<nav class="pjnav" aria-label={t.pj.navLabel}>
+  {projectKeys.map((key) => (
+    <a class={`p-${key}`} href={`#${key}`}>
+      <i />
+      {t.sys.items[key].name}
+    </a>
+  ))}
+</nav>
+
+<style>
+  .pjnav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 40px;
+  }
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 0 18px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    color: var(--fg);
+    text-decoration: none;
+    font-weight: 500;
+    transition:
+      border-color 0.25s,
+      background-color 0.25s;
+  }
+  a i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--pc);
+    box-shadow: 0 0 10px var(--pc);
+  }
+  a:hover {
+    border-color: var(--pc);
+    background: color-mix(in srgb, var(--pc) 10%, transparent);
+  }
+</style>

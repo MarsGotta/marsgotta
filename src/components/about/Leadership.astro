@@ -1,0 +1,65 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const t = getMessages(Astro.props.lang).about;
+---
+
+<section class="sec sec--tight" aria-labelledby="lead-title">
+  <div class="wrap">
+    <h2 class="label rule" id="lead-title">
+      {t.leadT}
+    </h2>
+    <p class="motto">
+      {t.motto1} <span class="it">{t.motto2}</span>
+    </p>
+    <ol class="axes">
+      {t.axes.map((axis) => (
+        <li>
+          <span class="label label--warm">{axis.n}</span>
+          <h3 class="h4">{axis.t}</h3>
+          <p>{axis.d}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .motto {
+    margin: 28px 0 0;
+    max-width: 15em;
+    font: 700 clamp(40px, 5.6vw, 86px) / 1 var(--display);
+    letter-spacing: -0.042em;
+    text-wrap: balance;
+  }
+  .axes {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin: clamp(48px, 5.4vw, 80px) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .axes li {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line-strong);
+  }
+  .axes p {
+    margin: 0;
+    color: var(--fg-muted);
+    font-size: 16.5px;
+    line-height: 1.6;
+  }
+  @media (max-width: 860px) {
+    .axes {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

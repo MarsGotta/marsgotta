@@ -1,0 +1,144 @@
+---
+import { hohmannPath, transferPoints } from '../../lib/hohmann';
+
+interface Props {
+  width: number;
+  height: number;
+  /** Circular orbits around the sun, innermost first: one per stage of the career. */
+  radii: number[];
+  label: string;
+  /** Size of the sun and of the probe that travels the path. */
+  dotRadius: number;
+  /** Size of the last milestone, which is today. */
+  nowRadius: number;
+  /** Scroll that draws the path: the figure itself, or the list of roles next to it (About). */
+  drivenBy: 'figure' | 'roles';
+  caption?: string;
+}
+
+const { width, height, radii, label, dotRadius, nowRadius, drivenBy, caption } = Astro.props;
+const cx = width / 2;
+const cy = height / 2;
+const path = hohmannPath(cx, cy, radii);
+const milestones = transferPoints(cx, cy, radii);
+---
+
+<figure class:list={['xfer', drivenBy === 'roles' && 'xfer--roles']}>
+  <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label={label}>
+    <circle class="sun" cx={cx} cy={cy} r={dotRadius}></circle>
+    {radii.map((radius) => (
+      <circle class="orb" cx={cx} cy={cy} r={radius} />
+    ))}
+    <path class="ghost" d={path}></path>
+    <path class="path" pathLength="1" d={path}></path>
+    {milestones.map((point, index) => {
+      const isNow = index === milestones.length - 1;
+      return (
+        <circle
+          class:list={['ms', isNow && 'now']}
+          cx={point.x}
+          cy={point.y}
+          r={isNow ? nowRadius : 5}
+        />
+      );
+    })}
+    <circle class="probe" r={dotRadius} style={`offset-path: path('${path}')`}></circle>
+    <slot />
+  </svg>
+  {caption && <figcaption class="label">{caption}</figcaption>}
+</figure>
+
+<style>
+  .xfer {
+    margin: 0;
+    width: 100%;
+    max-width: 640px;
+    justify-self: end;
+    view-timeline-name: --xfer;
+  }
+  .xfer--roles {
+    view-timeline-name: none;
+  }
+  .xfer svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .orb {
+    fill: none;
+    stroke: var(--line-strong);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+  }
+  .path {
+    fill: none;
+    stroke: var(--warm);
+    stroke-width: 1.6;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+    vector-effect: non-scaling-stroke;
+    stroke-linecap: round;
+  }
+  .ghost {
+    fill: none;
+    stroke: var(--warm);
+    stroke-width: 1;
+    stroke-dasharray: 3 5;
+    opacity: 0.35;
+    vector-effect: non-scaling-stroke;
+  }
+  .ms {
+    fill: var(--bg);
+    stroke: var(--warm);
+    stroke-width: 1.6;
+  }
+  .ms.now {
+    fill: var(--warm);
+  }
+  .sun {
+    fill: var(--fg-subtle);
+  }
+  .xfer :global(text) {
+    font: 500 10.5px var(--mono);
+    letter-spacing: 0.12em;
+    fill: var(--fg-muted);
+    text-transform: uppercase;
+  }
+  .xfer :global(text.y) {
+    fill: var(--fg);
+    font-weight: 600;
+  }
+  .probe {
+    fill: var(--fg);
+    offset-distance: 100%;
+    offset-rotate: 0deg;
+  }
+  /* Progressive enhancement: without scroll-driven animations the trajectory is already drawn. */
+  @supports (animation-timeline: view()) {
+    .path,
+    .probe {
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: --xfer;
+      animation-range: entry 30% cover 55%;
+    }
+    .xfer--roles .path,
+    .xfer--roles .probe {
+      animation-timeline: --roles;
+      animation-range: cover 12% cover 72%;
+    }
+    .path {
+      animation-name: draw;
+    }
+    .probe {
+      animation-name: probe;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .path,
+    .probe {
+      animation: none;
+    }
+  }
+</style>

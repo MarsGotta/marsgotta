@@ -1,0 +1,87 @@
+---
+import { email, socialChannels } from '../../content/profile';
+import { getMessages, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const t = getMessages(Astro.props.lang).contact;
+---
+
+<div>
+  <h2 class="label rule">{t.chanT}</h2>
+  <ul class="chan">
+    <li>
+      <a class="big" href={`mailto:${email}`}>
+        <span>Email</span>
+        <strong>{email}</strong>
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M4 12h15M13 6l6 6-6 6"></path>
+        </svg>
+      </a>
+    </li>
+    {socialChannels.map((channel) => (
+      <li>
+        <a href={channel.href} target="_blank" rel="noopener noreferrer">
+          <span>{channel.name}</span>
+          <strong>{channel.address}</strong>
+          <span aria-hidden="true">↗</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<style>
+  .rule {
+    margin-bottom: 22px;
+  }
+  .chan {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line-strong);
+  }
+  a {
+    display: grid;
+    grid-template-columns: 110px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 16px;
+    min-height: 76px;
+    border-bottom: 1px solid var(--line);
+    color: var(--fg);
+    text-decoration: none;
+    transition:
+      padding 0.35s var(--ease-soft),
+      color 0.25s;
+  }
+  a:hover {
+    padding-left: 10px;
+    color: var(--warm-text);
+  }
+  span {
+    font: 500 10.5px/1 var(--mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg-subtle);
+  }
+  strong {
+    font: 600 clamp(18px, 1.7vw, 23px) / 1.2 var(--display);
+    letter-spacing: -0.015em;
+    overflow-wrap: anywhere;
+  }
+  .big strong {
+    font-size: clamp(22px, 2.3vw, 32px);
+  }
+</style>

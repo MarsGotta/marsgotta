@@ -1,19 +1,28 @@
 ---
-import Base from '../layouts/Base.astro';
+import PageHeader from '../components/page/PageHeader.astro';
+import OnmarsBand from '../components/projects/OnmarsBand.astro';
+import ProjectChapter from '../components/projects/ProjectChapter.astro';
+import ProjectNav from '../components/projects/ProjectNav.astro';
+import { projectKeys } from '../content/projects';
 import { getMessages, type Lang } from '../i18n';
+import Base from '../layouts/Base.astro';
 
 interface Props {
   lang: Lang;
 }
 
 const { lang } = Astro.props;
-const t = getMessages(lang);
+const t = getMessages(lang).pj;
 ---
 
 <Base lang={lang} route="projects">
-  <section class="sec">
-    <div class="wrap">
-      <h1 class="h1">{t.nav.proyectos}</h1>
-    </div>
-  </section>
+  <PageHeader kicker={t.kicker} title={t.h1a} accent={t.h1b} lead={t.lead}>
+    <ProjectNav lang={lang} />
+  </PageHeader>
+  <div class="wrap">
+    {projectKeys.map((project, index) => (
+      <ProjectChapter lang={lang} project={project} index={index} />
+    ))}
+    <OnmarsBand lang={lang} />
+  </div>
 </Base>

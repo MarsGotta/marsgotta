@@ -35,8 +35,10 @@
   --orbit-b: rgba(255, 245, 238, 0.18);
   --shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.7);
 
-  --sans: 'Open Sauce Two', 'Inter Tight', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --display: 'Sora', 'Open Sauce Two', system-ui, sans-serif;
+  --sans:
+    'Open Sauce Two', 'Open Sauce Two Fallback', 'Inter Tight', system-ui, -apple-system,
+    'Segoe UI', sans-serif;
+  --display: 'Sora', 'Sora Fallback', 'Open Sauce Two', system-ui, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --nav-height: 76px;

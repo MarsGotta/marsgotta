@@ -2,11 +2,17 @@ import { defineConfig, devices } from '@playwright/test';
 
 const port = 4322;
 
+// Real GPU on macOS, so the WebGL planet runs as on a visitor's machine instead of on SwiftShader.
+const gpuArgs =
+  process.platform === 'darwin'
+    ? ['--enable-gpu', '--ignore-gpu-blocklist', '--use-angle=metal']
+    : [];
+
 export default defineConfig({
   testDir: 'tests/e2e',
   fullyParallel: true,
   reporter: 'list',
-  use: { baseURL: `http://localhost:${port}` },
+  use: { baseURL: `http://localhost:${port}`, launchOptions: { args: gpuArgs } },
   projects: [
     {
       name: 'desktop',

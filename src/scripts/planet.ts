@@ -17,7 +17,7 @@ export function initPlanet(): void {
     if (requested || currentTheme() !== 'dark') return;
     requested = true;
     const { MarsPlanet } = await import('../lib/planet/planet');
-    planet = MarsPlanet.create({
+    planet = await MarsPlanet.create({
       canvas,
       marker: system.querySelector('[data-jezero-marker]'),
       markerTime: system.querySelector('[data-jezero-time]'),

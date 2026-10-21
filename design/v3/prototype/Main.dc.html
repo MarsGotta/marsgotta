@@ -1,0 +1,2006 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Marcela Gotta · Senior Software Engineer</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;family=Sora:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Open Sauce Two';font-style:normal;font-weight:400;font-display:swap;src:url(/_blob/4ff2fc9f091cdac0886b0e0a010028ac) format('woff2')}
+@font-face{font-family:'Open Sauce Two';font-style:italic;font-weight:400;font-display:swap;src:url(/_blob/440fa321c6ccaead6235ded47231bf33) format('woff2')}
+@font-face{font-family:'Open Sauce Two';font-style:normal;font-weight:500;font-display:swap;src:url(/_blob/21ca10de03da9f4906ce1015d40b9354) format('woff2')}
+@font-face{font-family:'Open Sauce Two';font-style:normal;font-weight:600;font-display:swap;src:url(/_blob/6815408c5f382cbcb9b2da96bfe88b0d) format('woff2')}
+@font-face{font-family:'Open Sauce Two';font-style:normal;font-weight:700;font-display:swap;src:url(/_blob/05e5c27b314c43f2f2d98709afc16065) format('woff2')}
+body{margin:0;background:#0A0614}
+
+/* ---------- Tokens: dark = el espacio ---------- */
+.mg-app{
+  --bg:#0A0614;--bg-alt:#130B24;--bg-deep:#1F1331;--card:rgba(255,245,238,.035);--card-solid:#140C25;
+  --fg:#FFF5EE;--fg-muted:#A99CB8;--fg-subtle:#8A7D9A;
+  --accent:#B29BE4;--warm:#FF7F4A;--warm-text:#FF7F4A;--italic:#B29BE4;
+  --line:rgba(255,245,238,.10);--line-strong:rgba(255,245,238,.22);
+  --grad:linear-gradient(92deg,#E9603A 0%,#E64241 44%,#D11772 100%);
+  --btn-bg:#FFF5EE;--btn-fg:#0A0614;--btn-hover:linear-gradient(92deg,#FF7F4A,#E9603A 55%,#E64241);--btn-hover-fg:#0A0614;
+  --kimen:#FF7F4A;--jezero:#B29BE4;--orbit:#FFF5EE;
+  --ok:#9CDA9B;--bad:#F19997;--status:#7EE2A8;
+  --orbit-a:rgba(178,155,228,.42);--orbit-b:rgba(255,245,238,.18);
+  --shadow:0 24px 60px -24px rgba(0,0,0,.7);
+  --sans:'Open Sauce Two','Inter Tight',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --display:'Sora','Open Sauce Two',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  position:relative;min-height:100vh;background:var(--bg);color:var(--fg);
+  font-family:var(--sans);font-size:17px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  transition:background-color .7s ease,color .7s ease;
+}
+/* ---------- Tokens: light = la superficie de Marte ---------- */
+.mg-app[data-theme="light"]{
+  --bg:#F6E4D3;--bg-alt:#F1DAC5;--bg-deep:#E8C9AA;--card:#FBEFE1;--card-solid:#FBEFE1;
+  --fg:#3A1A0E;--fg-muted:#7A3D24;--fg-subtle:#8A5238;
+  --accent:#845ABE;--warm:#C54A2E;--warm-text:#9B3718;--italic:#845ABE;
+  --line:rgba(58,26,14,.14);--line-strong:rgba(58,26,14,.30);
+  --grad:linear-gradient(92deg,#C54A2E 0%,#D93B3A 46%,#D11772 100%);
+  --btn-bg:#3A1A0E;--btn-fg:#FBEFE1;--btn-hover:linear-gradient(92deg,#9B3718,#A9105E);--btn-hover-fg:#FBEFE1;
+  --kimen:#C54A2E;--jezero:#6F46A4;--orbit:#3A1A0E;
+  --ok:#1F5B1F;--bad:#A1211B;--status:#C54A2E;
+  --orbit-a:rgba(122,61,36,.42);--orbit-b:rgba(122,61,36,.22);
+  --shadow:0 24px 60px -28px rgba(58,26,14,.35);
+}
+.mg-app *,.mg-app *::before,.mg-app *::after{box-sizing:border-box}
+.mg-app ::selection{background:color-mix(in srgb,var(--accent) 38%,transparent);color:var(--fg)}
+:where(.mg-app) a{color:inherit}
+.mg-app :focus-visible{outline:2px solid var(--warm);outline-offset:3px;border-radius:8px}
+:where(.mg-app) button{font:inherit;color:inherit}
+.mg{container:mg / inline-size;position:relative;overflow:clip;min-height:400px}
+.mg-wrap{width:100%;max-width:1344px;margin-inline:auto;padding-inline:clamp(20px,4.4cqi,64px)}
+.mg-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.mg-skip{position:absolute;left:16px;top:-80px;z-index:90;padding:12px 18px;border-radius:12px;background:var(--btn-bg);color:var(--btn-fg);text-decoration:none;font-weight:600;transition:top .2s}
+.mg-skip:focus{top:16px}
+.mg-grain{position:fixed;inset:0;z-index:70;pointer-events:none;opacity:.07;mix-blend-mode:overlay;background-image:url(/_blob/9eb752e2ed27927153a2914f0692ee69);background-size:220px 220px}
+.mg-app[data-theme="light"] .mg-grain{opacity:.16;mix-blend-mode:multiply}
+
+/* ---------- Type ---------- */
+.mg-label{margin:0;font-family:var(--mono);font-size:11px;font-weight:500;line-height:1.4;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-muted)}
+.mg-label--warm{color:var(--warm-text)}
+.mg-display{margin:0;font-family:var(--display);font-weight:700;letter-spacing:-.045em;line-height:.93;font-size:clamp(46px,9cqi,150px)}
+.mg-h1{margin:0;font-family:var(--display);font-weight:700;letter-spacing:-.042em;line-height:.95;font-size:clamp(48px,8.4cqi,132px);text-wrap:balance}
+.mg-h2{margin:0;font-family:var(--display);font-weight:700;letter-spacing:-.036em;line-height:1;font-size:clamp(38px,5.4cqi,80px);text-wrap:balance}
+.mg-h3{margin:0;font-family:var(--display);font-weight:600;letter-spacing:-.026em;line-height:1.14;font-size:clamp(26px,2.7cqi,40px);text-wrap:balance}
+.mg-h4{margin:0;font-family:var(--display);font-weight:600;letter-spacing:-.016em;line-height:1.22;font-size:clamp(19px,1.6cqi,23px)}
+.mg-lead{margin:0;font-size:clamp(18px,1.45cqi,21px);line-height:1.56;color:var(--fg-muted);text-wrap:pretty}
+.mg-p{margin:0;text-wrap:pretty}
+.mg-it{font-style:italic;color:var(--italic);font-weight:600}
+.mg-gr{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ---------- Buttons & links ---------- */
+.mg-btn{position:relative;isolation:isolate;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:54px;padding:0 26px;border-radius:14px;border:1px solid transparent;font:600 15.5px/1 var(--sans);letter-spacing:-.005em;text-decoration:none;cursor:pointer;transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .3s,background-color .3s,color .3s}
+.mg-btn--primary{background:var(--btn-bg);color:var(--btn-fg)}
+.mg-btn--primary::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--btn-hover);opacity:0;transition:opacity .35s}
+.mg-btn--primary:hover{color:var(--btn-hover-fg)}
+.mg-btn--primary:hover::before{opacity:1}
+.mg-btn--ghost{background:transparent;color:var(--fg);border-color:var(--line-strong)}
+.mg-btn--ghost:hover{border-color:var(--fg);background:var(--card)}
+.mg-btn:active{transform:translateY(1px) scale(.99)}
+.mg-btn svg{transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.mg-btn:hover svg{transform:translateX(4px)}
+.mg-arrow{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0;border:0;border-bottom:1px solid var(--line-strong);background:none;color:var(--fg);font:600 16px/1 var(--sans);text-decoration:none;cursor:pointer;transition:gap .35s cubic-bezier(.2,.8,.2,1),border-color .3s,color .3s}
+.mg-arrow:hover{gap:16px;border-color:var(--warm);color:var(--warm-text)}
+.mg-chip{display:inline-flex;align-items:center;height:24px;padding:0 10px;border:1px solid currentColor;border-radius:999px;font:500 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+.mg-ext{display:inline-flex;align-items:center;gap:6px;min-height:32px;color:var(--fg-muted);font:500 12.5px/1 var(--mono);text-decoration:none;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+.mg-ext:hover{color:var(--fg);border-color:var(--line-strong)}
+
+/* ---------- Nav ---------- */
+.mg-nav{position:sticky;top:0;z-index:40}
+.mg-nav__bg{position:absolute;inset:0;pointer-events:none;background:color-mix(in srgb,var(--bg) 78%,transparent);-webkit-backdrop-filter:blur(18px) saturate(1.3);backdrop-filter:blur(18px) saturate(1.3);border-bottom:1px solid var(--line)}
+@supports (animation-timeline: scroll()){.mg-nav__bg{opacity:0;animation:mgFade linear both;animation-timeline:scroll(root);animation-range:30px 220px}}
+.mg-nav__bar{position:relative;display:flex;align-items:center;gap:16px;height:76px}
+.mg-brand{display:inline-flex;align-items:center;gap:11px;min-height:44px;margin-right:auto;color:var(--fg);text-decoration:none;font-weight:700;font-size:16.5px;letter-spacing:-.012em}
+.mg-brand svg{width:32px;height:32px;flex:none;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.mg-brand:hover svg{transform:rotate(-28deg)}
+.mg-brand__dot{color:var(--warm)}
+.mg-links{display:flex;align-items:center;gap:2px;margin:0;padding:0;list-style:none}
+.mg-link{position:relative;display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:10px;color:var(--fg-muted);font-size:14.5px;font-weight:500;text-decoration:none;transition:color .2s}
+.mg-link:hover{color:var(--fg)}
+.mg-link[aria-current="page"]{color:var(--fg)}
+.mg-link[aria-current="page"]::after{content:"";position:absolute;left:50%;bottom:5px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--warm);box-shadow:0 0 10px var(--warm)}
+.mg-tools{display:flex;align-items:center;gap:8px;margin-left:10px}
+.mg-seg{display:inline-flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:13px}
+.mg-seg button{min-width:44px;height:38px;padding:0 8px;border:0;border-radius:10px;background:transparent;color:var(--fg-muted);font:500 11px/1 var(--mono);letter-spacing:.14em;cursor:pointer;transition:background-color .2s,color .2s}
+.mg-seg button:hover{color:var(--fg)}
+.mg-seg button[aria-pressed="true"]{background:var(--line);color:var(--fg)}
+.mg-ico{display:inline-grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid var(--line);border-radius:13px;background:transparent;color:var(--fg);cursor:pointer;transition:border-color .2s,background-color .2s}
+.mg-ico:hover{border-color:var(--line-strong);background:var(--card)}
+.mg-ico svg{width:20px;height:20px}
+.mg-menubtn{display:none}
+@container mg (max-width: 980px){.mg-links,.mg-tools .mg-seg{display:none}.mg-menubtn{display:inline-grid}}
+
+/* ---------- Mobile menu (outside the container) ---------- */
+.mg-menu{position:fixed;inset:0;z-index:80;display:flex;flex-direction:column;padding:16px 20px 28px;background:var(--bg);overflow:auto;animation:mgFade .28s ease both}
+.mg-menu__top{display:flex;align-items:center;justify-content:space-between;height:60px}
+.mg-menu__list{margin:24px 0 0;padding:0;list-style:none}
+.mg-menu__list a{display:flex;align-items:baseline;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);color:var(--fg);text-decoration:none;font:700 38px/1.05 var(--display);letter-spacing:-.04em}
+.mg-menu__list a span{font:500 11px/1 var(--mono);letter-spacing:.14em;color:var(--fg-subtle)}
+.mg-menu__list a[aria-current="page"]{color:var(--warm-text)}
+.mg-menu__tools{display:flex;gap:10px;align-items:center;margin-top:28px}
+
+/* ---------- Hero ---------- */
+.mg-hero{position:relative;isolation:isolate;min-height:960px;margin-top:-76px;padding-top:76px;overflow:clip}
+.mg-hero__in{position:relative;z-index:5;padding-top:clamp(64px,6.6cqi,100px);padding-bottom:150px}
+.mg-hero__over{display:flex;align-items:center;gap:14px;margin:0 0 30px}
+.mg-hero__over i{display:block;width:30px;height:1px;background:var(--warm)}
+.mg-hero__title .ln{display:block;white-space:nowrap}
+.mg-hero__title .w{display:inline-block;margin-right:.21em}
+.mg-hero__title .w:last-child{margin-right:0}
+.mg-hero__title .it{font-style:italic;font-weight:600;color:var(--italic);letter-spacing:-.04em}
+.mg-hero__title .gr{padding-right:.05em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mg-hero__sub{max-width:33em;margin-top:38px;font-size:clamp(18px,1.4cqi,20px)}
+.mg-hero__ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:40px}
+.mg-hero__title .w{animation:mgWord 1.05s cubic-bezier(.16,1,.3,1) both}
+.mg-hero__over,.mg-hero__sub,.mg-hero__ctas{animation:mgRise .9s cubic-bezier(.16,1,.3,1) both}
+.mg-hero__over{animation-delay:.15s}.mg-hero__sub{animation-delay:1.25s}.mg-hero__ctas{animation-delay:1.45s}
+
+/* space backdrop */
+.mg-space{position:absolute;inset:0;z-index:0;pointer-events:none}
+.mg-nebula{position:absolute;inset:0;background:
+  radial-gradient(60cqi 48cqi at 76% 64%,rgba(233,96,58,.20),rgba(209,23,114,.09) 42%,rgba(132,90,190,.05) 64%,transparent 78%),
+  radial-gradient(42cqi 34cqi at 8% 4%,rgba(132,90,190,.14),transparent 70%),
+  radial-gradient(90cqi 40cqi at 50% 118%,rgba(31,19,49,.9),transparent 70%)}
+.mg-field{position:absolute;inset:-12%;transform-origin:76% 62%}
+.mg-par{position:absolute;inset:0;translate:calc(var(--mx,0) * var(--k,0px)) calc(var(--my,0) * var(--k,0px));transition:translate 1.2s cubic-bezier(.2,.8,.2,1)}
+.mg-stars{position:absolute;left:0;top:0;width:1px;height:1px;border-radius:50%;background:transparent}
+.mg-field--far{animation:mgFallFar 2.6s cubic-bezier(.16,1,.3,1) both}
+.mg-field--mid{animation:mgFallMid 2.6s cubic-bezier(.16,1,.3,1) both}
+.mg-field--near{animation:mgFallNear 2.8s cubic-bezier(.16,1,.3,1) both}
+.mg-field--far .mg-par{--k:4px}.mg-field--mid .mg-par{--k:10px}.mg-field--near .mg-par{--k:18px}
+.mg-twinkle{position:absolute;width:3px;height:3px;border-radius:50%;background:#FFF5EE;box-shadow:0 0 6px 1px rgba(255,245,238,.7);animation:mgTwinkle 4.2s ease-in-out infinite}
+.mg-warp{position:absolute;inset:0;transform-origin:76% 63%;
+  background:repeating-conic-gradient(from 0deg at 76% 63%,transparent 0deg 1.65deg,rgba(255,245,238,.26) 1.72deg 1.8deg,transparent 1.86deg 3.1deg),
+             repeating-conic-gradient(from .9deg at 76% 63%,transparent 0deg 2.25deg,rgba(178,155,228,.22) 2.3deg 2.4deg,transparent 2.46deg 4.7deg);
+  -webkit-mask:radial-gradient(circle at 76% 63%,transparent 0 9%,#000 30%,transparent 78%);mask:radial-gradient(circle at 76% 63%,transparent 0 9%,#000 30%,transparent 78%);
+  opacity:0;animation:mgWarp 1.5s cubic-bezier(.3,0,.2,1) both}
+
+/* planet system */
+.mg-sys{--R:min(15.6cqi,252px);position:absolute;z-index:2;left:calc(75.5cqi - var(--R));top:calc(612px - var(--R));width:calc(var(--R)*2);height:calc(var(--R)*2);pointer-events:none}
+.mg-sys__drift{position:absolute;inset:0}
+@supports (animation-timeline: scroll()){.mg-sys__drift{animation:mgDrift linear both;animation-timeline:scroll(root);animation-range:0 900px}}
+.mg-sys__arrive{position:absolute;inset:0;animation:mgArrive 2.5s cubic-bezier(.16,1,.3,1) both}
+.mg-bloom{position:absolute;left:44%;top:50%;width:640%;height:640%;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(233,96,58,.22),rgba(230,66,65,.12) 26%,rgba(209,23,114,.07) 46%,rgba(132,90,190,.04) 64%,transparent);pointer-events:none}
+.mg-orb{position:absolute;inset:0;z-index:2;border-radius:50%;background:radial-gradient(circle at 34% 38%,#FF9A66 0%,#E9603A 24%,#C8402F 46%,#6E1E28 72%,#1F0B19 100%);box-shadow:0 0 60px rgba(233,96,58,.35);transition:opacity .9s ease}
+.mg-sys[data-gl="on"] .mg-orb{opacity:0}
+.mg-planet{position:absolute;z-index:2;left:-8.14%;top:-8.14%;width:116.28%;height:116.28%;display:block;opacity:0;transition:opacity .9s ease}
+.mg-sys[data-gl="on"] .mg-planet{opacity:1}
+.mg-orbits{position:absolute;left:-700%;top:-700%;width:1600%;height:1600%;overflow:visible;pointer-events:none}
+.mg-orbits--back{z-index:1}.mg-orbits--front{z-index:3}
+.mg-orbits path{fill:none;vector-effect:non-scaling-stroke;stroke-width:1}
+.mg-orbits .o-ph{stroke:var(--orbit-a)}.mg-orbits .o-de{stroke:var(--orbit-b)}
+.mg-orbits--back path{opacity:.5}
+.mg-orbits{animation:mgFade 1.4s ease 1.5s both}
+.mg-moon{position:absolute;left:50%;top:50%;width:0;height:0;transform:scaleY(.225);animation:mgZ linear infinite}
+.mg-moon__arm{position:absolute;left:0;top:0;width:0;height:0;animation:mgSpin linear infinite}
+.mg-moon__body{position:absolute;top:0;animation:mgCounter linear infinite}
+.mg-moon--ph,.mg-moon--ph .mg-moon__arm,.mg-moon--ph .mg-moon__body,.mg-moon--ph .mg-moon__shape,.mg-moon--ph .mg-moon__tag{animation-duration:7.654s;animation-delay:-5.315s}
+.mg-moon--de,.mg-moon--de .mg-moon__arm,.mg-moon--de .mg-moon__body,.mg-moon--de .mg-moon__shape{animation-duration:30.312s;animation-delay:-19.787s}
+.mg-moon--ph .mg-moon__body{left:calc(var(--R)*2.766);width:18px;height:14px;margin:-7px 0 0 -9px}
+.mg-moon--de .mg-moon__body{left:calc(var(--R)*6.922);width:10px;height:9px;margin:-4.5px 0 0 -5px}
+.mg-moon__shape{position:absolute;inset:0;animation-timing-function:linear;animation-iteration-count:infinite}
+.mg-moon--ph .mg-moon__shape{animation-name:mgEclipseP}
+.mg-moon--de .mg-moon__shape{animation-name:mgEclipseD}
+.mg-moon__shape svg{display:block;width:100%;height:100%;overflow:visible}
+.mg-moon__tag{position:absolute;left:24px;top:-3px;display:flex;align-items:center;gap:8px;white-space:nowrap;font:500 9.5px/1 var(--mono);letter-spacing:.16em;color:var(--fg-subtle);animation:mgTagP linear infinite}
+.mg-moon__tag::before{content:"";width:14px;height:1px;background:var(--line-strong)}
+.mg-jz{position:absolute;left:0;top:0;z-index:3;display:flex;align-items:center;gap:7px;opacity:0;will-change:transform,opacity;font:500 9.5px/1 var(--mono);letter-spacing:.14em;color:#FFF5EE;text-shadow:0 1px 6px rgba(10,6,20,.9)}
+.mg-jz svg{width:13px;height:13px;margin-left:-6.5px;flex:none}
+.mg-jz b{font-weight:500;color:rgba(255,245,238,.72)}
+
+/* surface (light) backdrop */
+.mg-surface{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:linear-gradient(180deg,#F6E4D3 0%,#F4DEC9 55%,#EFD2BA 86%)}
+.mg-sun{position:absolute;left:12%;top:812px;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;background:#FFFDF8;box-shadow:0 0 18px 6px rgba(255,255,255,.85),0 0 60px 18px rgba(196,220,242,.75);animation:mgSunrise 160s cubic-bezier(.3,0,.2,1) both}
+.mg-halo{position:absolute;left:12%;top:812px;width:150cqi;height:150cqi;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(232,243,253,.95) 0%,rgba(196,219,240,.78) 4%,rgba(170,198,228,.42) 11%,rgba(190,206,224,.16) 22%,rgba(246,228,211,0) 40%);animation:mgSunrise 160s cubic-bezier(.3,0,.2,1) both}
+.mg-dunes{position:absolute;left:0;right:0;bottom:0;height:300px;width:100%}
+.mg-rover{position:absolute;left:75.5%;bottom:203px;width:40px;height:22px;fill:#7A3D24;opacity:.72}
+.mg-skymoon{position:absolute;left:50%;top:1010px;width:0;height:0}
+.mg-skymoon i{position:absolute;display:block}
+.mg-skymoon--ph{animation:mgSkyPh 666s linear infinite;animation-delay:-118s}
+.mg-skymoon--ph i{left:-10px;top:-780px;width:20px;height:15px}
+.mg-skymoon--de{animation:mgSkyDe 3936s linear infinite;animation-delay:-900s}
+.mg-skymoon--de i{left:-2px;top:-780px;width:4px;height:4px;border-radius:50%;background:#FFFDF8;box-shadow:0 0 6px 2px rgba(255,255,255,.8)}
+
+/* HUD */
+.mg-hud{position:absolute;z-index:6;top:92px;right:clamp(20px,4.4cqi,64px);width:288px;padding:14px 16px 12px;font:500 10.5px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--fg-muted);
+  background:
+   linear-gradient(var(--line-strong),var(--line-strong)) left top/12px 1px no-repeat,linear-gradient(var(--line-strong),var(--line-strong)) left top/1px 12px no-repeat,
+   linear-gradient(var(--line-strong),var(--line-strong)) right top/12px 1px no-repeat,linear-gradient(var(--line-strong),var(--line-strong)) right top/1px 12px no-repeat,
+   linear-gradient(var(--line-strong),var(--line-strong)) left bottom/12px 1px no-repeat,linear-gradient(var(--line-strong),var(--line-strong)) left bottom/1px 12px no-repeat,
+   linear-gradient(var(--line-strong),var(--line-strong)) right bottom/12px 1px no-repeat,linear-gradient(var(--line-strong),var(--line-strong)) right bottom/1px 12px no-repeat;
+  animation:mgRise .9s cubic-bezier(.16,1,.3,1) 1.1s both}
+.mg-hud__row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:22px}
+.mg-hud__v{color:var(--fg);font-variant-numeric:tabular-nums;letter-spacing:.06em}
+.mg-hud__sep{height:1px;margin:6px 0;background:var(--line)}
+.mg-hud__ok{display:inline-flex;align-items:center;gap:8px;color:var(--fg)}
+.mg-dot{width:6px;height:6px;border-radius:50%;background:var(--status);box-shadow:0 0 9px var(--status);animation:mgPulse 2.4s ease-in-out infinite}
+.mg-sim{display:inline-flex;align-items:center;gap:8px;min-height:30px;padding:0 10px;margin-right:-10px;border:0;border-radius:8px;background:transparent;color:var(--fg);font:500 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+.mg-sim:hover{background:var(--line)}
+.mg-sim svg{width:10px;height:10px}
+.mg-legend{position:absolute;z-index:6;right:clamp(20px,4.4cqi,64px);bottom:44px;display:grid;grid-template-columns:auto auto auto;gap:7px 18px;align-items:center;font:500 10px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--fg-subtle);animation:mgFade 1s ease 2s both}
+.mg-legend i{display:inline-block;width:18px;height:1px;margin-right:8px;vertical-align:middle;background:var(--orbit-a)}
+.mg-legend i.de{background:var(--orbit-b)}
+.mg-legend b{font-weight:500;color:var(--fg-muted)}
+.mg-legend--surface{grid-template-columns:auto auto;bottom:62px;color:var(--fg)}
+.mg-legend--surface b{color:var(--fg);font-weight:600}
+
+@container mg (max-width: 980px){
+  .mg-hero{min-height:0}
+  .mg-hero__in{padding-top:28px;padding-bottom:0}
+  .mg-hero__title .ln{white-space:normal}
+  .mg-hud{position:relative;top:auto;right:auto;width:auto;margin:20px clamp(20px,4.4cqi,64px) 0;z-index:6}
+  .mg-sys{--R:min(31cqi,230px);position:relative;left:auto;top:auto;margin:40px auto 0}
+  .mg-sys-wrap{position:relative;height:calc(min(31cqi,230px)*2 + 150px);margin-top:12px}
+  .mg-legend{position:relative;right:auto;bottom:auto;margin:0 clamp(20px,4.4cqi,64px) 40px;grid-template-columns:auto auto}
+  .mg-legend .lg-a{display:none}
+  .mg-field,.mg-warp{transform-origin:62% 70%}
+  .mg-sun,.mg-halo{top:auto;bottom:212px;left:16%}
+  .mg-skymoon{top:auto;bottom:-60px}
+  .mg-hero--surface{padding-bottom:230px}
+  .mg-dunes{height:240px}
+  .mg-rover{left:70%;bottom:162px;width:30px;height:17px}
+}
+
+/* ---------- Ahora mismo ---------- */
+.mg-now{position:relative;z-index:3;border-block:1px solid var(--line);background:color-mix(in srgb,var(--bg-alt) 70%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.mg-now__in{display:grid;grid-template-columns:230px minmax(0,1fr);gap:28px;padding-block:34px}
+.mg-now__head{display:flex;flex-direction:column;gap:10px;padding-top:2px}
+.mg-now__head h2{margin:0;font:600 15px/1.2 var(--sans);letter-spacing:.01em;color:var(--fg)}
+.mg-now__list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:0;padding:0;list-style:none}
+.mg-now__item{display:flex;flex-direction:column;gap:14px;padding:2px 22px;border-left:1px solid var(--line)}
+.mg-now__icon{display:flex;align-items:center;gap:10px;color:var(--fg-subtle);font:500 10.5px/1 var(--mono);letter-spacing:.12em}
+.mg-now__icon svg{width:22px;height:22px;flex:none}
+.mg-now__item.c-kimen svg{color:var(--kimen)}.mg-now__item.c-jezero svg{color:var(--jezero)}.mg-now__item.c-orbit svg{color:var(--orbit)}.mg-now__item.c-team svg{color:var(--fg-muted)}
+.mg-now__text{margin:0;font-size:15.5px;line-height:1.45;color:var(--fg);text-wrap:pretty}
+@container mg (max-width: 1180px){.mg-now__in{grid-template-columns:1fr;gap:18px}.mg-now__head{flex-direction:row;justify-content:space-between;align-items:baseline}}
+@container mg (max-width: 760px){.mg-now__list{grid-template-columns:1fr}.mg-now__item{flex-direction:row;align-items:flex-start;gap:16px;padding:16px 0;border-left:0;border-top:1px solid var(--line)}.mg-now__icon span{display:none}}
+
+/* ---------- Sections ---------- */
+.mg-sec{position:relative;padding-block:clamp(88px,10.5cqi,168px)}
+.mg-sec--tight{padding-block:clamp(64px,7cqi,112px)}
+.mg-head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;row-gap:22px;align-items:end;margin-bottom:clamp(44px,5.4cqi,84px)}
+.mg-head .mg-label{grid-column:1 / -1}
+.mg-head .mg-h2{grid-column:1 / 8}
+.mg-head .mg-lead{grid-column:8 / 13;padding-bottom:6px}
+@container mg (max-width: 980px){.mg-head .mg-h2,.mg-head .mg-lead{grid-column:1 / -1}}
+.mg-rule{display:flex;align-items:center;gap:14px}
+.mg-rule::after{content:"";flex:1;height:1px;background:var(--line)}
+
+/* ---------- The system: three orbits ---------- */
+.p-kimen{--pc:var(--kimen)}.p-jezero{--pc:var(--jezero)}.p-orbit{--pc:var(--orbit)}
+.mg-sysgrid{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,1fr);gap:clamp(36px,5cqi,88px);align-items:center}
+@container mg (max-width: 980px){.mg-sysgrid{grid-template-columns:1fr}}
+.mg-orrery{position:relative;width:100%;max-width:620px;margin:0;justify-self:center}
+.mg-orrery svg{display:block;width:100%;height:auto;overflow:visible}
+.mg-orrery .ring{fill:none;stroke:var(--line-strong);stroke-width:1;transition:stroke .45s ease,stroke-width .45s ease,opacity .45s ease}
+.mg-orrery .ring-tick{fill:none;stroke:var(--line);stroke-width:6;stroke-dasharray:1 17.6}
+.mg-orrery .hit{fill:none;stroke:transparent;stroke-width:34;pointer-events:stroke;cursor:pointer}
+.mg-orrery .lbl{font:500 10px var(--mono);letter-spacing:.22em;fill:var(--fg-subtle);text-transform:uppercase;transition:fill .45s ease}
+.mg-orrery .sat-dot{fill:var(--bg);stroke:var(--fg-subtle);stroke-width:1.4;transition:fill .45s ease,stroke .45s ease}
+.mg-orrery .sat-halo{fill:none;stroke:var(--pc);stroke-width:1;opacity:0;transition:opacity .45s}
+.mg-orrery .is-on .ring{stroke:var(--pc);stroke-width:1.6}
+.mg-orrery .is-on .lbl{fill:var(--pc)}
+.mg-orrery .is-on .sat-dot{fill:var(--pc);stroke:var(--pc)}
+.mg-orrery .is-on .sat-halo{opacity:.55;animation:mgPing 2.4s ease-out infinite}
+.mg-orrery .sat{transform-box:view-box;transform-origin:300px 300px;animation:mgSpin linear infinite}
+.mg-orrery .sat--k{animation-duration:40s;animation-delay:-7s}
+.mg-orrery .sat--j{animation-duration:80.4s;animation-delay:-52s}
+.mg-orrery .sat--o{animation-duration:129.3s;animation-delay:-20s}
+.mg-orrery .sat-up{transform-box:fill-box;transform-origin:center;animation:mgSpinRev linear infinite;animation-duration:inherit;animation-delay:inherit}
+.mg-orrery figcaption{margin-top:14px;text-align:center}
+.mg-tabs{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.mg-tab{display:grid;grid-template-columns:46px minmax(0,1fr) auto;align-items:center;gap:14px;width:100%;min-height:88px;padding:16px 6px;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--fg);text-align:left;cursor:pointer;transition:background-color .3s}
+.mg-tab:hover{background:var(--card)}
+.mg-tab__idx{font:500 11px/1 var(--mono);letter-spacing:.14em;color:var(--fg-subtle)}
+.mg-tab__name{display:flex;align-items:center;gap:12px;font:600 26px/1.05 var(--display);letter-spacing:-.025em;transition:color .3s}
+.mg-tab__name i{width:9px;height:9px;border-radius:50%;border:1.4px solid var(--fg-subtle);transition:all .3s}
+.mg-tab__line{display:block;margin-top:6px;font-size:15px;line-height:1.4;color:var(--fg-muted)}
+.mg-tab__chips{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px;color:var(--fg-subtle)}
+.mg-tab[aria-pressed="true"] .mg-tab__name{color:var(--pc)}
+.mg-tab[aria-pressed="true"] .mg-tab__name i{background:var(--pc);border-color:var(--pc);box-shadow:0 0 12px var(--pc)}
+.mg-tab[aria-pressed="true"] .mg-tab__chips{color:var(--pc)}
+@container mg (max-width: 560px){.mg-tab{grid-template-columns:34px minmax(0,1fr)}.mg-tab__chips{display:none}}
+.mg-panel{display:flex;flex-direction:column;gap:22px}
+.mg-panel__foot{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* ---------- Demo stage + micro-animations ---------- */
+.mg-stage{position:relative;height:330px;overflow:hidden;border:1px solid var(--line);border-radius:22px;background:var(--card);box-shadow:var(--shadow)}
+.mg-stage--lg{height:400px}
+.mg-stage__bar{position:absolute;left:0;right:0;top:0;height:34px;display:flex;align-items:center;gap:8px;padding:0 14px;border-bottom:1px solid var(--line);font:500 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--fg-subtle)}
+.mg-stage__bar i{width:7px;height:7px;border-radius:50%;background:var(--pc);box-shadow:0 0 8px var(--pc)}
+.mg-stage__bar span:last-child{margin-left:auto}
+.mg-stage__body{position:absolute;left:0;right:0;top:34px;bottom:0}
+/* Kimen */
+.kd{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);height:100%}
+.kd-code{position:relative;padding:14px 16px 0;border-right:1px solid var(--line);font:500 11.5px/1.72 var(--mono);color:var(--fg-subtle);overflow:hidden}
+.kd-l{display:block;white-space:nowrap}
+.kd-l.i1{padding-left:2ch}.kd-l.i2{padding-left:4ch}
+.kd-l .k{color:var(--fg-muted)}.kd-l .s{color:var(--kimen)}.kd-l .n{color:var(--accent)}
+.kd-l.bad{position:relative;opacity:.5}
+.kd-l.bad::after{content:"";position:absolute;left:4ch;right:0;top:52%;height:1px;background:var(--bad)}
+.kd-checks{position:absolute;left:14px;right:14px;bottom:12px;display:grid;gap:5px;margin:0;padding:10px 12px;list-style:none;border:1px solid var(--line);border-radius:12px;background:var(--card-solid);font:500 10.5px/1.25 var(--mono)}
+.kd-checks li{display:grid;grid-template-columns:14px 1fr auto;align-items:center;gap:8px;color:var(--fg)}
+.kd-checks li span{color:var(--fg-subtle);letter-spacing:.04em}
+.kd-checks svg{width:12px;height:12px}
+.kd-checks .ok svg{color:var(--ok)}.kd-checks .no{color:var(--bad)}.kd-checks .no span{color:var(--bad)}
+.kd-out{display:flex;flex-direction:column;justify-content:center;gap:12px;padding:18px}
+.kd-card{padding:16px;border:1px solid var(--line-strong);border-radius:14px;background:var(--card-solid);box-shadow:var(--shadow)}
+.kd-card__head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.kd-card__title{font:600 15px/1.2 var(--display);letter-spacing:-.01em}
+.kd-badge{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 9px;border-radius:999px;background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok);font:600 11px/1 var(--sans)}
+.kd-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.kd-bar{position:relative;height:8px;margin-top:16px;border-radius:99px;background:var(--line)}
+.kd-bar i{position:absolute;left:0;top:0;bottom:0;width:72%;border-radius:99px;background:var(--grad)}
+.kd-meta{display:flex;justify-content:space-between;margin-top:9px;font:500 10.5px/1 var(--mono);color:var(--fg-subtle);letter-spacing:.06em}
+.kd-sum{margin:0;font:500 10.5px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fg-muted)}
+.is-play .kd-l{animation:mgType .32s steps(14) both}
+.is-play .kd-l.bad{animation:mgType .32s steps(14) both,kdDim .4s ease 3.2s both}
+.is-play .kd-l.bad::after{animation:kdStrike .5s ease 3.2s both}
+.is-play .kd-checks{animation:mgRise .5s cubic-bezier(.16,1,.3,1) 2.15s both}
+.is-play .kd-checks li{animation:mgFade .3s ease both}
+.is-play .kd-card{animation:kdCard .7s cubic-bezier(.16,1,.3,1) 3.5s both}
+.is-play .kd-card__title{animation:mgFade .4s ease 3.9s both}
+.is-play .kd-badge{animation:kdPop .45s cubic-bezier(.3,1.6,.5,1) 4.15s both}
+.is-play .kd-bar i{animation:kdFill 1s cubic-bezier(.2,.8,.2,1) 4.35s both}
+.is-play .kd-meta{animation:mgFade .4s ease 4.6s both}
+.is-play .kd-sum{animation:mgRise .5s ease 5.1s both}
+/* Jezero */
+.jd{display:grid;grid-template-rows:auto minmax(0,1fr);gap:12px;height:100%;padding:14px 16px 16px}
+.jd-search{display:flex;align-items:center;gap:10px;height:40px;padding:0 14px;border:1px solid var(--line-strong);border-radius:12px;background:var(--card-solid);font:500 12.5px/1 var(--mono);color:var(--fg)}
+.jd-search svg{width:15px;height:15px;color:var(--jezero);flex:none}
+.jd-q{display:inline-block;white-space:nowrap;overflow:hidden}
+.jd-caret{width:1.5px;height:15px;background:var(--jezero);animation:mgBlink 1s steps(1) infinite}
+.jd-strata{position:relative;display:flex;flex-direction:column-reverse;gap:3px;overflow:hidden}
+.jd-layer{position:relative;display:flex;align-items:center;justify-content:space-between;height:34px;padding:0 12px;border-radius:7px;font:500 10.5px/1 var(--mono);letter-spacing:.03em;color:var(--fg-muted);transition:transform .5s}
+.jd-layer em{font-style:normal;color:var(--fg-subtle)}
+.jd-layer:nth-child(6n+1){background:rgba(233,96,58,.13)}
+.jd-layer:nth-child(6n+2){background:rgba(178,155,228,.16)}
+.jd-layer:nth-child(6n+3){background:rgba(255,245,238,.07)}
+.jd-layer:nth-child(6n+4){background:rgba(209,23,114,.10)}
+.jd-layer:nth-child(6n+5){background:rgba(178,155,228,.09)}
+.jd-layer:nth-child(6n+6){background:rgba(233,96,58,.08)}
+.mg-app[data-theme="light"] .jd-layer:nth-child(6n+1){background:rgba(197,74,46,.14)}
+.mg-app[data-theme="light"] .jd-layer:nth-child(6n+2){background:rgba(111,70,164,.14)}
+.mg-app[data-theme="light"] .jd-layer:nth-child(6n+3){background:rgba(122,61,36,.10)}
+.mg-app[data-theme="light"] .jd-layer:nth-child(6n+4){background:rgba(209,23,114,.10)}
+.mg-app[data-theme="light"] .jd-layer:nth-child(6n+5){background:rgba(111,70,164,.08)}
+.mg-app[data-theme="light"] .jd-layer:nth-child(6n+6){background:rgba(197,74,46,.08)}
+.jd-layer.hit{color:var(--fg);box-shadow:inset 0 0 0 1px var(--jezero),0 0 24px color-mix(in srgb,var(--jezero) 30%,transparent)}
+.jd-scan{position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--jezero) 20%,var(--jezero) 80%,transparent);box-shadow:0 0 14px var(--jezero);opacity:0}
+.jd-res{position:absolute;right:10px;bottom:52px;width:min(250px,64%);padding:12px 14px;border:1px solid var(--jezero);border-radius:12px;background:var(--card-solid);box-shadow:var(--shadow)}
+.jd-res p{margin:0}
+.jd-res__k{font:500 9.5px/1.3 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--jezero)}
+.jd-res__t{margin-top:6px !important;font-size:13.5px;line-height:1.4;color:var(--fg)}
+.jd-res__s{margin-top:8px !important;font:500 9.5px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--fg-subtle)}
+.is-play .jd-layer{animation:jdDrop .62s cubic-bezier(.3,1.35,.5,1) both}
+.is-play .jd-layer.hit{animation:jdDrop .62s cubic-bezier(.3,1.35,.5,1) both,jdHit .6s ease 4.55s both}
+.is-play .jd-q{animation:jdType 1s steps(18) 2.5s both}
+.is-play .jd-scan{animation:jdScan 1.25s cubic-bezier(.5,0,.3,1) 3.45s both}
+.is-play .jd-res{animation:jdRes .6s cubic-bezier(.16,1,.3,1) 4.85s both}
+/* Orbit */
+.od{display:flex;flex-direction:column;gap:12px;height:100%;padding:14px 16px 16px}
+.od-top{display:flex;align-items:center;gap:10px;font:500 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--fg-muted)}
+.od-rec{display:inline-flex;align-items:center;gap:6px;color:var(--fg)}
+.od-rec::before{content:"";width:7px;height:7px;border-radius:50%;background:#F05149;box-shadow:0 0 8px #F05149;animation:mgPulse 1.2s ease-in-out infinite}
+.od-top span:last-child{margin-left:auto}
+.od-wave{display:flex;align-items:center;gap:3px;height:82px;flex:none}
+.od-wave i{flex:1;min-width:2px;border-radius:2px;background:var(--orbit);opacity:.9;transform:scaleY(.06);transform-origin:center}
+.od-note{display:flex;flex-direction:column;gap:6px;padding-top:12px;border-top:1px dashed var(--line-strong)}
+.od-note p{margin:0;display:flex;gap:8px;font-size:13.5px;line-height:1.35;color:var(--fg-muted)}
+.od-note .t{font:600 15px/1.2 var(--display);letter-spacing:-.01em;color:var(--fg)}
+.od-note .k{margin-top:4px;font:500 9.5px/1.3 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--fg-subtle)}
+.od-note .b::before{content:"";flex:none;width:5px;height:5px;margin-top:7px;border-radius:50%;background:var(--orbit)}
+.is-play .od-wave i{animation:odTalk .55s ease-in-out infinite alternate,odCollapse .7s cubic-bezier(.6,0,.4,1) 2.7s both}
+.is-play .od-note{animation:mgFade .3s ease 3.1s both}
+.is-play .od-note p{animation:mgType .45s steps(16) both}
+.is-play .od-rec{animation:odStop .1s linear 2.7s both}
+@container mg (max-width: 600px){
+  .mg-stage.p-kimen{height:560px}
+  .mg-stage.p-orbit{height:390px}
+  .kd{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto}
+  .kd-code{border-right:0;border-bottom:1px solid var(--line)}
+  .kd-out{padding:14px 16px 16px}
+}
+
+/* ---------- Trajectory (transfer orbits) ---------- */
+.mg-trajgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(36px,6cqi,96px);align-items:center}
+@container mg (max-width: 980px){.mg-trajgrid{grid-template-columns:1fr}}
+.mg-traj__text{margin:22px 0 34px;max-width:17em}
+.mg-xfer{margin:0;width:100%;max-width:640px;justify-self:end;view-timeline-name:--xfer}
+.mg-xfer svg{display:block;width:100%;height:auto;overflow:visible}
+.mg-xfer .orb{fill:none;stroke:var(--line-strong);stroke-width:1;vector-effect:non-scaling-stroke}
+.mg-xfer .path{fill:none;stroke:var(--warm);stroke-width:1.6;stroke-dasharray:1;stroke-dashoffset:0;vector-effect:non-scaling-stroke;stroke-linecap:round}
+.mg-xfer .ghost{fill:none;stroke:var(--warm);stroke-width:1;stroke-dasharray:3 5;opacity:.35;vector-effect:non-scaling-stroke}
+.mg-xfer .ms{fill:var(--bg);stroke:var(--warm);stroke-width:1.6}
+.mg-xfer .ms.now{fill:var(--warm)}
+.mg-xfer .sun{fill:var(--fg-subtle)}
+.mg-xfer text{font:500 10.5px var(--mono);letter-spacing:.12em;fill:var(--fg-muted);text-transform:uppercase}
+.mg-xfer text.y{fill:var(--fg);font-weight:600}
+.mg-xfer .probe{fill:var(--fg);offset-distance:100%;offset-rotate:0deg}
+.mg-xfer--home .probe{offset-path:path('M224 190 A84 79.2 0 0 1 392 190 A146 141.99 0 0 1 100 190')}
+.mg-xfer--about .probe{offset-path:path('M276 320 A64 60.79 0 0 1 404 320 A106 103.69 0 0 1 192 320 A152 150.09 0 0 1 496 320 A202 200.32 0 0 1 92 320 A256 254.46 0 0 1 604 320')}
+@supports (animation-timeline: view()){
+  .mg-xfer .path{animation:mgDraw linear both;animation-timeline:--xfer;animation-range:entry 30% cover 55%}
+  .mg-xfer .probe{animation:mgProbe linear both;animation-timeline:--xfer;animation-range:entry 30% cover 55%}
+}
+
+/* ---------- Closing ---------- */
+.mg-close{position:relative;isolation:isolate;overflow:clip;padding-block:clamp(120px,13cqi,210px) clamp(170px,19cqi,300px)}
+.mg-close__q{max-width:12.5em;margin:24px 0 44px}
+.mg-limb{position:absolute;z-index:-1;left:50%;bottom:calc(-232cqi + 150px);width:250cqi;height:250cqi;transform:translateX(-50%);border-radius:50%;
+  background:radial-gradient(circle at 50% 8%,#3C1420 0%,#24101E 30%,#140A1A 60%);
+  box-shadow:0 -1px 0 rgba(255,127,74,.75),0 -10px 40px rgba(233,96,58,.28),0 -60px 160px rgba(209,23,114,.16)}
+.mg-limb::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 50% 0%,rgba(255,127,74,.22),transparent 18%)}
+.mg-app[data-theme="light"] .mg-limb{display:none}
+.mg-close__dunes{position:absolute;z-index:-1;left:0;right:0;bottom:0;width:100%;height:220px;display:none}
+.mg-app[data-theme="light"] .mg-close__dunes{display:block}
+
+/* ---------- Footer ---------- */
+.mg-foot{position:relative;z-index:2;border-top:1px solid var(--line);background:var(--bg);padding-block:64px 36px}
+.mg-foot__grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:48px}
+@container mg (max-width: 860px){.mg-foot__grid{grid-template-columns:1fr}}
+.mg-foot__line{margin:22px 0 0;max-width:14em;font:600 clamp(24px,2.6cqi,34px)/1.12 var(--display);letter-spacing:-.025em}
+.mg-foot__links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px;margin:0;padding:0;list-style:none}
+@container mg (max-width: 520px){.mg-foot__links{grid-template-columns:1fr}}
+.mg-foot__links a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:58px;border-bottom:1px solid var(--line);color:var(--fg);text-decoration:none;font-weight:500;transition:color .2s,padding .3s}
+.mg-foot__links a:hover{padding-left:6px;color:var(--warm-text)}
+.mg-foot__links a span{font:500 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fg-subtle)}
+.mg-foot__base{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:56px;font:500 10.5px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fg-subtle)}
+
+/* ---------- Inner pages: header ---------- */
+.mg-phead{position:relative;isolation:isolate;overflow:clip;margin-top:-76px;padding-top:calc(76px + clamp(72px,8cqi,132px));padding-bottom:clamp(64px,6.6cqi,104px);border-bottom:1px solid var(--line)}
+.mg-phead .mg-label{margin-bottom:26px}
+.mg-phead__lead{max-width:36em;margin-top:32px}
+.mg-phead__deco{position:absolute;z-index:-1;right:-6cqi;top:40px;width:58cqi;max-width:820px;opacity:.9;pointer-events:none}
+.mg-phead__deco svg{display:block;width:100%;height:auto;overflow:visible}
+.mg-phead__deco ellipse{fill:none;stroke:var(--line-strong);vector-effect:non-scaling-stroke}
+.mg-phead__deco .m{fill:var(--warm)}
+.mg-phead__deco .p{fill:url(#mgPlanetG)}
+.mg-phead .mg-h1 .mg-it{font-weight:600}
+.mg-decomoon{offset-path:path('M 140 200 A 380 84 0 1 0 900 200 A 380 84 0 1 0 140 200');offset-rotate:0deg;animation:mgProbe 54s linear infinite}
+.mg-phead .w{display:inline-block;animation:mgWord 1s cubic-bezier(.16,1,.3,1) both}
+
+/* ---------- About ---------- */
+.mg-intro{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;row-gap:48px}
+.mg-intro__text{grid-column:1 / 8;display:flex;flex-direction:column;gap:22px}
+.mg-intro__text .lede{font-size:clamp(20px,1.8cqi,25px);line-height:1.5;color:var(--fg)}
+.mg-intro__text p{color:var(--fg-muted);font-size:18px;line-height:1.66}
+.mg-spec{grid-column:9 / 13;align-self:start;position:sticky;top:100px}
+@container mg (max-width: 980px){.mg-intro__text,.mg-spec{grid-column:1 / -1;position:static}}
+.mg-spec dl{margin:18px 0 0;border-top:1px solid var(--line)}
+.mg-spec dl div{display:grid;gap:6px;padding:16px 0;border-bottom:1px solid var(--line)}
+.mg-spec dt{font:500 10.5px/1.3 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--fg-subtle)}
+.mg-spec dd{margin:0;font-size:16px;line-height:1.45;color:var(--fg)}
+.mg-motto{margin:28px 0 0;max-width:15em;font:700 clamp(40px,5.6cqi,86px)/1 var(--display);letter-spacing:-.042em;text-wrap:balance}
+.mg-axes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin:clamp(48px,5.4cqi,80px) 0 0;padding:0;list-style:none}
+@container mg (max-width: 860px){.mg-axes{grid-template-columns:1fr}}
+.mg-axes li{display:flex;flex-direction:column;gap:12px;padding-top:22px;border-top:1px solid var(--line-strong)}
+.mg-axes li p{margin:0;color:var(--fg-muted);font-size:16.5px;line-height:1.6}
+.mg-timeline{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(36px,5cqi,88px);align-items:start}
+@container mg (max-width: 980px){.mg-timeline{grid-template-columns:1fr}.mg-timeline .mg-xfer{position:static;order:-1}}
+.mg-timeline .mg-xfer{position:sticky;top:110px}
+.mg-timeline{timeline-scope:--roles}
+.mg-roles{view-timeline-name:--roles}
+.mg-xfer--about{view-timeline-name:none}
+@supports (animation-timeline: view()){
+  .mg-xfer--about .path,.mg-xfer--about .probe{animation-timeline:--roles;animation-range:cover 12% cover 72%}
+}
+.mg-roles{margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.mg-roles li{display:grid;grid-template-columns:150px minmax(0,1fr);gap:20px;padding:24px 0;border-bottom:1px solid var(--line)}
+@container mg (max-width: 560px){.mg-roles li{grid-template-columns:1fr;gap:8px}}
+.mg-roles time{font:500 11px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--warm-text);padding-top:5px}
+.mg-roles p{margin:6px 0 0;color:var(--fg-muted);font-size:16px;line-height:1.55}
+.mg-edu{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:28px 32px;border:1px solid var(--line);border-radius:22px;background:var(--card)}
+.mg-edu p{margin:0;font:600 clamp(19px,1.8cqi,24px)/1.3 var(--display);letter-spacing:-.015em}
+/* constellation */
+.mg-constel{position:relative;height:560px;margin-top:32px;border:1px solid var(--line);border-radius:28px;overflow:hidden;background:radial-gradient(70% 90% at 50% 50%,color-mix(in srgb,var(--bg-deep) 60%,transparent),transparent)}
+.mg-constel__lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.mg-constel__lines line{display:none;stroke:var(--pc);stroke-width:1.2;vector-effect:non-scaling-stroke;stroke-dasharray:4 4;opacity:.9;animation:mgFade .6s ease both}
+.mg-constel[data-p="kimen"] line.k,.mg-constel[data-p="jezero"] line.j,.mg-constel[data-p="orbit"] line.o{display:inline}
+.mg-star{position:absolute;display:flex;align-items:center;gap:9px;transform:translate(-5px,-50%);white-space:nowrap;font-size:13.5px;line-height:1;color:var(--fg-muted);transition:color .4s,opacity .4s}
+.mg-star i{width:8px;height:8px;border-radius:50%;background:var(--fg-subtle);flex:none;transition:all .4s}
+.mg-star.learn i{background:transparent;border:1.3px solid var(--fg-subtle)}
+.mg-star.learn em{font:500 9.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fg-subtle);font-style:normal}
+.mg-star.lit{color:var(--fg)}
+.mg-star.lit i{background:var(--pc);border-color:var(--pc);box-shadow:0 0 0 4px color-mix(in srgb,var(--pc) 22%,transparent),0 0 16px var(--pc)}
+.mg-star.dim{opacity:.32}
+.mg-constel__grp{position:absolute;font:500 10px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--fg-subtle);opacity:.85}
+.mg-filter{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.mg-filter button{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border:1px solid var(--line-strong);border-radius:999px;background:transparent;color:var(--fg-muted);font:500 14px/1 var(--sans);cursor:pointer;transition:all .25s}
+.mg-filter button i{width:7px;height:7px;border-radius:50%;background:var(--pc,var(--fg-subtle))}
+.mg-filter button:hover{color:var(--fg);border-color:var(--fg)}
+.mg-filter button[aria-pressed="true"]{color:var(--fg);border-color:var(--pc,var(--fg));background:color-mix(in srgb,var(--pc,var(--fg)) 12%,transparent)}
+.mg-techlist{display:none;margin-top:28px;gap:22px}
+@container mg (max-width: 860px){.mg-constel{display:none}.mg-techlist{display:grid}}
+.mg-techlist div{display:grid;gap:10px}
+.mg-techlist ul{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.mg-techlist li{padding:7px 12px;border:1px solid var(--line);border-radius:999px;font-size:14px;color:var(--fg-muted)}
+.mg-techlist li.lit{color:var(--fg);border-color:var(--pc)}
+
+/* ---------- Projects page ---------- */
+.mg-pjnav{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px}
+.mg-pjnav a{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 18px;border:1px solid var(--line-strong);border-radius:999px;color:var(--fg);text-decoration:none;font-weight:500;transition:border-color .25s,background-color .25s}
+.mg-pjnav a i{width:8px;height:8px;border-radius:50%;background:var(--pc);box-shadow:0 0 10px var(--pc)}
+.mg-pjnav a:hover{border-color:var(--pc);background:color-mix(in srgb,var(--pc) 10%,transparent)}
+.mg-chap{position:relative;padding-block:clamp(80px,9cqi,140px);border-bottom:1px solid var(--line);scroll-margin-top:96px}
+.mg-chap__grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(36px,5.5cqi,96px);align-items:start}
+@container mg (max-width: 980px){.mg-chap__grid{grid-template-columns:1fr}}
+.mg-chap__idx{display:flex;align-items:center;gap:14px;margin:0;color:var(--pc)}
+.mg-chap__idx i{width:46px;height:1px;background:currentColor}
+.mg-chap__idx span{font:500 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase}
+.mg-chap__name{margin:22px 0 0;font:700 clamp(64px,9.4cqi,150px)/.9 var(--display);letter-spacing:-.05em}
+.mg-chap__sub{margin:14px 0 0;font:600 clamp(20px,2cqi,28px)/1.2 var(--display);letter-spacing:-.02em;color:var(--pc)}
+.mg-chap__meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:26px;color:var(--pc)}
+.mg-chap__meta .mg-ext{color:var(--fg-muted)}
+.mg-chap__desc{margin:28px 0 0;font-size:clamp(18px,1.4cqi,20px);line-height:1.6;color:var(--fg)}
+.mg-bullets{display:grid;gap:12px;margin:24px 0 0;padding:0;list-style:none}
+.mg-bullets li{display:grid;grid-template-columns:18px minmax(0,1fr);gap:10px;color:var(--fg-muted);font-size:16.5px;line-height:1.55}
+.mg-bullets li::before{content:"";width:7px;height:7px;margin-top:9px;border-radius:50%;border:1.4px solid var(--pc)}
+.mg-chap__note{margin:26px 0 0;padding:18px 20px;border:1px dashed var(--line-strong);border-radius:16px;color:var(--fg-muted);font-size:15.5px;line-height:1.6}
+.mg-chap__note em{font-style:italic;color:var(--fg)}
+.mg-chap__stack{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin:28px 0 0;color:var(--fg-muted);font-size:15px}
+.mg-chap__demo{position:sticky;top:110px}
+@container mg (max-width: 980px){.mg-chap__demo{position:static}}
+.mg-onmars{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:28px;padding:32px 36px;border:1px solid var(--line);border-radius:26px;background:var(--card)}
+@container mg (max-width: 860px){.mg-onmars{grid-template-columns:1fr;padding:26px}}
+.mg-onmars p{margin:0;font-size:18px;line-height:1.55;color:var(--fg-muted)}
+.mg-onmars strong{color:var(--fg);font-weight:600}
+.mg-onmars svg{width:46px;height:46px}
+
+/* ---------- Talks ---------- */
+.mg-talks{margin:0;padding:0;list-style:none;border-top:1px solid var(--line-strong)}
+.mg-talk{position:relative;display:grid;grid-template-columns:170px 130px minmax(0,1fr) minmax(0,280px);align-items:baseline;gap:24px;padding:30px 0;border-bottom:1px solid var(--line);transition:padding .35s cubic-bezier(.2,.8,.2,1)}
+.mg-talk:hover{padding-left:12px}
+.mg-talk::before{content:"";position:absolute;left:-26px;top:50%;width:9px;height:9px;margin-top:-4.5px;border-radius:50%;border:1.4px solid var(--warm);opacity:0;transition:opacity .3s,background-color .3s}
+.mg-talk:hover::before{opacity:1;background:var(--warm)}
+.mg-talk time{font:500 12px/1.4 var(--mono);letter-spacing:.1em;color:var(--warm-text)}
+.mg-talk__type{justify-self:start;color:var(--fg-muted)}
+.mg-talk h2{margin:0;font:600 clamp(20px,2.1cqi,28px)/1.2 var(--display);letter-spacing:-.02em;text-wrap:balance}
+.mg-talk p{margin:0;color:var(--fg-muted);font-size:15.5px;line-height:1.45}
+@container mg (max-width: 980px){.mg-talk{grid-template-columns:1fr;gap:10px;padding:24px 0}.mg-talk:hover{padding-left:0}}
+
+/* ---------- Contact ---------- */
+.mg-contact{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(36px,6cqi,96px);align-items:start}
+@container mg (max-width: 980px){.mg-contact{grid-template-columns:1fr}}
+.mg-chan{margin:0;padding:0;list-style:none;border-top:1px solid var(--line-strong)}
+.mg-chan a{display:grid;grid-template-columns:110px minmax(0,1fr) auto;align-items:center;gap:16px;min-height:76px;border-bottom:1px solid var(--line);color:var(--fg);text-decoration:none;transition:padding .35s cubic-bezier(.2,.8,.2,1),color .25s}
+.mg-chan a:hover{padding-left:10px;color:var(--warm-text)}
+.mg-chan a span{font:500 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--fg-subtle)}
+.mg-chan a strong{font:600 clamp(18px,1.7cqi,23px)/1.2 var(--display);letter-spacing:-.015em;overflow-wrap:anywhere}
+.mg-chan a.big strong{font-size:clamp(22px,2.3cqi,32px)}
+.mg-form{position:relative;display:grid;gap:18px;padding:clamp(24px,3cqi,40px);border:1px solid var(--line);border-radius:26px;background:var(--card);box-shadow:var(--shadow)}
+.mg-fld{display:grid;gap:9px}
+.mg-fld label{font:500 10.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--fg-muted)}
+.mg-input{width:100%;height:54px;padding:0 16px;border:1px solid var(--line-strong);border-radius:13px;background:transparent;color:var(--fg);font:400 16px/1.4 var(--sans);transition:border-color .2s,box-shadow .2s}
+.mg-input::placeholder{color:var(--fg-subtle)}
+.mg-input:hover{border-color:var(--fg-subtle)}
+.mg-input:focus{outline:none;border-color:var(--warm);box-shadow:0 0 0 3px color-mix(in srgb,var(--warm) 28%,transparent)}
+textarea.mg-input{height:auto;min-height:160px;padding:15px 16px;resize:vertical}
+.mg-sent{display:grid;place-items:center;gap:22px;min-height:440px;text-align:center}
+.mg-sent svg{width:260px;height:120px;overflow:visible}
+.mg-sent .arc{fill:none;stroke:var(--line-strong);stroke-dasharray:3 5}
+.mg-sent .pk{fill:var(--warm);offset-path:path('M 20 100 Q 130 -20 240 70');animation:mgSend 1.6s cubic-bezier(.5,0,.3,1) both}
+.mg-sent .pl{fill:url(#mgPlanetG)}
+.mg-sent h3{margin:0;font:700 clamp(28px,3cqi,40px)/1.1 var(--display);letter-spacing:-.03em;animation:mgRise .6s ease 1.4s both}
+
+/* ---------- Theme transition: un amanecer ---------- */
+.mg-dawn{position:fixed;inset:0;z-index:85;pointer-events:none}
+.mg-dawn--light{background:radial-gradient(circle at 14% 96%,#FFFFFF 0%,#DDEBF7 9%,#BBD1EA 20%,#F3DCC6 46%,#F6E4D3 72%);animation:mgDawn 1.25s cubic-bezier(.5,0,.3,1) both}
+.mg-dawn--dark{background:radial-gradient(circle at 14% 96%,#DDEBF7 0%,#9DB8DA 8%,#3B2A55 26%,#1F1331 46%,#0A0614 72%);animation:mgDawn 1.25s cubic-bezier(.5,0,.3,1) both}
+
+/* ---------- Keyframes ---------- */
+@keyframes mgFade{from{opacity:0}to{opacity:1}}
+@keyframes mgRise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes mgWord{from{opacity:0;transform:translateY(.45em) rotate(1.4deg);filter:blur(12px)}to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes mgType{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes mgFallFar{from{transform:scale(.8);opacity:0}to{transform:none;opacity:1}}
+@keyframes mgFallMid{from{transform:scale(.55);opacity:0}to{transform:none;opacity:1}}
+@keyframes mgFallNear{from{transform:scale(.24);opacity:0}to{transform:none;opacity:1}}
+@keyframes mgWarp{0%{opacity:.95;transform:scale(.55)}55%{opacity:.5}100%{opacity:0;transform:scale(1.9)}}
+@keyframes mgArrive{0%{transform:scale(.16);opacity:0}18%{opacity:1}100%{transform:none;opacity:1}}
+@keyframes mgDrift{to{transform:translateY(150px) scale(.94)}}
+@keyframes mgTwinkle{0%,100%{opacity:.25;transform:scale(.7)}50%{opacity:1;transform:scale(1)}}
+@keyframes mgPulse{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes mgPing{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.6);opacity:0}}
+@keyframes mgBlink{50%{opacity:0}}
+@keyframes mgZ{0%,49.9%{z-index:1}50%,100%{z-index:4}}
+@keyframes mgSpin{to{transform:rotate(-360deg)}}
+@keyframes mgSpinRev{to{transform:rotate(360deg)}}
+@keyframes mgCounter{from{transform:rotate(0deg) scaleY(4.4444)}to{transform:rotate(360deg) scaleY(4.4444)}}
+@keyframes mgEclipseP{0%,4.6%{opacity:1}5.9%,16.3%{opacity:.14}17.6%,100%{opacity:1}}
+@keyframes mgEclipseD{0%,8.3%{opacity:1}9.3%,12.9%{opacity:.14}13.9%,100%{opacity:1}}
+@keyframes mgTagP{0%,10%{opacity:1}13%,84%{opacity:0}88%,100%{opacity:1}}
+@keyframes mgSunrise{from{translate:0 34px}to{translate:0 -46px}}
+@keyframes mgSkyPh{0%{transform:rotate(77deg);opacity:0}.8%{opacity:1}37.6%{opacity:1}38.3%{transform:rotate(-77deg);opacity:0}100%{transform:rotate(-77deg);opacity:0}}
+@keyframes mgSkyDe{0%{transform:rotate(-74deg)}100%{transform:rotate(74deg)}}
+@keyframes mgDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes mgProbe{from{offset-distance:0%}to{offset-distance:100%}}
+@keyframes mgDawn{0%{opacity:0;clip-path:circle(0% at 14% 96%)}45%{opacity:1;clip-path:circle(150% at 14% 96%)}60%{opacity:1;clip-path:circle(150% at 14% 96%)}100%{opacity:0;clip-path:circle(150% at 14% 96%)}}
+@keyframes mgSend{0%{offset-distance:0%;opacity:0}10%{opacity:1}90%{opacity:1}100%{offset-distance:100%;opacity:0}}
+@keyframes kdDim{to{opacity:.42}}
+@keyframes kdStrike{from{transform:scaleX(0);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}
+@keyframes kdCard{from{opacity:0;transform:translateY(14px) scale(.96);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes kdPop{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+@keyframes kdFill{from{width:0}to{width:72%}}
+@keyframes jdDrop{from{opacity:0;transform:translateY(-230px)}to{opacity:1;transform:none}}
+@keyframes jdType{from{max-width:0}to{max-width:40ch}}
+@keyframes jdScan{0%{opacity:0;transform:translateY(0)}12%{opacity:1}82%{opacity:1;transform:translateY(160px)}100%{opacity:0;transform:translateY(166px)}}
+@keyframes jdHit{from{transform:none}to{transform:translateX(-6px)}}
+@keyframes jdRes{from{opacity:0;transform:translate(18px,10px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes odTalk{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+@keyframes odCollapse{from{transform:scaleY(1);opacity:.9}to{transform:scaleY(.06);opacity:.5}}
+@keyframes odStop{to{opacity:.5}}
+
+/* ---------- Motion: user pause + reduced motion ---------- */
+.mg-app[data-motion="off"] .mg-loop,.mg-app[data-motion="off"] .mg-loop *{animation-play-state:paused !important}
+@media (prefers-reduced-motion: reduce){
+  .mg-app .mg-loop,.mg-app .mg-loop *{animation-play-state:paused !important}
+  .mg-app .mg-hero__title .w,.mg-app .mg-phead .w,.mg-app .mg-hero__over,.mg-app .mg-hero__sub,.mg-app .mg-hero__ctas,.mg-app .mg-hud,.mg-app .mg-legend,.mg-app .mg-field,.mg-app .mg-sys__arrive,.mg-app .mg-orbits,.mg-app .is-play *{animation:none !important}
+  .mg-app .mg-warp,.mg-app .mg-dawn{display:none}
+  .mg-app .mg-sun,.mg-app .mg-halo{animation:none !important}
+}
+</style>
+</helmet>
+<div class="mg-app" data-theme="{{ theme }}" data-motion="{{ motionAttr }}" lang="{{ lang }}">
+<svg width="0" height="0" style="position: absolute; overflow: hidden" aria-hidden="true" focusable="false">
+<defs>
+<linearGradient id="mgLogoG" x1="179" y1="399.5" x2="624" y2="399.5" gradientUnits="userSpaceOnUse"><stop stop-color="#E64241"></stop><stop offset="1" stop-color="#E9603A"></stop></linearGradient>
+<radialGradient id="mgPlanetG" cx="34%" cy="34%" r="72%"><stop offset="0" stop-color="#FF9A66"></stop><stop offset=".34" stop-color="#E9603A"></stop><stop offset=".68" stop-color="#C5402E"></stop><stop offset="1" stop-color="#4E1622"></stop></radialGradient>
+<radialGradient id="mgShadeG" cx="18%" cy="30%" r="95%"><stop offset=".45" stop-color="#0A0614" stop-opacity="0"></stop><stop offset=".78" stop-color="#0A0614" stop-opacity=".55"></stop><stop offset="1" stop-color="#0A0614" stop-opacity=".9"></stop></radialGradient>
+<linearGradient id="mgMoonG" x1="0" y1="0" x2="1" y2=".45"><stop offset="0" stop-color="#EBD8CB"></stop><stop offset=".5" stop-color="#8E6B5E"></stop><stop offset="1" stop-color="#2A1A20"></stop></linearGradient>
+<linearGradient id="mgMoonSkyG" x1="0" y1="0" x2="1" y2=".3"><stop offset="0" stop-color="#C9A898"></stop><stop offset=".6" stop-color="#7C5A4E"></stop><stop offset="1" stop-color="#5A3E36"></stop></linearGradient>
+<symbol id="mgMark" viewBox="120 120 560 560">
+<path d="M401.576 622C360.929 622.003 321.058 610.882 286.284 589.843C251.511 568.803 223.164 538.649 204.317 502.65H320.676C326.064 502.768 331.279 500.741 335.172 497.016C339.066 493.291 341.32 488.172 341.438 482.786C341.556 477.4 339.528 472.187 335.802 468.295C332.075 464.403 326.955 462.15 321.567 462.032H187.906C181.983 441.717 178.984 420.661 179.001 399.5C178.913 367.105 185.973 335.089 199.678 305.732H421.648C427.035 305.732 432.201 303.593 436.01 299.785C439.819 295.978 441.959 290.813 441.959 285.428C441.959 280.043 439.819 274.879 436.01 271.071C432.201 267.263 427.035 265.124 421.648 265.124H224.184C244.946 237.75 271.765 215.551 302.539 200.262C333.314 184.974 367.211 177.012 401.576 177C512.254 177 605.87 258.234 621.783 366.947H439.154C433.766 366.829 428.552 368.856 424.658 372.581C420.765 376.306 418.511 381.425 418.393 386.811C418.275 392.197 420.302 397.41 424.028 401.302C427.755 405.194 432.876 407.447 438.264 407.565H624C622.603 447.557 610.392 486.424 588.666 520.034H492.494C487.179 520.145 482.12 522.334 478.401 526.13C474.682 529.927 472.599 535.029 472.599 540.343C472.599 545.656 474.682 550.759 478.401 554.555C482.12 558.352 487.179 560.54 492.494 560.651H555.068C513.733 600.094 458.765 622.07 401.621 622H401.576ZM379.127 462.032C373.813 462.144 368.753 464.332 365.034 468.129C361.315 471.925 359.232 477.027 359.232 482.341C359.232 487.655 361.315 492.757 365.034 496.553C368.753 500.35 373.813 502.538 379.127 502.65H399.519C404.834 502.538 409.893 500.35 413.612 496.553C417.331 492.757 419.414 487.655 419.414 482.341C419.414 477.027 417.331 471.925 413.612 468.129C409.893 464.332 404.834 462.144 399.519 462.032H379.127ZM253.623 366.582C248.235 366.464 243.02 368.491 239.127 372.216C235.233 375.941 232.98 381.06 232.861 386.446C232.743 391.832 234.771 397.045 238.497 400.937C242.224 404.829 247.344 407.082 252.732 407.2H273.979C279.294 407.088 284.353 404.9 288.073 401.103C291.792 397.307 293.875 392.205 293.875 386.891C293.875 381.577 291.792 376.475 288.073 372.679C284.353 368.882 279.294 366.694 273.979 366.582H253.623Z" fill="url(#mgLogoG)"></path>
+<path d="M138 205.009C137.998 195.912 140.694 187.018 145.746 179.453C150.799 171.888 157.981 165.99 166.384 162.507C174.788 159.023 184.036 158.109 192.959 159.881C201.882 161.653 210.079 166.03 216.514 172.461C222.949 178.891 227.334 187.085 229.112 196.006C230.891 204.928 229.984 214.176 226.507 222.583C223.03 230.989 217.138 238.176 209.577 243.234C202.015 248.292 193.124 250.995 184.027 251C177.984 251.004 172.001 249.817 166.417 247.507C160.834 245.197 155.76 241.81 151.486 237.54C147.211 233.269 143.821 228.197 141.507 222.616C139.193 217.034 138.001 211.051 138 205.009Z" style="fill: var(--bg)"></path>
+<path d="M137.866 205H134C134 195.111 136.932 185.444 142.427 177.222C147.921 168.999 155.73 162.59 164.866 158.806C174.002 155.022 184.055 154.031 193.755 155.961C203.454 157.89 212.363 162.652 219.355 169.645C226.348 176.637 231.11 185.546 233.039 195.245C234.968 204.945 233.978 214.998 230.194 224.134C226.41 233.27 220.001 241.079 211.778 246.573C203.556 252.068 193.889 255 184 255C170.739 255 158.021 249.732 148.645 240.355C139.268 230.979 134 218.261 134 205H141.786C141.786 213.349 144.262 221.511 148.9 228.453C153.539 235.395 160.132 240.806 167.845 244.001C175.559 247.196 184.047 248.032 192.236 246.403C200.424 244.774 207.946 240.754 213.85 234.85C219.754 228.946 223.774 221.424 225.403 213.236C227.032 205.047 226.196 196.559 223.001 188.845C219.806 181.132 214.395 174.539 207.453 169.9C200.511 165.262 192.349 162.786 184 162.786C172.804 162.786 162.067 167.233 154.15 175.15C146.233 183.067 141.786 193.804 141.786 205H137.866Z" fill="#E9603A"></path>
+<path d="M513 567.509C512.998 552.774 517.337 538.37 525.466 526.117C533.596 513.865 545.152 504.315 558.673 498.674C572.194 493.034 587.073 491.557 601.428 494.43C615.783 497.303 628.969 504.397 639.32 514.814C649.67 525.232 656.719 538.506 659.576 552.957C662.433 567.408 660.97 582.388 655.37 596.002C649.771 609.615 640.288 621.252 628.12 629.44C615.951 637.627 601.645 641.998 587.009 642C567.385 642 548.565 634.152 534.689 620.182C520.813 606.212 513.018 587.265 513.018 567.509" style="fill: var(--bg)"></path>
+<path d="M512.571 567.5H509C509 552.172 513.575 537.188 522.145 524.443C530.716 511.699 542.898 501.765 557.151 495.899C571.403 490.034 587.087 488.499 602.217 491.489C617.348 494.48 631.246 501.861 642.154 512.699C653.063 523.538 660.492 537.347 663.501 552.381C666.511 567.414 664.966 582.997 659.063 597.158C653.159 611.319 643.161 623.423 630.334 631.939C617.507 640.455 602.427 645 587 645C566.314 644.998 546.476 636.832 531.848 622.298C517.221 607.765 509.002 588.054 509 567.5H516.071C516.071 581.44 520.232 595.067 528.027 606.658C535.821 618.249 546.9 627.283 559.862 632.618C572.824 637.952 587.088 639.348 600.848 636.628C614.609 633.909 627.249 627.196 637.169 617.339C647.09 607.482 653.846 594.923 656.583 581.251C659.321 567.578 657.916 553.406 652.547 540.527C647.178 527.648 638.085 516.641 626.42 508.896C614.754 501.151 601.039 497.017 587.009 497.017C568.205 497.045 550.179 504.481 536.883 517.693C523.587 530.905 516.106 548.816 516.08 567.5H512.571Z" fill="#E9603A"></path>
+</symbol>
+</defs>
+</svg>
+<div class="mg">
+<a class="mg-skip" href="#mg-main">{{ t.ui.skip }}</a>
+<header class="mg-nav">
+<div class="mg-nav__bg"></div>
+<div class="mg-wrap mg-nav__bar">
+<a class="mg-brand" href="#inicio" onClick="{{ go.inicio }}" aria-label="{{ t.ui.home }}">
+<svg viewBox="0 0 560 560" aria-hidden="true"><use href="#mgMark" width="560" height="560"></use></svg>
+<span>marcela<span class="mg-brand__dot">.</span>gotta</span>
+</a>
+<nav aria-label="{{ t.ui.navLabel }}">
+<ul class="mg-links">
+<sc-for list="{{ nav }}" as="n" hint-placeholder-count="5">
+<li><a class="mg-link" href="{{ n.href }}" aria-current="{{ n.current }}" onClick="{{ n.go }}">{{ n.label }}</a></li>
+</sc-for>
+</ul>
+</nav>
+<div class="mg-tools">
+<div class="mg-seg" role="group" aria-label="{{ t.ui.lang }}">
+<button type="button" aria-pressed="{{ isEs }}" onClick="{{ setEs }}" lang="es">ES</button>
+<button type="button" aria-pressed="{{ isEn }}" onClick="{{ setEn }}" lang="en">EN</button>
+</div>
+<button type="button" class="mg-ico" onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}">
+<sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M2.5 17h19"></path><path d="M7 17a5 5 0 0 1 10 0"></path><path d="M12 5.5v3M5.6 9.6l1.9 1.9M18.4 9.6l-1.9 1.9M3.5 13.8h1.6M18.9 13.8h1.6"></path><path d="M8.5 20.5h7"></path></svg>
+</sc-if>
+<sc-if value="{{ isLight }}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.6"></circle><ellipse cx="12" cy="12" rx="10.2" ry="3.4" transform="rotate(-20 12 12)"></ellipse><circle cx="19.6" cy="4.6" r=".9" fill="currentColor" stroke="none"></circle><circle cx="4.2" cy="19.2" r=".6" fill="currentColor" stroke="none"></circle></svg>
+</sc-if>
+</button>
+<button type="button" class="mg-ico mg-menubtn" onClick="{{ openMenu }}" aria-label="{{ t.ui.menu }}" aria-expanded="{{ menuOpen }}">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 9h16M4 15h11"></path></svg>
+</button>
+</div>
+</div>
+</header>
+<main id="mg-main">
+
+<sc-if value="{{ r.inicio }}" hint-placeholder-val="{{ true }}">
+<section class="mg-hero {{ heroCls }}" aria-labelledby="mg-hero-title" ref="{{ heroRef }}" onMouseMove="{{ onHeroMove }}" onMouseLeave="{{ onHeroLeave }}">
+<sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}">
+<div class="mg-space mg-loop" aria-hidden="true">
+<div class="mg-nebula"></div>
+<div class="mg-field mg-field--far"><div class="mg-par"><span class="mg-stars" style="box-shadow: {{ stars.far }}"></span></div></div>
+<div class="mg-field mg-field--mid"><div class="mg-par"><span class="mg-stars" style="box-shadow: {{ stars.mid }}"></span></div></div>
+<div class="mg-field mg-field--near"><div class="mg-par"><span class="mg-stars" style="box-shadow: {{ stars.near }}"></span></div></div>
+<sc-for list="{{ twinkles }}" as="s" hint-placeholder-count="7"><i class="mg-twinkle" style="left: {{ s.x }}; top: {{ s.y }}; animation-delay: {{ s.d }}"></i></sc-for>
+<div class="mg-warp"></div>
+</div>
+</sc-if>
+<sc-if value="{{ isLight }}" hint-placeholder-val="{{ false }}">
+<div class="mg-surface mg-loop" aria-hidden="true">
+<div class="mg-halo"></div>
+<div class="mg-sun"></div>
+<div class="mg-skymoon mg-skymoon--ph"><i><svg viewBox="0 0 20 15" width="20" height="15"><path d="M2.2 8.4C1.6 4.6 5 1.6 9.6 1.4c4.8-.2 8.6 2.2 8.4 5.8-.2 3.8-3.6 6.6-8.6 6.4C5.2 13.4 2.7 11.6 2.2 8.4Z" fill="url(#mgMoonSkyG)"></path><circle cx="12.6" cy="7.6" r="1.6" fill="#5A3E36" opacity=".6"></circle></svg></i></div>
+<div class="mg-skymoon mg-skymoon--de"><i></i></div>
+<svg class="mg-dunes" viewBox="0 0 1440 300" preserveAspectRatio="none">
+<path d="M0 132C110 118 240 104 380 112S620 96 760 101 905 108 958 104L986 128 1016 106C1110 92 1270 100 1440 86V300H0Z" fill="#EBCFB6"></path>
+<path d="M0 132C110 118 240 104 380 112S620 96 760 101 905 108 958 104L986 128 1016 106C1110 92 1270 100 1440 86" fill="none" stroke="#F6E4D3" stroke-opacity=".7" stroke-width="1.2"></path>
+<path d="M0 196C150 172 300 184 430 170S700 190 830 176 1090 158 1210 178 1380 166 1440 172V300H0Z" fill="#DFB797"></path>
+<path d="M0 246C180 228 360 242 560 228S900 248 1110 232 1340 242 1440 236V300H0Z" fill="#C98F6B"></path>
+<path d="M0 284C220 270 420 280 640 268S1040 284 1440 270V300H0Z" fill="#A86847"></path>
+<path d="M168 262c8-9 26-11 38-4 8 5 6 12-4 13-14 2-30 0-34-9Z" fill="#7A3D24" opacity=".75"></path>
+<path d="M1124 252c6-7 19-8 27-3 6 4 4 9-3 10-10 1-21 0-24-7Z" fill="#7A3D24" opacity=".7"></path>
+<path d="M1218 276c10-12 34-15 50-6 10 6 8 15-5 17-19 3-40 1-45-11Z" fill="#5E2C18" opacity=".7"></path>
+</svg>
+<svg class="mg-rover" viewBox="0 0 40 22"><path d="M7 13.2h23.5l2-4.4H9.4z"></path><rect x="24.6" y="2.6" width="1.5" height="7"></rect><rect x="22" y="1" width="6.6" height="2.6" rx=".7"></rect><path d="M31 10.6l5.6-2.8 1.4 1.1-5.2 3.4z"></path><circle cx="9.5" cy="17.6" r="3"></circle><circle cx="19" cy="17.6" r="3"></circle><circle cx="28.5" cy="17.6" r="3"></circle><path d="M6 20.6h28" stroke="#7A3D24" stroke-width=".8" opacity=".5"></path></svg>
+</div>
+</sc-if>
+
+<div class="mg-wrap mg-hero__in">
+<p class="mg-label mg-hero__over"><i aria-hidden="true"></i>{{ t.hero.over }}</p>
+<h1 class="mg-display mg-hero__title" id="mg-hero-title">
+<span class="ln"><sc-for list="{{ head.l1 }}" as="w" hint-placeholder-count="2"><span class="w" style="animation-delay: {{ w.d }}">{{ w.t }}</span></sc-for></span>
+<span class="ln it"><sc-for list="{{ head.l2 }}" as="w" hint-placeholder-count="2"><span class="w" style="animation-delay: {{ w.d }}">{{ w.t }}</span></sc-for></span>
+<span class="ln"><sc-for list="{{ head.l3 }}" as="w" hint-placeholder-count="1"><span class="w gr" style="animation-delay: {{ w.d }}">{{ w.t }}</span></sc-for></span>
+</h1>
+<p class="mg-lead mg-hero__sub">{{ t.hero.sub }}</p>
+<div class="mg-hero__ctas">
+<a class="mg-btn mg-btn--primary" href="#proyectos" onClick="{{ go.proyectos }}">{{ t.hero.cta1 }}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"></path></svg></a>
+<a class="mg-btn mg-btn--ghost" href="#contacto" onClick="{{ go.contacto }}">{{ t.hero.cta2 }}</a>
+</div>
+</div>
+
+<sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}">
+<div class="mg-sys-wrap">
+<div class="mg-sys mg-loop" aria-hidden="true">
+<div class="mg-sys__drift"><div class="mg-sys__arrive">
+<div class="mg-bloom"></div>
+<svg class="mg-orbits mg-orbits--back" viewBox="-8 -8 16 16"><path class="o-de" d="M -6.922 0 A 6.922 1.557 0 0 1 6.922 0"></path><path class="o-ph" d="M -2.766 0 A 2.766 0.622 0 0 1 2.766 0"></path></svg>
+<div class="mg-orb"></div>
+<canvas class="mg-planet" ref="{{ planetRef }}"></canvas>
+<div class="mg-moon mg-moon--ph"><div class="mg-moon__arm"><div class="mg-moon__body"><div class="mg-moon__shape"><svg viewBox="0 0 18 14"><path d="M1.6 7.8C1 4.2 4.2 1.3 8.6 1.1c4.6-.2 8.2 2 8 5.5-.2 3.6-3.4 6.3-8.2 6.1C4.4 12.5 2.1 10.8 1.6 7.8Z" fill="url(#mgMoonG)"></path><circle cx="11.6" cy="7" r="1.5" fill="#2A1A20" opacity=".55"></circle><circle cx="6.2" cy="5.2" r=".9" fill="#2A1A20" opacity=".35"></circle></svg></div><span class="mg-moon__tag">{{ t.hero.phobos }}</span></div></div></div>
+<div class="mg-moon mg-moon--de"><div class="mg-moon__arm"><div class="mg-moon__body"><div class="mg-moon__shape"><svg viewBox="0 0 10 9"><path d="M1 4.8C.8 2.4 2.6.8 5.2.8s4.2 1.6 4 3.8c-.2 2.4-2 3.8-4.4 3.7C2.6 8.2 1.2 6.8 1 4.8Z" fill="url(#mgMoonG)"></path></svg></div></div></div></div>
+<svg class="mg-orbits mg-orbits--front" viewBox="-8 -8 16 16"><path class="o-de" d="M 6.922 0 A 6.922 1.557 0 0 1 -6.922 0"></path><path class="o-ph" d="M 2.766 0 A 2.766 0.622 0 0 1 -2.766 0"></path></svg>
+<div class="mg-jz" ref="{{ jzRef }}"><svg viewBox="0 0 14 14" fill="none" stroke="#FFF5EE" stroke-width="1.1"><circle cx="7" cy="7" r="3.2"></circle><path d="M7 0v3M7 11v3M0 7h3M11 7h3"></path></svg><span>JEZERO <b></b></span></div>
+</div></div>
+</div>
+</div>
+</sc-if>
+
+<aside class="mg-hud" aria-label="{{ t.hud.aria }}">
+<div class="mg-hud__row"><span>LAT <span class="mg-hud__v">40.42°N</span></span><span>LON <span class="mg-hud__v">3.70°W</span></span></div>
+<div class="mg-hud__row"><span>{{ t.hud.mad }}</span><span class="mg-hud__v">{{ hud.mad }}</span></div>
+<div class="mg-hud__row"><span>JEZERO</span><span class="mg-hud__v">SOL {{ hud.sol }} · {{ hud.lmst }} LMST</span></div>
+<div class="mg-hud__sep"></div>
+<div class="mg-hud__row">
+<span class="mg-hud__ok"><i class="mg-dot"></i>SYS OK</span>
+<button type="button" class="mg-sim" onClick="{{ toggleMotion }}" aria-label="{{ motionLabel }}" title="{{ motionLabel }}">SIM {{ hud.sim }}
+<sc-if value="{{ motionOn }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><rect x="1.5" y="1" width="2.4" height="8" rx=".6"></rect><rect x="6.1" y="1" width="2.4" height="8" rx=".6"></rect></svg></sc-if>
+<sc-if value="{{ motionOff }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><path d="M2 1.2v7.6L8.6 5Z"></path></svg></sc-if>
+</button>
+</div>
+</aside>
+
+<sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}">
+<div class="mg-legend" aria-hidden="true">
+<span><i></i>{{ t.hero.phobos }}</span><b>T 7 h 39 min</b><span class="lg-a">a {{ t.hero.aPh }}</span>
+<span><i class="de"></i>{{ t.hero.deimos }}</span><b>T 30 h 18 min</b><span class="lg-a">a {{ t.hero.aDe }}</span>
+<span>{{ t.hero.mars }}</span><b>{{ t.hero.rot }}</b><span class="lg-a">{{ t.hero.scale }}</span>
+</div>
+</sc-if>
+<sc-if value="{{ isLight }}" hint-placeholder-val="{{ false }}">
+<div class="mg-legend mg-legend--surface" aria-hidden="true">
+<span>{{ t.hero.view }}</span><b>{{ t.hero.viewDir }}</b>
+<span>{{ t.hero.phobos }}</span><b>{{ t.hero.phRise }}</b>
+<span>{{ t.hero.deimos }}</span><b>{{ t.hero.deRise }}</b>
+</div>
+</sc-if>
+</section>
+
+<section class="mg-now" aria-labelledby="mg-now-t">
+<div class="mg-wrap mg-now__in">
+<div class="mg-now__head">
+<h2 id="mg-now-t">{{ t.now.title }}</h2>
+<p class="mg-label">{{ t.now.updated }} <time datetime="2026-10-21">{{ t.now.date }}</time></p>
+</div>
+<ul class="mg-now__list">
+<sc-for list="{{ nowItems }}" as="it" hint-placeholder-count="4">
+<li class="mg-now__item {{ it.cls }}">
+<span class="mg-now__icon" aria-hidden="true">
+<sc-if value="{{ it.planet }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="5"></circle><path d="M5 15.2c-2 1.4-2.9 2.8-2.3 3.6 1.1 1.4 6.1-.5 11-4.1s8.2-7.8 7.1-9.2c-.6-.8-2.2-.6-4.3.5"></path></svg></sc-if>
+<sc-if value="{{ it.sat }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9.4 7.6 7 7-2.8 2.8-7-7z"></path><path d="m8 9-3-3M16 15l3 3"></path><path d="m2.4 6.6 3.2-3.2 2.4 2.4-3.2 3.2zM16 18.4l3.2-3.2 2.4 2.4-3.2 3.2z"></path><path d="M14.5 4.5a5 5 0 0 1 5 5M14.5 1.8a7.7 7.7 0 0 1 7.7 7.7"></path></svg></sc-if>
+<sc-if value="{{ it.puzzle }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M5 5h4.2a2.3 2.3 0 1 1 4.6 0H18v4.2a2.3 2.3 0 1 1 0 4.6V19h-4.2a2.3 2.3 0 1 0-4.6 0H5v-5.2a2.3 2.3 0 1 0 0-4.6Z"></path></svg></sc-if>
+<sc-if value="{{ it.cap }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9 12 4.5 21.5 9 12 13.5z"></path><path d="M6.5 11.2v4c0 1.6 2.5 2.9 5.5 2.9s5.5-1.3 5.5-2.9v-4"></path><path d="M21.5 9v5.2"></path></svg></sc-if>
+<span>{{ it.idx }}</span>
+</span>
+<p class="mg-now__text">{{ it.text }}</p>
+</li>
+</sc-for>
+</ul>
+</div>
+</section>
+
+<section class="mg-sec" id="mg-sistema" aria-labelledby="mg-sys-t">
+<div class="mg-wrap">
+<div class="mg-head">
+<p class="mg-label mg-rule">{{ t.sys.kicker }}</p>
+<h2 class="mg-h2" id="mg-sys-t">{{ t.sys.title }}</h2>
+<p class="mg-lead">{{ t.sys.lead }}</p>
+</div>
+<div class="mg-sysgrid">
+<figure class="mg-orrery mg-loop">
+<svg viewBox="0 0 600 600" aria-hidden="true">
+<defs>
+<path id="mgRingK" d="M 182,300 a 118,118 0 1,1 236,0 a 118,118 0 1,1 -236,0"></path>
+<path id="mgRingJ" d="M 112,300 a 188,188 0 1,1 376,0 a 188,188 0 1,1 -376,0"></path>
+<path id="mgRingO" d="M 42,300 a 258,258 0 1,1 516,0 a 258,258 0 1,1 -516,0"></path>
+</defs>
+<circle class="ring-tick" cx="300" cy="300" r="290"></circle>
+<g class="p-orbit {{ orr.o }}">
+<circle class="ring" cx="300" cy="300" r="258"></circle>
+<text class="lbl"><textPath href="#mgRingO" startOffset="3%">{{ t.sys.ringO }}</textPath></text>
+<g class="sat sat--o"><circle class="sat-halo" cx="558" cy="300" r="10"></circle><circle class="sat-dot" cx="558" cy="300" r="6.5"></circle></g>
+<circle class="hit" cx="300" cy="300" r="258" onMouseEnter="{{ pick.orbit }}" onClick="{{ pick.orbit }}"></circle>
+</g>
+<g class="p-jezero {{ orr.j }}">
+<circle class="ring" cx="300" cy="300" r="188"></circle>
+<text class="lbl"><textPath href="#mgRingJ" startOffset="5%">{{ t.sys.ringJ }}</textPath></text>
+<g class="sat sat--j"><circle class="sat-halo" cx="488" cy="300" r="10"></circle><circle class="sat-dot" cx="488" cy="300" r="6.5"></circle></g>
+<circle class="hit" cx="300" cy="300" r="188" onMouseEnter="{{ pick.jezero }}" onClick="{{ pick.jezero }}"></circle>
+</g>
+<g class="p-kimen {{ orr.k }}">
+<circle class="ring" cx="300" cy="300" r="118"></circle>
+<text class="lbl"><textPath href="#mgRingK" startOffset="8%">{{ t.sys.ringK }}</textPath></text>
+<g class="sat sat--k"><circle class="sat-halo" cx="418" cy="300" r="10"></circle><circle class="sat-dot" cx="418" cy="300" r="6.5"></circle></g>
+<circle class="hit" cx="300" cy="300" r="118" onMouseEnter="{{ pick.kimen }}" onClick="{{ pick.kimen }}"></circle>
+</g>
+<circle cx="300" cy="300" r="52" fill="none" stroke="#E9603A" stroke-opacity=".28" stroke-width="1"></circle>
+<circle cx="300" cy="300" r="46" fill="url(#mgPlanetG)"></circle>
+<circle cx="300" cy="300" r="46" fill="url(#mgShadeG)"></circle>
+</svg>
+<figcaption class="mg-label">{{ t.sys.kepler }}</figcaption>
+</figure>
+<div class="mg-panel">
+<div class="mg-tabs">
+<sc-for list="{{ projects }}" as="p" hint-placeholder-count="3">
+<button type="button" class="mg-tab {{ p.cls }}" aria-pressed="{{ p.on }}" aria-controls="mg-stage" onClick="{{ p.pick }}" onMouseEnter="{{ p.pick }}" onFocus="{{ p.pick }}">
+<span class="mg-tab__idx">{{ p.idx }}</span>
+<span><span class="mg-tab__name"><i></i>{{ p.name }}</span><span class="mg-tab__line">{{ p.line }}</span></span>
+<span class="mg-tab__chips"><sc-for list="{{ p.chips }}" as="c" hint-placeholder-count="2"><span class="mg-chip">{{ c }}</span></sc-for></span>
+</button>
+</sc-for>
+</div>
+<div class="mg-stage {{ stage.home }}" id="mg-stage" ref="{{ io.home }}" role="img" aria-label="{{ activeP.alt }}">
+<sc-if value="{{ demo.kimen }}" hint-placeholder-val="{{ true }}">
+<div class="mg-stage__bar"><i></i><span>kimen · {{ t.demo.k.file }}</span><span>{{ t.demo.k.agent }}</span></div>
+<div class="mg-stage__body">
+<div class="kd">
+<div class="kd-code">
+<span class="kd-l" style="animation-delay: .2s">{</span>
+<span class="kd-l i1" style="animation-delay: .42s"><span class="k">"type"</span>: <span class="s">"ki-card"</span>,</span>
+<span class="kd-l i1" style="animation-delay: .64s"><span class="k">"title"</span>: <span class="s">"{{ t.demo.k.cardTitle }}"</span>,</span>
+<span class="kd-l i1" style="animation-delay: .86s"><span class="k">"children"</span>: [</span>
+<span class="kd-l i2" style="animation-delay: 1.08s">{ <span class="k">"type"</span>: <span class="s">"ki-badge"</span>, <span class="k">"tone"</span>: <span class="s">"success"</span> },</span>
+<span class="kd-l i2" style="animation-delay: 1.3s">{ <span class="k">"type"</span>: <span class="s">"ki-progress"</span>, <span class="k">"value"</span>: <span class="n">72</span> },</span>
+<span class="kd-l i2 bad" style="animation-delay: 1.52s">{ <span class="k">"type"</span>: <span class="s">"x-chart"</span> }</span>
+<span class="kd-l i1" style="animation-delay: 1.74s">]</span>
+<span class="kd-l" style="animation-delay: 1.96s">}</span>
+<ul class="kd-checks">
+<li class="ok" style="animation-delay: 2.4s"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m2 6.4 2.6 2.4L10 3.2"></path></svg>ki-card<span>{{ t.demo.k.ok }}</span></li>
+<li class="ok" style="animation-delay: 2.6s"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m2 6.4 2.6 2.4L10 3.2"></path></svg>ki-badge<span>{{ t.demo.k.ok }}</span></li>
+<li class="ok" style="animation-delay: 2.8s"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m2 6.4 2.6 2.4L10 3.2"></path></svg>ki-progress<span>{{ t.demo.k.ok }}</span></li>
+<li class="no" style="animation-delay: 3.05s"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l6 6M9 3 3 9"></path></svg>x-chart<span>{{ t.demo.k.no }}</span></li>
+</ul>
+</div>
+<div class="kd-out">
+<p class="mg-label">{{ t.demo.k.render }}</p>
+<div class="kd-card">
+<div class="kd-card__head"><span class="kd-card__title">{{ t.demo.k.cardTitle }}</span><span class="kd-badge">{{ t.demo.k.badge }}</span></div>
+<div class="kd-bar"><i></i></div>
+<div class="kd-meta"><span>ki-progress</span><span>72 %</span></div>
+</div>
+<p class="kd-sum">{{ t.demo.k.sum }}</p>
+</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ demo.jezero }}" hint-placeholder-val="{{ false }}">
+<div class="mg-stage__bar"><i></i><span>jezero · {{ t.demo.j.bar }}</span><span>MCP · read-only</span></div>
+<div class="mg-stage__body">
+<div class="jd">
+<div class="jd-search"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.6"></circle><path d="m10.4 10.4 3.6 3.6"></path></svg><span class="jd-q" style="animation-timing-function: steps({{ t.demo.j.qn }})">{{ t.demo.j.q }}</span><i class="jd-caret"></i></div>
+<div class="jd-strata">
+<sc-for list="{{ jLayers }}" as="l" hint-placeholder-count="6"><div class="jd-layer {{ l.cls }}" style="animation-delay: {{ l.d }}"><span>{{ l.a }}</span><em>{{ l.b }}</em></div></sc-for>
+<i class="jd-scan"></i>
+<div class="jd-res"><p class="jd-res__k">{{ t.demo.j.rk }}</p><p class="jd-res__t">{{ t.demo.j.rt }}</p><p class="jd-res__s">{{ t.demo.j.rs }}</p></div>
+</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ demo.orbit }}" hint-placeholder-val="{{ false }}">
+<div class="mg-stage__bar"><i></i><span>orbit · macOS</span><span>beta</span></div>
+<div class="mg-stage__body">
+<div class="od">
+<div class="od-top"><span class="od-rec">REC</span><span>{{ t.demo.o.meeting }}</span><span>00:14:32</span></div>
+<div class="od-wave"><sc-for list="{{ bars }}" as="b" hint-placeholder-count="40"><i style="height: {{ b.h }}; animation-delay: {{ b.d }}, 2.7s"></i></sc-for></div>
+<div class="od-note">
+<p class="t" style="animation-delay: 3.2s">{{ t.demo.o.title }}</p>
+<p class="k" style="animation-delay: 3.55s">{{ t.demo.o.k1 }}</p>
+<p class="b" style="animation-delay: 3.8s">{{ t.demo.o.b1 }}</p>
+<p class="b" style="animation-delay: 4.15s">{{ t.demo.o.b2 }}</p>
+<p class="k" style="animation-delay: 4.5s">{{ t.demo.o.k2 }}</p>
+<p class="b" style="animation-delay: 4.75s">{{ t.demo.o.b3 }}</p>
+</div>
+</div>
+</div>
+</sc-if>
+</div>
+<div class="mg-panel__foot">
+<a class="mg-arrow" href="#proyectos" onClick="{{ activeP.go }}">{{ activeP.cta }}<span aria-hidden="true">→</span></a>
+<span class="mg-label">{{ activeP.stack }}</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="mg-sec mg-sec--tight" aria-labelledby="mg-traj-t">
+<div class="mg-wrap mg-trajgrid">
+<div>
+<p class="mg-label mg-rule">{{ t.traj.kicker }}</p>
+<h2 class="mg-h3 mg-traj__text" id="mg-traj-t">{{ t.traj.text }}</h2>
+<a class="mg-arrow" href="#sobre" onClick="{{ go.sobre }}">{{ t.traj.cta }}<span aria-hidden="true">→</span></a>
+</div>
+<figure class="mg-xfer mg-xfer--home">
+<svg viewBox="0 0 560 380" role="img" aria-label="{{ t.traj.alt }}">
+<circle class="sun" cx="280" cy="190" r="3.5"></circle>
+<circle class="orb" cx="280" cy="190" r="56"></circle>
+<circle class="orb" cx="280" cy="190" r="112"></circle>
+<circle class="orb" cx="280" cy="190" r="180"></circle>
+<path class="ghost" d="M224 190 A84 79.2 0 0 1 392 190 A146 141.99 0 0 1 100 190"></path>
+<path class="path" pathLength="1" d="M224 190 A84 79.2 0 0 1 392 190 A146 141.99 0 0 1 100 190"></path>
+<circle class="ms" cx="224" cy="190" r="5"></circle>
+<circle class="ms" cx="392" cy="190" r="5"></circle>
+<circle class="ms now" cx="100" cy="190" r="6"></circle>
+<circle class="probe" r="3.5"></circle>
+<text class="y" x="232" y="216">2014</text><text x="232" y="232">{{ t.traj.m1 }}</text>
+<text class="y" x="400" y="216">2019</text><text x="400" y="232">{{ t.traj.m2 }}</text>
+<text class="y" x="110" y="216">2024</text><text x="110" y="232">{{ t.traj.m3 }}</text>
+</svg>
+</figure>
+</div>
+</section>
+
+<section class="mg-close" aria-labelledby="mg-close-t">
+<div class="mg-limb" aria-hidden="true"></div>
+<svg class="mg-close__dunes" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true"><path d="M0 96C180 70 360 86 540 70S880 92 1060 72 1330 80 1440 70V220H0Z" fill="#E8C9AA"></path><path d="M0 150C220 126 420 142 640 126S1040 150 1440 128V220H0Z" fill="#D9AB88"></path><path d="M0 196C260 182 520 192 780 180S1200 196 1440 186V220H0Z" fill="#B97A57"></path></svg>
+<div class="mg-wrap">
+<p class="mg-label mg-rule">{{ t.close.kicker }}</p>
+<h2 class="mg-h1 mg-close__q" id="mg-close-t">{{ t.close.q1 }} <span class="mg-it">{{ t.close.q2 }}</span></h2>
+<a class="mg-btn mg-btn--primary" href="#contacto" onClick="{{ go.contacto }}">{{ t.close.cta }}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"></path></svg></a>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ r.sobre }}" hint-placeholder-val="{{ false }}">
+<header class="mg-phead">
+<div class="mg-phead__deco mg-loop" aria-hidden="true"><svg viewBox="0 0 1040 420"><ellipse cx="520" cy="200" rx="380" ry="84"></ellipse><ellipse cx="520" cy="200" rx="230" ry="51" opacity=".7"></ellipse><circle class="p" cx="520" cy="200" r="58"></circle><circle cx="520" cy="200" r="58" fill="url(#mgShadeG)"></circle><circle class="m mg-decomoon" r="4"></circle></svg></div>
+<div class="mg-wrap">
+<p class="mg-label mg-rule">{{ t.about.kicker }}</p>
+<h1 class="mg-h1"><span class="w">{{ t.about.h1a }}</span> <span class="w mg-it" style="animation-delay: .16s">{{ t.about.h1b }}</span></h1>
+</div>
+</header>
+<section class="mg-sec mg-sec--tight" aria-label="{{ t.about.kicker }}">
+<div class="mg-wrap mg-intro">
+<div class="mg-intro__text">
+<p class="lede">{{ t.about.p1 }}</p>
+<p>{{ t.about.p2 }}</p>
+<p>{{ t.about.p3 }}</p>
+<p>{{ t.about.p4 }}</p>
+</div>
+<aside class="mg-spec" aria-labelledby="mg-spec-t">
+<h2 class="mg-label" id="mg-spec-t">{{ t.about.factsT }}</h2>
+<dl>
+<sc-for list="{{ t.about.facts }}" as="f" hint-placeholder-count="4"><div><dt>{{ f.k }}</dt><dd>{{ f.v }}</dd></div></sc-for>
+</dl>
+</aside>
+</div>
+</section>
+<section class="mg-sec mg-sec--tight" aria-labelledby="mg-lead-t">
+<div class="mg-wrap">
+<h2 class="mg-label mg-rule" id="mg-lead-t">{{ t.about.leadT }}</h2>
+<p class="mg-motto">{{ t.about.motto1 }} <span class="mg-it">{{ t.about.motto2 }}</span></p>
+<ol class="mg-axes">
+<sc-for list="{{ t.about.axes }}" as="a" hint-placeholder-count="3"><li><span class="mg-label mg-label--warm">{{ a.n }}</span><h3 class="mg-h4">{{ a.t }}</h3><p>{{ a.d }}</p></li></sc-for>
+</ol>
+</div>
+</section>
+<section class="mg-sec mg-sec--tight" aria-labelledby="mg-roles-t">
+<div class="mg-wrap">
+<div class="mg-head"><p class="mg-label mg-rule">{{ t.about.trajK }}</p><h2 class="mg-h2" id="mg-roles-t">{{ t.about.trajT }}</h2></div>
+<div class="mg-timeline">
+<ol class="mg-roles">
+<sc-for list="{{ t.about.roles }}" as="ro" hint-placeholder-count="6"><li><time>{{ ro.when }}</time><div><h3 class="mg-h4">{{ ro.what }}</h3><p>{{ ro.detail }}</p></div></li></sc-for>
+</ol>
+<figure class="mg-xfer mg-xfer--about">
+<svg viewBox="0 0 640 640" role="img" aria-label="{{ t.about.trajAlt }}">
+<circle class="sun" cx="320" cy="320" r="4"></circle>
+<circle class="orb" cx="320" cy="320" r="44"></circle>
+<circle class="orb" cx="320" cy="320" r="84"></circle>
+<circle class="orb" cx="320" cy="320" r="128"></circle>
+<circle class="orb" cx="320" cy="320" r="176"></circle>
+<circle class="orb" cx="320" cy="320" r="228"></circle>
+<circle class="orb" cx="320" cy="320" r="284"></circle>
+<path class="ghost" d="M276 320 A64 60.79 0 0 1 404 320 A106 103.69 0 0 1 192 320 A152 150.09 0 0 1 496 320 A202 200.32 0 0 1 92 320 A256 254.46 0 0 1 604 320"></path>
+<path class="path" pathLength="1" d="M276 320 A64 60.79 0 0 1 404 320 A106 103.69 0 0 1 192 320 A152 150.09 0 0 1 496 320 A202 200.32 0 0 1 92 320 A256 254.46 0 0 1 604 320"></path>
+<circle class="ms" cx="276" cy="320" r="5"></circle>
+<circle class="ms" cx="404" cy="320" r="5"></circle>
+<circle class="ms" cx="192" cy="320" r="5"></circle>
+<circle class="ms" cx="496" cy="320" r="5"></circle>
+<circle class="ms" cx="92" cy="320" r="5"></circle>
+<circle class="ms now" cx="604" cy="320" r="6.5"></circle>
+<circle class="probe" r="4"></circle>
+<text class="y" x="283" y="344">2014</text>
+<text class="y" x="411" y="344">2018</text>
+<text class="y" x="199" y="344">2019</text>
+<text class="y" x="503" y="344">2022</text>
+<text class="y" x="99" y="344">2024</text>
+<text class="y" x="611" y="306">2026</text>
+</svg>
+<figcaption class="mg-label">{{ t.about.trajCap }}</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section class="mg-sec mg-sec--tight" aria-labelledby="mg-edu-t">
+<div class="mg-wrap">
+<h2 class="mg-label mg-rule" id="mg-edu-t">{{ t.about.eduT }}</h2>
+<div class="mg-edu" style="margin-top: 26px"><p>{{ t.about.edu }}</p><span class="mg-chip" style="color: var(--warm-text)">{{ t.about.eduState }}</span></div>
+</div>
+</section>
+<section class="mg-sec mg-sec--tight" aria-labelledby="mg-tech-t" style="padding-top: 24px">
+<div class="mg-wrap">
+<div class="mg-head" style="margin-bottom: 0"><p class="mg-label mg-rule">{{ t.about.techK }}</p><h2 class="mg-h2" id="mg-tech-t">{{ t.about.techT }}</h2><p class="mg-lead">{{ t.about.techLead }}</p></div>
+<div class="mg-filter" role="group" aria-label="{{ t.about.filterLabel }}">
+<sc-for list="{{ cfilters }}" as="f" hint-placeholder-count="4"><button type="button" class="{{ f.cls }}" aria-pressed="{{ f.on }}" onClick="{{ f.pick }}"><i></i>{{ f.label }}</button></sc-for>
+</div>
+<div class="mg-constel {{ cst.cls }}" data-p="{{ cst.p }}">
+<svg class="mg-constel__lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+<line class="k" x1="7" y1="20" x2="55" y2="37"></line>
+<line class="k" x1="55" y1="37" x2="40" y2="46"></line>
+<line class="k" x1="40" y1="46" x2="40" y2="19"></line>
+<line class="k" x1="40" y1="46" x2="47" y2="29"></line>
+<line class="k" x1="40" y1="46" x2="36" y2="33"></line>
+<line class="k" x1="55" y1="37" x2="84" y2="31"></line>
+<line class="k" x1="84" y1="31" x2="74" y2="41"></line>
+<line class="k" x1="40" y1="46" x2="59" y2="73"></line>
+<line class="j" x1="22" y1="49" x2="68" y2="81"></line>
+<line class="j" x1="68" y1="81" x2="59" y2="73"></line>
+<line class="o" x1="63" y1="42" x2="40" y2="19"></line>
+<line class="o" x1="63" y1="42" x2="6" y2="52"></line>
+<line class="o" x1="6" y1="52" x2="22" y2="49"></line>
+</svg>
+<sc-for list="{{ t.about.groups }}" as="g" hint-placeholder-count="5"><span class="mg-constel__grp" style="left: {{ g.x }}; top: {{ g.y }}">{{ g.label }}</span></sc-for>
+<ul style="margin: 0; padding: 0; list-style: none">
+<sc-for list="{{ cstars }}" as="s" hint-placeholder-count="30"><li class="mg-star {{ s.cls }}" style="left: {{ s.x }}; top: {{ s.y }}"><i></i>{{ s.label }}<sc-if value="{{ s.learn }}" hint-placeholder-val="{{ false }}"><em>{{ t.about.learning }}</em></sc-if></li></sc-for>
+</ul>
+</div>
+<div class="mg-techlist {{ cst.cls }}">
+<sc-for list="{{ tgroups }}" as="g" hint-placeholder-count="5"><div><p class="mg-label">{{ g.label }}</p><ul><sc-for list="{{ g.items }}" as="s" hint-placeholder-count="6"><li class="{{ s.cls }}">{{ s.label }}</li></sc-for></ul></div></sc-for>
+</div>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ r.proyectos }}" hint-placeholder-val="{{ false }}">
+<header class="mg-phead">
+<div class="mg-phead__deco mg-loop" aria-hidden="true"><svg viewBox="0 0 1040 420"><ellipse cx="520" cy="200" rx="380" ry="84"></ellipse><ellipse cx="520" cy="200" rx="230" ry="51" opacity=".7"></ellipse><circle class="p" cx="520" cy="200" r="58"></circle><circle cx="520" cy="200" r="58" fill="url(#mgShadeG)"></circle><circle class="m mg-decomoon" r="4"></circle></svg></div>
+<div class="mg-wrap">
+<p class="mg-label mg-rule">{{ t.pj.kicker }}</p>
+<h1 class="mg-h1"><span class="w">{{ t.pj.h1a }}</span> <span class="w mg-it" style="animation-delay: .16s">{{ t.pj.h1b }}</span></h1>
+<p class="mg-lead mg-phead__lead">{{ t.pj.lead }}</p>
+<nav class="mg-pjnav" aria-label="{{ t.pj.navLabel }}">
+<a class="p-kimen" href="#kimen" onClick="{{ jump.kimen }}"><i></i>Kimen</a>
+<a class="p-jezero" href="#jezero" onClick="{{ jump.jezero }}"><i></i>Jezero</a>
+<a class="p-orbit" href="#orbit" onClick="{{ jump.orbit }}"><i></i>Orbit</a>
+</nav>
+</div>
+</header>
+<div class="mg-wrap">
+<sc-for list="{{ chapters }}" as="c" hint-placeholder-count="3">
+<article class="mg-chap {{ c.cls }}" id="{{ c.id }}" aria-labelledby="{{ c.hid }}">
+<div class="mg-chap__grid">
+<div class="mg-chap__text">
+<p class="mg-chap__idx"><span>{{ c.idx }}</span><i></i><span>{{ c.role }}</span></p>
+<h2 class="mg-chap__name" id="{{ c.hid }}">{{ c.name }}</h2>
+<p class="mg-chap__sub">{{ c.sub }}</p>
+<div class="mg-chap__meta">
+<sc-for list="{{ c.chips }}" as="ch" hint-placeholder-count="2"><span class="mg-chip">{{ ch }}</span></sc-for>
+<sc-for list="{{ c.links }}" as="lk" hint-placeholder-count="1"><a class="mg-ext" href="{{ lk.href }}" target="_blank" rel="noopener noreferrer">{{ lk.label }}<span aria-hidden="true">↗</span></a></sc-for>
+<sc-if value="{{ c.soon }}" hint-placeholder-val="{{ false }}"><span class="mg-ext">{{ t.pj.soon }}</span></sc-if>
+</div>
+<p class="mg-chap__desc">{{ c.desc }}</p>
+<ul class="mg-bullets"><sc-for list="{{ c.bullets }}" as="b" hint-placeholder-count="4"><li>{{ b }}</li></sc-for></ul>
+<sc-if value="{{ c.hasNote }}" hint-placeholder-val="{{ false }}"><p class="mg-chap__note"><em>{{ c.noteK }}</em> {{ c.note }}</p></sc-if>
+<p class="mg-chap__stack"><span class="mg-label">Stack</span>{{ c.stack }}</p>
+</div>
+<div class="mg-chap__demo">
+<div class="mg-stage mg-stage--lg {{ c.stage }}" ref="{{ c.ioRef }}" role="img" aria-label="{{ c.alt }}">
+<sc-if value="{{ c.isK }}" hint-placeholder-val="{{ false }}">
+<div class="mg-stage__bar"><i></i><span>kimen · {{ t.demo.k.file }}</span><span>{{ t.demo.k.agent }}</span></div>
+<div class="mg-stage__body">
+<div class="kd">
+<div class="kd-code">
+<span class="kd-l" style="animation-delay: .2s">{</span>
+<span class="kd-l i1" style="animation-delay: .42s"><span class="k">"type"</span>: <span class="s">"ki-card"</span>,</span>
+<span class="kd-l i1" style="animation-delay: .64s"><span class="k">"title"</span>: <span class="s">"{{ t.demo.k.cardTitle }}"</span>,</span>
+<span class="kd-l i1" style="animation-delay: .86s"><span class="k">"children"</span>: [</span>
+<span class="kd-l i2" style="animation-delay: 1.08s">{ <span class="k">"type"</span>: <span class="s">"ki-badge"</span>, <span class="k">"tone"</span>: <span class="s">"success"</span> },</span>
+<span class="kd-l i2" style="animation-delay: 1.3s">{ <span class="k">"type"</span>: <span class="s">"ki-progress"</span>, <span class="k">"value"</span>: <span class="n">72</span> },</span>
+<span class="kd-l i2 bad" style="animation-delay: 1.52s">{ <span class="k">"type"</span>: <span class="s">"x-chart"</span> }</span>
+<span class="kd-l i1" style="animation-delay: 1.74s">]</span>
+<span class="kd-l" style="animation-delay: 1.96s">}</span>
+<ul class="kd-checks">
+<li class="ok" style="animation-delay: 2.4s"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m2 6.4 2.6 2.4L10 3.2"></path></svg>ki-card<span>{{ t.demo.k.ok }}</span></li>
+<li class="ok" style="animation-delay: 2.6s"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m2 6.4 2.6 2.4L10 3.2"></path></svg>ki-badge<span>{{ t.demo.k.ok }}</span></li>
+<li class="ok" style="animation-delay: 2.8s"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m2 6.4 2.6 2.4L10 3.2"></path></svg>ki-progress<span>{{ t.demo.k.ok }}</span></li>
+<li class="no" style="animation-delay: 3.05s"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l6 6M9 3 3 9"></path></svg>x-chart<span>{{ t.demo.k.no }}</span></li>
+</ul>
+</div>
+<div class="kd-out">
+<p class="mg-label">{{ t.demo.k.render }}</p>
+<div class="kd-card">
+<div class="kd-card__head"><span class="kd-card__title">{{ t.demo.k.cardTitle }}</span><span class="kd-badge">{{ t.demo.k.badge }}</span></div>
+<div class="kd-bar"><i></i></div>
+<div class="kd-meta"><span>ki-progress</span><span>72 %</span></div>
+</div>
+<p class="kd-sum">{{ t.demo.k.sum }}</p>
+</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ c.isJ }}" hint-placeholder-val="{{ false }}">
+<div class="mg-stage__bar"><i></i><span>jezero · {{ t.demo.j.bar }}</span><span>MCP · read-only</span></div>
+<div class="mg-stage__body">
+<div class="jd">
+<div class="jd-search"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.6"></circle><path d="m10.4 10.4 3.6 3.6"></path></svg><span class="jd-q" style="animation-timing-function: steps({{ t.demo.j.qn }})">{{ t.demo.j.q }}</span><i class="jd-caret"></i></div>
+<div class="jd-strata">
+<sc-for list="{{ jLayers }}" as="l" hint-placeholder-count="6"><div class="jd-layer {{ l.cls }}" style="animation-delay: {{ l.d }}"><span>{{ l.a }}</span><em>{{ l.b }}</em></div></sc-for>
+<i class="jd-scan"></i>
+<div class="jd-res"><p class="jd-res__k">{{ t.demo.j.rk }}</p><p class="jd-res__t">{{ t.demo.j.rt }}</p><p class="jd-res__s">{{ t.demo.j.rs }}</p></div>
+</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ c.isO }}" hint-placeholder-val="{{ false }}">
+<div class="mg-stage__bar"><i></i><span>orbit · macOS</span><span>beta</span></div>
+<div class="mg-stage__body">
+<div class="od">
+<div class="od-top"><span class="od-rec">REC</span><span>{{ t.demo.o.meeting }}</span><span>00:14:32</span></div>
+<div class="od-wave"><sc-for list="{{ bars }}" as="b" hint-placeholder-count="40"><i style="height: {{ b.h }}; animation-delay: {{ b.d }}, 2.7s"></i></sc-for></div>
+<div class="od-note">
+<p class="t" style="animation-delay: 3.2s">{{ t.demo.o.title }}</p>
+<p class="k" style="animation-delay: 3.55s">{{ t.demo.o.k1 }}</p>
+<p class="b" style="animation-delay: 3.8s">{{ t.demo.o.b1 }}</p>
+<p class="b" style="animation-delay: 4.15s">{{ t.demo.o.b2 }}</p>
+<p class="k" style="animation-delay: 4.5s">{{ t.demo.o.k2 }}</p>
+<p class="b" style="animation-delay: 4.75s">{{ t.demo.o.b3 }}</p>
+</div>
+</div>
+</div>
+</sc-if>
+</div>
+</div>
+</div>
+</article>
+</sc-for>
+<section class="mg-sec mg-sec--tight" aria-labelledby="mg-onmars-t">
+<h2 class="mg-sr" id="mg-onmars-t">onmars</h2>
+<div class="mg-onmars">
+<svg viewBox="0 0 560 560" aria-hidden="true"><use href="#mgMark" width="560" height="560"></use></svg>
+<p>{{ t.pj.onmarsA }} <strong>onmars</strong>{{ t.pj.onmarsB }}</p>
+<a class="mg-arrow" href="https://onmars.tech" target="_blank" rel="noopener noreferrer">onmars.tech<span aria-hidden="true">↗</span></a>
+</div>
+</section>
+</div>
+</sc-if>
+
+<sc-if value="{{ r.charlas }}" hint-placeholder-val="{{ false }}">
+<header class="mg-phead">
+<div class="mg-phead__deco mg-loop" aria-hidden="true"><svg viewBox="0 0 1040 420"><ellipse cx="520" cy="200" rx="380" ry="84"></ellipse><ellipse cx="520" cy="200" rx="230" ry="51" opacity=".7"></ellipse><circle class="p" cx="520" cy="200" r="58"></circle><circle cx="520" cy="200" r="58" fill="url(#mgShadeG)"></circle><circle class="m mg-decomoon" r="4"></circle></svg></div>
+<div class="mg-wrap">
+<p class="mg-label mg-rule">{{ t.talks.kicker }}</p>
+<h1 class="mg-h1"><span class="w">{{ t.talks.h1a }}</span> <span class="w mg-it" style="animation-delay: .16s">{{ t.talks.h1b }}</span></h1>
+<p class="mg-label mg-phead__lead">{{ t.talks.caption }}</p>
+</div>
+</header>
+<section class="mg-sec mg-sec--tight" aria-label="{{ t.talks.kicker }}">
+<div class="mg-wrap">
+<ol class="mg-talks">
+<sc-for list="{{ t.talks.items }}" as="k" hint-placeholder-count="5"><li class="mg-talk"><time>{{ k.year }}</time><span class="mg-chip mg-talk__type">{{ k.type }}</span><h2>{{ k.title }}</h2><p>{{ k.where }}</p></li></sc-for>
+</ol>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ r.contacto }}" hint-placeholder-val="{{ false }}">
+<header class="mg-phead">
+<div class="mg-phead__deco mg-loop" aria-hidden="true"><svg viewBox="0 0 1040 420"><ellipse cx="520" cy="200" rx="380" ry="84"></ellipse><ellipse cx="520" cy="200" rx="230" ry="51" opacity=".7"></ellipse><circle class="p" cx="520" cy="200" r="58"></circle><circle cx="520" cy="200" r="58" fill="url(#mgShadeG)"></circle><circle class="m mg-decomoon" r="4"></circle></svg></div>
+<div class="mg-wrap">
+<p class="mg-label mg-rule">{{ t.contact.kicker }}</p>
+<h1 class="mg-h1"><span class="w mg-gr">{{ t.contact.h1 }}</span></h1>
+<p class="mg-lead mg-phead__lead">{{ t.contact.lead }}</p>
+</div>
+</header>
+<section class="mg-sec mg-sec--tight" aria-label="{{ t.contact.kicker }}">
+<div class="mg-wrap mg-contact">
+<div>
+<h2 class="mg-label mg-rule" style="margin-bottom: 22px">{{ t.contact.chanT }}</h2>
+<ul class="mg-chan">
+<li><a class="big" href="mailto:me@marcelagotta.com"><span>Email</span><strong>me@marcelagotta.com</strong><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"></path></svg></a></li>
+<li><a href="https://github.com/MarsGotta" target="_blank" rel="noopener noreferrer"><span>GitHub</span><strong>github.com/MarsGotta</strong><span aria-hidden="true">↗</span></a></li>
+<li><a href="https://www.linkedin.com/in/marcelagotta" target="_blank" rel="noopener noreferrer"><span>LinkedIn</span><strong>linkedin.com/in/marcelagotta</strong><span aria-hidden="true">↗</span></a></li>
+<li><a href="https://x.com/marcelagotta" target="_blank" rel="noopener noreferrer"><span>X</span><strong>@marcelagotta</strong><span aria-hidden="true">↗</span></a></li>
+</ul>
+</div>
+<div>
+<sc-if value="{{ formOpen }}" hint-placeholder-val="{{ true }}">
+<form class="mg-form" onSubmit="{{ onSend }}" aria-label="{{ t.contact.formLabel }}">
+<div class="mg-fld"><label for="mg-f-name">{{ t.contact.name }}</label><input class="mg-input" id="mg-f-name" name="name" type="text" autocomplete="name" required="required"></div>
+<div class="mg-fld"><label for="mg-f-mail">{{ t.contact.email }}</label><input class="mg-input" id="mg-f-mail" name="email" type="email" autocomplete="email" required="required"></div>
+<div class="mg-fld"><label for="mg-f-msg">{{ t.contact.msg }}</label><textarea class="mg-input" id="mg-f-msg" name="message" rows="6" required="required"></textarea></div>
+<div style="display: flex; justify-content: flex-end"><button type="submit" class="mg-btn mg-btn--primary">{{ t.contact.send }}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"></path></svg></button></div>
+</form>
+</sc-if>
+<sc-if value="{{ formSent }}" hint-placeholder-val="{{ false }}">
+<div class="mg-form mg-sent" role="status">
+<svg viewBox="0 0 260 120" aria-hidden="true"><path class="arc" d="M 20 100 Q 130 -20 240 70"></path><circle cx="20" cy="100" r="3" fill="currentColor" opacity=".5"></circle><circle class="pl" cx="240" cy="70" r="14"></circle><circle class="pk" r="4"></circle></svg>
+<h3>{{ t.contact.sent }}</h3>
+</div>
+</sc-if>
+</div>
+</div>
+</section>
+</sc-if>
+</main>
+
+<footer class="mg-foot">
+<div class="mg-wrap">
+<div class="mg-foot__grid">
+<div>
+<a class="mg-brand" href="#inicio" onClick="{{ go.inicio }}" aria-label="{{ t.ui.home }}"><svg viewBox="0 0 560 560" aria-hidden="true"><use href="#mgMark" width="560" height="560"></use></svg><span>marcela<span class="mg-brand__dot">.</span>gotta</span></a>
+<p class="mg-foot__line">{{ t.foot.line }}</p>
+</div>
+<ul class="mg-foot__links">
+<li><a href="mailto:me@marcelagotta.com">me@marcelagotta.com<span>Email</span></a></li>
+<li><a href="https://github.com/MarsGotta" target="_blank" rel="noopener noreferrer">GitHub<span>MarsGotta ↗</span></a></li>
+<li><a href="https://www.linkedin.com/in/marcelagotta" target="_blank" rel="noopener noreferrer">LinkedIn<span>marcelagotta ↗</span></a></li>
+<li><a href="https://x.com/marcelagotta" target="_blank" rel="noopener noreferrer">X<span>@marcelagotta ↗</span></a></li>
+</ul>
+</div>
+<div class="mg-foot__base"><span>Marcela Gotta · 2026</span><span>Madrid 40.42°N 3.70°W → Jezero 18.44°N 77.45°E</span></div>
+</div>
+</footer>
+</div>
+<div class="mg-grain" aria-hidden="true"></div>
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+<div class="mg-menu" role="dialog" aria-modal="true" aria-label="{{ t.ui.menu }}" onKeyDown="{{ onMenuKey }}">
+<div class="mg-menu__top">
+<a class="mg-brand" href="#inicio" onClick="{{ go.inicio }}" aria-label="{{ t.ui.home }}"><svg viewBox="0 0 560 560" aria-hidden="true"><use href="#mgMark" width="560" height="560"></use></svg><span>marcela<span class="mg-brand__dot">.</span>gotta</span></a>
+<button type="button" class="mg-ico" onClick="{{ closeMenu }}" aria-label="{{ t.ui.close }}" ref="{{ menuCloseRef }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
+</div>
+<nav aria-label="{{ t.ui.navLabel }}">
+<ul class="mg-menu__list">
+<sc-for list="{{ nav }}" as="n" hint-placeholder-count="5"><li><a href="{{ n.href }}" aria-current="{{ n.current }}" onClick="{{ n.go }}"><span>{{ n.idx }}</span>{{ n.label }}</a></li></sc-for>
+</ul>
+</nav>
+<div class="mg-menu__tools">
+<div class="mg-seg" role="group" aria-label="{{ t.ui.lang }}">
+<button type="button" aria-pressed="{{ isEs }}" onClick="{{ setEs }}" lang="es">ES</button>
+<button type="button" aria-pressed="{{ isEn }}" onClick="{{ setEn }}" lang="en">EN</button>
+</div>
+<button type="button" class="mg-ico" onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M2.5 17h19"></path><path d="M7 17a5 5 0 0 1 10 0"></path><path d="M12 5.5v3M5.6 9.6l1.9 1.9M18.4 9.6l-1.9 1.9"></path></svg></button>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ dawnOn }}" hint-placeholder-val="{{ false }}"><div class="mg-dawn {{ dawnCls }}" aria-hidden="true"></div></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark","section":"Vista"},"lang":{"editor":"enum","options":["es","en"],"default":"es","section":"Vista"},"route":{"editor":"enum","options":["inicio","sobre","proyectos","charlas","contacto"],"default":"inicio","section":"Vista"},"$preview":{"width":1440,"height":4000}}'>
+/* ---------- Physics constants (real values) ---------- */
+var MG_JEZ = { lat: 18.4447, lon: 77.4508 };   /* Perseverance landing site, Jezero crater (deg N, deg E) */
+var MG_ROT_H = 24.6229;                          /* Mars sidereal rotation, hours. 1 h of Mars = 1 s on screen */
+var MG_SUN_AZ = -50;                             /* sun azimuth vs the meridian facing the camera (deg, west < 0) */
+var MG_TILT = 13;                                /* camera elevation over Mars' equator (deg) = orbit ellipses ry/rx 0.225 */
+
+function mgPad(n) { return (n < 10 ? '0' : '') + n; }
+function mgReduced() { try { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); } catch (e) { return false; } }
+
+/* Mars24 algorithm (Allison and McEwen 2000; NASA GISS) */
+function mgMarsClock(ms) {
+  var jdTT = 2440587.5 + ms / 86400000 + (37 + 32.184) / 86400;
+  var d = jdTT - 2451545.0, R = Math.PI / 180;
+  var M = ((19.3871 + 0.52402073 * d) % 360) * R;
+  var aFMS = (270.3871 + 0.524038496 * d) % 360;
+  var A = [0.0071, 0.0057, 0.0039, 0.0037, 0.0021, 0.0020, 0.0018];
+  var T = [2.2353, 2.7543, 1.1177, 15.7866, 2.1354, 2.4694, 32.8493];
+  var P = [49.409, 168.173, 191.837, 21.736, 15.704, 95.528, 49.095];
+  var pbs = 0;
+  for (var i = 0; i < 7; i++) pbs += A[i] * Math.cos((0.985626 * d / T[i] + P[i]) * R);
+  var nuM = (10.691 + 3.0e-7 * d) * Math.sin(M) + 0.623 * Math.sin(2 * M) + 0.050 * Math.sin(3 * M) + 0.005 * Math.sin(4 * M) + 0.0005 * Math.sin(5 * M) + pbs;
+  var ls = ((aFMS + nuM) % 360 + 360) % 360, L = ls * R;
+  var eot = 2.861 * Math.sin(2 * L) - 0.071 * Math.sin(4 * L) + 0.002 * Math.sin(6 * L) - nuM;
+  var msd = (jdTT - 2451549.5) / 1.0274912517 + 44796.0 - 0.0009626;
+  var mtc = ((24 * msd) % 24 + 24) % 24;
+  var subW = ((mtc * 15 + eot + 180) % 360 + 360) % 360;
+  return {
+    msd: msd, ls: ls, eot: eot,
+    subLonE: (360 - subW) % 360,
+    subLat: Math.asin(0.42565 * Math.sin(L)) / R + 0.25 * Math.sin(L),
+    lmst: ((mtc + MG_JEZ.lon / 15) % 24 + 24) % 24,
+    sol: Math.floor(msd + MG_JEZ.lon / 360) - 52304   /* Perseverance mission sol (sol 0 = 18 Feb 2021) */
+  };
+}
+var MG_FMT = null;
+function mgMadrid(ms) {
+  try {
+    if (!MG_FMT) MG_FMT = new Intl.DateTimeFormat('es-ES', { timeZone: 'Europe/Madrid', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+    return MG_FMT.format(new Date(ms));
+  } catch (e) { var d = new Date(ms); return mgPad(d.getHours()) + ':' + mgPad(d.getMinutes()) + ':' + mgPad(d.getSeconds()); }
+}
+
+/* ---------- Seeded decoration ---------- */
+function mgRand(seed) { var s = seed >>> 0; return function () { s = (s + 0x6D2B79F5) >>> 0; var t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+function mgField(seed, n, spread, blur, a0, a1) {
+  var r = mgRand(seed), out = [], tints = ['255,245,238', '255,245,238', '255,245,238', '178,155,228', '255,196,168'];
+  for (var i = 0; i < n; i++) {
+    out.push(Math.round(r() * 2600) + 'px ' + Math.round(r() * 1300) + 'px ' + blur + 'px ' + spread + 'px rgba(' + tints[Math.floor(r() * tints.length)] + ',' + (a0 + r() * (a1 - a0)).toFixed(2) + ')');
+  }
+  return out.join(',');
+}
+var MG_STARS = null;
+function mgStars() { if (!MG_STARS) MG_STARS = { far: mgField(11, 380, 0, 0, 0.22, 0.7), mid: mgField(23, 150, 0.45, 0, 0.35, 0.85), near: mgField(37, 46, 0.9, 0.8, 0.5, 0.95) }; return MG_STARS; }
+var MG_TWINKLES = [{ x: '12%', y: '18%', d: '-.4s' }, { x: '31%', y: '64%', d: '-1.6s' }, { x: '46%', y: '12%', d: '-2.9s' }, { x: '58%', y: '36%', d: '-.9s' }, { x: '88%', y: '20%', d: '-3.4s' }, { x: '95%', y: '72%', d: '-2.2s' }, { x: '22%', y: '88%', d: '-1.1s' }];
+var MG_BARS = (function () { var r = mgRand(91), out = []; for (var i = 0; i < 40; i++) { var env = 0.35 + 0.65 * Math.abs(Math.sin(i * 0.42) * Math.cos(i * 0.13 + 1)); out.push({ h: Math.round(18 + 62 * env * (0.6 + 0.4 * r())) + 'px', d: (-r() * 0.55).toFixed(2) + 's' }); } return out; })();
+var MG_TECH = [
+  { l: 'TypeScript', x: 7, y: 20, g: 0, p: 'k' }, { l: 'JavaScript', x: 18, y: 15, g: 0 }, { l: 'Node.js', x: 24, y: 28, g: 0 }, { l: 'HTML', x: 5, y: 34, g: 0 }, { l: 'CSS', x: 14, y: 41, g: 0 },
+  { l: 'Python', x: 22, y: 49, g: 0, p: 'jo', learn: 1 }, { l: 'Rust', x: 6, y: 52, g: 0, p: 'o', learn: 1 },
+  { l: 'React', x: 40, y: 19, g: 1, p: 'ko' }, { l: 'Next.js', x: 51, y: 14, g: 1 }, { l: 'Angular', x: 36, y: 33, g: 1, p: 'k' }, { l: 'Vue', x: 47, y: 29, g: 1, p: 'k' }, { l: 'Lit', x: 59, y: 22, g: 1 },
+  { l: 'Stencil', x: 55, y: 37, g: 1, p: 'k' }, { l: 'Web Components', x: 40, y: 46, g: 1, p: 'k' }, { l: 'microfrontends', x: 54, y: 50, g: 1 }, { l: 'Tauri', x: 63, y: 42, g: 1, p: 'o' },
+  { l: 'design systems', x: 73, y: 20, g: 2 }, { l: 'design tokens', x: 84, y: 31, g: 2, p: 'k' }, { l: '@a11y', x: 74, y: 41, g: 2, p: 'k' },
+  { l: 'Vitest', x: 6, y: 73, g: 3 }, { l: 'Jest', x: 17, y: 70, g: 3 }, { l: 'Playwright', x: 26, y: 78, g: 3 }, { l: 'Testing Library', x: 7, y: 87, g: 3 }, { l: 'Storybook', x: 22, y: 91, g: 3 }, { l: 'TDD', x: 33, y: 86, g: 3 },
+  { l: 'MCP', x: 59, y: 73, g: 4, p: 'kj' }, { l: 'AGENTS.md', x: 71, y: 70, g: 4 }, { l: 'harness engineering', x: 83, y: 77, g: 4 }, { l: 'SQLite', x: 68, y: 81, g: 4, p: 'j' },
+  { l: 'Linux', x: 52, y: 83, g: 4 }, { l: '@rag', x: 58, y: 91, g: 4 }, { l: 'Docker', x: 76, y: 89, g: 4 }, { l: 'PostgreSQL', x: 87, y: 88, g: 4 }
+];
+
+/* ---------- Copy (mirrors next-intl messages: es / en) ---------- */
+var MG_T = {
+  es: {
+    ui: { skip: 'Saltar al contenido', home: 'marcela.gotta, inicio', navLabel: 'Principal', lang: 'Idioma', menu: 'Menú', close: 'Cerrar menú', toLight: 'Cambiar al tema claro: la superficie de Marte', toDark: 'Cambiar al tema oscuro: el espacio', pause: 'Pausar animaciones', play: 'Reanudar animaciones' },
+    nav: { inicio: 'Inicio', sobre: 'Sobre mí', proyectos: 'Proyectos', charlas: 'Charlas', contacto: 'Contacto' },
+    hero: {
+      over: 'Senior Software Engineer · Building agent infrastructure',
+      l1: ['Construyo', 'software'], l2: ['que', 'piensa'], l3: ['contigo.'],
+      sub: '12 años construyendo software, especializada en frontend de producto y arquitectura de sistemas de componentes. Desde 2024 también construyo, en abierto, la infraestructura que hace que los agentes de IA dejen de ser una demo y trabajen de verdad con las personas.',
+      cta1: 'Ver proyectos', cta2: 'Hablemos',
+      phobos: 'Fobos', deimos: 'Deimos', mars: 'Marte', aPh: '9 376 km', aDe: '23 463 km', rot: 'rot. 24 h 37 min', scale: '1 h → 1 s',
+      view: 'Vista desde Jezero', viewDir: 'mirando al sur', phRise: 'sale por el oeste', deRise: 'sale por el este'
+    },
+    hud: { aria: 'Telemetría en vivo', mad: 'Madrid' },
+    now: {
+      title: 'Ahora mismo', updated: 'Actualizado el', date: '21 oct 2026',
+      items: [
+        { icon: 'planet', cls: 'c-jezero', text: 'Jezero ya es público: la memoria compartida de mis agentes' },
+        { icon: 'sat', cls: 'c-orbit', text: 'Puliendo la beta de Orbit para abrirla' },
+        { icon: 'puzzle', cls: 'c-kimen', text: 'Llevando Kimen hacia su versión 1.0' },
+        { icon: 'cap', cls: 'c-team', text: 'Head Frontend Developer en Sngular' }
+      ]
+    },
+    sys: {
+      kicker: 'El sistema', title: 'Tres piezas, una idea.', lead: 'Lo que un agente te enseña, lo que recuerda y dónde vive contigo.',
+      ringK: 'Kimen · lo que te enseña', ringJ: 'Jezero · lo que recuerda', ringO: 'Orbit · dónde vive contigo',
+      kepler: 'Periodos orbitales según Kepler: T² ∝ a³',
+      items: {
+        kimen: { name: 'Kimen', line: 'Las interfaces que generan los agentes.', chips: ['pre-1.0', 'Apache-2.0'], cta: 'Ver Kimen', stack: 'StencilJS · TypeScript · design tokens', alt: 'Animación: un agente escribe un JSON, Kimen lo valida contra su catálogo, rechaza el componente no declarado y ensambla el resto en componentes reales.' },
+        jezero: { name: 'Jezero', line: 'La memoria compartida del trabajo de tus agentes.', chips: ['pre-alpha', 'Apache-2.0'], cta: 'Ver Jezero', stack: 'Python · SQLite FTS5 · MCP', alt: 'Animación: las sesiones de los agentes se depositan como capas de sedimento y una búsqueda las atraviesa para rescatar una decisión de hace semanas.' },
+        orbit: { name: 'Orbit', line: 'Tu asistente, en tu Mac.', chips: ['beta', 'MIT', 'macOS'], cta: 'Ver Orbit', stack: 'Tauri 2 · React · Rust · Python', alt: 'Animación: la onda de audio de una reunión se convierte en notas escritas.' }
+      }
+    },
+    demo: {
+      k: { file: 'agente.json', agent: 'agente → catálogo', cardTitle: 'Resumen del sprint', badge: 'En curso', ok: 'declarado', no: 'rechazado', render: 'Render', sum: '3 componentes · 1 rechazado' },
+      j: {
+        bar: 'memoria', q: '¿por qué elegimos SQLite?', qn: 25,
+        layers: [
+          { a: 'sesión · claude-code', b: 'hace 5 sem' },
+          { a: 'decisión · SQLite FTS5, sin GPU', b: 'hace 3 sem', hit: true },
+          { a: 'error · ENOSPC en CI', b: 'hace 2 sem' },
+          { a: 'arreglo · limpiar la caché de uv', b: 'hace 12 d' },
+          { a: 'comando · uv run pytest -k mcp', b: 'hace 4 d' },
+          { a: 'sesión · codex', b: 'hoy' }
+        ],
+        rk: 'Decisión · hace 3 semanas', rt: 'Búsqueda de texto completo en un único fichero SQLite: milisegundos, sin GPU.', rs: 'Origen · sesión de claude-code'
+      },
+      o: { meeting: 'Sync de producto', title: 'Notas · Sync de producto', k1: 'Acuerdos', b1: 'Priorizar la accesibilidad del catálogo', b2: 'Abrir la beta cuando esté estable', k2: 'Pendiente', b3: 'Preparar la demo del jueves' }
+    },
+    traj: { kicker: 'Trayectoria', text: 'De full-stack a liderar frontend en Sngular, y de ahí a la infraestructura de agentes.', cta: 'Conóceme', m1: 'Full-stack', m2: 'Sngular', m3: 'Agentes', alt: 'Diagrama de órbitas de transferencia: 2014, full-stack; 2019, Sngular; 2024, infraestructura de agentes.' },
+    close: { kicker: 'Contacto', q1: '¿Hablamos', q2: 'un rato?', cta: 'Escríbeme' },
+    foot: { line: 'Hecho en Madrid, pensado en Marte.' },
+    about: {
+      kicker: 'Sobre mí', h1a: 'Hola, soy', h1b: 'Mars.',
+      p1: 'Soy Marcela Gotta, ingeniera de software en Madrid. Llevo 12 años construyendo software: empecé full-stack, me enamoré del frontend y acabé liderando equipos y arquitectura.',
+      p2: 'Desde 2019 estoy en Sngular, donde hoy soy Head Frontend Developer y co-lidero el chapter de frontend: formaciones, seguimiento técnico de cada persona y entrevistas técnicas. He liderado equipos de producto para grandes empresas de banca, moda, energía y sostenibilidad.',
+      p3: 'Creo que la IA es la herramienta más potente que hemos tenido, siempre que las personas sigamos del lado que la dirige. Mi trabajo propio intenta construir esa parte, en abierto: Kimen, Jezero y Orbit.',
+      p4: 'Vivo en Madrid con un pequeño zoológico. Me gustan la física, los videojuegos, escribir y convertir ideas raras en algo que funciona.',
+      factsT: 'Datos rápidos',
+      facts: [{ k: 'Ubicación', v: 'Madrid, España' }, { k: 'Idiomas', v: 'Español nativo · inglés profesional, en uso diario' }, { k: 'Rol', v: 'Head Frontend Developer en Sngular' }, { k: 'Enfoque', v: 'Frontend de producto, sistemas de componentes e infraestructura de agentes' }],
+      leadT: 'Cómo lidero', motto1: 'Firme con la calidad,', motto2: 'flexible con las personas.',
+      axes: [{ n: '01', t: 'Socia del negocio.', d: 'Entender el porqué detrás del código, no solo transmitir requisitos.' }, { n: '02', t: 'Excelencia para el usuario.', d: 'La calidad es una forma de respeto: un producto que falla es una promesa rota.' }, { n: '03', t: 'Crecimiento del equipo.', d: 'Detrás de cada commit hay una persona. Mi éxito se mide por cuánto crece el equipo.' }],
+      trajK: '2014 → hoy', trajT: 'Trayectoria', trajCap: 'Órbitas de transferencia · 2014 → hoy', trajAlt: 'Diagrama: una trayectoria que salta de órbita en órbita, una por etapa, de 2014 a 2026.',
+      roles: [
+        { when: '2014 – 2018', what: 'Primeros años', detail: 'Desarrollo frontend y full-stack para banca, seguros, telecomunicaciones y energía.' },
+        { when: '2018 – 2019', what: 'Arquitecta Frontend · Paradigma Digital', detail: 'Aplicaciones web para banca y retail.' },
+        { when: 'abr 2019 – feb 2022', what: 'Senior Frontend Developer · Sngular', detail: 'Web Components, microfrontends y librerías de componentes corporativas.' },
+        { when: 'feb 2022 – feb 2026', what: 'Frontend Developer Expert · Sngular', detail: 'Liderazgo técnico de equipos de producto y arquitectura frontend.' },
+        { when: '2024 – hoy', what: 'Infraestructura de agentes, en abierto', detail: 'Kimen, Jezero y Orbit.' },
+        { when: 'feb 2026 – hoy', what: 'Head Frontend Developer · Sngular', detail: 'Co-lidera el chapter de frontend desde diciembre de 2025.' }
+      ],
+      eduT: 'Formación', edu: 'Grado en Ingeniería Informática · UOC', eduState: 'en curso',
+      techK: 'Constelación técnica', techT: 'Tecnologías', techLead: 'Elige un proyecto: se encienden las tecnologías que usa de verdad.',
+      filterLabel: 'Filtrar por proyecto', all: 'Todo', learning: 'aprendiendo', rag: 'RAG autoalojado', a11y: 'Accesibilidad WCAG 2.2',
+      groups: [{ label: 'Lenguajes', x: '4%', y: '7%' }, { label: 'Frontend', x: '36%', y: '7%' }, { label: 'Sistemas de diseño', x: '72%', y: '7%' }, { label: 'Calidad', x: '4%', y: '62%' }, { label: 'Infraestructura de agentes', x: '52%', y: '62%' }]
+    },
+    pj: {
+      kicker: 'Proyectos', h1a: 'Tres piezas,', h1b: 'una idea.',
+      lead: 'Lo que un agente te enseña, lo que recuerda y dónde vive contigo. Kimen y Jezero ya son open source; Orbit lo será al abrir su beta.',
+      navLabel: 'Proyectos de esta página', soon: 'Repo público al abrir la beta',
+      onmarsA: 'También hago productos pequeños y honestos en', onmarsB: ', mi estudio independiente: KitGestor, That Day y Sapphik.',
+      items: {
+        kimen: {
+          role: 'Lo que te enseña', sub: 'Las interfaces que generan los agentes.',
+          links: [{ label: 'kimen.dev', href: 'https://kimen.dev' }, { label: 'github.com/kimen-dev/kimen', href: 'https://github.com/kimen-dev/kimen' }],
+          desc: 'La base de componentes para interfaces generativas: Web Components que funcionan en cualquier framework y que los agentes pueden leer y usar con un contrato claro.',
+          bullets: ['29 componentes ki-* sin depender de ningún framework, con envoltorios para React, Vue y Angular.', 'Catálogo vigilado: un agente solo puede pintar componentes y acciones declarados; lo desconocido se rechaza.', 'Adaptadores para A2UI y MCP Apps.', 'Accesibilidad como puerta dura: cero violaciones de axe en CI y objetivo WCAG 2.2 AA. Menos de 10 KB por componente.'],
+          stack: 'StencilJS · TypeScript · design tokens'
+        },
+        jezero: {
+          role: 'Lo que recuerda', sub: 'La memoria compartida de tus agentes.',
+          links: [{ label: 'github.com/MarsGotta/jezero', href: 'https://github.com/MarsGotta/jezero' }],
+          desc: 'Tus agentes olvidan. Jezero reúne sus sesiones, las resume y deja que cualquier agente pregunte qué se decidió, qué falló o qué comando funcionó, aunque lo hiciera otro agente hace semanas.',
+          bullets: ['Conectores incrementales y de solo lectura para Hermes Agent, Claude Code, Codex, OpenCode, Antigravity y Paperclip.', 'Cada sesión se resume en «átomos»: decisiones, porqués, arreglos, errores exactos, comandos, datos y riesgos.', 'Un único fichero SQLite con búsqueda de texto completo: milisegundos, sin GPU.', 'Servidor MCP de solo lectura: todos los agentes consultan, ninguno escribe. Los secretos se redactan antes de guardar.'],
+          noteK: 'El nombre:', note: 'el cráter de Marte que fue un lago. Sus sedimentos guardan lo que pasó, y allí Perseverance aparta muestras para recogerlas más tarde.',
+          stack: 'Python · SQLite FTS5 · MCP'
+        },
+        orbit: {
+          role: 'Dónde vive contigo', sub: 'Tu asistente, en tu Mac.', links: [], soon: true,
+          desc: 'Una app para el Mac que da a tu asistente un sitio en tu día: graba y transcribe tus reuniones, escribe las notas y te deja hablar con el agente que elijas.',
+          bullets: ['Trae tu propio agente: por un API gateway o con tu sesión de Claude o de Codex.', 'Incluye su propio hub autoalojado: tú decides dónde viven tus reuniones.', 'En beta, y dicho así.'],
+          stack: 'Tauri 2 · React · Rust · Python'
+        }
+      }
+    },
+    talks: {
+      kicker: 'Charlas y docencia', h1a: 'Charlas', h1b: 'y docencia.', caption: 'De lo más reciente a lo más antiguo',
+      items: [
+        { year: '2025 – hoy', type: 'Docencia', title: 'Procesamiento de Lenguaje Natural · Ética y Regulación de la IA (máster)', where: 'Instituto Europeo de Posgrado' },
+        { year: '2022', type: 'Curso', title: 'Web Components desde 0', where: 'Codemotion' },
+        { year: '2021', type: 'Charla', title: 'Web Components en producción', where: 'Devcast Codemotion' },
+        { year: '2019 – 2021', type: 'Docencia', title: 'Cursos de Vue, React, Redux, Angular y RxJS', where: 'Fictizia' },
+        { year: '2019', type: 'Charla', title: 'Progressive Web Apps', where: 'Salmorejo Tech, Córdoba' }
+      ]
+    },
+    contact: { kicker: 'Contacto', h1: 'Hablemos.', lead: '¿Quieres hablar de agentes, de frontend o de cómo se lidera un equipo técnico sin quemarlo? Escríbeme.', chanT: 'Escríbeme', formLabel: 'Formulario de contacto', name: 'Tu nombre', email: 'Tu email', msg: 'Cuéntame', send: 'Enviar', sent: 'Recibido. Te contesto en unos días.' }
+  },
+  en: {
+    ui: { skip: 'Skip to content', home: 'marcela.gotta, home', navLabel: 'Main', lang: 'Language', menu: 'Menu', close: 'Close menu', toLight: 'Switch to the light theme: the surface of Mars', toDark: 'Switch to the dark theme: space', pause: 'Pause animations', play: 'Resume animations' },
+    nav: { inicio: 'Home', sobre: 'About', proyectos: 'Projects', charlas: 'Talks', contacto: 'Contact' },
+    hero: {
+      over: 'Senior Software Engineer · Building agent infrastructure',
+      l1: ['I', 'build', 'software'], l2: ['that', 'thinks'], l3: ['with', 'you.'],
+      sub: '12 years building software, focused on product frontend and component system architecture. Since 2024 I also build, in the open, the infrastructure that turns AI agents from demos into real teammates for people.',
+      cta1: 'See projects', cta2: "Let's talk",
+      phobos: 'Phobos', deimos: 'Deimos', mars: 'Mars', aPh: '9,376 km', aDe: '23,463 km', rot: 'rot. 24 h 37 min', scale: '1 h → 1 s',
+      view: 'View from Jezero', viewDir: 'facing south', phRise: 'rises in the west', deRise: 'rises in the east'
+    },
+    hud: { aria: 'Live telemetry', mad: 'Madrid' },
+    now: {
+      title: 'Right now', updated: 'Updated', date: '21 Oct 2026',
+      items: [
+        { icon: 'planet', cls: 'c-jezero', text: 'Jezero is public: the shared memory of my agents' },
+        { icon: 'sat', cls: 'c-orbit', text: 'Polishing the Orbit beta before opening it up' },
+        { icon: 'puzzle', cls: 'c-kimen', text: 'Taking Kimen towards 1.0' },
+        { icon: 'cap', cls: 'c-team', text: 'Head Frontend Developer at Sngular' }
+      ]
+    },
+    sys: {
+      kicker: 'The system', title: 'Three pieces, one idea.', lead: 'What an agent shows you, what it remembers, and where it lives with you.',
+      ringK: 'Kimen · what it shows you', ringJ: 'Jezero · what it remembers', ringO: 'Orbit · where it lives with you',
+      kepler: 'Orbital periods follow Kepler: T² ∝ a³',
+      items: {
+        kimen: { name: 'Kimen', line: 'The interfaces agents generate.', chips: ['pre-1.0', 'Apache-2.0'], cta: 'See Kimen', stack: 'StencilJS · TypeScript · design tokens', alt: 'Animation: an agent writes JSON, Kimen validates it against its catalog, rejects the undeclared component and assembles the rest into real components.' },
+        jezero: { name: 'Jezero', line: "The shared memory of your agents' work.", chips: ['pre-alpha', 'Apache-2.0'], cta: 'See Jezero', stack: 'Python · SQLite FTS5 · MCP', alt: 'Animation: agent sessions settle like layers of sediment, and a search cuts through them to recover a decision from weeks ago.' },
+        orbit: { name: 'Orbit', line: 'Your assistant, on your Mac.', chips: ['beta', 'MIT', 'macOS'], cta: 'See Orbit', stack: 'Tauri 2 · React · Rust · Python', alt: 'Animation: the audio wave of a meeting turns into written notes.' }
+      }
+    },
+    demo: {
+      k: { file: 'agent.json', agent: 'agent → catalog', cardTitle: 'Sprint summary', badge: 'In progress', ok: 'declared', no: 'rejected', render: 'Render', sum: '3 components · 1 rejected' },
+      j: {
+        bar: 'memory', q: 'why did we pick SQLite?', qn: 23,
+        layers: [
+          { a: 'session · claude-code', b: '5 wk ago' },
+          { a: 'decision · SQLite FTS5, no GPU', b: '3 wk ago', hit: true },
+          { a: 'error · ENOSPC in CI', b: '2 wk ago' },
+          { a: 'fix · clear the uv cache', b: '12 d ago' },
+          { a: 'command · uv run pytest -k mcp', b: '4 d ago' },
+          { a: 'session · codex', b: 'today' }
+        ],
+        rk: 'Decision · 3 weeks ago', rt: 'Full-text search in a single SQLite file: milliseconds, no GPU.', rs: 'Source · claude-code session'
+      },
+      o: { meeting: 'Product sync', title: 'Notes · Product sync', k1: 'Agreed', b1: 'Prioritise catalog accessibility', b2: 'Open the beta once it is stable', k2: 'To do', b3: "Prepare Thursday's demo" }
+    },
+    traj: { kicker: 'Path', text: 'From full-stack to leading frontend at Sngular, and from there to agent infrastructure.', cta: 'Get to know me', m1: 'Full-stack', m2: 'Sngular', m3: 'Agents', alt: 'Transfer orbit diagram: 2014, full-stack; 2019, Sngular; 2024, agent infrastructure.' },
+    close: { kicker: 'Contact', q1: 'Shall we talk', q2: 'for a bit?', cta: 'Write to me' },
+    foot: { line: 'Made in Madrid, designed on Mars.' },
+    about: {
+      kicker: 'About', h1a: "Hi, I'm", h1b: 'Mars.',
+      p1: "I'm Marcela Gotta, a software engineer in Madrid. I've spent 12 years building software: I started full-stack, fell in love with frontend and ended up leading teams and architecture.",
+      p2: "Since 2019 I've been at Sngular, where I'm Head Frontend Developer and co-lead the frontend chapter: training, technical follow-up for each person, and technical interviews. I've led product teams for large companies in banking, fashion, energy and sustainability.",
+      p3: "I believe AI is the most powerful tool we've had, as long as people stay on the side that steers it. My own work tries to build that part, in the open: Kimen, Jezero and Orbit.",
+      p4: 'I live in Madrid with a small zoo. I love physics, video games, writing and turning odd ideas into things that work.',
+      factsT: 'Quick facts',
+      facts: [{ k: 'Location', v: 'Madrid, Spain' }, { k: 'Languages', v: 'Spanish, native · English, professional and in daily use' }, { k: 'Role', v: 'Head Frontend Developer at Sngular' }, { k: 'Focus', v: 'Product frontend, component systems and agent infrastructure' }],
+      leadT: 'How I lead', motto1: 'Firm on quality,', motto2: 'flexible with people.',
+      axes: [{ n: '01', t: 'Business partner.', d: 'Understanding the why behind the code, not just passing on requirements.' }, { n: '02', t: 'Excellence for the user.', d: 'Quality is a form of respect: a product that fails is a broken promise.' }, { n: '03', t: 'Team growth.', d: 'Behind every commit there is a person. I measure my success by how much the team grows.' }],
+      trajK: '2014 → today', trajT: 'Path', trajCap: 'Transfer orbits · 2014 → today', trajAlt: 'Diagram: a trajectory that jumps from orbit to orbit, one per stage, from 2014 to 2026.',
+      roles: [
+        { when: '2014 – 2018', what: 'Early years', detail: 'Frontend and full-stack development for banking, insurance, telecoms and energy.' },
+        { when: '2018 – 2019', what: 'Frontend Architect · Paradigma Digital', detail: 'Web applications for banking and retail.' },
+        { when: 'Apr 2019 – Feb 2022', what: 'Senior Frontend Developer · Sngular', detail: 'Web Components, micro-frontends and corporate component libraries.' },
+        { when: 'Feb 2022 – Feb 2026', what: 'Frontend Developer Expert · Sngular', detail: 'Technical leadership of product teams and frontend architecture.' },
+        { when: '2024 – today', what: 'Agent infrastructure, in the open', detail: 'Kimen, Jezero and Orbit.' },
+        { when: 'Feb 2026 – today', what: 'Head Frontend Developer · Sngular', detail: 'Co-leading the frontend chapter since December 2025.' }
+      ],
+      eduT: 'Education', edu: 'BSc in Computer Engineering · UOC', eduState: 'in progress',
+      techK: 'Tech constellation', techT: 'Technologies', techLead: 'Pick a project: the technologies it really uses light up.',
+      filterLabel: 'Filter by project', all: 'All', learning: 'learning', rag: 'self-hosted RAG', a11y: 'WCAG 2.2 accessibility',
+      groups: [{ label: 'Languages', x: '4%', y: '7%' }, { label: 'Frontend', x: '36%', y: '7%' }, { label: 'Design systems', x: '72%', y: '7%' }, { label: 'Quality', x: '4%', y: '62%' }, { label: 'Agent infrastructure', x: '52%', y: '62%' }]
+    },
+    pj: {
+      kicker: 'Projects', h1a: 'Three pieces,', h1b: 'one idea.',
+      lead: 'What an agent shows you, what it remembers, and where it lives with you. Kimen and Jezero are already open source; Orbit will be once its beta opens.',
+      navLabel: 'Projects on this page', soon: 'Public repo when the beta opens',
+      onmarsA: 'I also make small, honest products at', onmarsB: ', my independent studio: KitGestor, That Day and Sapphik.',
+      items: {
+        kimen: {
+          role: 'What it shows you', sub: 'The interfaces agents generate.',
+          links: [{ label: 'kimen.dev', href: 'https://kimen.dev' }, { label: 'github.com/kimen-dev/kimen', href: 'https://github.com/kimen-dev/kimen' }],
+          desc: 'The component base for generative interfaces: Web Components that work in any framework, and that agents can read and use through a clear contract.',
+          bullets: ['29 ki-* components with no framework dependency, plus wrappers for React, Vue and Angular.', 'Guarded catalog: an agent can only render declared components and actions; anything unknown is rejected.', 'Adapters for A2UI and MCP Apps.', 'Accessibility as a hard gate: zero axe violations in CI and a WCAG 2.2 AA target. Under 10 KB per component.'],
+          stack: 'StencilJS · TypeScript · design tokens'
+        },
+        jezero: {
+          role: 'What it remembers', sub: 'The shared memory of your agents.',
+          links: [{ label: 'github.com/MarsGotta/jezero', href: 'https://github.com/MarsGotta/jezero' }],
+          desc: 'Your agents forget. Jezero gathers their sessions, summarises them and lets any agent ask what was decided, what failed or which command worked, even if another agent did it weeks ago.',
+          bullets: ['Incremental, read-only connectors for Hermes Agent, Claude Code, Codex, OpenCode, Antigravity and Paperclip.', 'Each session is summarised into “atoms”: decisions, reasons, fixes, exact errors, commands, data and risks.', 'A single SQLite file with full-text search: milliseconds, no GPU.', 'A read-only MCP server: every agent can query, none can write. Secrets are redacted before saving.'],
+          noteK: 'The name:', note: 'the Martian crater that used to be a lake. Its sediments keep what happened, and that is where Perseverance sets samples aside to be collected later.',
+          stack: 'Python · SQLite FTS5 · MCP'
+        },
+        orbit: {
+          role: 'Where it lives with you', sub: 'Your assistant, on your Mac.', links: [], soon: true,
+          desc: 'A Mac app that gives your assistant a place in your day: it records and transcribes your meetings, writes the notes and lets you talk to the agent of your choice.',
+          bullets: ['Bring your own agent: through an API gateway or with your Claude or Codex session.', 'Includes its own self-hosted hub: you decide where your meetings live.', 'In beta, and labelled as such.'],
+          stack: 'Tauri 2 · React · Rust · Python'
+        }
+      }
+    },
+    talks: {
+      kicker: 'Talks and teaching', h1a: 'Talks', h1b: 'and teaching.', caption: 'Most recent first',
+      items: [
+        { year: '2025 – today', type: 'Teaching', title: "Natural Language Processing · AI Ethics and Regulation (master's)", where: 'Instituto Europeo de Posgrado' },
+        { year: '2022', type: 'Course', title: 'Web Components from scratch', where: 'Codemotion' },
+        { year: '2021', type: 'Talk', title: 'Web Components in production', where: 'Devcast Codemotion' },
+        { year: '2019 – 2021', type: 'Teaching', title: 'Vue, React, Redux, Angular and RxJS courses', where: 'Fictizia' },
+        { year: '2019', type: 'Talk', title: 'Progressive Web Apps', where: 'Salmorejo Tech, Córdoba' }
+      ]
+    },
+    contact: { kicker: 'Contact', h1: "Let's talk.", lead: 'Want to talk about agents, frontend, or how to lead a technical team without burning it out? Write to me.', chanT: 'Write to me', formLabel: 'Contact form', name: 'Your name', email: 'Your email', msg: 'Tell me', send: 'Send', sent: "Received. I'll get back to you in a few days." }
+  }
+};
+
+/* ---------- Procedural Mars (WebGL 1, no textures to download) ---------- */
+var MG_VS = 'attribute vec2 aPos; varying vec2 vUv; void main(){ vUv = aPos*0.5+0.5; gl_Position = vec4(aPos,0.0,1.0); }';
+var MG_BAKE_FS = [
+  'precision highp float;',
+  'varying vec2 vUv;',
+  'float h3(vec3 p){ return fract(sin(dot(p, vec3(127.1,311.7,74.7)))*43758.5453123); }',
+  'vec3 h33(vec3 p){ return fract(sin(vec3(dot(p,vec3(127.1,311.7,74.7)),dot(p,vec3(269.5,183.3,246.1)),dot(p,vec3(113.5,271.9,124.6))))*43758.5453); }',
+  'float vn(vec3 x){ vec3 i=floor(x); vec3 f=fract(x); vec3 u=f*f*f*(f*(f*6.0-15.0)+10.0);',
+  '  float a=h3(i), b=h3(i+vec3(1.,0.,0.)), c=h3(i+vec3(0.,1.,0.)), d=h3(i+vec3(1.,1.,0.));',
+  '  float e=h3(i+vec3(0.,0.,1.)), f1=h3(i+vec3(1.,0.,1.)), g=h3(i+vec3(0.,1.,1.)), h=h3(i+vec3(1.,1.,1.));',
+  '  return mix(mix(mix(a,b,u.x),mix(c,d,u.x),u.y), mix(mix(e,f1,u.x),mix(g,h,u.x),u.y), u.z)*2.0-1.0; }',
+  'float fbm(vec3 p){ float s=0.0, a=0.5; for(int i=0;i<6;i++){ s+=a*vn(p); p=p*2.03+vec3(1.7,9.2,3.1); a*=0.5; } return s; }',
+  'float fbm3(vec3 p){ float s=0.0, a=0.5; for(int i=0;i<3;i++){ s+=a*vn(p); p=p*2.03+vec3(4.1,2.7,7.3); a*=0.5; } return s; }',
+  'vec3 sph(float la, float lo){ la=radians(la); lo=radians(lo); return vec3(cos(la)*sin(lo), sin(la), cos(la)*cos(lo)); }',
+  'float adist(vec3 p, float la, float lo){ return degrees(acos(clamp(dot(p,sph(la,lo)),-1.0,1.0))); }',
+  'float blob(vec3 p, float la, float lo, float r){ float d=adist(p,la,lo)/r; return exp(-d*d); }',
+  'float ring(vec3 p, float la, float lo, float r, float w){ float d=adist(p,la,lo); return exp(-pow((d-r)/w,2.0)); }',
+  'float craters(vec3 p, float seed, float dens){ vec3 i=floor(p); vec3 f=fract(p); float h=0.0;',
+  '  for(int z=-1;z<=1;z++) for(int y=-1;y<=1;y++) for(int x=-1;x<=1;x++){',
+  '    vec3 g=vec3(float(x),float(y),float(z)); vec3 o=h33(i+g+seed); vec3 r=g+o-f; float d=length(r);',
+  '    float rad=0.14+0.24*o.x*o.x; float t=d/rad; float ex=step(1.0-dens,o.y);',
+  '    float bowl=(t<1.0)?(t*t-1.0)*0.5:0.0; float rim=exp(-pow((t-1.0)*4.0,2.0))*0.30;',
+  '    h+=ex*(bowl+rim)*smoothstep(1.9,1.0,t); }',
+  '  return h; }',
+  'vec3 ramp(float a){',
+  '  vec3 c0=vec3(0.15,0.06,0.06), c1=vec3(0.32,0.11,0.09), c2=vec3(0.60,0.18,0.12), c3=vec3(0.84,0.29,0.18), c4=vec3(0.92,0.44,0.27), c5=vec3(0.96,0.64,0.45);',
+  '  a=clamp(a,0.0,1.0);',
+  '  if(a<0.18) return mix(c0,c1,a/0.18);',
+  '  if(a<0.38) return mix(c1,c2,(a-0.18)/0.20);',
+  '  if(a<0.58) return mix(c2,c3,(a-0.38)/0.20);',
+  '  if(a<0.78) return mix(c3,c4,(a-0.58)/0.20);',
+  '  return mix(c4,c5,(a-0.78)/0.22); }',
+  'void main(){',
+  '  float lon=(vUv.x-0.5)*6.2831853; float lat=(vUv.y-0.5)*3.1415926;',
+  '  vec3 p=vec3(cos(lat)*sin(lon), sin(lat), cos(lat)*cos(lon));',
+  '  float latd=degrees(lat), lond=degrees(lon);',
+  '  vec3 w=vec3(fbm3(p*2.1+1.3), fbm3(p*2.1+7.9), fbm3(p*2.1+4.6));',
+  '  vec3 q=normalize(p+0.13*w);',
+  '  float n1=fbm(q*3.0), n2=fbm(q*8.5), n3=vn(q*30.0), n4=vn(q*70.0);',
+  '  float streak=fbm3(vec3(q.x*6.0,q.y*26.0,q.z*6.0));',
+  '  float df=0.0;',
+  '  df+=1.15*blob(q,10.0,69.0,9.0)+0.75*blob(q,22.0,66.0,5.5)+0.6*blob(q,0.0,74.0,7.0);',
+  '  df+=0.95*blob(q,-3.0,-1.0,7.0)+0.95*blob(q,-9.0,22.0,8.0)+0.7*blob(q,-12.0,42.0,8.0);',
+  '  df+=0.85*blob(q,-16.0,104.0,11.0)+0.95*blob(q,-24.0,140.0,13.0)+0.75*blob(q,-28.0,170.0,11.0);',
+  '  df+=0.85*blob(q,-32.0,-152.0,13.0)+0.6*blob(q,-38.0,-125.0,9.0);',
+  '  df+=0.95*blob(q,-24.0,-38.0,13.0)+0.75*blob(q,-14.0,-52.0,7.0)+0.8*blob(q,-26.0,-89.0,4.5);',
+  '  df+=1.05*blob(q,46.0,-28.0,12.0)+0.55*blob(q,58.0,-10.0,10.0);',
+  '  df+=0.55*blob(q,47.0,118.0,15.0)+0.40*blob(q,63.0,-160.0,20.0)+0.35*blob(q,55.0,40.0,16.0);',
+  '  float belt=exp(-pow((latd+19.0)/14.0,2.0))*(0.60+0.55*n1+0.25*streak);',
+  '  belt*=(1.0-0.85*blob(p,0.0,-112.0,24.0))*(1.0-0.95*blob(p,-42.0,70.0,16.0))*(1.0-0.9*blob(p,-50.0,-44.0,10.0));',
+  '  df+=0.70*belt;',
+  '  float dm=smoothstep(0.12,1.05,df+0.42*n1+0.24*n2+0.16*streak);',
+  '  float inner=0.70+0.38*n2+0.18*n3+0.12*streak;',
+  '  float bf=0.0;',
+  '  bf+=1.0*blob(p,-42.0,70.0,12.0)+0.9*blob(p,-50.0,-44.0,7.0)+0.75*blob(p,21.0,5.0,16.0);',
+  '  bf+=0.9*blob(p,4.0,-112.0,19.0)+0.9*blob(p,16.0,-160.0,17.0)+0.6*blob(p,25.0,147.0,9.0)+0.45*blob(p,13.0,88.0,7.0);',
+  '  float a=0.66+0.12*n1+0.07*n2+0.03*n3+0.015*n4+0.05*streak;',
+  '  a-=0.34*dm*inner+0.07*df;',
+  '  a+=0.12*smoothstep(0.2,0.9,bf+0.2*n1);',
+  '  float vl=smoothstep(-103.0,-94.0,lond)*(1.0-smoothstep(-46.0,-38.0,lond));',
+  '  float vc=-9.0+0.07*(lond+75.0)+0.9*sin(radians(lond*8.0))+0.7*n2;',
+  '  float dv=(latd-vc);',
+  '  float vw=2.0+0.7*n3+1.2*blob(p,-7.0,-72.0,6.0);',
+  '  float valles=vl*exp(-pow(dv/(vw*1.1),2.0))*(0.80+0.30*n3);',
+  '  float vall2=vl*smoothstep(-80.0,-70.0,lond)*(1.0-smoothstep(-58.0,-52.0,lond))*smoothstep(1.0,0.0,abs(dv-3.2)/1.3);',
+  '  float noctis=smoothstep(0.35,0.85,blob(q,-7.0,-102.0,3.2)*(0.7+0.9*vn(q*60.0)));',
+  '  float vv=max(max(valles,vall2*0.8),noctis*0.7);',
+  '  a-=0.28*vv;',
+  '  float oly=ring(p,18.65,-133.8,2.9,0.7); float olyC=blob(p,18.65,-133.8,0.7);',
+  '  float th=ring(p,-8.3,-120.1,1.5,0.5)+ring(p,1.5,-113.0,1.4,0.5)+ring(p,11.8,-104.5,1.4,0.5)+ring(p,24.8,147.2,1.2,0.5);',
+  '  a+=0.06*blob(p,18.65,-133.8,7.0)-0.10*oly-0.08*olyC-0.06*th;',
+  '  float hl=smoothstep(12.0,-22.0,latd+9.0*n1);',
+  '  float cr=craters(p*11.0,0.0,0.42)*hl+craters(p*27.0,7.0,0.55)*(0.30+0.70*hl)*0.7+craters(p*60.0,3.0,0.5)*0.35*hl;',
+  '  a+=0.05*cr;',
+  '  vec3 col=ramp(a);',
+  '  col*=vec3(1.0,0.97+0.04*n2,0.95);',
+  '  col=mix(col, col*vec3(0.80,0.86,0.95), 0.45*dm);',
+  '  float capN=smoothstep(77.5,81.5,latd+2.6*n2+1.6*sin(radians(lond*3.0+30.0))+1.5*n3);',
+  '  float capS=smoothstep(84.0,87.5,-latd+1.6*n2-2.0*cos(radians(lond+45.0)));',
+  '  float frost=smoothstep(66.0,80.0,latd+6.0*n1)*0.35;',
+  '  float trough=smoothstep(0.25,0.75,vn(q*22.0)+0.5*n2);',
+  '  vec3 ice=mix(vec3(0.98,0.95,0.93), vec3(0.78,0.62,0.60), 0.55*trough*capN);',
+  '  col=mix(col, mix(col,vec3(0.93,0.84,0.80),0.6), frost);',
+  '  col=mix(col, ice, max(capN,capS));',
+  '  float hgt=0.50+0.09*smoothstep(15.0,-20.0,latd+10.0*n1)+0.05*n1+0.02*n2;',
+  '  hgt+=0.28*blob(p,18.65,-133.8,3.0)+0.10*blob(p,4.0,-112.0,13.0)+0.12*(blob(p,-8.3,-120.1,1.3)+blob(p,1.5,-113.0,1.2)+blob(p,11.8,-104.5,1.2));',
+  '  hgt-=0.16*blob(p,-42.0,70.0,10.0)+0.24*vv;',
+  '  hgt+=0.08*cr;',
+  '  gl_FragColor=vec4(col, clamp(hgt,0.0,1.0));',
+  '}'
+].join('\n');
+var MG_FS = [
+  'precision highp float;',
+  'varying vec2 vUv;',
+  'uniform vec2 uRes; uniform sampler2D uTex; uniform vec2 uTexel;',
+  'uniform float uLon0; uniform float uTilt; uniform vec3 uSunP; uniform float uR; uniform float uBump;',
+  'void main(){',
+  '  vec2 p=vUv*2.0-1.0; vec2 q=p/uR; float r=length(q);',
+  '  float pix=2.0/(uRes.x*uR);',
+  '  float ct=cos(uTilt), st=sin(uTilt);',
+  '  vec3 col=vec3(0.0); float alpha=0.0;',
+  '  if(r<1.0+pix){',
+  '    float z=sqrt(max(0.0,1.0-min(r*r,1.0)));',
+  '    vec3 nV=vec3(q,z);',
+  '    vec3 nP=vec3(nV.x, ct*nV.y+st*nV.z, -st*nV.y+ct*nV.z);',
+  '    float lam=atan(nP.x,nP.z); float phi=asin(clamp(nP.y,-1.0,1.0));',
+  '    vec2 uv=vec2(fract((lam+uLon0)/6.2831853+0.5), phi/3.1415926+0.5);',
+  '    vec4 tx=texture2D(uTex,uv);',
+  '    float hE=texture2D(uTex,uv+vec2(uTexel.x,0.0)).a-texture2D(uTex,uv-vec2(uTexel.x,0.0)).a;',
+  '    float hN=texture2D(uTex,uv+vec2(0.0,uTexel.y)).a-texture2D(uTex,uv-vec2(0.0,uTexel.y)).a;',
+  '    vec3 E=vec3(cos(lam),0.0,-sin(lam)); vec3 N=vec3(-sin(phi)*sin(lam),cos(phi),-sin(phi)*cos(lam));',
+  '    float cphi=max(cos(phi),0.2);',
+  '    vec3 n=normalize(nP-uBump*(hE/cphi*E+hN*N));',
+  '    float ndl=dot(n,uSunP); float ndl0=dot(nP,uSunP);',
+  '    float term=smoothstep(-0.035,0.10,ndl0);',
+  '    float diff=clamp(ndl,0.0,1.0); diff=pow(diff,0.78)*term;',
+  '    vec3 alb=tx.rgb;',
+  '    vec3 c=alb*1.18*diff;',
+  '    c+=alb*vec3(0.30,0.20,0.42)*0.045;',
+  '    float tw=smoothstep(-0.16,-0.01,ndl0)*(1.0-smoothstep(0.0,0.20,ndl0));',
+  '    c+=vec3(0.82,0.09,0.45)*tw*0.085;',
+  '    float fr=pow(1.0-z,2.4);',
+  '    float dayL=smoothstep(-0.10,0.35,ndl0);',
+  '    c=mix(c, vec3(1.0,0.56,0.40)*(0.35+0.75*clamp(ndl0,0.0,1.0)), fr*0.50*dayL);',
+  '    c+=vec3(1.0,0.45,0.42)*pow(1.0-z,7.0)*0.55*dayL;',
+  '    c=c/(1.0+0.12*c);',
+  '    float cov=clamp((1.0-r)/pix+0.5,0.0,1.0);',
+  '    col=c*cov; alpha=cov;',
+  '  }',
+  '  if(r>1.0-pix*2.0){',
+  '    vec2 dir=q/max(r,1e-4);',
+  '    vec3 lV=vec3(dir,0.0); vec3 lP=vec3(lV.x, ct*lV.y+st*lV.z, -st*lV.y+ct*lV.z);',
+  '    float sl=dot(lP,uSunP);',
+  '    float lit=smoothstep(-0.45,0.75,sl);',
+  '    float dr=max(r-1.0,0.0);',
+  '    float g1=exp(-dr*80.0), g2=exp(-dr*16.0), g3=exp(-dr*5.0);',
+  '    vec3 hc=mix(mix(vec3(0.52,0.35,0.75),vec3(0.82,0.09,0.45),smoothstep(0.0,0.45,lit)), vec3(1.0,0.50,0.29), smoothstep(0.45,1.0,lit));',
+  '    float I=(g1*0.95+g2*0.30+g3*0.07)*(0.10+0.90*lit);',
+  '    I*=1.0-smoothstep(1.0/uR-0.07,1.0/uR,r);',
+  '    float ha=clamp(I,0.0,1.0)*(1.0-alpha);',
+  '    col+=hc*I*(1.0-alpha); alpha=alpha+ha*0.85;',
+  '  }',
+  '  float dith=(fract(sin(dot(gl_FragCoord.xy,vec2(12.9898,78.233)))*43758.5453)-0.5)/255.0;',
+  '  gl_FragColor=vec4(col+dith*alpha, clamp(alpha,0.0,1.0));',
+  '}'
+].join('\n');
+
+function mgPlanet(canvas, host) {
+  var gl = null;
+  try { gl = canvas.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias: false, preserveDrawingBuffer: true }); } catch (e) { gl = null; }
+  if (!gl) return null;
+  function sh(type, src) { var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s)); return s; }
+  function prog(fs) { var p = gl.createProgram(); gl.attachShader(p, sh(gl.VERTEX_SHADER, MG_VS)); gl.attachShader(p, sh(gl.FRAGMENT_SHADER, fs)); gl.bindAttribLocation(p, 0, 'aPos'); gl.linkProgram(p); if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p)); return p; }
+  var buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+  gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+  var small = (canvas.clientWidth || 400) < 420;
+  var TW = Math.min(small ? 1024 : 2048, gl.getParameter(gl.MAX_TEXTURE_SIZE) || 2048), TH = TW / 2;
+  var tex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tex);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, TW, TH, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  var fb = gl.createFramebuffer(); gl.bindFramebuffer(gl.FRAMEBUFFER, fb);
+  gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tex, 0);
+  var bake = prog(MG_BAKE_FS); gl.useProgram(bake); gl.viewport(0, 0, TW, TH); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  gl.bindFramebuffer(gl.FRAMEBUFFER, null); gl.deleteFramebuffer(fb); gl.deleteProgram(bake);
+  var rp = prog(MG_FS); gl.useProgram(rp);
+  var U = {};
+  ['uRes', 'uTex', 'uTexel', 'uLon0', 'uTilt', 'uSunP', 'uR', 'uBump'].forEach(function (n) { U[n] = gl.getUniformLocation(rp, n); });
+  var D = Math.PI / 180, tilt = MG_TILT * D, ce = Math.cos(tilt), se = Math.sin(tilt);
+  gl.uniform1i(U.uTex, 0); gl.uniform2f(U.uTexel, 1 / TW, 1 / TH); gl.uniform1f(U.uR, 0.86); gl.uniform1f(U.uBump, TW > 1024 ? 2.6 : 1.8); gl.uniform1f(U.uTilt, tilt);
+  /* Real sky at page load: today's subsolar latitude (season) and longitude, then ×3600 time-lapse */
+  var mc = mgMarsClock(Date.now());
+  var la = mc.subLat * D, az = MG_SUN_AZ * D;
+  gl.uniform3f(U.uSunP, Math.cos(la) * Math.sin(az), Math.sin(la), Math.cos(la) * Math.cos(az));
+  var lon0 = mc.subLonE - MG_SUN_AZ, rate = 360 / MG_ROT_H;
+  var reduce = mgReduced();
+  var sys = canvas.closest ? canvas.closest('.mg-sys') : null;
+  var alive = true, raf = 0, visible = true, simT = 0, last = 0, ready = false, lastLabel = -1;
+  function size() {
+    var cw = canvas.clientWidth; if (!cw) return;
+    var dpr = Math.min(window.devicePixelRatio || 1, cw > 420 ? 2 : 1.5), w = Math.max(64, Math.round(cw * dpr));
+    if (canvas.width !== w) { canvas.width = w; canvas.height = w; }
+  }
+  function marker(lonC) {
+    var el = host._jzEl; if (!el || !el.parentNode) return;
+    var lam = (MG_JEZ.lon - lonC) * D, phi = MG_JEZ.lat * D;
+    var px = Math.cos(phi) * Math.sin(lam), py = Math.sin(phi), pz = Math.cos(phi) * Math.cos(lam);
+    var vy = py * ce - pz * se, vz = py * se + pz * ce;
+    var R = el.parentNode.clientWidth / 2; if (!R) return;
+    el.style.transform = 'translate(' + (R + px * R).toFixed(1) + 'px,' + (R - vy * R).toFixed(1) + 'px) translateY(-50%)';
+    el.style.opacity = vz > 0 ? Math.min(1, vz / 0.22).toFixed(2) : '0';
+    var lt = 12 + (MG_JEZ.lon - (lonC + MG_SUN_AZ)) / 15 - mc.eot / 15; lt = ((lt % 24) + 24) % 24;
+    var hh = Math.floor(lt), mm = Math.floor((lt - hh) * 60), key = hh * 60 + mm;
+    if (key !== lastLabel) { lastLabel = key; var b = el.querySelector('b'); if (b) b.textContent = mgPad(hh) + ':' + mgPad(mm); }
+  }
+  function draw() {
+    size();
+    var lonC = lon0 - rate * simT;
+    gl.viewport(0, 0, canvas.width, canvas.height); gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.useProgram(rp); gl.uniform2f(U.uRes, canvas.width, canvas.height); gl.uniform1f(U.uLon0, lonC * D);
+    gl.bindTexture(gl.TEXTURE_2D, tex); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    marker(lonC);
+    if (!ready && sys) { ready = true; sys.setAttribute('data-gl', 'on'); }
+  }
+  function frame(now) {
+    raf = 0; if (!alive) return;
+    var running = host.mgMotionOn() && !reduce && visible;
+    if (running) { if (last) simT += Math.min(0.1, (now - last) / 1000); last = now; } else last = 0;
+    draw();
+    if (running) raf = requestAnimationFrame(frame);
+  }
+  function kick() { if (alive && !raf) raf = requestAnimationFrame(frame); }
+  var io = null, ro = null;
+  if (typeof IntersectionObserver !== 'undefined') { io = new IntersectionObserver(function (es) { visible = es.length ? es[es.length - 1].isIntersecting : true; if (visible) kick(); }, { threshold: 0 }); io.observe(canvas); }
+  if (typeof ResizeObserver !== 'undefined') { ro = new ResizeObserver(function () { kick(); }); ro.observe(canvas); }
+  kick();
+  return {
+    kick: kick,
+    dispose: function () { alive = false; if (raf) cancelAnimationFrame(raf); if (io) io.disconnect(); if (ro) ro.disconnect(); try { var x = gl.getExtension('WEBGL_lose_context'); if (x) x.loseContext(); } catch (e) {} }
+  };
+}
+
+/* ---------- Component ---------- */
+class Component extends DCLogic {
+  componentDidMount() {
+    var self = this;
+    this._alive = true;
+    this._tick = setInterval(function () { if (self._alive) self.setState({ now: Date.now() }); }, 1000);
+  }
+  componentDidUpdate(prevProps, prevState) {
+    var p = this.props || {}, q = prevProps || {}, patch = null;
+    ['theme', 'lang', 'route'].forEach(function (k) { if (p[k] !== q[k]) { patch = patch || {}; patch[k] = undefined; } });
+    if (patch) this.setState(patch);
+    var s = this.state || {}, ps = prevState || {};
+    if (s.motion !== ps.motion && this._planet) this._planet.kick();
+  }
+  componentWillUnmount() {
+    this._alive = false;
+    clearInterval(this._tick); clearTimeout(this._dt1); clearTimeout(this._dt2); clearTimeout(this._pt);
+    if (this._planet) { this._planet.dispose(); this._planet = null; }
+    if (this._io) { this._io.disconnect(); this._io = null; }
+  }
+  mgView() { var s = this.state || {}, p = this.props || {}; return { theme: s.theme || p.theme || 'dark', lang: s.lang || p.lang || 'es', route: s.route || p.route || 'inicio' }; }
+  mgMotionOn() { return (this.state || {}).motion !== false; }
+  mgSeen(key) {
+    var seen = (this.state || {}).seen || {}; if (seen[key]) return;
+    var n = {}; for (var k in seen) n[k] = seen[k]; n[key] = true;
+    this.setState({ seen: n });
+  }
+  mgIoRef(key) {
+    var self = this;
+    return function (el) {
+      if (!el) return;
+      if (typeof IntersectionObserver === 'undefined') { self.mgSeen(key); return; }
+      if (!self._io) {
+        self._io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (!en.isIntersecting) return;
+            var k = en.target.getAttribute('data-mg-io'); if (k) self.mgSeen(k);
+            if (self._io) self._io.unobserve(en.target);
+          });
+        }, { threshold: 0.3 });
+      }
+      el.setAttribute('data-mg-io', key);
+      self._io.observe(el);
+    };
+  }
+  mgAttachPlanet(el) {
+    var self = this;
+    clearTimeout(this._pt);
+    if (this._planet) { this._planet.dispose(); this._planet = null; }
+    if (!el) return;
+    /* let the headline paint first (LCP), then compile and bake the planet */
+    this._pt = setTimeout(function () {
+      if (self._alive === false || !el.isConnected) return;
+      try { self._planet = mgPlanet(el, self); } catch (e) { self._planet = null; }
+    }, 140);
+  }
+  mgH() {
+    if (this._h) return this._h;
+    var self = this;
+    function go(route, anchor) {
+      return function (e) {
+        if (e && e.preventDefault) e.preventDefault();
+        self.setState({ route: route, menuOpen: false }, function () {
+          try {
+            if (anchor) { var el = document.getElementById(anchor); if (el) el.scrollIntoView({ behavior: mgReduced() ? 'auto' : 'smooth', block: 'start' }); }
+            else if (window.scrollY > 0) window.scrollTo(0, 0);
+          } catch (err) {}
+        });
+      };
+    }
+    var h = { go: {}, jump: {}, pick: {}, io: {}, cfilter: {} };
+    ['inicio', 'sobre', 'proyectos', 'charlas', 'contacto'].forEach(function (r) { h.go[r] = go(r); });
+    ['kimen', 'jezero', 'orbit'].forEach(function (k) {
+      h.jump[k] = go('proyectos', k);
+      h.pick[k] = function () { if (((self.state || {}).active || 'kimen') !== k) self.setState({ active: k }); };
+      h.io[k] = self.mgIoRef(k);
+    });
+    h.io.home = self.mgIoRef('home');
+    ['all', 'kimen', 'jezero', 'orbit'].forEach(function (k) { h.cfilter[k] = function () { self.setState({ constel: k }); }; });
+    h.setEs = function () { self.setState({ lang: 'es' }); };
+    h.setEn = function () { self.setState({ lang: 'en' }); };
+    h.toggleTheme = function () {
+      var next = self.mgView().theme === 'dark' ? 'light' : 'dark';
+      if (mgReduced()) { self.setState({ theme: next }); return; }
+      clearTimeout(self._dt1); clearTimeout(self._dt2);
+      self.setState({ dawn: next });
+      self._dt1 = setTimeout(function () { if (self._alive !== false) self.setState({ theme: next }); }, 560);
+      self._dt2 = setTimeout(function () { if (self._alive !== false) self.setState({ dawn: null }); }, 1300);
+    };
+    h.toggleMotion = function () { self.setState({ motion: !self.mgMotionOn() }); };
+    h.openMenu = function () { self.setState({ menuOpen: true }); };
+    h.closeMenu = function () { self.setState({ menuOpen: false }); };
+    h.onMenuKey = function (e) { if (e && e.key === 'Escape') self.setState({ menuOpen: false }); };
+    h.menuCloseRef = function (el) { if (el) setTimeout(function () { try { el.focus(); } catch (e) {} }, 40); };
+    h.onSend = function (e) { if (e && e.preventDefault) e.preventDefault(); self.setState({ sent: true }); };
+    h.planetRef = function (el) { self.mgAttachPlanet(el); };
+    h.jzRef = function (el) { self._jzEl = el; };
+    h.heroRef = function (el) { self._heroEl = el; };
+    h.onHeroMove = function (e) {
+      var el = self._heroEl; if (!el || self._mm || mgReduced()) return;
+      var r = el.getBoundingClientRect(); if (!r.width) return;
+      var x = ((e.clientX - r.left) / r.width) * 2 - 1, y = ((e.clientY - r.top) / r.height) * 2 - 1;
+      self._mm = requestAnimationFrame(function () { self._mm = 0; el.style.setProperty('--mx', (-x).toFixed(3)); el.style.setProperty('--my', (-y).toFixed(3)); });
+    };
+    h.onHeroLeave = function () { var el = self._heroEl; if (el) { el.style.setProperty('--mx', '0'); el.style.setProperty('--my', '0'); } };
+    this._h = h;
+    return h;
+  }
+  renderVals() {
+    var h = this.mgH(), s = this.state || {}, v = this.mgView();
+    var t = MG_T[v.lang] || MG_T.es;
+    var isDark = v.theme !== 'light', motionOn = this.mgMotionOn();
+    var mc = mgMarsClock(s.now || Date.now());
+    var active = s.active || 'kimen', seen = s.seen || {}, constel = s.constel || 'all';
+    var keys = ['kimen', 'jezero', 'orbit'], routes = ['inicio', 'sobre', 'proyectos', 'charlas', 'contacto'];
+
+    var nav = routes.map(function (r, i) { return { href: '#' + r, label: t.nav[r], idx: '0' + (i + 1), current: v.route === r ? 'page' : null, go: h.go[r] }; });
+    var r = {}; routes.forEach(function (k) { r[k] = v.route === k; });
+
+    function words(list, start) { return list.map(function (w, i) { return { t: w, d: (start + i * 0.12).toFixed(2) + 's' }; }); }
+    var n1 = t.hero.l1.length, n2 = t.hero.l2.length;
+    var head = { l1: words(t.hero.l1, 0.35), l2: words(t.hero.l2, 0.41 + n1 * 0.12), l3: words(t.hero.l3, 0.49 + (n1 + n2) * 0.12) };
+
+    var lmH = Math.floor(mc.lmst), lmM = Math.floor((mc.lmst - lmH) * 60);
+    var hud = { mad: mgMadrid(s.now || Date.now()), sol: String(mc.sol), lmst: mgPad(lmH) + ':' + mgPad(lmM), sim: motionOn ? '×3600' : '×0' };
+
+    var projects = keys.map(function (k, i) { var it = t.sys.items[k]; return { idx: '0' + (i + 1), name: it.name, line: it.line, chips: it.chips, cls: 'p-' + k, on: active === k, pick: h.pick[k] }; });
+    var A = t.sys.items[active];
+    var jLayers = t.demo.j.layers.map(function (l, i) { return { a: l.a, b: l.b, cls: l.hit ? 'hit' : '', d: (0.2 + i * 0.3).toFixed(2) + 's' }; });
+    var chapters = keys.map(function (k, i) {
+      var it = t.pj.items[k], sy = t.sys.items[k];
+      return {
+        id: k, hid: 'mg-pj-' + k, cls: 'p-' + k, idx: '0' + (i + 1), role: it.role, name: sy.name, sub: it.sub, chips: sy.chips,
+        links: it.links, soon: !!it.soon, desc: it.desc, bullets: it.bullets, hasNote: !!it.note, noteK: it.noteK || '', note: it.note || '',
+        stack: it.stack, stage: 'p-' + k + (seen[k] ? ' is-play' : ''), ioRef: h.io[k], alt: sy.alt,
+        isK: k === 'kimen', isJ: k === 'jezero', isO: k === 'orbit'
+      };
+    });
+    var pk = constel === 'all' ? '' : constel.charAt(0);
+    function techLabel(st) { return st.l.charAt(0) === '@' ? t.about[st.l.slice(1)] : st.l; }
+    function isLit(st) { return !!(pk && st.p && st.p.indexOf(pk) >= 0); }
+    var cfilters = ['all'].concat(keys).map(function (k) { return { label: k === 'all' ? t.about.all : t.sys.items[k].name, cls: k === 'all' ? '' : 'p-' + k, on: constel === k, pick: h.cfilter[k] }; });
+    var cstars = MG_TECH.map(function (st) { return { label: techLabel(st), x: st.x + '%', y: st.y + '%', learn: !!st.learn, cls: (st.learn ? 'learn ' : '') + (pk ? (isLit(st) ? 'lit' : 'dim') : '') }; });
+    var tgroups = t.about.groups.map(function (g, gi) {
+      return { label: g.label, items: MG_TECH.filter(function (st) { return st.g === gi; }).map(function (st) { return { label: techLabel(st) + (st.learn ? ' · ' + t.about.learning : ''), cls: isLit(st) ? 'lit' : '' }; }) };
+    });
+    var nowItems = t.now.items.map(function (it, i) { return { idx: '0' + (i + 1), text: it.text, cls: it.cls, planet: it.icon === 'planet', sat: it.icon === 'sat', puzzle: it.icon === 'puzzle', cap: it.icon === 'cap' }; });
+
+    return {
+      theme: isDark ? 'dark' : 'light', lang: v.lang, motionAttr: motionOn ? 'on' : 'off',
+      t: t, r: r, nav: nav, go: h.go, jump: h.jump, pick: h.pick, io: h.io,
+      isDark: isDark, isLight: !isDark, isEs: v.lang === 'es', isEn: v.lang === 'en',
+      setEs: h.setEs, setEn: h.setEn, toggleTheme: h.toggleTheme, themeLabel: isDark ? t.ui.toLight : t.ui.toDark,
+      openMenu: h.openMenu, closeMenu: h.closeMenu, onMenuKey: h.onMenuKey, menuCloseRef: h.menuCloseRef, menuOpen: !!s.menuOpen,
+      heroCls: isDark ? 'mg-hero--space' : 'mg-hero--surface', heroRef: h.heroRef, onHeroMove: h.onHeroMove, onHeroLeave: h.onHeroLeave,
+      stars: mgStars(), twinkles: MG_TWINKLES, head: head, hud: hud,
+      motionOn: motionOn, motionOff: !motionOn, toggleMotion: h.toggleMotion, motionLabel: motionOn ? t.ui.pause : t.ui.play,
+      planetRef: h.planetRef, jzRef: h.jzRef,
+      nowItems: nowItems, projects: projects,
+      activeP: { alt: A.alt, cta: A.cta, stack: A.stack, go: h.jump[active] },
+      orr: { k: active === 'kimen' ? 'is-on' : '', j: active === 'jezero' ? 'is-on' : '', o: active === 'orbit' ? 'is-on' : '' },
+      demo: { kimen: active === 'kimen', jezero: active === 'jezero', orbit: active === 'orbit' },
+      stage: { home: 'p-' + active + (seen.home ? ' is-play' : '') },
+      jLayers: jLayers, bars: MG_BARS, chapters: chapters,
+      cfilters: cfilters, cst: { cls: pk ? 'p-' + constel : '', p: constel }, cstars: cstars, tgroups: tgroups,
+      formOpen: !s.sent, formSent: !!s.sent, onSend: h.onSend,
+      dawnOn: !!s.dawn, dawnCls: s.dawn ? 'mg-dawn--' + s.dawn : ''
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Contacto · Marcela Gotta</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+</style>
+</helmet>
+<dc-import name="Main" theme="{{ theme }}" lang="{{ lang }}" route="contacto" hint-size="100%,1700px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark","section":"Vista"},"lang":{"editor":"enum","options":["es","en"],"default":"es","section":"Vista"},"$preview":{"width":1440,"height":1700}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { theme: this.props.theme ?? 'dark', lang: this.props.lang ?? 'es' };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+# build output
+dist/
+# generated types
+.astro/
+# Cloudflare
+.wrangler/
+.dev.vars*
+
+# dependencies
+node_modules/
+
+# tests
+test-results/
+playwright-report/
+blob-report/
+
+# logs
+npm-debug.log*
+
+# environment variables
+.env*
+
+# local tooling
+.remember/
+.DS_Store
+.idea/

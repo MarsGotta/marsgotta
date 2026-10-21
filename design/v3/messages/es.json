@@ -1,0 +1,438 @@
+{
+  "ui": {
+    "skip": "Saltar al contenido",
+    "home": "marcela.gotta, inicio",
+    "navLabel": "Principal",
+    "lang": "Idioma",
+    "menu": "Menú",
+    "close": "Cerrar menú",
+    "toLight": "Cambiar al tema claro: la superficie de Marte",
+    "toDark": "Cambiar al tema oscuro: el espacio",
+    "pause": "Pausar animaciones",
+    "play": "Reanudar animaciones"
+  },
+  "nav": {
+    "inicio": "Inicio",
+    "sobre": "Sobre mí",
+    "proyectos": "Proyectos",
+    "charlas": "Charlas",
+    "contacto": "Contacto"
+  },
+  "hero": {
+    "over": "Senior Software Engineer · Building agent infrastructure",
+    "l1": [
+      "Construyo",
+      "software"
+    ],
+    "l2": [
+      "que",
+      "piensa"
+    ],
+    "l3": [
+      "contigo."
+    ],
+    "sub": "12 años construyendo software, especializada en frontend de producto y arquitectura de sistemas de componentes. Desde 2024 también construyo, en abierto, la infraestructura que hace que los agentes de IA dejen de ser una demo y trabajen de verdad con las personas.",
+    "cta1": "Ver proyectos",
+    "cta2": "Hablemos",
+    "phobos": "Fobos",
+    "deimos": "Deimos",
+    "mars": "Marte",
+    "aPh": "9 376 km",
+    "aDe": "23 463 km",
+    "rot": "rot. 24 h 37 min",
+    "scale": "1 h → 1 s",
+    "view": "Vista desde Jezero",
+    "viewDir": "mirando al sur",
+    "phRise": "sale por el oeste",
+    "deRise": "sale por el este"
+  },
+  "hud": {
+    "aria": "Telemetría en vivo",
+    "mad": "Madrid"
+  },
+  "now": {
+    "title": "Ahora mismo",
+    "updated": "Actualizado el",
+    "date": "21 oct 2026",
+    "items": [
+      {
+        "icon": "planet",
+        "cls": "c-jezero",
+        "text": "Jezero ya es público: la memoria compartida de mis agentes"
+      },
+      {
+        "icon": "sat",
+        "cls": "c-orbit",
+        "text": "Puliendo la beta de Orbit para abrirla"
+      },
+      {
+        "icon": "puzzle",
+        "cls": "c-kimen",
+        "text": "Llevando Kimen hacia su versión 1.0"
+      },
+      {
+        "icon": "cap",
+        "cls": "c-team",
+        "text": "Head Frontend Developer en Sngular"
+      }
+    ]
+  },
+  "sys": {
+    "kicker": "El sistema",
+    "title": "Tres piezas, una idea.",
+    "lead": "Lo que un agente te enseña, lo que recuerda y dónde vive contigo.",
+    "ringK": "Kimen · lo que te enseña",
+    "ringJ": "Jezero · lo que recuerda",
+    "ringO": "Orbit · dónde vive contigo",
+    "kepler": "Periodos orbitales según Kepler: T² ∝ a³",
+    "items": {
+      "kimen": {
+        "name": "Kimen",
+        "line": "Las interfaces que generan los agentes.",
+        "chips": [
+          "pre-1.0",
+          "Apache-2.0"
+        ],
+        "cta": "Ver Kimen",
+        "stack": "StencilJS · TypeScript · design tokens",
+        "alt": "Animación: un agente escribe un JSON, Kimen lo valida contra su catálogo, rechaza el componente no declarado y ensambla el resto en componentes reales."
+      },
+      "jezero": {
+        "name": "Jezero",
+        "line": "La memoria compartida del trabajo de tus agentes.",
+        "chips": [
+          "pre-alpha",
+          "Apache-2.0"
+        ],
+        "cta": "Ver Jezero",
+        "stack": "Python · SQLite FTS5 · MCP",
+        "alt": "Animación: las sesiones de los agentes se depositan como capas de sedimento y una búsqueda las atraviesa para rescatar una decisión de hace semanas."
+      },
+      "orbit": {
+        "name": "Orbit",
+        "line": "Tu asistente, en tu Mac.",
+        "chips": [
+          "beta",
+          "MIT",
+          "macOS"
+        ],
+        "cta": "Ver Orbit",
+        "stack": "Tauri 2 · React · Rust · Python",
+        "alt": "Animación: la onda de audio de una reunión se convierte en notas escritas."
+      }
+    }
+  },
+  "demo": {
+    "k": {
+      "file": "agente.json",
+      "agent": "agente → catálogo",
+      "cardTitle": "Resumen del sprint",
+      "badge": "En curso",
+      "ok": "declarado",
+      "no": "rechazado",
+      "render": "Render",
+      "sum": "3 componentes · 1 rechazado"
+    },
+    "j": {
+      "bar": "memoria",
+      "q": "¿por qué elegimos SQLite?",
+      "qn": 25,
+      "layers": [
+        {
+          "a": "sesión · claude-code",
+          "b": "hace 5 sem"
+        },
+        {
+          "a": "decisión · SQLite FTS5, sin GPU",
+          "b": "hace 3 sem",
+          "hit": true
+        },
+        {
+          "a": "error · ENOSPC en CI",
+          "b": "hace 2 sem"
+        },
+        {
+          "a": "arreglo · limpiar la caché de uv",
+          "b": "hace 12 d"
+        },
+        {
+          "a": "comando · uv run pytest -k mcp",
+          "b": "hace 4 d"
+        },
+        {
+          "a": "sesión · codex",
+          "b": "hoy"
+        }
+      ],
+      "rk": "Decisión · hace 3 semanas",
+      "rt": "Búsqueda de texto completo en un único fichero SQLite: milisegundos, sin GPU.",
+      "rs": "Origen · sesión de claude-code"
+    },
+    "o": {
+      "meeting": "Sync de producto",
+      "title": "Notas · Sync de producto",
+      "k1": "Acuerdos",
+      "b1": "Priorizar la accesibilidad del catálogo",
+      "b2": "Abrir la beta cuando esté estable",
+      "k2": "Pendiente",
+      "b3": "Preparar la demo del jueves"
+    }
+  },
+  "traj": {
+    "kicker": "Trayectoria",
+    "text": "De full-stack a liderar frontend en Sngular, y de ahí a la infraestructura de agentes.",
+    "cta": "Conóceme",
+    "m1": "Full-stack",
+    "m2": "Sngular",
+    "m3": "Agentes",
+    "alt": "Diagrama de órbitas de transferencia: 2014, full-stack; 2019, Sngular; 2024, infraestructura de agentes."
+  },
+  "close": {
+    "kicker": "Contacto",
+    "q1": "¿Hablamos",
+    "q2": "un rato?",
+    "cta": "Escríbeme"
+  },
+  "foot": {
+    "line": "Hecho en Madrid, pensado en Marte."
+  },
+  "about": {
+    "kicker": "Sobre mí",
+    "h1a": "Hola, soy",
+    "h1b": "Mars.",
+    "p1": "Soy Marcela Gotta, ingeniera de software en Madrid. Llevo 12 años construyendo software: empecé full-stack, me enamoré del frontend y acabé liderando equipos y arquitectura.",
+    "p2": "Desde 2019 estoy en Sngular, donde hoy soy Head Frontend Developer y co-lidero el chapter de frontend: formaciones, seguimiento técnico de cada persona y entrevistas técnicas. He liderado equipos de producto para grandes empresas de banca, moda, energía y sostenibilidad.",
+    "p3": "Creo que la IA es la herramienta más potente que hemos tenido, siempre que las personas sigamos del lado que la dirige. Mi trabajo propio intenta construir esa parte, en abierto: Kimen, Jezero y Orbit.",
+    "p4": "Vivo en Madrid con un pequeño zoológico. Me gustan la física, los videojuegos, escribir y convertir ideas raras en algo que funciona.",
+    "factsT": "Datos rápidos",
+    "facts": [
+      {
+        "k": "Ubicación",
+        "v": "Madrid, España"
+      },
+      {
+        "k": "Idiomas",
+        "v": "Español nativo · inglés profesional, en uso diario"
+      },
+      {
+        "k": "Rol",
+        "v": "Head Frontend Developer en Sngular"
+      },
+      {
+        "k": "Enfoque",
+        "v": "Frontend de producto, sistemas de componentes e infraestructura de agentes"
+      }
+    ],
+    "leadT": "Cómo lidero",
+    "motto1": "Firme con la calidad,",
+    "motto2": "flexible con las personas.",
+    "axes": [
+      {
+        "n": "01",
+        "t": "Socia del negocio.",
+        "d": "Entender el porqué detrás del código, no solo transmitir requisitos."
+      },
+      {
+        "n": "02",
+        "t": "Excelencia para el usuario.",
+        "d": "La calidad es una forma de respeto: un producto que falla es una promesa rota."
+      },
+      {
+        "n": "03",
+        "t": "Crecimiento del equipo.",
+        "d": "Detrás de cada commit hay una persona. Mi éxito se mide por cuánto crece el equipo."
+      }
+    ],
+    "trajK": "2014 → hoy",
+    "trajT": "Trayectoria",
+    "trajCap": "Órbitas de transferencia · 2014 → hoy",
+    "trajAlt": "Diagrama: una trayectoria que salta de órbita en órbita, una por etapa, de 2014 a 2026.",
+    "roles": [
+      {
+        "when": "2014 – 2018",
+        "what": "Primeros años",
+        "detail": "Desarrollo frontend y full-stack para banca, seguros, telecomunicaciones y energía."
+      },
+      {
+        "when": "2018 – 2019",
+        "what": "Arquitecta Frontend · Paradigma Digital",
+        "detail": "Aplicaciones web para banca y retail."
+      },
+      {
+        "when": "abr 2019 – feb 2022",
+        "what": "Senior Frontend Developer · Sngular",
+        "detail": "Web Components, microfrontends y librerías de componentes corporativas."
+      },
+      {
+        "when": "feb 2022 – feb 2026",
+        "what": "Frontend Developer Expert · Sngular",
+        "detail": "Liderazgo técnico de equipos de producto y arquitectura frontend."
+      },
+      {
+        "when": "2024 – hoy",
+        "what": "Infraestructura de agentes, en abierto",
+        "detail": "Kimen, Jezero y Orbit."
+      },
+      {
+        "when": "feb 2026 – hoy",
+        "what": "Head Frontend Developer · Sngular",
+        "detail": "Co-lidera el chapter de frontend desde diciembre de 2025."
+      }
+    ],
+    "eduT": "Formación",
+    "edu": "Grado en Ingeniería Informática · UOC",
+    "eduState": "en curso",
+    "techK": "Constelación técnica",
+    "techT": "Tecnologías",
+    "techLead": "Elige un proyecto: se encienden las tecnologías que usa de verdad.",
+    "filterLabel": "Filtrar por proyecto",
+    "all": "Todo",
+    "learning": "aprendiendo",
+    "rag": "RAG autoalojado",
+    "a11y": "Accesibilidad WCAG 2.2",
+    "groups": [
+      {
+        "label": "Lenguajes",
+        "x": "4%",
+        "y": "7%"
+      },
+      {
+        "label": "Frontend",
+        "x": "36%",
+        "y": "7%"
+      },
+      {
+        "label": "Sistemas de diseño",
+        "x": "72%",
+        "y": "7%"
+      },
+      {
+        "label": "Calidad",
+        "x": "4%",
+        "y": "62%"
+      },
+      {
+        "label": "Infraestructura de agentes",
+        "x": "52%",
+        "y": "62%"
+      }
+    ]
+  },
+  "pj": {
+    "kicker": "Proyectos",
+    "h1a": "Tres piezas,",
+    "h1b": "una idea.",
+    "lead": "Lo que un agente te enseña, lo que recuerda y dónde vive contigo. Kimen y Jezero ya son open source; Orbit lo será al abrir su beta.",
+    "navLabel": "Proyectos de esta página",
+    "soon": "Repo público al abrir la beta",
+    "onmarsA": "También hago productos pequeños y honestos en",
+    "onmarsB": ", mi estudio independiente: KitGestor, That Day y Sapphik.",
+    "items": {
+      "kimen": {
+        "role": "Lo que te enseña",
+        "sub": "Las interfaces que generan los agentes.",
+        "links": [
+          {
+            "label": "kimen.dev",
+            "href": "https://kimen.dev"
+          },
+          {
+            "label": "github.com/kimen-dev/kimen",
+            "href": "https://github.com/kimen-dev/kimen"
+          }
+        ],
+        "desc": "La base de componentes para interfaces generativas: Web Components que funcionan en cualquier framework y que los agentes pueden leer y usar con un contrato claro.",
+        "bullets": [
+          "29 componentes ki-* sin depender de ningún framework, con envoltorios para React, Vue y Angular.",
+          "Catálogo vigilado: un agente solo puede pintar componentes y acciones declarados; lo desconocido se rechaza.",
+          "Adaptadores para A2UI y MCP Apps.",
+          "Accesibilidad como puerta dura: cero violaciones de axe en CI y objetivo WCAG 2.2 AA. Menos de 10 KB por componente."
+        ],
+        "stack": "StencilJS · TypeScript · design tokens"
+      },
+      "jezero": {
+        "role": "Lo que recuerda",
+        "sub": "La memoria compartida de tus agentes.",
+        "links": [
+          {
+            "label": "github.com/MarsGotta/jezero",
+            "href": "https://github.com/MarsGotta/jezero"
+          }
+        ],
+        "desc": "Tus agentes olvidan. Jezero reúne sus sesiones, las resume y deja que cualquier agente pregunte qué se decidió, qué falló o qué comando funcionó, aunque lo hiciera otro agente hace semanas.",
+        "bullets": [
+          "Conectores incrementales y de solo lectura para Hermes Agent, Claude Code, Codex, OpenCode, Antigravity y Paperclip.",
+          "Cada sesión se resume en «átomos»: decisiones, porqués, arreglos, errores exactos, comandos, datos y riesgos.",
+          "Un único fichero SQLite con búsqueda de texto completo: milisegundos, sin GPU.",
+          "Servidor MCP de solo lectura: todos los agentes consultan, ninguno escribe. Los secretos se redactan antes de guardar."
+        ],
+        "noteK": "El nombre:",
+        "note": "el cráter de Marte que fue un lago. Sus sedimentos guardan lo que pasó, y allí Perseverance aparta muestras para recogerlas más tarde.",
+        "stack": "Python · SQLite FTS5 · MCP"
+      },
+      "orbit": {
+        "role": "Dónde vive contigo",
+        "sub": "Tu asistente, en tu Mac.",
+        "links": [],
+        "soon": true,
+        "desc": "Una app para el Mac que da a tu asistente un sitio en tu día: graba y transcribe tus reuniones, escribe las notas y te deja hablar con el agente que elijas.",
+        "bullets": [
+          "Trae tu propio agente: por un API gateway o con tu sesión de Claude o de Codex.",
+          "Incluye su propio hub autoalojado: tú decides dónde viven tus reuniones.",
+          "En beta, y dicho así."
+        ],
+        "stack": "Tauri 2 · React · Rust · Python"
+      }
+    }
+  },
+  "talks": {
+    "kicker": "Charlas y docencia",
+    "h1a": "Charlas",
+    "h1b": "y docencia.",
+    "caption": "De lo más reciente a lo más antiguo",
+    "items": [
+      {
+        "year": "2025 – hoy",
+        "type": "Docencia",
+        "title": "Procesamiento de Lenguaje Natural · Ética y Regulación de la IA (máster)",
+        "where": "Instituto Europeo de Posgrado"
+      },
+      {
+        "year": "2022",
+        "type": "Curso",
+        "title": "Web Components desde 0",
+        "where": "Codemotion"
+      },
+      {
+        "year": "2021",
+        "type": "Charla",
+        "title": "Web Components en producción",
+        "where": "Devcast Codemotion"
+      },
+      {
+        "year": "2019 – 2021",
+        "type": "Docencia",
+        "title": "Cursos de Vue, React, Redux, Angular y RxJS",
+        "where": "Fictizia"
+      },
+      {
+        "year": "2019",
+        "type": "Charla",
+        "title": "Progressive Web Apps",
+        "where": "Salmorejo Tech, Córdoba"
+      }
+    ]
+  },
+  "contact": {
+    "kicker": "Contacto",
+    "h1": "Hablemos.",
+    "lead": "¿Quieres hablar de agentes, de frontend o de cómo se lidera un equipo técnico sin quemarlo? Escríbeme.",
+    "chanT": "Escríbeme",
+    "formLabel": "Formulario de contacto",
+    "name": "Tu nombre",
+    "email": "Tu email",
+    "msg": "Cuéntame",
+    "send": "Enviar",
+    "sent": "Recibido. Te contesto en unos días."
+  }
+}

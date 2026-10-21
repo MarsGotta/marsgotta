@@ -1,0 +1,657 @@
+<!-- marcelagotta.com v3 · plantilla del prototipo (sin el <helmet>, que está en styles.css).
+     {{ x }} = binding a renderVals() de logic.js · <sc-if> = condicional · <sc-for> = bucle. Ver HANDOFF.md, sección 1. -->
+<div class="mg-app" data-theme="{{ theme }}" data-motion="{{ motionAttr }}" lang="{{ lang }}">
+<svg width="0" height="0" style="position: absolute; overflow: hidden" aria-hidden="true" focusable="false">
+<defs>
+<linearGradient id="mgLogoG" x1="179" y1="399.5" x2="624" y2="399.5" gradientUnits="userSpaceOnUse"><stop stop-color="#E64241"></stop><stop offset="1" stop-color="#E9603A"></stop></linearGradient>
+<radialGradient id="mgPlanetG" cx="34%" cy="34%" r="72%"><stop offset="0" stop-color="#FF9A66"></stop><stop offset=".34" stop-color="#E9603A"></stop><stop offset=".68" stop-color="#C5402E"></stop><stop offset="1" stop-color="#4E1622"></stop></radialGradient>
+<radialGradient id="mgShadeG" cx="18%" cy="30%" r="95%"><stop offset=".45" stop-color="#0A0614" stop-opacity="0"></stop><stop offset=".78" stop-color="#0A0614" stop-opacity=".55"></stop><stop offset="1" stop-color="#0A0614" stop-opacity=".9"></stop></radialGradient>
+<linearGradient id="mgMoonG" x1="0" y1="0" x2="1" y2=".45"><stop offset="0" stop-color="#EBD8CB"></stop><stop offset=".5" stop-color="#8E6B5E"></stop><stop offset="1" stop-color="#2A1A20"></stop></linearGradient>
+<linearGradient id="mgMoonSkyG" x1="0" y1="0" x2="1" y2=".3"><stop offset="0" stop-color="#C9A898"></stop><stop offset=".6" stop-color="#7C5A4E"></stop><stop offset="1" stop-color="#5A3E36"></stop></linearGradient>
+<symbol id="mgMark" viewBox="120 120 560 560">
+<path d="M401.576 622C360.929 622.003 321.058 610.882 286.284 589.843C251.511 568.803 223.164 538.649 204.317 502.65H320.676C326.064 502.768 331.279 500.741 335.172 497.016C339.066 493.291 341.32 488.172 341.438 482.786C341.556 477.4 339.528 472.187 335.802 468.295C332.075 464.403 326.955 462.15 321.567 462.032H187.906C181.983 441.717 178.984 420.661 179.001 399.5C178.913 367.105 185.973 335.089 199.678 305.732H421.648C427.035 305.732 432.201 303.593 436.01 299.785C439.819 295.978 441.959 290.813 441.959 285.428C441.959 280.043 439.819 274.879 436.01 271.071C432.201 267.263 427.035 265.124 421.648 265.124H224.184C244.946 237.75 271.765 215.551 302.539 200.262C333.314 184.974 367.211 177.012 401.576 177C512.254 177 605.87 258.234 621.783 366.947H439.154C433.766 366.829 428.552 368.856 424.658 372.581C420.765 376.306 418.511 381.425 418.393 386.811C418.275 392.197 420.302 397.41 424.028 401.302C427.755 405.194 432.876 407.447 438.264 407.565H624C622.603 447.557 610.392 486.424 588.666 520.034H492.494C487.179 520.145 482.12 522.334 478.401 526.13C474.682 529.927 472.599 535.029 472.599 540.343C472.599 545.656 474.682 550.759 478.401 554.555C482.12 558.352 487.179 560.54 492.494 560.651H555.068C513.733 600.094 458.765 622.07 401.621 622H401.576ZM379.127 462.032C373.813 462.144 368.753 464.332 365.034 468.129C361.315 471.925 359.232 477.027 359.232 482.341C359.232 487.655 361.315 492.757 365.034 496.553C368.753 500.35 373.813 502.538 379.127 502.65H399.519C404.834 502.538 409.893 500.35 413.612 496.553C417.331 492.757 419.414 487.655 419.414 482.341C419.414 477.027 417.331 471.925 413.612 468.129C409.893 464.332 404.834 462.144 399.519 462.032H379.127ZM253.623 366.582C248.235 366.464 243.02 368.491 239.127 372.216C235.233 375.941 232.98 381.06 232.861 386.446C232.743 391.832 234.771 397.045 238.497 400.937C242.224 404.829 247.344 407.082 252.732 407.2H273.979C279.294 407.088 284.353 404.9 288.073 401.103C291.792 397.307 293.875 392.205 293.875 386.891C293.875 381.577 291.792 376.475 288.073 372.679C284.353 368.882 279.294 366.694 273.979 366.582H253.623Z" fill="url(#mgLogoG)"></path>
+<path d="M138 205.009C137.998 195.912 140.694 187.018 145.746 179.453C150.799 171.888 157.981 165.99 166.384 162.507C174.788 159.023 184.036 158.109 192.959 159.881C201.882 161.653 210.079 166.03 216.514 172.461C222.949 178.891 227.334 187.085 229.112 196.006C230.891 204.928 229.984 214.176 226.507 222.583C223.03 230.989 217.138 238.176 209.577 243.234C202.015 248.292 193.124 250.995 184.027 251C177.984 251.004 172.001 249.817 166.417 247.507C160.834 245.197 155.76 241.81 151.486 237.54C147.211 233.269 143.821 228.197 141.507 222.616C139.193 217.034 138.001 211.051 138 205.009Z" style="fill: var(--bg)"></path>
+<path d="M137.866 205H134C134 195.111 136.932 185.444 142.427 177.222C147.921 168.999 155.73 162.59 164.866 158.806C174.002 155.022 184.055 154.031 193.755 155.961C203.454 157.89 212.363 162.652 219.355 169.645C226.348 176.637 231.11 185.546 233.039 195.245C234.968 204.945 233.978 214.998 230.194 224.134C226.41 233.27 220.001 241.079 211.778 246.573C203.556 252.068 193.889 255 184 255C170.739 255 158.021 249.732 148.645 240.355C139.268 230.979 134 218.261 134 205H141.786C141.786 213.349 144.262 221.511 148.9 228.453C153.539 235.395 160.132 240.806 167.845 244.001C175.559 247.196 184.047 248.032 192.236 246.403C200.424 244.774 207.946 240.754 213.85 234.85C219.754 228.946 223.774 221.424 225.403 213.236C227.032 205.047 226.196 196.559 223.001 188.845C219.806 181.132 214.395 174.539 207.453 169.9C200.511 165.262 192.349 162.786 184 162.786C172.804 162.786 162.067 167.233 154.15 175.15C146.233 183.067 141.786 193.804 141.786 205H137.866Z" fill="#E9603A"></path>
+<path d="M513 567.509C512.998 552.774 517.337 538.37 525.466 526.117C533.596 513.865 545.152 504.315 558.673 498.674C572.194 493.034 587.073 491.557 601.428 494.43C615.783 497.303 628.969 504.397 639.32 514.814C649.67 525.232 656.719 538.506 659.576 552.957C662.433 567.408 660.97 582.388 655.37 596.002C649.771 609.615 640.288 621.252 628.12 629.44C615.951 637.627 601.645 641.998 587.009 642C567.385 642 548.565 634.152 534.689 620.182C520.813 606.212 513.018 587.265 513.018 567.509" style="fill: var(--bg)"></path>
+<path d="M512.571 567.5H509C509 552.172 513.575 537.188 522.145 524.443C530.716 511.699 542.898 501.765 557.151 495.899C571.403 490.034 587.087 488.499 602.217 491.489C617.348 494.48 631.246 501.861 642.154 512.699C653.063 523.538 660.492 537.347 663.501 552.381C666.511 567.414 664.966 582.997 659.063 597.158C653.159 611.319 643.161 623.423 630.334 631.939C617.507 640.455 602.427 645 587 645C566.314 644.998 546.476 636.832 531.848 622.298C517.221 607.765 509.002 588.054 509 567.5H516.071C516.071 581.44 520.232 595.067 528.027 606.658C535.821 618.249 546.9 627.283 559.862 632.618C572.824 637.952 587.088 639.348 600.848 636.628C614.609 633.909 627.249 627.196 637.169 617.339C647.09 607.482 653.846 594.923 656.583 581.251C659.321 567.578 657.916 553.406 652.547 540.527C647.178 527.648 638.085 516.641 626.42 508.896C614.754 501.151 601.039 497.017 587.009 497.017C568.205 497.045 550.179 504.481 536.883 517.693C523.587 530.905 516.106 548.816 516.08 567.5H512.571Z" fill="#E9603A"></path>
+</symbol>
+</defs>
+</svg>
+<div class="mg">
+<a class="mg-skip" href="#mg-main">{{ t.ui.skip }}</a>
+<header class="mg-nav">
+<div class="mg-nav__bg"></div>
+<div class="mg-wrap mg-nav__bar">
+<a class="mg-brand" href="#inicio" onClick="{{ go.inicio }}" aria-label="{{ t.ui.home }}">
+<svg viewBox="0 0 560 560" aria-hidden="true"><use href="#mgMark" width="560" height="560"></use></svg>
+<span>marcela<span class="mg-brand__dot">.</span>gotta</span>
+</a>
+<nav aria-label="{{ t.ui.navLabel }}">
+<ul class="mg-links">
+<sc-for list="{{ nav }}" as="n" hint-placeholder-count="5">
+<li><a class="mg-link" href="{{ n.href }}" aria-current="{{ n.current }}" onClick="{{ n.go }}">{{ n.label }}</a></li>
+</sc-for>
+</ul>
+</nav>
+<div class="mg-tools">
+<div class="mg-seg" role="group" aria-label="{{ t.ui.lang }}">
+<button type="button" aria-pressed="{{ isEs }}" onClick="{{ setEs }}" lang="es">ES</button>
+<button type="button" aria-pressed="{{ isEn }}" onClick="{{ setEn }}" lang="en">EN</button>
+</div>
+<button type="button" class="mg-ico" onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}">
+<sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M2.5 17h19"></path><path d="M7 17a5 5 0 0 1 10 0"></path><path d="M12 5.5v3M5.6 9.6l1.9 1.9M18.4 9.6l-1.9 1.9M3.5 13.8h1.6M18.9 13.8h1.6"></path><path d="M8.5 20.5h7"></path></svg>
+</sc-if>
+<sc-if value="{{ isLight }}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.6"></circle><ellipse cx="12" cy="12" rx="10.2" ry="3.4" transform="rotate(-20 12 12)"></ellipse><circle cx="19.6" cy="4.6" r=".9" fill="currentColor" stroke="none"></circle><circle cx="4.2" cy="19.2" r=".6" fill="currentColor" stroke="none"></circle></svg>
+</sc-if>
+</button>
+<button type="button" class="mg-ico mg-menubtn" onClick="{{ openMenu }}" aria-label="{{ t.ui.menu }}" aria-expanded="{{ menuOpen }}">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 9h16M4 15h11"></path></svg>
+</button>
+</div>
+</div>
+</header>
+<main id="mg-main">
+
+<sc-if value="{{ r.inicio }}" hint-placeholder-val="{{ true }}">
+<section class="mg-hero {{ heroCls }}" aria-labelledby="mg-hero-title" ref="{{ heroRef }}" onMouseMove="{{ onHeroMove }}" onMouseLeave="{{ onHeroLeave }}">
+<sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}">
+<div class="mg-space mg-loop" aria-hidden="true">
+<div class="mg-nebula"></div>
+<div class="mg-field mg-field--far"><div class="mg-par"><span class="mg-stars" style="box-shadow: {{ stars.far }}"></span></div></div>
+<div class="mg-field mg-field--mid"><div class="mg-par"><span class="mg-stars" style="box-shadow: {{ stars.mid }}"></span></div></div>
+<div class="mg-field mg-field--near"><div class="mg-par"><span class="mg-stars" style="box-shadow: {{ stars.near }}"></span></div></div>
+<sc-for list="{{ twinkles }}" as="s" hint-placeholder-count="7"><i class="mg-twinkle" style="left: {{ s.x }}; top: {{ s.y }}; animation-delay: {{ s.d }}"></i></sc-for>
+<div class="mg-warp"></div>
+</div>
+</sc-if>
+<sc-if value="{{ isLight }}" hint-placeholder-val="{{ false }}">
+<div class="mg-surface mg-loop" aria-hidden="true">
+<div class="mg-halo"></div>
+<div class="mg-sun"></div>
+<div class="mg-skymoon mg-skymoon--ph"><i><svg viewBox="0 0 20 15" width="20" height="15"><path d="M2.2 8.4C1.6 4.6 5 1.6 9.6 1.4c4.8-.2 8.6 2.2 8.4 5.8-.2 3.8-3.6 6.6-8.6 6.4C5.2 13.4 2.7 11.6 2.2 8.4Z" fill="url(#mgMoonSkyG)"></path><circle cx="12.6" cy="7.6" r="1.6" fill="#5A3E36" opacity=".6"></circle></svg></i></div>
+<div class="mg-skymoon mg-skymoon--de"><i></i></div>
+<svg class="mg-dunes" viewBox="0 0 1440 300" preserveAspectRatio="none">
+<path d="M0 132C110 118 240 104 380 112S620 96 760 101 905 108 958 104L986 128 1016 106C1110 92 1270 100 1440 86V300H0Z" fill="#EBCFB6"></path>
+<path d="M0 132C110 118 240 104 380 112S620 96 760 101 905 108 958 104L986 128 1016 106C1110 92 1270 100 1440 86" fill="none" stroke="#F6E4D3" stroke-opacity=".7" stroke-width="1.2"></path>
+<path d="M0 196C150 172 300 184 430 170S700 190 830 176 1090 158 1210 178 1380 166 1440 172V300H0Z" fill="#DFB797"></path>
+<path d="M0 246C180 228 360 242 560 228S900 248 1110 232 1340 242 1440 236V300H0Z" fill="#C98F6B"></path>
+<path d="M0 284C220 270 420 280 640 268S1040 284 1440 270V300H0Z" fill="#A86847"></path>
+<path d="M168 262c8-9 26-11 38-4 8 5 6 12-4 13-14 2-30 0-34-9Z" fill="#7A3D24" opacity=".75"></path>
+<path d="M1124 252c6-7 19-8 27-3 6 4 4 9-3 10-10 1-21 0-24-7Z" fill="#7A3D24" opacity=".7"></path>
+<path d="M1218 276c10-12 34-15 50-6 10 6 8 15-5 17-19 3-40 1-45-11Z" fill="#5E2C18" opacity=".7"></path>
+</svg>
+<svg class="mg-rover" viewBox="0 0 40 22"><path d="M7 13.2h23.5l2-4.4H9.4z"></path><rect x="24.6" y="2.6" width="1.5" height="7"></rect><rect x="22" y="1" width="6.6" height="2.6" rx=".7"></rect><path d="M31 10.6l5.6-2.8 1.4 1.1-5.2 3.4z"></path><circle cx="9.5" cy="17.6" r="3"></circle><circle cx="19" cy="17.6" r="3"></circle><circle cx="28.5" cy="17.6" r="3"></circle><path d="M6 20.6h28" stroke="#7A3D24" stroke-width=".8" opacity=".5"></path></svg>
+</div>
+</sc-if>
+
+<div class="mg-wrap mg-hero__in">
+<p class="mg-label mg-hero__over"><i aria-hidden="true"></i>{{ t.hero.over }}</p>
+<h1 class="mg-display mg-hero__title" id="mg-hero-title">
+<span class="ln"><sc-for list="{{ head.l1 }}" as="w" hint-placeholder-count="2"><span class="w" style="animation-delay: {{ w.d }}">{{ w.t }}</span></sc-for></span>
+<span class="ln it"><sc-for list="{{ head.l2 }}" as="w" hint-placeholder-count="2"><span class="w" style="animation-delay: {{ w.d }}">{{ w.t }}</span></sc-for></span>
+<span class="ln"><sc-for list="{{ head.l3 }}" as="w" hint-placeholder-count="1"><span class="w gr" style="animation-delay: {{ w.d }}">{{ w.t }}</span></sc-for></span>
+</h1>
+<p class="mg-lead mg-hero__sub">{{ t.hero.sub }}</p>
+<div class="mg-hero__ctas">
+<a class="mg-btn mg-btn--primary" href="#proyectos" onClick="{{ go.proyectos }}">{{ t.hero.cta1 }}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"></path></svg></a>
+<a class="mg-btn mg-btn--ghost" href="#contacto" onClick="{{ go.contacto }}">{{ t.hero.cta2 }}</a>
+</div>
+</div>
+
+<sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}">
+<div class="mg-sys-wrap">
+<div class="mg-sys mg-loop" aria-hidden="true">
+<div class="mg-sys__drift"><div class="mg-sys__arrive">
+<div class="mg-bloom"></div>
+<svg class="mg-orbits mg-orbits--back" viewBox="-8 -8 16 16"><path class="o-de" d="M -6.922 0 A 6.922 1.557 0 0 1 6.922 0"></path><path class="o-ph" d="M -2.766 0 A 2.766 0.622 0 0 1 2.766 0"></path></svg>
+<div class="mg-orb"></div>
+<canvas class="mg-planet" ref="{{ planetRef }}"></canvas>
+<div class="mg-moon mg-moon--ph"><div class="mg-moon__arm"><div class="mg-moon__body"><div class="mg-moon__shape"><svg viewBox="0 0 18 14"><path d="M1.6 7.8C1 4.2 4.2 1.3 8.6 1.1c4.6-.2 8.2 2 8 5.5-.2 3.6-3.4 6.3-8.2 6.1C4.4 12.5 2.1 10.8 1.6 7.8Z" fill="url(#mgMoonG)"></path><circle cx="11.6" cy="7" r="1.5" fill="#2A1A20" opacity=".55"></circle><circle cx="6.2" cy="5.2" r=".9" fill="#2A1A20" opacity=".35"></circle></svg></div><span class="mg-moon__tag">{{ t.hero.phobos }}</span></div></div></div>
+<div class="mg-moon mg-moon--de"><div class="mg-moon__arm"><div class="mg-moon__body"><div class="mg-moon__shape"><svg viewBox="0 0 10 9"><path d="M1 4.8C.8 2.4 2.6.8 5.2.8s4.2 1.6 4 3.8c-.2 2.4-2 3.8-4.4 3.7C2.6 8.2 1.2 6.8 1 4.8Z" fill="url(#mgMoonG)"></path></svg></div></div></div></div>
+<svg class="mg-orbits mg-orbits--front" viewBox="-8 -8 16 16"><path class="o-de" d="M 6.922 0 A 6.922 1.557 0 0 1 -6.922 0"></path><path class="o-ph" d="M 2.766 0 A 2.766 0.622 0 0 1 -2.766 0"></path></svg>
+<div class="mg-jz" ref="{{ jzRef }}"><svg viewBox="0 0 14 14" fill="none" stroke="#FFF5EE" stroke-width="1.1"><circle cx="7" cy="7" r="3.2"></circle><path d="M7 0v3M7 11v3M0 7h3M11 7h3"></path></svg><span>JEZERO <b></b></span></div>
+</div></div>
+</div>
+</div>
+</sc-if>
+
+<aside class="mg-hud" aria-label="{{ t.hud.aria }}">
+<div class="mg-hud__row"><span>LAT <span class="mg-hud__v">40.42°N</span></span><span>LON <span class="mg-hud__v">3.70°W</span></span></div>
+<div class="mg-hud__row"><span>{{ t.hud.mad }}</span><span class="mg-hud__v">{{ hud.mad }}</span></div>
+<div class="mg-hud__row"><span>JEZERO</span><span class="mg-hud__v">SOL {{ hud.sol }} · {{ hud.lmst }} LMST</span></div>
+<div class="mg-hud__sep"></div>
+<div class="mg-hud__row">
+<span class="mg-hud__ok"><i class="mg-dot"></i>SYS OK</span>
+<button type="button" class="mg-sim" onClick="{{ toggleMotion }}" aria-label="{{ motionLabel }}" title="{{ motionLabel }}">SIM {{ hud.sim }}
+<sc-if value="{{ motionOn }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><rect x="1.5" y="1" width="2.4" height="8" rx=".6"></rect><rect x="6.1" y="1" width="2.4" height="8" rx=".6"></rect></svg></sc-if>
+<sc-if value="{{ motionOff }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><path d="M2 1.2v7.6L8.6 5Z"></path></svg></sc-if>
+</button>
+</div>
+</aside>
+
+<sc-if value="{{ isDark }}" hint-placeholder-val="{{ true }}">
+<div class="mg-legend" aria-hidden="true">
+<span><i></i>{{ t.hero.phobos }}</span><b>T 7 h 39 min</b><span class="lg-a">a {{ t.hero.aPh }}</span>
+<span><i class="de"></i>{{ t.hero.deimos }}</span><b>T 30 h 18 min</b><span class="lg-a">a {{ t.hero.aDe }}</span>
+<span>{{ t.hero.mars }}</span><b>{{ t.hero.rot }}</b><span class="lg-a">{{ t.hero.scale }}</span>
+</div>
+</sc-if>
+<sc-if value="{{ isLight }}" hint-placeholder-val="{{ false }}">
+<div class="mg-legend mg-legend--surface" aria-hidden="true">
+<span>{{ t.hero.view }}</span><b>{{ t.hero.viewDir }}</b>
+<span>{{ t.hero.phobos }}</span><b>{{ t.hero.phRise }}</b>
+<span>{{ t.hero.deimos }}</span><b>{{ t.hero.deRise }}</b>
+</div>
+</sc-if>
+</section>
+
+<section class="mg-now" aria-labelledby="mg-now-t">
+<div class="mg-wrap mg-now__in">
+<div class="mg-now__head">
+<h2 id="mg-now-t">{{ t.now.title }}</h2>
+<p class="mg-label">{{ t.now.updated }} <time datetime="2026-10-21">{{ t.now.date }}</time></p>
+</div>
+<ul class="mg-now__list">
+<sc-for list="{{ nowItems }}" as="it" hint-placeholder-count="4">
+<li class="mg-now__item {{ it.cls }}">
+<span class="mg-now__icon" aria-hidden="true">
+<sc-if value="{{ it.planet }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="5"></circle><path d="M5 15.2c-2 1.4-2.9 2.8-2.3 3.6 1.1 1.4 6.1-.5 11-4.1s8.2-7.8 7.1-9.2c-.6-.8-2.2-.6-4.3.5"></path></svg></sc-if>
+<sc-if value="{{ it.sat }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9.4 7.6 7 7-2.8 2.8-7-7z"></path><path d="m8 9-3-3M16 15l3 3"></path><path d="m2.4 6.6 3.2-3.2 2.4 2.4-3.2 3.2zM16 18.4l3.2-3.2 2.4 2.4-3.2 3.2z"></path><path d="M14.5 4.5a5 5 0 0 1 5 5M14.5 1.8a7.7 7.7 0 0 1 7.7 7.7"></path></svg></sc-if>
+<sc-if value="{{ it.puzzle }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M5 5h4.2a2.3 2.3 0 1 1 4.6 0H18v4.2a2.3 2.3 0 1 1 0 4.6V19h-4.2a2.3 2.3 0 1 0-4.6 0H5v-5.2a2.3 2.3 0 1 0 0-4.6Z"></path></svg></sc-if>
+<sc-if value="{{ it.cap }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9 12 4.5 21.5 9 12 13.5z"></path><path d="M6.5 11.2v4c0 1.6 2.5 2.9 5.5 2.9s5.5-1.3 5.5-2.9v-4"></path><path d="M21.5 9v5.2"></path></svg></sc-if>
+<span>{{ it.idx }}</span>
+</span>
+<p class="mg-now__text">{{ it.text }}</p>
+</li>
+</sc-for>
+</ul>
+</div>
+</section>
+
+<section class="mg-sec" id="mg-sistema" aria-labelledby="mg-sys-t">
+<div class="mg-wrap">
+<div class="mg-head">
+<p class="mg-label mg-rule">{{ t.sys.kicker }}</p>
+<h2 class="mg-h2" id="mg-sys-t">{{ t.sys.title }}</h2>
+<p class="mg-lead">{{ t.sys.lead }}</p>
+</div>
+<div class="mg-sysgrid">
+<figure class="mg-orrery mg-loop">
+<svg viewBox="0 0 600 600" aria-hidden="true">
+<defs>
+<path id="mgRingK" d="M 182,300 a 118,118 0 1,1 236,0 a 118,118 0 1,1 -236,0"></path>
+<path id="mgRingJ" d="M 112,300 a 188,188 0 1,1 376,0 a 188,188 0 1,1 -376,0"></path>
+<path id="mgRingO" d="M 42,300 a 258,258 0 1,1 516,0 a 258,258 0 1,1 -516,0"></path>
+</defs>
+<circle class="ring-tick" cx="300" cy="300" r="290"></circle>
+<g class="p-orbit {{ orr.o }}">
+<circle class="ring" cx="300" cy="300" r="258"></circle>
+<text class="lbl"><textPath href="#mgRingO" startOffset="3%">{{ t.sys.ringO }}</textPath></text>
+<g class="sat sat--o"><circle class="sat-halo" cx="558" cy="300" r="10"></circle><circle class="sat-dot" cx="558" cy="300" r="6.5"></circle></g>
+<circle class="hit" cx="300" cy="300" r="258" onMouseEnter="{{ pick.orbit }}" onClick="{{ pick.orbit }}"></circle>
+</g>
+<g class="p-jezero {{ orr.j }}">
+<circle class="ring" cx="300" cy="300" r="188"></circle>
+<text class="lbl"><textPath href="#mgRingJ" startOffset="5%">{{ t.sys.ringJ }}</textPath></text>
+<g class="sat sat--j"><circle class="sat-halo" cx="488" cy="300" r="10"></circle><circle class="sat-dot" cx="488" cy="300" r="6.5"></circle></g>
+<circle class="hit" cx="300" cy="300" r="188" onMouseEnter="{{ pick.jezero }}" onClick="{{ pick.jezero }}"></circle>
+</g>
+<g class="p-kimen {{ orr.k }}">
+<circle class="ring" cx="300" cy="300" r="118"></circle>
+<text class="lbl"><textPath href="#mgRingK" startOffset="8%">{{ t.sys.ringK }}</textPath></text>
+<g class="sat sat--k"><circle class="sat-halo" cx="418" cy="300" r="10"></circle><circle class="sat-dot" cx="418" cy="300" r="6.5"></circle></g>
+<circle class="hit" cx="300" cy="300" r="118" onMouseEnter="{{ pick.kimen }}" onClick="{{ pick.kimen }}"></circle>
+</g>
+<circle cx="300" cy="300" r="52" fill="none" stroke="#E9603A" stroke-opacity=".28" stroke-width="1"></circle>
+<circle cx="300" cy="300" r="46" fill="url(#mgPlanetG)"></circle>
+<circle cx="300" cy="300" r="46" fill="url(#mgShadeG)"></circle>
+</svg>
+<figcaption class="mg-label">{{ t.sys.kepler }}</figcaption>
+</figure>
+<div class="mg-panel">
+<div class="mg-tabs">
+<sc-for list="{{ projects }}" as="p" hint-placeholder-count="3">
+<button type="button" class="mg-tab {{ p.cls }}" aria-pressed="{{ p.on }}" aria-controls="mg-stage" onClick="{{ p.pick }}" onMouseEnter="{{ p.pick }}" onFocus="{{ p.pick }}">
+<span class="mg-tab__idx">{{ p.idx }}</span>
+<span><span class="mg-tab__name"><i></i>{{ p.name }}</span><span class="mg-tab__line">{{ p.line }}</span></span>
+<span class="mg-tab__chips"><sc-for list="{{ p.chips }}" as="c" hint-placeholder-count="2"><span class="mg-chip">{{ c }}</span></sc-for></span>
+</button>
+</sc-for>
+</div>
+<div class="mg-stage {{ stage.home }}" id="mg-stage" ref="{{ io.home }}" role="img" aria-label="{{ activeP.alt }}">
+<sc-if value="{{ demo.kimen }}" hint-placeholder-val="{{ true }}">
+<div class="mg-stage__bar"><i></i><span>kimen · {{ t.demo.k.file }}</span><span>{{ t.demo.k.agent }}</span></div>
+<div class="mg-stage__body">
+<div class="kd">
+<div class="kd-code">
+<span class="kd-l" style="animation-delay: .2s">{</span>
+<span class="kd-l i1" style="animation-delay: .42s"><span class="k">"type"</span>: <span class="s">"ki-card"</span>,</span>
+<span class="kd-l i1" style="animation-delay: .64s"><span class="k">"title"</span>: <span class="s">"{{ t.demo.k.cardTitle }}"</span>,</span>
+<span class="kd-l i1" style="animation-delay: .86s"><span class="k">"children"</span>: [</span>
+<span class="kd-l i2" style="animation-delay: 1.08s">{ <span class="k">"type"</span>: <span class="s">"ki-badge"</span>, <span class="k">"tone"</span>: <span class="s">"success"</span> },</span>
+<span class="kd-l i2" style="animation-delay: 1.3s">{ <span class="k">"type"</span>: <span class="s">"ki-progress"</span>, <span class="k">"value"</span>: <span class="n">72</span> },</span>
+<span class="kd-l i2 bad" style="animation-delay: 1.52s">{ <span class="k">"type"</span>: <span class="s">"x-chart"</span> }</span>
+<span class="kd-l i1" style="animation-delay: 1.74s">]</span>
+<span class="kd-l" style="animation-delay: 1.96s">}</span>
+<ul class="kd-checks">
+<li class="ok" style="animation-delay: 2.4s"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m2 6.4 2.6 2.4L10 3.2"></path></svg>ki-card<span>{{ t.demo.k.ok }}</span></li>
+<li class="ok" style="animation-delay: 2.6s"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m2 6.4 2.6 2.4L10 3.2"></path></svg>ki-badge<span>{{ t.demo.k.ok }}</span></li>
+<li class="ok" style="animation-delay: 2.8s"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m2 6.4 2.6 2.4L10 3.2"></path></svg>ki-progress<span>{{ t.demo.k.ok }}</span></li>
+<li class="no" style="animation-delay: 3.05s"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l6 6M9 3 3 9"></path></svg>x-chart<span>{{ t.demo.k.no }}</span></li>
+</ul>
+</div>
+<div class="kd-out">
+<p class="mg-label">{{ t.demo.k.render }}</p>
+<div class="kd-card">
+<div class="kd-card__head"><span class="kd-card__title">{{ t.demo.k.cardTitle }}</span><span class="kd-badge">{{ t.demo.k.badge }}</span></div>
+<div class="kd-bar"><i></i></div>
+<div class="kd-meta"><span>ki-progress</span><span>72 %</span></div>
+</div>
+<p class="kd-sum">{{ t.demo.k.sum }}</p>
+</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ demo.jezero }}" hint-placeholder-val="{{ false }}">
+<div class="mg-stage__bar"><i></i><span>jezero · {{ t.demo.j.bar }}</span><span>MCP · read-only</span></div>
+<div class="mg-stage__body">
+<div class="jd">
+<div class="jd-search"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.6"></circle><path d="m10.4 10.4 3.6 3.6"></path></svg><span class="jd-q" style="animation-timing-function: steps({{ t.demo.j.qn }})">{{ t.demo.j.q }}</span><i class="jd-caret"></i></div>
+<div class="jd-strata">
+<sc-for list="{{ jLayers }}" as="l" hint-placeholder-count="6"><div class="jd-layer {{ l.cls }}" style="animation-delay: {{ l.d }}"><span>{{ l.a }}</span><em>{{ l.b }}</em></div></sc-for>
+<i class="jd-scan"></i>
+<div class="jd-res"><p class="jd-res__k">{{ t.demo.j.rk }}</p><p class="jd-res__t">{{ t.demo.j.rt }}</p><p class="jd-res__s">{{ t.demo.j.rs }}</p></div>
+</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ demo.orbit }}" hint-placeholder-val="{{ false }}">
+<div class="mg-stage__bar"><i></i><span>orbit · macOS</span><span>beta</span></div>
+<div class="mg-stage__body">
+<div class="od">
+<div class="od-top"><span class="od-rec">REC</span><span>{{ t.demo.o.meeting }}</span><span>00:14:32</span></div>
+<div class="od-wave"><sc-for list="{{ bars }}" as="b" hint-placeholder-count="40"><i style="height: {{ b.h }}; animation-delay: {{ b.d }}, 2.7s"></i></sc-for></div>
+<div class="od-note">
+<p class="t" style="animation-delay: 3.2s">{{ t.demo.o.title }}</p>
+<p class="k" style="animation-delay: 3.55s">{{ t.demo.o.k1 }}</p>
+<p class="b" style="animation-delay: 3.8s">{{ t.demo.o.b1 }}</p>
+<p class="b" style="animation-delay: 4.15s">{{ t.demo.o.b2 }}</p>
+<p class="k" style="animation-delay: 4.5s">{{ t.demo.o.k2 }}</p>
+<p class="b" style="animation-delay: 4.75s">{{ t.demo.o.b3 }}</p>
+</div>
+</div>
+</div>
+</sc-if>
+</div>
+<div class="mg-panel__foot">
+<a class="mg-arrow" href="#proyectos" onClick="{{ activeP.go }}">{{ activeP.cta }}<span aria-hidden="true">→</span></a>
+<span class="mg-label">{{ activeP.stack }}</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="mg-sec mg-sec--tight" aria-labelledby="mg-traj-t">
+<div class="mg-wrap mg-trajgrid">
+<div>
+<p class="mg-label mg-rule">{{ t.traj.kicker }}</p>
+<h2 class="mg-h3 mg-traj__text" id="mg-traj-t">{{ t.traj.text }}</h2>
+<a class="mg-arrow" href="#sobre" onClick="{{ go.sobre }}">{{ t.traj.cta }}<span aria-hidden="true">→</span></a>
+</div>
+<figure class="mg-xfer mg-xfer--home">
+<svg viewBox="0 0 560 380" role="img" aria-label="{{ t.traj.alt }}">
+<circle class="sun" cx="280" cy="190" r="3.5"></circle>
+<circle class="orb" cx="280" cy="190" r="56"></circle>
+<circle class="orb" cx="280" cy="190" r="112"></circle>
+<circle class="orb" cx="280" cy="190" r="180"></circle>
+<path class="ghost" d="M224 190 A84 79.2 0 0 1 392 190 A146 141.99 0 0 1 100 190"></path>
+<path class="path" pathLength="1" d="M224 190 A84 79.2 0 0 1 392 190 A146 141.99 0 0 1 100 190"></path>
+<circle class="ms" cx="224" cy="190" r="5"></circle>
+<circle class="ms" cx="392" cy="190" r="5"></circle>
+<circle class="ms now" cx="100" cy="190" r="6"></circle>
+<circle class="probe" r="3.5"></circle>
+<text class="y" x="232" y="216">2014</text><text x="232" y="232">{{ t.traj.m1 }}</text>
+<text class="y" x="400" y="216">2019</text><text x="400" y="232">{{ t.traj.m2 }}</text>
+<text class="y" x="110" y="216">2024</text><text x="110" y="232">{{ t.traj.m3 }}</text>
+</svg>
+</figure>
+</div>
+</section>
+
+<section class="mg-close" aria-labelledby="mg-close-t">
+<div class="mg-limb" aria-hidden="true"></div>
+<svg class="mg-close__dunes" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true"><path d="M0 96C180 70 360 86 540 70S880 92 1060 72 1330 80 1440 70V220H0Z" fill="#E8C9AA"></path><path d="M0 150C220 126 420 142 640 126S1040 150 1440 128V220H0Z" fill="#D9AB88"></path><path d="M0 196C260 182 520 192 780 180S1200 196 1440 186V220H0Z" fill="#B97A57"></path></svg>
+<div class="mg-wrap">
+<p class="mg-label mg-rule">{{ t.close.kicker }}</p>
+<h2 class="mg-h1 mg-close__q" id="mg-close-t">{{ t.close.q1 }} <span class="mg-it">{{ t.close.q2 }}</span></h2>
+<a class="mg-btn mg-btn--primary" href="#contacto" onClick="{{ go.contacto }}">{{ t.close.cta }}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"></path></svg></a>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ r.sobre }}" hint-placeholder-val="{{ false }}">
+<header class="mg-phead">
+<div class="mg-phead__deco mg-loop" aria-hidden="true"><svg viewBox="0 0 1040 420"><ellipse cx="520" cy="200" rx="380" ry="84"></ellipse><ellipse cx="520" cy="200" rx="230" ry="51" opacity=".7"></ellipse><circle class="p" cx="520" cy="200" r="58"></circle><circle cx="520" cy="200" r="58" fill="url(#mgShadeG)"></circle><circle class="m mg-decomoon" r="4"></circle></svg></div>
+<div class="mg-wrap">
+<p class="mg-label mg-rule">{{ t.about.kicker }}</p>
+<h1 class="mg-h1"><span class="w">{{ t.about.h1a }}</span> <span class="w mg-it" style="animation-delay: .16s">{{ t.about.h1b }}</span></h1>
+</div>
+</header>
+<section class="mg-sec mg-sec--tight" aria-label="{{ t.about.kicker }}">
+<div class="mg-wrap mg-intro">
+<div class="mg-intro__text">
+<p class="lede">{{ t.about.p1 }}</p>
+<p>{{ t.about.p2 }}</p>
+<p>{{ t.about.p3 }}</p>
+<p>{{ t.about.p4 }}</p>
+</div>
+<aside class="mg-spec" aria-labelledby="mg-spec-t">
+<h2 class="mg-label" id="mg-spec-t">{{ t.about.factsT }}</h2>
+<dl>
+<sc-for list="{{ t.about.facts }}" as="f" hint-placeholder-count="4"><div><dt>{{ f.k }}</dt><dd>{{ f.v }}</dd></div></sc-for>
+</dl>
+</aside>
+</div>
+</section>
+<section class="mg-sec mg-sec--tight" aria-labelledby="mg-lead-t">
+<div class="mg-wrap">
+<h2 class="mg-label mg-rule" id="mg-lead-t">{{ t.about.leadT }}</h2>
+<p class="mg-motto">{{ t.about.motto1 }} <span class="mg-it">{{ t.about.motto2 }}</span></p>
+<ol class="mg-axes">
+<sc-for list="{{ t.about.axes }}" as="a" hint-placeholder-count="3"><li><span class="mg-label mg-label--warm">{{ a.n }}</span><h3 class="mg-h4">{{ a.t }}</h3><p>{{ a.d }}</p></li></sc-for>
+</ol>
+</div>
+</section>
+<section class="mg-sec mg-sec--tight" aria-labelledby="mg-roles-t">
+<div class="mg-wrap">
+<div class="mg-head"><p class="mg-label mg-rule">{{ t.about.trajK }}</p><h2 class="mg-h2" id="mg-roles-t">{{ t.about.trajT }}</h2></div>
+<div class="mg-timeline">
+<ol class="mg-roles">
+<sc-for list="{{ t.about.roles }}" as="ro" hint-placeholder-count="6"><li><time>{{ ro.when }}</time><div><h3 class="mg-h4">{{ ro.what }}</h3><p>{{ ro.detail }}</p></div></li></sc-for>
+</ol>
+<figure class="mg-xfer mg-xfer--about">
+<svg viewBox="0 0 640 640" role="img" aria-label="{{ t.about.trajAlt }}">
+<circle class="sun" cx="320" cy="320" r="4"></circle>
+<circle class="orb" cx="320" cy="320" r="44"></circle>
+<circle class="orb" cx="320" cy="320" r="84"></circle>
+<circle class="orb" cx="320" cy="320" r="128"></circle>
+<circle class="orb" cx="320" cy="320" r="176"></circle>
+<circle class="orb" cx="320" cy="320" r="228"></circle>
+<circle class="orb" cx="320" cy="320" r="284"></circle>
+<path class="ghost" d="M276 320 A64 60.79 0 0 1 404 320 A106 103.69 0 0 1 192 320 A152 150.09 0 0 1 496 320 A202 200.32 0 0 1 92 320 A256 254.46 0 0 1 604 320"></path>
+<path class="path" pathLength="1" d="M276 320 A64 60.79 0 0 1 404 320 A106 103.69 0 0 1 192 320 A152 150.09 0 0 1 496 320 A202 200.32 0 0 1 92 320 A256 254.46 0 0 1 604 320"></path>
+<circle class="ms" cx="276" cy="320" r="5"></circle>
+<circle class="ms" cx="404" cy="320" r="5"></circle>
+<circle class="ms" cx="192" cy="320" r="5"></circle>
+<circle class="ms" cx="496" cy="320" r="5"></circle>
+<circle class="ms" cx="92" cy="320" r="5"></circle>
+<circle class="ms now" cx="604" cy="320" r="6.5"></circle>
+<circle class="probe" r="4"></circle>
+<text class="y" x="283" y="344">2014</text>
+<text class="y" x="411" y="344">2018</text>
+<text class="y" x="199" y="344">2019</text>
+<text class="y" x="503" y="344">2022</text>
+<text class="y" x="99" y="344">2024</text>
+<text class="y" x="611" y="306">2026</text>
+</svg>
+<figcaption class="mg-label">{{ t.about.trajCap }}</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section class="mg-sec mg-sec--tight" aria-labelledby="mg-edu-t">
+<div class="mg-wrap">
+<h2 class="mg-label mg-rule" id="mg-edu-t">{{ t.about.eduT }}</h2>
+<div class="mg-edu" style="margin-top: 26px"><p>{{ t.about.edu }}</p><span class="mg-chip" style="color: var(--warm-text)">{{ t.about.eduState }}</span></div>
+</div>
+</section>
+<section class="mg-sec mg-sec--tight" aria-labelledby="mg-tech-t" style="padding-top: 24px">
+<div class="mg-wrap">
+<div class="mg-head" style="margin-bottom: 0"><p class="mg-label mg-rule">{{ t.about.techK }}</p><h2 class="mg-h2" id="mg-tech-t">{{ t.about.techT }}</h2><p class="mg-lead">{{ t.about.techLead }}</p></div>
+<div class="mg-filter" role="group" aria-label="{{ t.about.filterLabel }}">
+<sc-for list="{{ cfilters }}" as="f" hint-placeholder-count="4"><button type="button" class="{{ f.cls }}" aria-pressed="{{ f.on }}" onClick="{{ f.pick }}"><i></i>{{ f.label }}</button></sc-for>
+</div>
+<div class="mg-constel {{ cst.cls }}" data-p="{{ cst.p }}">
+<svg class="mg-constel__lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+<line class="k" x1="7" y1="20" x2="55" y2="37"></line>
+<line class="k" x1="55" y1="37" x2="40" y2="46"></line>
+<line class="k" x1="40" y1="46" x2="40" y2="19"></line>
+<line class="k" x1="40" y1="46" x2="47" y2="29"></line>
+<line class="k" x1="40" y1="46" x2="36" y2="33"></line>
+<line class="k" x1="55" y1="37" x2="84" y2="31"></line>
+<line class="k" x1="84" y1="31" x2="74" y2="41"></line>
+<line class="k" x1="40" y1="46" x2="59" y2="73"></line>
+<line class="j" x1="22" y1="49" x2="68" y2="81"></line>
+<line class="j" x1="68" y1="81" x2="59" y2="73"></line>
+<line class="o" x1="63" y1="42" x2="40" y2="19"></line>
+<line class="o" x1="63" y1="42" x2="6" y2="52"></line>
+<line class="o" x1="6" y1="52" x2="22" y2="49"></line>
+</svg>
+<sc-for list="{{ t.about.groups }}" as="g" hint-placeholder-count="5"><span class="mg-constel__grp" style="left: {{ g.x }}; top: {{ g.y }}">{{ g.label }}</span></sc-for>
+<ul style="margin: 0; padding: 0; list-style: none">
+<sc-for list="{{ cstars }}" as="s" hint-placeholder-count="30"><li class="mg-star {{ s.cls }}" style="left: {{ s.x }}; top: {{ s.y }}"><i></i>{{ s.label }}<sc-if value="{{ s.learn }}" hint-placeholder-val="{{ false }}"><em>{{ t.about.learning }}</em></sc-if></li></sc-for>
+</ul>
+</div>
+<div class="mg-techlist {{ cst.cls }}">
+<sc-for list="{{ tgroups }}" as="g" hint-placeholder-count="5"><div><p class="mg-label">{{ g.label }}</p><ul><sc-for list="{{ g.items }}" as="s" hint-placeholder-count="6"><li class="{{ s.cls }}">{{ s.label }}</li></sc-for></ul></div></sc-for>
+</div>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ r.proyectos }}" hint-placeholder-val="{{ false }}">
+<header class="mg-phead">
+<div class="mg-phead__deco mg-loop" aria-hidden="true"><svg viewBox="0 0 1040 420"><ellipse cx="520" cy="200" rx="380" ry="84"></ellipse><ellipse cx="520" cy="200" rx="230" ry="51" opacity=".7"></ellipse><circle class="p" cx="520" cy="200" r="58"></circle><circle cx="520" cy="200" r="58" fill="url(#mgShadeG)"></circle><circle class="m mg-decomoon" r="4"></circle></svg></div>
+<div class="mg-wrap">
+<p class="mg-label mg-rule">{{ t.pj.kicker }}</p>
+<h1 class="mg-h1"><span class="w">{{ t.pj.h1a }}</span> <span class="w mg-it" style="animation-delay: .16s">{{ t.pj.h1b }}</span></h1>
+<p class="mg-lead mg-phead__lead">{{ t.pj.lead }}</p>
+<nav class="mg-pjnav" aria-label="{{ t.pj.navLabel }}">
+<a class="p-kimen" href="#kimen" onClick="{{ jump.kimen }}"><i></i>Kimen</a>
+<a class="p-jezero" href="#jezero" onClick="{{ jump.jezero }}"><i></i>Jezero</a>
+<a class="p-orbit" href="#orbit" onClick="{{ jump.orbit }}"><i></i>Orbit</a>
+</nav>
+</div>
+</header>
+<div class="mg-wrap">
+<sc-for list="{{ chapters }}" as="c" hint-placeholder-count="3">
+<article class="mg-chap {{ c.cls }}" id="{{ c.id }}" aria-labelledby="{{ c.hid }}">
+<div class="mg-chap__grid">
+<div class="mg-chap__text">
+<p class="mg-chap__idx"><span>{{ c.idx }}</span><i></i><span>{{ c.role }}</span></p>
+<h2 class="mg-chap__name" id="{{ c.hid }}">{{ c.name }}</h2>
+<p class="mg-chap__sub">{{ c.sub }}</p>
+<div class="mg-chap__meta">
+<sc-for list="{{ c.chips }}" as="ch" hint-placeholder-count="2"><span class="mg-chip">{{ ch }}</span></sc-for>
+<sc-for list="{{ c.links }}" as="lk" hint-placeholder-count="1"><a class="mg-ext" href="{{ lk.href }}" target="_blank" rel="noopener noreferrer">{{ lk.label }}<span aria-hidden="true">↗</span></a></sc-for>
+<sc-if value="{{ c.soon }}" hint-placeholder-val="{{ false }}"><span class="mg-ext">{{ t.pj.soon }}</span></sc-if>
+</div>
+<p class="mg-chap__desc">{{ c.desc }}</p>
+<ul class="mg-bullets"><sc-for list="{{ c.bullets }}" as="b" hint-placeholder-count="4"><li>{{ b }}</li></sc-for></ul>
+<sc-if value="{{ c.hasNote }}" hint-placeholder-val="{{ false }}"><p class="mg-chap__note"><em>{{ c.noteK }}</em> {{ c.note }}</p></sc-if>
+<p class="mg-chap__stack"><span class="mg-label">Stack</span>{{ c.stack }}</p>
+</div>
+<div class="mg-chap__demo">
+<div class="mg-stage mg-stage--lg {{ c.stage }}" ref="{{ c.ioRef }}" role="img" aria-label="{{ c.alt }}">
+<sc-if value="{{ c.isK }}" hint-placeholder-val="{{ false }}">
+<div class="mg-stage__bar"><i></i><span>kimen · {{ t.demo.k.file }}</span><span>{{ t.demo.k.agent }}</span></div>
+<div class="mg-stage__body">
+<div class="kd">
+<div class="kd-code">
+<span class="kd-l" style="animation-delay: .2s">{</span>
+<span class="kd-l i1" style="animation-delay: .42s"><span class="k">"type"</span>: <span class="s">"ki-card"</span>,</span>
+<span class="kd-l i1" style="animation-delay: .64s"><span class="k">"title"</span>: <span class="s">"{{ t.demo.k.cardTitle }}"</span>,</span>
+<span class="kd-l i1" style="animation-delay: .86s"><span class="k">"children"</span>: [</span>
+<span class="kd-l i2" style="animation-delay: 1.08s">{ <span class="k">"type"</span>: <span class="s">"ki-badge"</span>, <span class="k">"tone"</span>: <span class="s">"success"</span> },</span>
+<span class="kd-l i2" style="animation-delay: 1.3s">{ <span class="k">"type"</span>: <span class="s">"ki-progress"</span>, <span class="k">"value"</span>: <span class="n">72</span> },</span>
+<span class="kd-l i2 bad" style="animation-delay: 1.52s">{ <span class="k">"type"</span>: <span class="s">"x-chart"</span> }</span>
+<span class="kd-l i1" style="animation-delay: 1.74s">]</span>
+<span class="kd-l" style="animation-delay: 1.96s">}</span>
+<ul class="kd-checks">
+<li class="ok" style="animation-delay: 2.4s"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m2 6.4 2.6 2.4L10 3.2"></path></svg>ki-card<span>{{ t.demo.k.ok }}</span></li>
+<li class="ok" style="animation-delay: 2.6s"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m2 6.4 2.6 2.4L10 3.2"></path></svg>ki-badge<span>{{ t.demo.k.ok }}</span></li>
+<li class="ok" style="animation-delay: 2.8s"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m2 6.4 2.6 2.4L10 3.2"></path></svg>ki-progress<span>{{ t.demo.k.ok }}</span></li>
+<li class="no" style="animation-delay: 3.05s"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l6 6M9 3 3 9"></path></svg>x-chart<span>{{ t.demo.k.no }}</span></li>
+</ul>
+</div>
+<div class="kd-out">
+<p class="mg-label">{{ t.demo.k.render }}</p>
+<div class="kd-card">
+<div class="kd-card__head"><span class="kd-card__title">{{ t.demo.k.cardTitle }}</span><span class="kd-badge">{{ t.demo.k.badge }}</span></div>
+<div class="kd-bar"><i></i></div>
+<div class="kd-meta"><span>ki-progress</span><span>72 %</span></div>
+</div>
+<p class="kd-sum">{{ t.demo.k.sum }}</p>
+</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ c.isJ }}" hint-placeholder-val="{{ false }}">
+<div class="mg-stage__bar"><i></i><span>jezero · {{ t.demo.j.bar }}</span><span>MCP · read-only</span></div>
+<div class="mg-stage__body">
+<div class="jd">
+<div class="jd-search"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.6"></circle><path d="m10.4 10.4 3.6 3.6"></path></svg><span class="jd-q" style="animation-timing-function: steps({{ t.demo.j.qn }})">{{ t.demo.j.q }}</span><i class="jd-caret"></i></div>
+<div class="jd-strata">
+<sc-for list="{{ jLayers }}" as="l" hint-placeholder-count="6"><div class="jd-layer {{ l.cls }}" style="animation-delay: {{ l.d }}"><span>{{ l.a }}</span><em>{{ l.b }}</em></div></sc-for>
+<i class="jd-scan"></i>
+<div class="jd-res"><p class="jd-res__k">{{ t.demo.j.rk }}</p><p class="jd-res__t">{{ t.demo.j.rt }}</p><p class="jd-res__s">{{ t.demo.j.rs }}</p></div>
+</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ c.isO }}" hint-placeholder-val="{{ false }}">
+<div class="mg-stage__bar"><i></i><span>orbit · macOS</span><span>beta</span></div>
+<div class="mg-stage__body">
+<div class="od">
+<div class="od-top"><span class="od-rec">REC</span><span>{{ t.demo.o.meeting }}</span><span>00:14:32</span></div>
+<div class="od-wave"><sc-for list="{{ bars }}" as="b" hint-placeholder-count="40"><i style="height: {{ b.h }}; animation-delay: {{ b.d }}, 2.7s"></i></sc-for></div>
+<div class="od-note">
+<p class="t" style="animation-delay: 3.2s">{{ t.demo.o.title }}</p>
+<p class="k" style="animation-delay: 3.55s">{{ t.demo.o.k1 }}</p>
+<p class="b" style="animation-delay: 3.8s">{{ t.demo.o.b1 }}</p>
+<p class="b" style="animation-delay: 4.15s">{{ t.demo.o.b2 }}</p>
+<p class="k" style="animation-delay: 4.5s">{{ t.demo.o.k2 }}</p>
+<p class="b" style="animation-delay: 4.75s">{{ t.demo.o.b3 }}</p>
+</div>
+</div>
+</div>
+</sc-if>
+</div>
+</div>
+</div>
+</article>
+</sc-for>
+<section class="mg-sec mg-sec--tight" aria-labelledby="mg-onmars-t">
+<h2 class="mg-sr" id="mg-onmars-t">onmars</h2>
+<div class="mg-onmars">
+<svg viewBox="0 0 560 560" aria-hidden="true"><use href="#mgMark" width="560" height="560"></use></svg>
+<p>{{ t.pj.onmarsA }} <strong>onmars</strong>{{ t.pj.onmarsB }}</p>
+<a class="mg-arrow" href="https://onmars.tech" target="_blank" rel="noopener noreferrer">onmars.tech<span aria-hidden="true">↗</span></a>
+</div>
+</section>
+</div>
+</sc-if>
+
+<sc-if value="{{ r.charlas }}" hint-placeholder-val="{{ false }}">
+<header class="mg-phead">
+<div class="mg-phead__deco mg-loop" aria-hidden="true"><svg viewBox="0 0 1040 420"><ellipse cx="520" cy="200" rx="380" ry="84"></ellipse><ellipse cx="520" cy="200" rx="230" ry="51" opacity=".7"></ellipse><circle class="p" cx="520" cy="200" r="58"></circle><circle cx="520" cy="200" r="58" fill="url(#mgShadeG)"></circle><circle class="m mg-decomoon" r="4"></circle></svg></div>
+<div class="mg-wrap">
+<p class="mg-label mg-rule">{{ t.talks.kicker }}</p>
+<h1 class="mg-h1"><span class="w">{{ t.talks.h1a }}</span> <span class="w mg-it" style="animation-delay: .16s">{{ t.talks.h1b }}</span></h1>
+<p class="mg-label mg-phead__lead">{{ t.talks.caption }}</p>
+</div>
+</header>
+<section class="mg-sec mg-sec--tight" aria-label="{{ t.talks.kicker }}">
+<div class="mg-wrap">
+<ol class="mg-talks">
+<sc-for list="{{ t.talks.items }}" as="k" hint-placeholder-count="5"><li class="mg-talk"><time>{{ k.year }}</time><span class="mg-chip mg-talk__type">{{ k.type }}</span><h2>{{ k.title }}</h2><p>{{ k.where }}</p></li></sc-for>
+</ol>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ r.contacto }}" hint-placeholder-val="{{ false }}">
+<header class="mg-phead">
+<div class="mg-phead__deco mg-loop" aria-hidden="true"><svg viewBox="0 0 1040 420"><ellipse cx="520" cy="200" rx="380" ry="84"></ellipse><ellipse cx="520" cy="200" rx="230" ry="51" opacity=".7"></ellipse><circle class="p" cx="520" cy="200" r="58"></circle><circle cx="520" cy="200" r="58" fill="url(#mgShadeG)"></circle><circle class="m mg-decomoon" r="4"></circle></svg></div>
+<div class="mg-wrap">
+<p class="mg-label mg-rule">{{ t.contact.kicker }}</p>
+<h1 class="mg-h1"><span class="w mg-gr">{{ t.contact.h1 }}</span></h1>
+<p class="mg-lead mg-phead__lead">{{ t.contact.lead }}</p>
+</div>
+</header>
+<section class="mg-sec mg-sec--tight" aria-label="{{ t.contact.kicker }}">
+<div class="mg-wrap mg-contact">
+<div>
+<h2 class="mg-label mg-rule" style="margin-bottom: 22px">{{ t.contact.chanT }}</h2>
+<ul class="mg-chan">
+<li><a class="big" href="mailto:me@marcelagotta.com"><span>Email</span><strong>me@marcelagotta.com</strong><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"></path></svg></a></li>
+<li><a href="https://github.com/MarsGotta" target="_blank" rel="noopener noreferrer"><span>GitHub</span><strong>github.com/MarsGotta</strong><span aria-hidden="true">↗</span></a></li>
+<li><a href="https://www.linkedin.com/in/marcelagotta" target="_blank" rel="noopener noreferrer"><span>LinkedIn</span><strong>linkedin.com/in/marcelagotta</strong><span aria-hidden="true">↗</span></a></li>
+<li><a href="https://x.com/marcelagotta" target="_blank" rel="noopener noreferrer"><span>X</span><strong>@marcelagotta</strong><span aria-hidden="true">↗</span></a></li>
+</ul>
+</div>
+<div>
+<sc-if value="{{ formOpen }}" hint-placeholder-val="{{ true }}">
+<form class="mg-form" onSubmit="{{ onSend }}" aria-label="{{ t.contact.formLabel }}">
+<div class="mg-fld"><label for="mg-f-name">{{ t.contact.name }}</label><input class="mg-input" id="mg-f-name" name="name" type="text" autocomplete="name" required="required"></div>
+<div class="mg-fld"><label for="mg-f-mail">{{ t.contact.email }}</label><input class="mg-input" id="mg-f-mail" name="email" type="email" autocomplete="email" required="required"></div>
+<div class="mg-fld"><label for="mg-f-msg">{{ t.contact.msg }}</label><textarea class="mg-input" id="mg-f-msg" name="message" rows="6" required="required"></textarea></div>
+<div style="display: flex; justify-content: flex-end"><button type="submit" class="mg-btn mg-btn--primary">{{ t.contact.send }}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"></path></svg></button></div>
+</form>
+</sc-if>
+<sc-if value="{{ formSent }}" hint-placeholder-val="{{ false }}">
+<div class="mg-form mg-sent" role="status">
+<svg viewBox="0 0 260 120" aria-hidden="true"><path class="arc" d="M 20 100 Q 130 -20 240 70"></path><circle cx="20" cy="100" r="3" fill="currentColor" opacity=".5"></circle><circle class="pl" cx="240" cy="70" r="14"></circle><circle class="pk" r="4"></circle></svg>
+<h3>{{ t.contact.sent }}</h3>
+</div>
+</sc-if>
+</div>
+</div>
+</section>
+</sc-if>
+</main>
+
+<footer class="mg-foot">
+<div class="mg-wrap">
+<div class="mg-foot__grid">
+<div>
+<a class="mg-brand" href="#inicio" onClick="{{ go.inicio }}" aria-label="{{ t.ui.home }}"><svg viewBox="0 0 560 560" aria-hidden="true"><use href="#mgMark" width="560" height="560"></use></svg><span>marcela<span class="mg-brand__dot">.</span>gotta</span></a>
+<p class="mg-foot__line">{{ t.foot.line }}</p>
+</div>
+<ul class="mg-foot__links">
+<li><a href="mailto:me@marcelagotta.com">me@marcelagotta.com<span>Email</span></a></li>
+<li><a href="https://github.com/MarsGotta" target="_blank" rel="noopener noreferrer">GitHub<span>MarsGotta ↗</span></a></li>
+<li><a href="https://www.linkedin.com/in/marcelagotta" target="_blank" rel="noopener noreferrer">LinkedIn<span>marcelagotta ↗</span></a></li>
+<li><a href="https://x.com/marcelagotta" target="_blank" rel="noopener noreferrer">X<span>@marcelagotta ↗</span></a></li>
+</ul>
+</div>
+<div class="mg-foot__base"><span>Marcela Gotta · 2026</span><span>Madrid 40.42°N 3.70°W → Jezero 18.44°N 77.45°E</span></div>
+</div>
+</footer>
+</div>
+<div class="mg-grain" aria-hidden="true"></div>
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+<div class="mg-menu" role="dialog" aria-modal="true" aria-label="{{ t.ui.menu }}" onKeyDown="{{ onMenuKey }}">
+<div class="mg-menu__top">
+<a class="mg-brand" href="#inicio" onClick="{{ go.inicio }}" aria-label="{{ t.ui.home }}"><svg viewBox="0 0 560 560" aria-hidden="true"><use href="#mgMark" width="560" height="560"></use></svg><span>marcela<span class="mg-brand__dot">.</span>gotta</span></a>
+<button type="button" class="mg-ico" onClick="{{ closeMenu }}" aria-label="{{ t.ui.close }}" ref="{{ menuCloseRef }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
+</div>
+<nav aria-label="{{ t.ui.navLabel }}">
+<ul class="mg-menu__list">
+<sc-for list="{{ nav }}" as="n" hint-placeholder-count="5"><li><a href="{{ n.href }}" aria-current="{{ n.current }}" onClick="{{ n.go }}"><span>{{ n.idx }}</span>{{ n.label }}</a></li></sc-for>
+</ul>
+</nav>
+<div class="mg-menu__tools">
+<div class="mg-seg" role="group" aria-label="{{ t.ui.lang }}">
+<button type="button" aria-pressed="{{ isEs }}" onClick="{{ setEs }}" lang="es">ES</button>
+<button type="button" aria-pressed="{{ isEn }}" onClick="{{ setEn }}" lang="en">EN</button>
+</div>
+<button type="button" class="mg-ico" onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M2.5 17h19"></path><path d="M7 17a5 5 0 0 1 10 0"></path><path d="M12 5.5v3M5.6 9.6l1.9 1.9M18.4 9.6l-1.9 1.9"></path></svg></button>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ dawnOn }}" hint-placeholder-val="{{ false }}"><div class="mg-dawn {{ dawnCls }}" aria-hidden="true"></div></sc-if>
+</div>

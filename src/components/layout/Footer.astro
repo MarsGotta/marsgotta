@@ -120,7 +120,8 @@ const year = new Date().getFullYear();
       grid-template-columns: 1fr;
     }
   }
-  @media (max-width: 520px) {
+  /* One column wherever two would clip the email: the prototype only covers 1440 and 390 px. */
+  @media (min-width: 861px) and (max-width: 1220px), (max-width: 560px) {
     .foot__links {
       grid-template-columns: 1fr;
     }

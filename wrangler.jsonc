@@ -7,4 +7,7 @@
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash",
   },
+  // The canonical host. www.marcelagotta.com, marsgotta.com and www.marsgotta.com redirect here
+  // from their own Worker (workers/redirect), so static assets are served without running code.
+  "routes": [{ "pattern": "marcelagotta.com", "custom_domain": true }],
 }

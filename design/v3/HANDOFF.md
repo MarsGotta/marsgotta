@@ -132,7 +132,7 @@ Notas de implementación:
 - **Dominios.**
   - Rutas con `custom_domain: true` para marcelagotta.com, www.marcelagotta.com, marsgotta.com y www.marsgotta.com.
   - El canónico es **https://marcelagotta.com**: los otros tres redirigen con 301 conservando ruta y query.
-  - Antes de aplicarlo, propón si la redirección va en el Worker o en Redirect Rules de Cloudflare.
+  - Decidido: un Worker aparte (`workers/redirect/`) con los tres dominios secundarios. El sitio principal sigue sin ejecutar código y la redirección queda versionada y con tests. Las Redirect Rules no eran viables: el token de wrangler no tiene permisos de reglas ni de DNS.
 - **Secretos.** Con `wrangler secret put`, nunca en el repo.
 - **Scripts.** `npm run deploy` (build + `wrangler deploy`) y `npm run preview:cf` (`wrangler dev` sobre `dist/`).
 - **Producción.** No se despliega sin el OK explícito de Mars. Antes, prueba en la URL `*.workers.dev`. Documenta el despliegue en el README.

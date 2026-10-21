@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import { getMessages, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = getMessages(lang);
+---
+
+<Base lang={lang} route="talks">
+  <section class="sec">
+    <div class="wrap">
+      <h1 class="h1">{t.nav.charlas}</h1>
+    </div>
+  </section>
+</Base>

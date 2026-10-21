@@ -1,0 +1,54 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const t = getMessages(Astro.props.lang);
+---
+
+<button
+  type="button"
+  class="ico"
+  data-theme-toggle
+  data-label-dark={t.ui.toLight}
+  data-label-light={t.ui.toDark}
+>
+  <span class="sr-only when-dark">{t.ui.toLight}</span>
+  <span class="sr-only when-light">{t.ui.toDark}</span>
+  <svg
+    class="when-dark"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linecap="round"
+    aria-hidden="true"
+  >
+    <path d="M2.5 17h19"></path>
+    <path d="M7 17a5 5 0 0 1 10 0"></path>
+    <path d="M12 5.5v3M5.6 9.6l1.9 1.9M18.4 9.6l-1.9 1.9M3.5 13.8h1.6M18.9 13.8h1.6"></path>
+    <path d="M8.5 20.5h7"></path>
+  </svg>
+  <svg
+    class="when-light"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linecap="round"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="4.6"></circle>
+    <ellipse cx="12" cy="12" rx="10.2" ry="3.4" transform="rotate(-20 12 12)"></ellipse>
+    <circle cx="19.6" cy="4.6" r=".9" fill="currentColor" stroke="none"></circle>
+    <circle cx="4.2" cy="19.2" r=".6" fill="currentColor" stroke="none"></circle>
+  </svg>
+</button>
+
+<script>
+  import { initThemeToggles } from '../../scripts/theme';
+
+  initThemeToggles();
+</script>

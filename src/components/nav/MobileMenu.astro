@@ -1,0 +1,121 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+import { localizedPath, navLabelKeys, routeKeys, type RouteKey } from '../../i18n/routes';
+import Brand from './Brand.astro';
+import LangSwitch from './LangSwitch.astro';
+import ThemeToggle from './ThemeToggle.astro';
+
+interface Props {
+  lang: Lang;
+  route: RouteKey;
+}
+
+const { lang, route } = Astro.props;
+const t = getMessages(lang);
+---
+
+<dialog class="menu" id="menu" aria-label={t.ui.menu} data-menu>
+  <div class="menu__top">
+    <Brand lang={lang} />
+    <button type="button" class="ico" aria-label={t.ui.close} data-menu-close>
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.6"
+        stroke-linecap="round"
+        aria-hidden="true"
+      >
+        <path d="M6 6l12 12M18 6 6 18"></path>
+      </svg>
+    </button>
+  </div>
+  <nav aria-label={t.ui.navLabel}>
+    <ul class="menu__list">
+      {routeKeys.map((key, index) => (
+        <li>
+          <a href={localizedPath(key, lang)} aria-current={key === route ? 'page' : undefined}>
+            <span>0{index + 1}</span>
+            {t.nav[navLabelKeys[key]]}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+  <div class="menu__tools">
+    <LangSwitch lang={lang} route={route} />
+    <ThemeToggle lang={lang} />
+  </div>
+</dialog>
+
+<script>
+  import { initMenu } from '../../scripts/menu';
+
+  initMenu();
+</script>
+
+<style>
+  .menu {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    padding: 16px 20px 28px;
+    border: 0;
+    background: var(--bg);
+    color: var(--fg);
+    overflow: auto;
+  }
+  .menu[open] {
+    display: flex;
+    flex-direction: column;
+    animation: fade 0.28s ease both;
+  }
+  .menu::backdrop {
+    background: transparent;
+  }
+  .menu__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .menu__list {
+    margin: 24px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .menu__list a {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--fg);
+    text-decoration: none;
+    font: 700 38px/1.05 var(--display);
+    letter-spacing: -0.04em;
+  }
+  .menu__list a span {
+    font: 500 11px/1 var(--mono);
+    letter-spacing: 0.14em;
+    color: var(--fg-subtle);
+  }
+  .menu__list a[aria-current='page'] {
+    color: var(--warm-text);
+  }
+  .menu__tools {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 28px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .menu[open] {
+      animation: none;
+    }
+  }
+</style>

@@ -1,0 +1,58 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { getMessages, languages, type Lang } from '../../i18n';
+import { localizedPath, type RouteKey } from '../../i18n/routes';
+
+interface Props extends HTMLAttributes<'div'> {
+  lang: Lang;
+  route: RouteKey;
+}
+
+const { lang, route, class: className, ...rest } = Astro.props;
+const t = getMessages(lang);
+---
+
+<div class:list={['seg', className]} role="group" aria-label={t.ui.lang} {...rest}>
+  {languages.map((code) => (
+    <a
+      href={localizedPath(route, code)}
+      lang={code}
+      hreflang={code}
+      aria-current={code === lang ? 'true' : undefined}
+    >
+      {code.toUpperCase()}
+    </a>
+  ))}
+</div>
+
+<style>
+  .seg {
+    display: inline-flex;
+    gap: 2px;
+    padding: 3px;
+    border: 1px solid var(--line);
+    border-radius: 13px;
+  }
+  .seg a {
+    display: inline-grid;
+    place-items: center;
+    min-width: 44px;
+    height: 38px;
+    padding: 0 8px;
+    border-radius: 10px;
+    color: var(--fg-muted);
+    font: 500 11px/1 var(--mono);
+    letter-spacing: 0.14em;
+    text-decoration: none;
+    transition:
+      background-color 0.2s,
+      color 0.2s;
+  }
+  .seg a:hover {
+    color: var(--fg);
+  }
+  .seg a[aria-current='true'] {
+    background: var(--line);
+    color: var(--fg);
+  }
+</style>

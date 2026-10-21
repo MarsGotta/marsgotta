@@ -1,0 +1,118 @@
+---
+import { email, socialChannels } from '../../content/profile';
+import { getMessages, type Lang } from '../../i18n';
+import Brand from '../nav/Brand.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = getMessages(lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div>
+        <Brand lang={lang} />
+        <p class="foot__line">{t.foot.line}</p>
+      </div>
+      <ul class="foot__links">
+        <li>
+          <a href={`mailto:${email}`}>
+            {email}
+            <span>Email</span>
+          </a>
+        </li>
+        {socialChannels.map((channel) => (
+          <li>
+            <a href={channel.href} target="_blank" rel="noopener noreferrer">
+              {channel.name}
+              <span>{channel.handle} ↗</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="foot__base">
+      <span>Marcela Gotta · {year}</span>
+      <span>Madrid 40.42°N 3.70°W → Jezero 18.44°N 77.45°E</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .foot {
+    position: relative;
+    z-index: 2;
+    border-top: 1px solid var(--line);
+    background: var(--bg);
+    padding-block: 64px 36px;
+  }
+  .foot__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: 48px;
+  }
+  .foot__line {
+    margin: 22px 0 0;
+    max-width: 14em;
+    font: 600 clamp(24px, 2.6vw, 34px) / 1.12 var(--display);
+    letter-spacing: -0.025em;
+  }
+  .foot__links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 28px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .foot__links a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 58px;
+    border-bottom: 1px solid var(--line);
+    color: var(--fg);
+    text-decoration: none;
+    font-weight: 500;
+    transition:
+      color 0.2s,
+      padding 0.3s;
+  }
+  .foot__links a:hover {
+    padding-left: 6px;
+    color: var(--warm-text);
+  }
+  .foot__links span {
+    font: 500 10.5px/1 var(--mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg-subtle);
+  }
+  .foot__base {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 56px;
+    font: 500 10.5px/1.4 var(--mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg-subtle);
+  }
+  @media (max-width: 860px) {
+    .foot__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 520px) {
+    .foot__links {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

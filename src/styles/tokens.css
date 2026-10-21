@@ -1,0 +1,76 @@
+/* Tokens copied from design/v3/extracted/styles.css (.mg-app and .mg-app[data-theme="light"]). */
+
+/* Dark: space */
+:root {
+  color-scheme: dark;
+  --bg: #0a0614;
+  --bg-alt: #130b24;
+  --bg-deep: #1f1331;
+  --card: rgba(255, 245, 238, 0.035);
+  --card-solid: #140c25;
+  --fg: #fff5ee;
+  --fg-muted: #a99cb8;
+  --fg-subtle: #8a7d9a;
+  --accent: #b29be4;
+  --warm: #ff7f4a;
+  --warm-text: #ff7f4a;
+  --italic: #b29be4;
+  --line: rgba(255, 245, 238, 0.1);
+  --line-strong: rgba(255, 245, 238, 0.22);
+  --grad: linear-gradient(92deg, #e9603a 0%, #e64241 44%, #d11772 100%);
+  --btn-bg: #fff5ee;
+  --btn-fg: #0a0614;
+  --btn-hover: linear-gradient(92deg, #ff7f4a, #e9603a 55%, #e64241);
+  --btn-hover-fg: #0a0614;
+  --kimen: #ff7f4a;
+  --jezero: #b29be4;
+  --orbit: #fff5ee;
+  --ok: #9cda9b;
+  --bad: #f19997;
+  --status: #7ee2a8;
+  --orbit-a: rgba(178, 155, 228, 0.42);
+  --orbit-b: rgba(255, 245, 238, 0.18);
+  --shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.7);
+
+  --sans: 'Open Sauce Two', 'Inter Tight', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --display: 'Sora', 'Open Sauce Two', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --nav-height: 76px;
+  --gutter: clamp(20px, 4.4vw, 64px);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Light: the surface of Mars */
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f6e4d3;
+  --bg-alt: #f1dac5;
+  --bg-deep: #e8c9aa;
+  --card: #fbefe1;
+  --card-solid: #fbefe1;
+  --fg: #3a1a0e;
+  --fg-muted: #7a3d24;
+  --fg-subtle: #8a5238;
+  --accent: #845abe;
+  --warm: #c54a2e;
+  --warm-text: #9b3718;
+  --italic: #845abe;
+  --line: rgba(58, 26, 14, 0.14);
+  --line-strong: rgba(58, 26, 14, 0.3);
+  --grad: linear-gradient(92deg, #c54a2e 0%, #d93b3a 46%, #d11772 100%);
+  --btn-bg: #3a1a0e;
+  --btn-fg: #fbefe1;
+  --btn-hover: linear-gradient(92deg, #9b3718, #a9105e);
+  --btn-hover-fg: #fbefe1;
+  --kimen: #c54a2e;
+  --jezero: #6f46a4;
+  --orbit: #3a1a0e;
+  --ok: #1f5b1f;
+  --bad: #a1211b;
+  --status: #c54a2e;
+  --orbit-a: rgba(122, 61, 36, 0.42);
+  --orbit-b: rgba(122, 61, 36, 0.22);
+  --shadow: 0 24px 60px -28px rgba(58, 26, 14, 0.35);
+}

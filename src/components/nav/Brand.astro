@@ -1,0 +1,52 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { getMessages, type Lang } from '../../i18n';
+import { localizedPath } from '../../i18n/routes';
+
+interface Props extends HTMLAttributes<'a'> {
+  lang: Lang;
+}
+
+const { lang, class: className, ...rest } = Astro.props;
+const t = getMessages(lang);
+---
+
+<a
+  class:list={['brand', className]}
+  href={localizedPath('home', lang)}
+  aria-label={t.ui.home}
+  {...rest}
+>
+  <svg viewBox="0 0 560 560" aria-hidden="true">
+    <use href="#brand-mark" width="560" height="560"></use>
+  </svg>
+  <span>
+    marcela<span class="dot">.</span>gotta
+  </span>
+</a>
+
+<style>
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+    min-height: 44px;
+    color: var(--fg);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16.5px;
+    letter-spacing: -0.012em;
+  }
+  .brand svg {
+    width: 32px;
+    height: 32px;
+    flex: none;
+    transition: transform 1s var(--ease-soft);
+  }
+  .brand:hover svg {
+    transform: rotate(-28deg);
+  }
+  .dot {
+    color: var(--warm);
+  }
+</style>

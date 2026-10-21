@@ -1,0 +1,397 @@
+{
+  "ui": {
+    "skip": "Skip to content",
+    "home": "marcela.gotta, home",
+    "navLabel": "Main",
+    "lang": "Language",
+    "menu": "Menu",
+    "close": "Close menu",
+    "toLight": "Switch to the light theme: the surface of Mars",
+    "toDark": "Switch to the dark theme: space",
+    "pause": "Pause animations",
+    "play": "Resume animations"
+  },
+  "nav": {
+    "inicio": "Home",
+    "sobre": "About",
+    "proyectos": "Projects",
+    "charlas": "Talks",
+    "contacto": "Contact"
+  },
+  "hero": {
+    "over": "Senior Software Engineer · Building agent infrastructure",
+    "l1": ["I", "build", "software"],
+    "l2": ["that", "thinks"],
+    "l3": ["with", "you."],
+    "sub": "12 years building software, focused on product frontend and component system architecture. Since 2024 I also build, in the open, the infrastructure that turns AI agents from demos into real teammates for people.",
+    "cta1": "See projects",
+    "cta2": "Let's talk",
+    "phobos": "Phobos",
+    "deimos": "Deimos",
+    "mars": "Mars",
+    "aPh": "9,376 km",
+    "aDe": "23,463 km",
+    "rot": "rot. 24 h 37 min",
+    "scale": "1 h → 1 s",
+    "view": "View from Jezero",
+    "viewDir": "facing south",
+    "phRise": "rises in the west",
+    "deRise": "rises in the east"
+  },
+  "hud": {
+    "aria": "Live telemetry",
+    "mad": "Madrid"
+  },
+  "now": {
+    "title": "Right now",
+    "updated": "Updated"
+  },
+  "sys": {
+    "kicker": "The system",
+    "title": "Three pieces, one idea.",
+    "lead": "What an agent shows you, what it remembers, and where it lives with you.",
+    "ringK": "Kimen · what it shows you",
+    "ringJ": "Jezero · what it remembers",
+    "ringO": "Orbit · where it lives with you",
+    "kepler": "Orbital periods follow Kepler: T² ∝ a³",
+    "items": {
+      "kimen": {
+        "name": "Kimen",
+        "line": "The interfaces agents generate.",
+        "chips": ["pre-1.0", "Apache-2.0"],
+        "cta": "See Kimen",
+        "stack": "StencilJS · TypeScript · design tokens",
+        "alt": "Animation: an agent writes JSON, Kimen validates it against its catalog, rejects the undeclared component and assembles the rest into real components."
+      },
+      "jezero": {
+        "name": "Jezero",
+        "line": "The shared memory of your agents' work.",
+        "chips": ["pre-alpha", "Apache-2.0"],
+        "cta": "See Jezero",
+        "stack": "Python · SQLite FTS5 · MCP",
+        "alt": "Animation: agent sessions settle like layers of sediment, and a search cuts through them to recover a decision from weeks ago."
+      },
+      "orbit": {
+        "name": "Orbit",
+        "line": "Your assistant, on your Mac.",
+        "chips": ["beta", "MIT", "macOS"],
+        "cta": "See Orbit",
+        "stack": "Tauri 2 · React · Rust · Python",
+        "alt": "Animation: the audio wave of a meeting turns into written notes."
+      }
+    }
+  },
+  "demo": {
+    "k": {
+      "file": "agent.json",
+      "agent": "agent → catalog",
+      "cardTitle": "Sprint summary",
+      "badge": "In progress",
+      "ok": "declared",
+      "no": "rejected",
+      "render": "Render",
+      "sum": "3 components · 1 rejected"
+    },
+    "j": {
+      "bar": "memory",
+      "q": "why did we pick SQLite?",
+      "qn": 23,
+      "layers": [
+        {
+          "a": "session · claude-code",
+          "b": "5 wk ago"
+        },
+        {
+          "a": "decision · SQLite FTS5, no GPU",
+          "b": "3 wk ago",
+          "hit": true
+        },
+        {
+          "a": "error · ENOSPC in CI",
+          "b": "2 wk ago"
+        },
+        {
+          "a": "fix · clear the uv cache",
+          "b": "12 d ago"
+        },
+        {
+          "a": "command · uv run pytest -k mcp",
+          "b": "4 d ago"
+        },
+        {
+          "a": "session · codex",
+          "b": "today"
+        }
+      ],
+      "rk": "Decision · 3 weeks ago",
+      "rt": "Full-text search in a single SQLite file: milliseconds, no GPU.",
+      "rs": "Source · claude-code session"
+    },
+    "o": {
+      "meeting": "Product sync",
+      "title": "Notes · Product sync",
+      "k1": "Agreed",
+      "b1": "Prioritise catalog accessibility",
+      "b2": "Open the beta once it is stable",
+      "k2": "To do",
+      "b3": "Prepare Thursday's demo"
+    }
+  },
+  "traj": {
+    "kicker": "Path",
+    "text": "From full-stack to leading frontend at Sngular, and from there to agent infrastructure.",
+    "cta": "Get to know me",
+    "m1": "Full-stack",
+    "m2": "Sngular",
+    "m3": "Agents",
+    "alt": "Transfer orbit diagram: 2014, full-stack; 2019, Sngular; 2024, agent infrastructure."
+  },
+  "close": {
+    "kicker": "Contact",
+    "q1": "Shall we talk",
+    "q2": "for a bit?",
+    "cta": "Write to me"
+  },
+  "foot": {
+    "line": "Made in Madrid, designed on Mars."
+  },
+  "about": {
+    "kicker": "About",
+    "h1a": "Hi, I'm",
+    "h1b": "Mars.",
+    "p1": "I'm Marcela Gotta, a software engineer in Madrid. I've spent 12 years building software: I started full-stack, fell in love with frontend and ended up leading teams and architecture.",
+    "p2": "Since 2019 I've been at Sngular, where I'm Head Frontend Developer and co-lead the frontend chapter: training, technical follow-up for each person, and technical interviews. I've led product teams for large companies in banking, fashion, energy and sustainability.",
+    "p3": "I believe AI is the most powerful tool we've had, as long as people stay on the side that steers it. My own work tries to build that part, in the open: Kimen, Jezero and Orbit.",
+    "p4": "I live in Madrid with a small zoo. I love physics, video games, writing and turning odd ideas into things that work.",
+    "factsT": "Quick facts",
+    "facts": [
+      {
+        "k": "Location",
+        "v": "Madrid, Spain"
+      },
+      {
+        "k": "Languages",
+        "v": "Spanish, native · English, professional and in daily use"
+      },
+      {
+        "k": "Role",
+        "v": "Head Frontend Developer at Sngular"
+      },
+      {
+        "k": "Focus",
+        "v": "Product frontend, component systems and agent infrastructure"
+      }
+    ],
+    "leadT": "How I lead",
+    "motto1": "Firm on quality,",
+    "motto2": "flexible with people.",
+    "axes": [
+      {
+        "n": "01",
+        "t": "Business partner.",
+        "d": "Understanding the why behind the code, not just passing on requirements."
+      },
+      {
+        "n": "02",
+        "t": "Excellence for the user.",
+        "d": "Quality is a form of respect: a product that fails is a broken promise."
+      },
+      {
+        "n": "03",
+        "t": "Team growth.",
+        "d": "Behind every commit there is a person. I measure my success by how much the team grows."
+      }
+    ],
+    "trajK": "2014 → today",
+    "trajT": "Path",
+    "trajCap": "Transfer orbits · 2014 → today",
+    "trajAlt": "Diagram: a trajectory that jumps from orbit to orbit, one per stage, from 2014 to 2026.",
+    "roles": [
+      {
+        "when": "2014 – 2018",
+        "what": "Early years",
+        "detail": "Frontend and full-stack development for banking, insurance, telecoms and energy."
+      },
+      {
+        "when": "2018 – 2019",
+        "what": "Frontend Architect · Paradigma Digital",
+        "detail": "Web applications for banking and retail."
+      },
+      {
+        "when": "Apr 2019 – Feb 2022",
+        "what": "Senior Frontend Developer · Sngular",
+        "detail": "Web Components, micro-frontends and corporate component libraries."
+      },
+      {
+        "when": "Feb 2022 – Feb 2026",
+        "what": "Frontend Developer Expert · Sngular",
+        "detail": "Technical leadership of product teams and frontend architecture."
+      },
+      {
+        "when": "2024 – today",
+        "what": "Agent infrastructure, in the open",
+        "detail": "Kimen, Jezero and Orbit."
+      },
+      {
+        "when": "Feb 2026 – today",
+        "what": "Head Frontend Developer · Sngular",
+        "detail": "Co-leading the frontend chapter since December 2025."
+      }
+    ],
+    "eduT": "Education",
+    "edu": "BSc in Computer Engineering · UOC",
+    "eduState": "in progress",
+    "techK": "Tech constellation",
+    "techT": "Technologies",
+    "techLead": "Pick a project: the technologies it really uses light up.",
+    "filterLabel": "Filter by project",
+    "all": "All",
+    "learning": "learning",
+    "rag": "self-hosted RAG",
+    "a11y": "WCAG 2.2 accessibility",
+    "groups": [
+      {
+        "label": "Languages",
+        "x": "4%",
+        "y": "7%"
+      },
+      {
+        "label": "Frontend",
+        "x": "36%",
+        "y": "7%"
+      },
+      {
+        "label": "Design systems",
+        "x": "72%",
+        "y": "7%"
+      },
+      {
+        "label": "Quality",
+        "x": "4%",
+        "y": "62%"
+      },
+      {
+        "label": "Agent infrastructure",
+        "x": "52%",
+        "y": "62%"
+      }
+    ]
+  },
+  "pj": {
+    "kicker": "Projects",
+    "h1a": "Three pieces,",
+    "h1b": "one idea.",
+    "lead": "What an agent shows you, what it remembers, and where it lives with you. Kimen and Jezero are already open source; Orbit will be once its beta opens.",
+    "navLabel": "Projects on this page",
+    "soon": "Public repo when the beta opens",
+    "onmarsA": "I also make small, honest products at",
+    "onmarsB": ", my independent studio: KitGestor, That Day and Sapphik.",
+    "items": {
+      "kimen": {
+        "role": "What it shows you",
+        "sub": "The interfaces agents generate.",
+        "links": [
+          {
+            "label": "kimen.dev",
+            "href": "https://kimen.dev"
+          },
+          {
+            "label": "github.com/kimen-dev/kimen",
+            "href": "https://github.com/kimen-dev/kimen"
+          }
+        ],
+        "desc": "The component base for generative interfaces: Web Components that work in any framework, and that agents can read and use through a clear contract.",
+        "bullets": [
+          "29 ki-* components with no framework dependency, plus wrappers for React, Vue and Angular.",
+          "Guarded catalog: an agent can only render declared components and actions; anything unknown is rejected.",
+          "Adapters for A2UI and MCP Apps.",
+          "Accessibility as a hard gate: zero axe violations in CI and a WCAG 2.2 AA target. Under 10 KB per component."
+        ],
+        "stack": "StencilJS · TypeScript · design tokens"
+      },
+      "jezero": {
+        "role": "What it remembers",
+        "sub": "The shared memory of your agents.",
+        "links": [
+          {
+            "label": "github.com/MarsGotta/jezero",
+            "href": "https://github.com/MarsGotta/jezero"
+          }
+        ],
+        "desc": "Your agents forget. Jezero gathers their sessions, summarises them and lets any agent ask what was decided, what failed or which command worked, even if another agent did it weeks ago.",
+        "bullets": [
+          "Incremental, read-only connectors for Hermes Agent, Claude Code, Codex, OpenCode, Antigravity and Paperclip.",
+          "Each session is summarised into “atoms”: decisions, reasons, fixes, exact errors, commands, data and risks.",
+          "A single SQLite file with full-text search: milliseconds, no GPU.",
+          "A read-only MCP server: every agent can query, none can write. Secrets are redacted before saving."
+        ],
+        "noteK": "The name:",
+        "note": "the Martian crater that used to be a lake. Its sediments keep what happened, and that is where Perseverance sets samples aside to be collected later.",
+        "stack": "Python · SQLite FTS5 · MCP"
+      },
+      "orbit": {
+        "role": "Where it lives with you",
+        "sub": "Your assistant, on your Mac.",
+        "links": [],
+        "soon": true,
+        "desc": "A Mac app that gives your assistant a place in your day: it records and transcribes your meetings, writes the notes and lets you talk to the agent of your choice.",
+        "bullets": [
+          "Bring your own agent: through an API gateway or with your Claude or Codex session.",
+          "Includes its own self-hosted hub: you decide where your meetings live.",
+          "In beta, and labelled as such."
+        ],
+        "stack": "Tauri 2 · React · Rust · Python"
+      }
+    }
+  },
+  "talks": {
+    "kicker": "Talks and teaching",
+    "h1a": "Talks",
+    "h1b": "and teaching.",
+    "caption": "Most recent first",
+    "items": [
+      {
+        "year": "2025 – today",
+        "type": "Teaching",
+        "title": "Natural Language Processing · AI Ethics and Regulation (master's)",
+        "where": "Instituto Europeo de Posgrado"
+      },
+      {
+        "year": "2022",
+        "type": "Course",
+        "title": "Web Components from scratch",
+        "where": "Codemotion"
+      },
+      {
+        "year": "2021",
+        "type": "Talk",
+        "title": "Web Components in production",
+        "where": "Devcast Codemotion"
+      },
+      {
+        "year": "2019 – 2021",
+        "type": "Teaching",
+        "title": "Vue, React, Redux, Angular and RxJS courses",
+        "where": "Fictizia"
+      },
+      {
+        "year": "2019",
+        "type": "Talk",
+        "title": "Progressive Web Apps",
+        "where": "Salmorejo Tech, Córdoba"
+      }
+    ]
+  },
+  "contact": {
+    "kicker": "Contact",
+    "h1": "Let's talk.",
+    "lead": "Want to talk about agents, frontend, or how to lead a technical team without burning it out? Write to me.",
+    "chanT": "Write to me",
+    "formLabel": "Contact form",
+    "name": "Your name",
+    "email": "Your email",
+    "msg": "Tell me",
+    "send": "Send",
+    "sent": "Received. I'll get back to you in a few days."
+  }
+}

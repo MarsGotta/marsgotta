@@ -13,12 +13,14 @@ test.describe('about', () => {
       'aria-pressed',
       'false',
     );
+    // Dark theme colours: lit names turn --fg; on wide screens the rest drop to --fg-subtle.
     const wide = (viewport?.width ?? 0) > 860;
     const items = page.locator(wide ? '.star' : '.item');
-    const lit = items.filter({ hasText: 'SQLite' });
-    const dim = items.filter({ hasText: 'Next.js' });
-    const colorOf = (locator: typeof lit) => locator.evaluate((el) => getComputedStyle(el).color);
-    expect(await colorOf(lit)).not.toBe(await colorOf(dim));
+    await expect(items.filter({ hasText: 'SQLite' })).toHaveCSS('color', 'rgb(255, 245, 238)');
+    await expect(items.filter({ hasText: 'Next.js' })).toHaveCSS(
+      'color',
+      wide ? 'rgb(138, 125, 154)' : 'rgb(169, 156, 184)',
+    );
   });
 
   test('lists six roles with machine-readable start years', async ({ page }) => {

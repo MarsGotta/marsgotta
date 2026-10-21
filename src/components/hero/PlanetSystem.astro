@@ -35,6 +35,12 @@ const t = getMessages(Astro.props.lang);
   </div>
 </div>
 
+<script>
+  import { initPlanet } from '../../scripts/planet';
+
+  initPlanet();
+</script>
+
 <style>
   /* --R is the radius of Mars on screen; every orbit is measured in Mars radii. */
   .sys {

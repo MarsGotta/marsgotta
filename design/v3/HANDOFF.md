@@ -108,6 +108,7 @@ Notas de implementación:
   - i18n nativo de Astro: cada idioma son páginas estáticas propias, y el selector ES/EN enlaza a la ruta equivalente del otro idioma.
   - Los arrays (`now.items`, `about.roles`, `talks.items`…) se leen directamente del JSON tipado.
 - **HUD.** Decidido con Mars: la web no lleva el recuadro de telemetría del prototipo (coordenadas, hora de Madrid, sol y LMST de Jezero). No aportaba información y en móvil empujaba el hero hacia abajo. El botón SIM vive en el pie.
+- **Hero en escritorio.** Decidido con Mars: el titular y el planeta suben entre 40 y 56 px respecto al prototipo (`--hero-lift`). El hero mide lo mismo: ese espacio pasa a quedar bajo los botones.
 - **Planeta.**
   - La esfera CSS (`.mg-orb`) va en el HTML como fallback.
   - `planet.ts` se importa de forma dinámica unos 140 ms después del primer pintado, para no competir con el LCP del titular, y se funde al canvas cuando WebGL está listo (`data-gl="on"`).

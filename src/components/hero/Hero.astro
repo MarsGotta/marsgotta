@@ -59,6 +59,9 @@ const t = getMessages(lang);
 
 <style>
   .hero {
+    /* How far the headline and the planet (PlanetSystem) sit above the prototype's position. The
+       hero keeps its height: the space moves from above the headline to below the buttons. */
+    --hero-lift: clamp(40px, 3.8vw, 56px);
     position: relative;
     isolation: isolate;
     min-height: 960px;
@@ -69,8 +72,8 @@ const t = getMessages(lang);
   .hero__in {
     position: relative;
     z-index: 5;
-    padding-top: clamp(64px, 6.6vw, 100px);
-    padding-bottom: 150px;
+    padding-top: calc(clamp(64px, 6.6vw, 100px) - var(--hero-lift));
+    padding-bottom: calc(150px + var(--hero-lift));
   }
   .hero__over {
     display: flex;

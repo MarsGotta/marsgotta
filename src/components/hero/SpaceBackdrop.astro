@@ -51,13 +51,13 @@ const depths = [
     transform-origin: 76% 62%;
   }
   .field--far {
-    animation: fallFar 2.6s var(--ease-out) both;
+    animation: fallFar 2.6s var(--ease-out) backwards;
   }
   .field--mid {
-    animation: fallMid 2.6s var(--ease-out) both;
+    animation: fallMid 2.6s var(--ease-out) backwards;
   }
   .field--near {
-    animation: fallNear 2.8s var(--ease-out) both;
+    animation: fallNear 2.8s var(--ease-out) backwards;
   }
   /* Mouse parallax: Hero sets --mx and --my; each depth moves --k pixels at most. */
   .par {
@@ -113,7 +113,7 @@ const depths = [
     -webkit-mask: radial-gradient(circle at 76% 63%, transparent 0 9%, #000 30%, transparent 78%);
     mask: radial-gradient(circle at 76% 63%, transparent 0 9%, #000 30%, transparent 78%);
     opacity: 0;
-    animation: warp 1.5s cubic-bezier(0.3, 0, 0.2, 1) both;
+    animation: warp 1.5s cubic-bezier(0.3, 0, 0.2, 1) backwards;
   }
   @media (max-width: 980px) {
     .field,

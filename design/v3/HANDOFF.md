@@ -110,6 +110,10 @@ Notas de implementación:
   - Los arrays (`now.items`, `about.roles`, `talks.items`…) se leen directamente del JSON tipado.
 - **HUD.** Decidido con Mars: la web no lleva el recuadro de telemetría del prototipo (coordenadas, hora de Madrid, sol y LMST de Jezero). No aportaba información y en móvil empujaba el hero hacia abajo. El botón SIM vive en el pie.
 - **Hero en escritorio.** Decidido con Mars: el titular y el planeta suben entre 40 y 56 px respecto al prototipo (`--hero-lift`). El hero mide lo mismo: ese espacio pasa a quedar bajo los botones.
+- **Menú, banda «Ahora» y grano.** Decidido con Mars para quitar tirones al hacer scroll:
+  - El menú y la banda no llevan el `backdrop-filter` del prototipo. Su fondo pasa a ser casi opaco: 97 % en el menú y 90 % en la banda.
+  - El grano no usa `mix-blend-mode`. Las texturas `public/grain-dark.webp` y `grain-light.webp` hornean el grano de `assets/grain.png` para la mezcla normal: `multiply` es idéntico, y el `overlay` queda a menos de un nivel de gris.
+  - Entre los dos efectos costaban unas 7 pasadas de GPU más en cada fotograma, y la primera vez, compilaciones de shaders de 100 a 190 ms cada una. Lo vigila `tests/e2e/rendering.spec.ts`.
 - **Planeta.**
   - La esfera CSS (`.mg-orb`) va en el HTML como fallback.
   - `planet.ts` se importa de forma dinámica unos 140 ms después del primer pintado, para no competir con el LCP del titular, y se funde al canvas cuando WebGL está listo (`data-gl="on"`).
@@ -249,6 +253,7 @@ Todo lo espectacular es además correcto. Si algo se ajusta por estética, que s
 - El LCP es el titular (texto); las fuentes van con `display: swap`.
 - El WebGL arranca después del primer pintado, se pausa fuera de pantalla y limita el DPR a 2 (1.5 en móvil).
 - Las animaciones usan solo `transform` y `opacity`.
+- Las animaciones de entrada rellenan con `backwards`, no con `both`. Una animación terminada que sigue rellenando mantiene su elemento en una capa de GPU (y el titular, en un filtro `blur(0)`) mientras la página esté abierta.
 - La parallax de scroll y el trazado de las trayectorias usan scroll-driven animations de CSS (`animation-timeline`) como mejora progresiva. Sin soporte, se ve el estado final.
 
 ---

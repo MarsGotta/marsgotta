@@ -88,6 +88,7 @@ Los periodos de Fobos (7 h 39 min) y Deimos (30 h 18 min), la rotación de Marte
   - LCP por debajo de 2.5 s en móvil y CLS 0.
   - Sin JS en lo que no lo necesita.
   - Animaciones solo con `transform` y `opacity`.
+  - Sin `backdrop-filter` ni `mix-blend-mode`: cuestan pasadas de GPU en cada fotograma.
 - **SEO:**
   - Título y descripción por página e idioma.
   - `hreflang`, `canonical` en marcelagotta.com, sitemap y `robots.txt`.

@@ -18,7 +18,7 @@
 /og/*
   Cache-Control: public, max-age=604800
 
-/grain.webp
+/grain-*
   Cache-Control: public, max-age=604800
 
 # The workers.dev address serves a copy of the site for testing: keep it out of search results.

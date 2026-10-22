@@ -69,7 +69,7 @@ const t = getMessages(Astro.props.lang);
   .sys__arrive {
     position: absolute;
     inset: 0;
-    animation: arrive 2.5s var(--ease-out) both;
+    animation: arrive 2.5s var(--ease-out) backwards;
   }
   .bloom {
     position: absolute;
@@ -130,7 +130,7 @@ const t = getMessages(Astro.props.lang);
     height: 1600%;
     overflow: visible;
     pointer-events: none;
-    animation: fade 1.4s ease 1.5s both;
+    animation: fade 1.4s ease 1.5s backwards;
   }
   .orbits--back {
     z-index: 1;

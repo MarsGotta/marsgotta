@@ -73,9 +73,9 @@ const t = getMessages(lang);
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: color-mix(in srgb, var(--bg) 78%, transparent);
-    -webkit-backdrop-filter: blur(18px) saturate(1.3);
-    backdrop-filter: blur(18px) saturate(1.3);
+    /* Almost opaque instead of a backdrop blur: re-blurring what scrolls under the bar costs the GPU
+       several passes on every frame. */
+    background: color-mix(in srgb, var(--bg) 97%, transparent);
     border-bottom: 1px solid var(--line);
   }
   @supports (animation-timeline: scroll()) {

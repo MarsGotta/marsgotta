@@ -39,9 +39,8 @@ const t = getMessages(lang);
     position: relative;
     z-index: 3;
     border-block: 1px solid var(--line);
-    background: color-mix(in srgb, var(--bg-alt) 70%, transparent);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
+    /* No backdrop blur, as in the nav: the stars behind show faintly through a denser background. */
+    background: color-mix(in srgb, var(--bg-alt) 90%, transparent);
   }
   .now__in {
     display: grid;

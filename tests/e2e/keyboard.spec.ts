@@ -51,4 +51,23 @@ test.describe('keyboard', () => {
     );
     await expect(page.getByRole('img', { name: /sedimento/ })).toBeVisible();
   });
+
+  test('focus never hides under the sticky navigation', async ({ page }) => {
+    await page.goto('/contacto');
+    await page.locator('footer a').last().focus();
+    const navBottom = await page
+      .locator('.nav')
+      .evaluate((nav) => nav.getBoundingClientRect().bottom);
+    // Walking back up from the footer, the browser scrolls each stop into view from the top edge.
+    for (let stop = 0; stop < 30; stop += 1) {
+      await page.keyboard.press('Shift+Tab');
+      const top = await page.evaluate(
+        () => document.activeElement?.getBoundingClientRect().top ?? 0,
+      );
+      expect(top).toBeGreaterThanOrEqual(navBottom);
+      if (await page.locator('#contact-name').evaluate((el) => el === document.activeElement))
+        return;
+    }
+    throw new Error('Shift+Tab never reached the name field');
+  });
 });

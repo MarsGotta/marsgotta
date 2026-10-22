@@ -1,6 +1,22 @@
 import { expect, test } from '@playwright/test';
 
 test.describe('about', () => {
+  test('screen readers get the technologies as a grouped list, filtered too', async ({ page }) => {
+    await page.goto('/sobre-mi');
+    const list = page.locator('.techlist');
+    await expect(page.locator('.constel')).toHaveAttribute('aria-hidden', 'true');
+    await expect(list.getByRole('listitem').filter({ hasText: 'Next.js' })).toHaveCount(1);
+    await page
+      .getByRole('group', { name: 'Filtrar por proyecto' })
+      .getByRole('button', { name: 'Jezero' })
+      .click();
+    await expect(list.locator('.item', { hasText: 'Next.js' })).toHaveAttribute(
+      'aria-hidden',
+      'true',
+    );
+    await expect(list.locator('.item', { hasText: 'SQLite' })).not.toHaveAttribute('aria-hidden');
+  });
+
   test('the constellation lights up the technologies of a project', async ({ page, viewport }) => {
     await page.goto('/sobre-mi');
     const filter = page.getByRole('group', { name: 'Filtrar por proyecto' });

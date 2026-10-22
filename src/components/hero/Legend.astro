@@ -47,7 +47,8 @@ const t = getMessages(Astro.props.lang);
     font: 500 10px/1.3 var(--mono);
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--fg-subtle);
+    /* Small text over the nebula: muted, not subtle, keeps 4.5:1. */
+    color: var(--fg-muted);
     animation: fade 1s ease 2s both;
   }
   .legend i {
@@ -63,7 +64,7 @@ const t = getMessages(Astro.props.lang);
   }
   .legend b {
     font-weight: 500;
-    color: var(--fg-muted);
+    color: var(--fg);
   }
   .legend--surface {
     grid-template-columns: auto auto;

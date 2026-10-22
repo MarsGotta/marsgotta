@@ -13,6 +13,8 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = getMessages(lang);
+// The over-line is the same English phrase on both pages: screen readers need its language.
+const overLang = t.hero.over === getMessages('en').hero.over ? 'en' : undefined;
 ---
 
 <section class="hero" aria-labelledby="hero-title" data-hero>
@@ -21,7 +23,7 @@ const t = getMessages(lang);
   <div class="wrap hero__in">
     <p class="label hero__over">
       <i aria-hidden="true"></i>
-      {t.hero.over}
+      <span lang={overLang}>{t.hero.over}</span>
     </p>
     <Headline lang={lang} id="hero-title" />
     <p class="lead hero__sub">{t.hero.sub}</p>

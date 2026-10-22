@@ -20,7 +20,7 @@ const t = getMessages(lang);
   <div class="nav__bg"></div>
   <div class="wrap nav__bar">
     <Brand lang={lang} class="nav__brand" />
-    <nav aria-label={t.ui.navLabel}>
+    <nav class="nav__links" aria-label={t.ui.navLabel}>
       <ul class="links">
         {routeKeys.map((key) => (
           <li>
@@ -145,7 +145,8 @@ const t = getMessages(lang);
     display: none;
   }
   @media (max-width: 980px) {
-    .links,
+    /* The whole landmark goes, not just its list: an empty navigation would still be announced. */
+    .nav__links,
     .nav .tools__lang {
       display: none;
     }

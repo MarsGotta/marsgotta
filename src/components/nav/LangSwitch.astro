@@ -35,6 +35,7 @@ const t = getMessages(lang);
     border-radius: 13px;
   }
   .seg a {
+    position: relative;
     display: inline-grid;
     place-items: center;
     min-width: 44px;
@@ -55,5 +56,17 @@ const t = getMessages(lang);
   .seg a[aria-current='true'] {
     background: var(--line);
     color: var(--fg);
+  }
+  /* The current language carries the nav's warm dot, so it does not rely on colour (WCAG 1.4.1). */
+  .seg a[aria-current='true']::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 5px;
+    width: 4px;
+    height: 4px;
+    margin-left: -2px;
+    border-radius: 50%;
+    background: var(--warm);
   }
 </style>

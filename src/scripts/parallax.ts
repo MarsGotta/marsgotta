@@ -1,4 +1,4 @@
-import { prefersReducedMotion } from '../lib/motion';
+import { isMotionAllowed } from '../lib/motion';
 
 /** Moves the star fields against the pointer: --mx and --my go from −1 to 1 across the hero. */
 export function initParallax(): void {
@@ -7,7 +7,7 @@ export function initParallax(): void {
   let frame = 0;
 
   hero.addEventListener('pointermove', (event) => {
-    if (frame || event.pointerType !== 'mouse' || prefersReducedMotion()) return;
+    if (frame || event.pointerType !== 'mouse' || !isMotionAllowed()) return;
     frame = requestAnimationFrame(() => {
       frame = 0;
       const rect = hero.getBoundingClientRect();

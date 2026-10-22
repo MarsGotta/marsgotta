@@ -20,4 +20,15 @@ test.describe('motion on inner pages', () => {
     await page.locator('footer [data-motion-toggle]').click();
     expect(await moon.evaluate((el) => getComputedStyle(el).animationPlayState)).toBe('paused');
   });
+
+  test('with SIM paused the project demos show their final state instead of playing', async ({
+    page,
+  }) => {
+    await page.addInitScript(() => localStorage.setItem('motion', 'off'));
+    await page.goto('/proyectos');
+    const stage = page.locator('[data-demo-stage]').first();
+    await stage.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(500);
+    await expect(stage).not.toHaveClass(/is-play/);
+  });
 });

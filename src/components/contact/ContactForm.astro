@@ -123,7 +123,8 @@ const t = getMessages(lang).contact;
     width: 100%;
     height: 54px;
     padding: 0 16px;
-    border: 1px solid var(--line-strong);
+    /* The border is what shows where to type: it keeps 3:1 against the card (WCAG 1.4.11). */
+    border: 1px solid var(--fg-subtle);
     border-radius: 13px;
     background: transparent;
     color: var(--fg);
@@ -136,7 +137,7 @@ const t = getMessages(lang).contact;
     color: var(--fg-subtle);
   }
   .input:hover {
-    border-color: var(--fg-subtle);
+    border-color: var(--fg-muted);
   }
   /* The field keeps a visible focus ring: a warm border plus a soft glow. */
   .input:focus {

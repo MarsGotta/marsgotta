@@ -40,7 +40,7 @@ const projectsOf = (star: TechStar) => star.projects?.join(' ');
         </button>
       ))}
     </div>
-    <div class="constel">
+    <div class="constel" aria-hidden="true">
       <svg class="lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
         {techLinks.map((link) => (
           <line
@@ -189,7 +189,6 @@ const projectsOf = (star: TechStar) => star.projects?.join(' ');
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--fg-subtle);
-    opacity: 0.85;
   }
   .stars {
     margin: 0;
@@ -252,8 +251,16 @@ const projectsOf = (star: TechStar) => star.projects?.join(' ');
       0 0 0 4px color-mix(in srgb, var(--pc) 22%, transparent),
       0 0 16px var(--pc);
   }
+  /* On wide screens the constellation draws the technologies and is hidden from assistive tech,
+     which reads them from this grouped list instead: hidden from the eyes only. */
   .techlist {
-    display: none;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    display: grid;
     margin-top: 28px;
     gap: 22px;
   }
@@ -287,7 +294,12 @@ const projectsOf = (star: TechStar) => star.projects?.join(' ');
       display: none;
     }
     .techlist {
-      display: grid;
+      position: static;
+      width: auto;
+      height: auto;
+      overflow: visible;
+      clip-path: none;
+      white-space: normal;
     }
   }
   @media (prefers-reduced-motion: reduce) {

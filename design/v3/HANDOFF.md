@@ -120,15 +120,15 @@ Notas de implementación:
   - `demos.ts` añade `is-play` cuando el escenario entra en pantalla (IntersectionObserver, umbral 0.3) y la animación se reproduce una vez.
   - Las pestañas de proyectos cambian el panel sin recargar.
 - **Formulario.**
-  - Funciona como mejora progresiva: sin JS, como mínimo enlaza a `mailto:me@marcelagotta.com`.
-  - El envío real va a `/api/contact` en el Worker (ver «Despliegue»), con un proveedor de email que hay que elegir con Mars.
-  - Confirmación: «Recibido. Te contesto en unos días.».
+  - Envía a `/api/contact` en el Worker (`workers/site/`, ver «Despliegue»), con el Email Service de Cloudflare: desde `web@mail.marcelagotta.com` a `me@marcelagotta.com`, con `Reply-To` a quien escribe.
+  - Funciona como mejora progresiva: sin JS, el Worker redirige a `#contact-sent` o `#contact-error` y `:target` muestra el resultado; con JS, `fetch` y el resultado en el sitio.
+  - Confirmación: «Recibido. Te contesto en unos días.», con la animación del paquete del prototipo. El mensaje de error está pendiente de copy.
 
 ### Despliegue en Cloudflare
 
 - **Herramienta.** `wrangler`, ya instalado en la máquina. Antes de nada, comprueba la sesión con `wrangler whoami` y que las zonas **marcelagotta.com** y **marsgotta.com** están en esa cuenta. Si falta algo, para y avisa.
 - **Modelo.** Worker con static assets: `wrangler.jsonc` con `assets.directory: "./dist"`, `not_found_handling: "404-page"` y `compatibility_date` actual.
-  - Si hace falta `/api/contact` o la redirección en código, añade `main: "worker/index.ts"` y `assets.run_worker_first` solo para las rutas que lo necesiten.
+  - `/api/contact` va en `main: "workers/site/index.ts"`, con `assets.run_worker_first: ["/api/*"]`: el resto de rutas no ejecuta código.
 - **Dominios.**
   - Rutas con `custom_domain: true` para marcelagotta.com, www.marcelagotta.com, marsgotta.com y www.marsgotta.com.
   - El canónico es **https://marcelagotta.com**: los otros tres redirigen con 301 conservando ruta y query.
@@ -309,7 +309,7 @@ Trabaja una fase cada vez y para al final de cada una para revisión.
    - `hreflang` y `canonical` (siempre en marcelagotta.com), sitemap y `robots.txt`.
    - Datos estructurados `Person` con `sameAs` a LinkedIn, GitHub y X.
    - Imagen OG con la estética del hero (pendiente de diseño).
-   - Endpoint `/api/contact` con el proveedor que elija Mars.
+   - Endpoint `/api/contact` con el Email Service de Cloudflare (elegido por Mars).
    - Despliegue a `*.workers.dev`. Con el OK de Mars: dominios propios, redirecciones 301 al canónico y despliegue a producción.
 
 ## 8. Criterios de aceptación

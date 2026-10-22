@@ -31,7 +31,8 @@ Web personal de Marcela Gotta («Mars»): ingeniera de software en Madrid, Head 
   - ESLint (`eslint-plugin-astro` y `eslint-plugin-jsx-a11y`), Prettier (`prettier-plugin-astro`) y `astro check`.
   - Vitest para `src/lib` y Playwright con `@axe-core/playwright` para e2e y accesibilidad.
 - **Despliegue:** Cloudflare Worker con static assets (`wrangler.jsonc`, directorio `dist/`). El `wrangler` ya está instalado. Detalle en HANDOFF §2, «Despliegue en Cloudflare».
-- **Dependencias:** las de esta lista, sin más. Cualquier otra, incluido el proveedor de email del formulario, pregúntame antes.
+- **Formulario:** `POST /api/contact` en el mismo Worker (`workers/site/`), con el Email Service de Cloudflare (binding `send_email`), sin dependencias ni secretos.
+- **Dependencias:** las de esta lista, sin más. Cualquier otra, pregúntame antes.
 
 ## Código legible (no negociable)
 

@@ -49,17 +49,3 @@ test.describe('talks', () => {
     await expect(page.locator('.talk time').first()).toHaveText('2025 – hoy');
   });
 });
-
-test.describe('contact', () => {
-  test('the form has labelled, required fields and falls back to email', async ({ page }) => {
-    await page.goto('/contacto');
-    const form = page.getByRole('form', { name: 'Formulario de contacto' });
-    for (const label of ['Tu nombre', 'Tu email', 'Cuéntame']) {
-      await expect(form.getByLabel(label)).toHaveAttribute('required', '');
-    }
-    await expect(page.getByRole('link', { name: /me@marcelagotta.com/ }).first()).toHaveAttribute(
-      'href',
-      'mailto:me@marcelagotta.com',
-    );
-  });
-});

@@ -28,7 +28,7 @@ La fuente de verdad está en `design/v3/`: el prototipo, el CSS y la lógica ext
 
 ## Despliegue en Cloudflare
 
-El sitio es un Worker con static assets (`wrangler.jsonc`, directorio `dist/`), sin código propio: Cloudflare sirve los ficheros directamente, con brotli y las cabeceras de `public/_headers`.
+El sitio es un Worker con static assets (`wrangler.jsonc`, directorio `dist/`): Cloudflare sirve los ficheros directamente, con brotli y las cabeceras de `public/_headers`. Solo ejecuta código la ruta del formulario, `/api/contact` (`workers/site/`), y las rutas sin fichero, que reciben la página 404.
 
 | Worker                  | Dominios                                                 | Qué hace                                                  |
 | ----------------------- | -------------------------------------------------------- | --------------------------------------------------------- |
@@ -46,9 +46,9 @@ Las redirecciones van en un Worker aparte (`workers/redirect/`) para que el siti
 
 Para probar antes de publicar, `npm run preview:cf` sirve `dist/` con `wrangler dev`, y cada despliegue queda también en https://marcelagotta.marcelagotta.workers.dev.
 
-### Primer paso a producción
+### Dominios
 
-Los Custom Domains de Workers no pueden ocupar un nombre que ya tenga registros A, AAAA o CNAME. Antes del primer despliegue con dominios hay que borrar en el panel de Cloudflare (DNS de cada zona) estos registros, y solo estos:
+Los Custom Domains de Workers no pueden ocupar un nombre que ya tenga registros A, AAAA o CNAME. Para el primer paso a producción, el 22 de octubre de 2026, se borraron estos registros de la web anterior, y solo estos:
 
 | Zona             | Registro                                     |
 | ---------------- | -------------------------------------------- |
@@ -56,13 +56,29 @@ Los Custom Domains de Workers no pueden ocupar un nombre que ya tenga registros 
 | marcelagotta.com | `CNAME www → marcelagotta.com`               |
 | marsgotta.com    | `CNAME www → marsgotta.com`                  |
 
-Los MX (Google Workspace e iCloud) y los TXT (SPF y verificaciones) no se tocan. Después, `npm run deploy && npm run deploy:redirect` crea los registros del Worker y los certificados.
+Los MX (Google Workspace e iCloud) y los TXT (SPF y verificaciones) no se tocaron.
 
 Para volver a la web anterior: quita los Custom Domains de los dos Workers (panel → Workers → Settings → Domains & Routes) y recrea los registros de la tabla, sin proxy.
 
+### Formulario de contacto
+
+`POST /api/contact` envía el mensaje con el Email Service de Cloudflare, a través del binding `send_email` de `wrangler.jsonc`: sin dependencias ni claves.
+
+- **Remitente y destino.** El binding solo puede escribir desde `web@mail.marcelagotta.com` a `me@marcelagotta.com`. Responder al correo contesta a quien escribió (`Reply-To`).
+- **Subdominio de envío.** `mail.marcelagotta.com` lleva sus propios registros (MX y SPF en `cf-bounce.mail`, DKIM y DMARC), así que el correo del dominio principal no cambia.
+- **Antispam.** Validación en el Worker, un campo trampa oculto y un límite de 5 envíos por minuto e IP (binding `ratelimits`).
+- **Sin JavaScript.** El navegador envía el formulario y el Worker redirige a `/contacto#contact-sent` o `#contact-error`, que muestran el resultado con CSS. Con JavaScript, el envío va por `fetch` y la página no se recarga.
+
+Configuración, hecha una sola vez:
+
+1. `npx wrangler email sending enable mail.marcelagotta.com` da de alta el subdominio y crea sus registros DNS.
+2. `npx wrangler email routing addresses create me@marcelagotta.com` añade el destino. Hay que confirmarlo desde el enlace del correo que llega. Los envíos a direcciones verificadas son gratis en cualquier plan de Workers.
+
+En local, `npm run preview:cf` simula el envío: cada correo queda en `.wrangler/tmp/email/`. Para ver los errores en producción: `npx wrangler tail marcelagotta`.
+
 ### Secretos
 
-Ahora no hay ninguno. Si el formulario de contacto pasa a enviar por un proveedor de email, la clave irá con `npx wrangler secret put NOMBRE`, nunca en el repo.
+Ahora no hay ninguno. Si algún día hacen falta, van con `npx wrangler secret put NOMBRE`, nunca en el repo.
 
 ## Fuentes
 

@@ -28,4 +28,10 @@ describe('pageMeta', () => {
       }
     }
   });
+
+  it('lists the talks that fit in a search result', () => {
+    const { description } = pageMeta('talks', 'en');
+    expect(description.length).toBeLessThanOrEqual(160);
+    expect(description).toMatch(/^Talks and teaching: Natural Language Processing/);
+  });
 });

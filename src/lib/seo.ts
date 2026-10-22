@@ -1,5 +1,7 @@
 import { email, socialChannels } from '../content/profile';
-import { languages, locales, type Lang } from '../i18n';
+import { projectKeys } from '../content/projects';
+import { techStars } from '../content/tech';
+import { getMessages, languages, locales, type Lang } from '../i18n';
 import { localizedPath, type RouteKey } from '../i18n/routes';
 
 export interface Alternate {
@@ -25,21 +27,94 @@ export function ogLocale(lang: Lang): string {
   return locales[lang].replace('-', '_');
 }
 
-/** schema.org Person for the site's author, with her public profiles. */
-export function personSchema(site: URL, description: string) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    '@id': new URL('/#person', site).href,
-    name: 'Marcela Gotta',
-    alternateName: 'Mars',
-    url: site.href,
-    jobTitle: 'Head Frontend Developer',
-    worksFor: { '@type': 'Organization', name: 'Sngular' },
-    homeLocation: { '@type': 'Place', name: 'Madrid, España' },
-    email: `mailto:${email}`,
-    knowsLanguage: [...languages],
-    description,
-    sameAs: socialChannels.map((channel) => channel.href),
-  };
+const NAME = 'Marcela Gotta';
+const SPDX_LICENSES = new Set(['Apache-2.0', 'MIT']);
+
+export interface PageInfo {
+  /** Null for pages outside the site map, such as the 404. */
+  route: RouteKey | null;
+  lang: Lang;
+  title: string;
+  description: string;
+}
+
+/**
+ * schema.org graph for a page: the site, its author and the page itself, plus the projects on the
+ * projects page. Every value comes from the approved copy and the content files.
+ */
+export function structuredData(site: URL, page: PageInfo) {
+  const id = (name: string) => new URL(`/#${name}`, site).href;
+  const t = getMessages(page.lang);
+  const graph: object[] = [
+    {
+      '@type': 'WebSite',
+      '@id': id('website'),
+      url: site.href,
+      name: NAME,
+      inLanguage: [...languages],
+      publisher: { '@id': id('person') },
+    },
+    {
+      '@type': 'Person',
+      '@id': id('person'),
+      name: NAME,
+      alternateName: 'Mars',
+      url: site.href,
+      description: t.about.p1,
+      jobTitle: 'Head Frontend Developer',
+      worksFor: { '@type': 'Organization', name: 'Sngular' },
+      homeLocation: {
+        '@type': 'Place',
+        address: { '@type': 'PostalAddress', addressLocality: 'Madrid', addressCountry: 'ES' },
+      },
+      // The constellation on the About page, without what she is still learning.
+      knowsAbout: techStars.flatMap((star) =>
+        !star.learning && typeof star.label === 'string' ? [star.label] : [],
+      ),
+      knowsLanguage: [...languages],
+      email: `mailto:${email}`,
+      sameAs: socialChannels.map((channel) => channel.href),
+    },
+  ];
+  if (page.route) {
+    const url = pageUrl(site, page.route, page.lang);
+    const isProfile = page.route === 'about';
+    graph.push({
+      '@type': isProfile ? 'ProfilePage' : 'WebPage',
+      '@id': `${url}#webpage`,
+      url,
+      name: page.title,
+      description: page.description,
+      inLanguage: page.lang,
+      isPartOf: { '@id': id('website') },
+      [isProfile ? 'mainEntity' : 'about']: { '@id': id('person') },
+    });
+  }
+  if (page.route === 'projects') graph.push(...projectsData(site, page.lang, id('person')));
+  return { '@context': 'https://schema.org', '@graph': graph };
+}
+
+function projectsData(site: URL, lang: Lang, author: string): object[] {
+  const t = getMessages(lang);
+  return projectKeys.map((key) => {
+    const links: { href: string }[] = t.pj.items[key].links;
+    const { name, chips } = t.sys.items[key];
+    const repository = links.find((link) => link.href.startsWith('https://github.com/'))?.href;
+    const website = links.find((link) => link.href !== repository)?.href;
+    // Only a project with a public repository is shown with its licence: Orbit is not called open
+    // source until its repository is public.
+    const license = repository && chips.find((chip) => SPDX_LICENSES.has(chip));
+    return {
+      '@type': repository ? 'SoftwareSourceCode' : 'SoftwareApplication',
+      '@id': new URL(`/#${key}`, site).href,
+      name,
+      description: t.pj.items[key].desc,
+      url: website ?? new URL(localizedPath('projects', lang, key), site).href,
+      ...(repository && { codeRepository: repository }),
+      ...(license && { license: `https://spdx.org/licenses/${license}` }),
+      ...(chips.includes('macOS') && { operatingSystem: 'macOS' }),
+      keywords: t.pj.items[key].stack,
+      author: { '@id': author },
+    };
+  });
 }

@@ -12,8 +12,10 @@ function visit(path: string, headers: Record<string, string> = {}) {
   return site.fetch(new Request(`https://marcelagotta.com${path}`, { headers }), env);
 }
 
-const ENGLISH = { 'Accept-Language': 'en-GB,en;q=0.9' };
-const SPANISH = { 'Accept-Language': 'es-ES,es;q=0.9,en;q=0.8' };
+// What a browser sends when it opens a page.
+const OPENS_PAGE = { 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Dest': 'document' };
+const ENGLISH = { ...OPENS_PAGE, 'Accept-Language': 'en-GB,en;q=0.9' };
+const SPANISH = { ...OPENS_PAGE, 'Accept-Language': 'es-ES,es;q=0.9,en;q=0.8' };
 
 describe('language on arrival', () => {
   it('sends an English browser to the same page in English, keeping the query', async () => {
@@ -40,8 +42,13 @@ describe('language on arrival', () => {
     expect(response.headers.get('Location')).toBe('https://marcelagotta.com/en');
   });
 
-  it('never redirects crawlers or browsers that state no language', async () => {
-    expect((await visit('/', {})).status).toBe(200);
+  it('never redirects crawlers, fetchers or browsers that state no language', async () => {
+    expect((await visit('/', OPENS_PAGE)).status).toBe(200);
+    const fetcher = {
+      'Accept-Language': 'en',
+      'User-Agent': 'Mozilla/5.0 (compatible; Claude-User/1.0)',
+    };
+    expect((await visit('/', fetcher)).status).toBe(200);
     const crawler = { ...ENGLISH, 'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1)' };
     expect((await visit('/', crawler)).status).toBe(200);
   });

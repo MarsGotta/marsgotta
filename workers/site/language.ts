@@ -57,7 +57,12 @@ function siteReferer(request: Request, origin: string): URL | null {
 }
 
 function wantedLanguage(request: Request): Lang | null {
-  if (CRAWLER.test(request.headers.get('User-Agent') ?? '')) return null;
+  // Browsers mark a page they open with these headers; crawlers and agents' fetchers, listed in
+  // CRAWLER or not, do not send them.
+  const opensPage =
+    request.headers.get('Sec-Fetch-Mode') === 'navigate' &&
+    request.headers.get('Sec-Fetch-Dest') === 'document';
+  if (!opensPage || CRAWLER.test(request.headers.get('User-Agent') ?? '')) return null;
   const chosen = /(?:^|;\s*)lang=(es|en)(?:;|$)/.exec(request.headers.get('Cookie') ?? '');
   return chosen ? (chosen[1] as Lang) : negotiateLanguage(request.headers.get('Accept-Language'));
 }

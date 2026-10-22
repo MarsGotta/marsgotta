@@ -5,7 +5,7 @@ test.describe('seo', () => {
   test.skip(({ viewport }) => (viewport?.width ?? 0) < 600, 'The head is the same on every device');
 
   for (const route of routes) {
-    test(`${route} has its title, canonical, hreflang, Open Graph and Person data`, async ({
+    test(`${route} has its title, canonical, hreflang, Open Graph and structured data`, async ({
       page,
     }) => {
       await page.goto(route);
@@ -20,9 +20,11 @@ test.describe('seo', () => {
         /^https:\/\/marcelagotta\.com\/og\/marcela-gotta-(es|en)\.jpg$/,
       );
       const jsonLd = await head.locator('script[type="application/ld+json"]').textContent();
-      const person = JSON.parse(jsonLd ?? '{}') as { '@type': string; sameAs: string[] };
-      expect(person['@type']).toBe('Person');
-      expect(person.sameAs).toHaveLength(3);
+      const { '@graph': graph } = JSON.parse(jsonLd ?? '{}') as {
+        '@graph': { '@type': string; url?: string; sameAs?: string[] }[];
+      };
+      expect(graph.find((node) => node['@type'] === 'Person')?.sameAs).toHaveLength(3);
+      expect(graph.some((node) => node.url === canonical)).toBe(true);
     });
   }
 
@@ -47,6 +49,24 @@ test.describe('seo', () => {
     expect(sitemap).toContain(
       '<xhtml:link rel="alternate" hreflang="en" href="https://marcelagotta.com/en/about"/>',
     );
+  });
+
+  test('llms.txt indexes the site for AI agents', async ({ request }) => {
+    const response = await request.get('/llms.txt');
+    expect(response.headers()['content-type']).toContain('text/plain');
+    expect(await response.text()).toMatch(/^# Marcela Gotta\n\n> /);
+  });
+
+  test('addresses of the previous site redirect to their pages', async ({ request }) => {
+    for (const [from, to] of [
+      ['/es', '/'],
+      ['/es/about', '/sobre-mi'],
+      ['/es/contact', '/contacto'],
+    ]) {
+      const response = await request.get(from, { maxRedirects: 0 });
+      expect(response.status(), from).toBe(301);
+      expect(new URL(response.headers().location, 'https://x').pathname, from).toBe(to);
+    }
   });
 
   test('unknown pages show the 404 page, kept out of search results', async ({ page }) => {

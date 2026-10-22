@@ -1,7 +1,7 @@
 ---
 import { getMessages, otherLang, type Lang } from '../../i18n';
 import type { RouteKey } from '../../i18n/routes';
-import { alternates, ogLocale, pageUrl, personSchema } from '../../lib/seo';
+import { alternates, ogLocale, pageUrl, structuredData } from '../../lib/seo';
 
 interface Props {
   lang: Lang;
@@ -16,7 +16,7 @@ const site = Astro.site ?? new URL('https://marcelagotta.com');
 const t = getMessages(lang);
 const image = new URL(`/og/marcela-gotta-${lang}.jpg`, site).href;
 const imageAlt = [...t.hero.l1, ...t.hero.l2, ...t.hero.l3].join(' ');
-const person = personSchema(site, description);
+const schema = structuredData(site, { route, lang, title, description });
 ---
 
 <meta name="description" content={description} />
@@ -44,4 +44,4 @@ const person = personSchema(site, description);
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@marcelagotta" />
 <meta name="twitter:creator" content="@marcelagotta" />
-<script type="application/ld+json" set:html={JSON.stringify(person)} />
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

@@ -1,0 +1,6 @@
+# Addresses of the previous site (Next.js, Spanish under /es) that may still be linked or indexed.
+/es / 301
+/es/about /sobre-mi 301
+/es/projects /proyectos 301
+/es/talks /charlas 301
+/es/contact /contacto 301

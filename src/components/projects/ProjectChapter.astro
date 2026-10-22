@@ -1,6 +1,7 @@
 ---
 import type { ProjectKey } from '../../content/projects';
 import { getMessages, type Lang } from '../../i18n';
+import NewTabHint from '../layout/NewTabHint.astro';
 import DemoStage from '../system/DemoStage.astro';
 import JezeroDemo from '../system/JezeroDemo.astro';
 import KimenDemo from '../system/KimenDemo.astro';
@@ -40,6 +41,7 @@ const titleId = `project-${project}`;
           <a class="ext" href={link.href} target="_blank" rel="noopener noreferrer">
             {link.label}
             <span aria-hidden="true">↗</span>
+            <NewTabHint lang={lang} />
           </a>
         ))}
         {'soon' in item && item.soon && <span class="ext">{t.pj.soon}</span>}

@@ -1,12 +1,14 @@
 ---
 import { email, socialChannels } from '../../content/profile';
 import { getMessages, type Lang } from '../../i18n';
+import NewTabHint from '../layout/NewTabHint.astro';
 
 interface Props {
   lang: Lang;
 }
 
-const t = getMessages(Astro.props.lang).contact;
+const { lang } = Astro.props;
+const t = getMessages(lang).contact;
 ---
 
 <div>
@@ -37,6 +39,7 @@ const t = getMessages(Astro.props.lang).contact;
           <span>{channel.name}</span>
           <strong>{channel.address}</strong>
           <span aria-hidden="true">↗</span>
+          <NewTabHint lang={lang} />
         </a>
       </li>
     ))}

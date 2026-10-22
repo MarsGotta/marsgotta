@@ -9,7 +9,8 @@
     "toLight": "Cambiar al tema claro: la superficie de Marte",
     "toDark": "Cambiar al tema oscuro: el espacio",
     "pause": "Pausar animaciones",
-    "play": "Reanudar animaciones"
+    "play": "Reanudar animaciones",
+    "newTab": "se abre en otra pestaña"
   },
   "nav": {
     "inicio": "Inicio",
@@ -387,8 +388,14 @@
     "name": "Tu nombre",
     "email": "Tu email",
     "msg": "Cuéntame",
+    "required": "Todos los campos son obligatorios.",
     "send": "Enviar",
     "sent": "Recibido. Te contesto en unos días.",
     "error": "Ups, ha habido un problema de interferencias. Vuelve a intentarlo en un momento."
+  },
+  "notFound": {
+    "title": "Ups…",
+    "accent": "Señal no encontrada.",
+    "lead": "La página que buscas se ha perdido en el espacio."
   }
 }

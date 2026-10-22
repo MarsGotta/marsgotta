@@ -1,6 +1,7 @@
 /**
  * The project system on the home page: tabs, orrery rings and the demo stage show one project.
- * Hovering or focusing a tab, or hovering a ring, also selects it, as in the prototype.
+ * A click (or Enter and Space, since the tabs are buttons) picks a project. Passing over a tab with
+ * the pointer or the keyboard does not, so tabbing through them leaves the choice alone.
  */
 export function initProjectSystems(): void {
   document.querySelectorAll<HTMLElement>('[data-project-system]').forEach((root) => {
@@ -27,13 +28,10 @@ export function initProjectSystems(): void {
     root.querySelectorAll<HTMLElement>('[data-project-tab]').forEach((tab) => {
       const pick = () => select(tab.dataset.projectTab);
       tab.addEventListener('click', pick);
-      tab.addEventListener('mouseenter', pick);
-      tab.addEventListener('focus', pick);
     });
     root.querySelectorAll<SVGElement>('[data-orrery-hit]').forEach((hit) => {
       const pick = () => select(hit.dataset.orreryHit);
       hit.addEventListener('click', pick);
-      hit.addEventListener('mouseenter', pick);
     });
   });
 }

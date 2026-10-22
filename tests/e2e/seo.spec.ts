@@ -62,6 +62,8 @@ test.describe('seo', () => {
       ['/es', '/'],
       ['/es/about', '/sobre-mi'],
       ['/es/contact', '/contacto'],
+      ['/es/lab', '/proyectos'],
+      ['/en/lab', '/en/projects'],
     ]) {
       const response = await request.get(from, { maxRedirects: 0 });
       expect(response.status(), from).toBe(301);
@@ -72,6 +74,16 @@ test.describe('seo', () => {
   test('unknown pages show the 404 page, kept out of search results', async ({ page }) => {
     await page.goto('/no-existe');
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex');
-    await expect(page.getByRole('heading', { level: 1, name: '404' })).toBeVisible();
+    await expect(
+      page.getByRole('heading', { level: 1, name: 'Ups… Señal no encontrada.' }),
+    ).toBeVisible();
+  });
+
+  test('unknown English pages show the 404 page in English', async ({ page }) => {
+    await page.goto('/en/no-such-page');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    await expect(
+      page.getByRole('heading', { level: 1, name: 'Oops… Signal not found.' }),
+    ).toBeVisible();
   });
 });

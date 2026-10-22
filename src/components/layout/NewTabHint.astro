@@ -1,0 +1,12 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const t = getMessages(Astro.props.lang).ui;
+---
+
+<!-- Screen readers learn the link leaves this tab; sighted visitors have the ↗ arrow. -->
+<span class="sr-only"> ({t.newTab})</span>

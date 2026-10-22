@@ -40,15 +40,17 @@ test.describe('keyboard', () => {
     });
   }
 
-  test('project tabs follow keyboard focus', async ({ page }) => {
+  test('project tabs change only when picked, not when focus passes over them', async ({
+    page,
+  }) => {
     await page.goto('/');
     await page.locator('[data-project-tab="kimen"]').focus();
     await page.keyboard.press('Tab');
-    await expect(page.locator('[data-project-tab="jezero"]')).toBeFocused();
-    await expect(page.locator('[data-project-tab="jezero"]')).toHaveAttribute(
-      'aria-pressed',
-      'true',
-    );
+    const jezero = page.locator('[data-project-tab="jezero"]');
+    await expect(jezero).toBeFocused();
+    await expect(jezero).toHaveAttribute('aria-pressed', 'false');
+    await page.keyboard.press('Enter');
+    await expect(jezero).toHaveAttribute('aria-pressed', 'true');
     await expect(page.getByRole('img', { name: /sedimento/ })).toBeVisible();
   });
 

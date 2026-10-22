@@ -32,7 +32,7 @@ export function pageMeta(route: RouteKey, lang: Lang): PageMeta {
     case 'home': {
       const firstSentence = t.hero.sub.split('. ')[0] ?? t.hero.sub;
       return {
-        title: `${NAME} · Senior Software Engineer`,
+        title: `${NAME} · Software Engineer`,
         description: `${headline(lang)} ${firstSentence}.`,
       };
     }

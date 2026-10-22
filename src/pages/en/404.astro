@@ -1,0 +1,9 @@
+---
+import NotFound from '../../components/page/NotFound.astro';
+import Base from '../../layouts/Base.astro';
+---
+
+<!-- Cloudflare serves the nearest 404.html, so unknown /en/* paths get this one. -->
+<Base lang="en" route={null}>
+  <NotFound lang="en" />
+</Base>

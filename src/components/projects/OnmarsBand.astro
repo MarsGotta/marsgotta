@@ -1,11 +1,13 @@
 ---
 import { getMessages, type Lang } from '../../i18n';
+import NewTabHint from '../layout/NewTabHint.astro';
 
 interface Props {
   lang: Lang;
 }
 
-const t = getMessages(Astro.props.lang).pj;
+const { lang } = Astro.props;
+const t = getMessages(lang).pj;
 ---
 
 <section class="sec sec--tight" aria-labelledby="onmars-title">
@@ -22,6 +24,7 @@ const t = getMessages(Astro.props.lang).pj;
     </p>
     <a class="arrow" href="https://onmars.tech" target="_blank" rel="noopener noreferrer">
       onmars.tech<span aria-hidden="true">↗</span>
+      <NewTabHint lang={lang} />
     </a>
   </div>
 </section>

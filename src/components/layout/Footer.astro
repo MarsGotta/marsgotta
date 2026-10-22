@@ -2,6 +2,7 @@
 import { email, socialChannels } from '../../content/profile';
 import { getMessages, type Lang } from '../../i18n';
 import MotionToggle from '../motion/MotionToggle.astro';
+import NewTabHint from './NewTabHint.astro';
 import Brand from '../nav/Brand.astro';
 
 interface Props {
@@ -31,7 +32,10 @@ const year = new Date().getFullYear();
           <li>
             <a href={channel.href} target="_blank" rel="noopener noreferrer">
               {channel.name}
-              <span>{channel.handle} ↗</span>
+              <span>
+                {channel.handle} <span aria-hidden="true">↗</span>
+              </span>
+              <NewTabHint lang={lang} />
             </a>
           </li>
         ))}

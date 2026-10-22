@@ -4,9 +4,9 @@ import { headline, pageMeta } from './meta';
 import { routeKeys } from './routes';
 
 describe('pageMeta', () => {
-  it('uses the agreed home title in both languages', () => {
-    expect(pageMeta('home', 'es').title).toBe('Marcela Gotta · Senior Software Engineer');
-    expect(pageMeta('home', 'en').title).toBe('Marcela Gotta · Senior Software Engineer');
+  it('uses her profession, in English, as the home title in both languages', () => {
+    expect(pageMeta('home', 'es').title).toBe('Marcela Gotta · Software Engineer');
+    expect(pageMeta('home', 'en').title).toBe('Marcela Gotta · Software Engineer');
   });
 
   it('opens the home description with the headline', () => {

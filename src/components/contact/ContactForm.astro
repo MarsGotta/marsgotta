@@ -13,6 +13,7 @@ const t = getMessages(lang).contact;
 <div class="box" data-contact>
   <form class="card form" action={contactEndpoint} method="post" aria-label={t.formLabel}>
     <input type="hidden" name="lang" value={lang} />
+    <p class="required">{t.required}</p>
     <div class="field">
       <label for="contact-name">{t.name}</label>
       <input
@@ -112,6 +113,13 @@ const t = getMessages(lang).contact;
   .field {
     display: grid;
     gap: 9px;
+  }
+  .required {
+    margin: 0;
+    font: 500 10.5px/1.4 var(--mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
   }
   label {
     font: 500 10.5px/1 var(--mono);

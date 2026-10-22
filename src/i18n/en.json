@@ -9,7 +9,8 @@
     "toLight": "Switch to the light theme: the surface of Mars",
     "toDark": "Switch to the dark theme: space",
     "pause": "Pause animations",
-    "play": "Resume animations"
+    "play": "Resume animations",
+    "newTab": "opens in a new tab"
   },
   "nav": {
     "inicio": "Home",
@@ -387,8 +388,14 @@
     "name": "Your name",
     "email": "Your email",
     "msg": "Tell me",
+    "required": "All fields are required.",
     "send": "Send",
     "sent": "Received. I'll get back to you in a few days.",
     "error": "Oops, there was some interference. Try again in a moment."
+  },
+  "notFound": {
+    "title": "Oops…",
+    "accent": "Signal not found.",
+    "lead": "The page you are looking for got lost in space."
   }
 }

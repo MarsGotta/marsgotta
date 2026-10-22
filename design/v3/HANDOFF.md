@@ -118,7 +118,7 @@ Notas de implementación:
 - **Demos de proyectos.**
   - Su estado por defecto es el estado final, estático y completo.
   - `demos.ts` añade `is-play` cuando el escenario entra en pantalla (IntersectionObserver, umbral 0.3) y la animación se reproduce una vez.
-  - Las pestañas de proyectos cambian el panel sin recargar.
+  - Las pestañas de proyectos cambian el panel sin recargar. Decidido con Mars: solo al pulsarlas (clic, Enter o Espacio), no al pasar el ratón o el foco por encima como en el prototipo.
 - **Formulario.**
   - Envía a `/api/contact` en el Worker (`workers/site/`, ver «Despliegue»), con el Email Service de Cloudflare: desde `web@mail.marcelagotta.com` a `me@marcelagotta.com`, con `Reply-To` a quien escribe.
   - Funciona como mejora progresiva: sin JS, el Worker redirige a `#contact-sent` o `#contact-error` y `:target` muestra el resultado; con JS, `fetch` y el resultado en el sitio.
@@ -305,7 +305,7 @@ Trabaja una fase cada vez y para al final de cada una para revisión.
 5. **Móvil, tema claro y EN.** Recorre todas las páginas a 390 px y a 1440 px en los dos temas y los dos idiomas.
 6. **Calidad.** axe sin violaciones, Lighthouse móvil (LCP por debajo de 2.5 s, CLS 0), navegación completa con teclado, prueba con reduced-motion y tests de `mars-clock` (sol 1000 el 13 de diciembre de 2023; LMST de aterrizaje 15:53).
 7. **SEO y despliegue.**
-   - Título «Marcela Gotta · Senior Software Engineer» y descripción con el titular.
+   - Título «Marcela Gotta · Software Engineer» y descripción con el titular. Decidido con Mars: Software Engineer es su profesión y Head Frontend Developer, su puesto en Sngular; los dos en inglés en ambos idiomas.
    - `hreflang` y `canonical` (siempre en marcelagotta.com), sitemap y `robots.txt`.
    - Datos estructurados `Person` con `sameAs` a LinkedIn, GitHub y X.
    - Imagen OG con la estética del hero (pendiente de diseño).

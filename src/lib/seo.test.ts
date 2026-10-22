@@ -33,7 +33,11 @@ describe('seo', () => {
     });
     const person = find(graph, 'Person');
     expect(person.description).toMatch(/^Soy Marcela Gotta, ingeniera de software en Madrid/);
-    expect(person.jobTitle).toBe('Head Frontend Developer');
+    expect(person.jobTitle).toBe('Software Engineer');
+    expect(person.worksFor).toMatchObject({
+      roleName: 'Head Frontend Developer',
+      worksFor: { name: 'Sngular' },
+    });
     expect(person.sameAs).toEqual([
       'https://github.com/MarsGotta',
       'https://www.linkedin.com/in/marcelagotta',

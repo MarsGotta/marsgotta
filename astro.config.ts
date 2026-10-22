@@ -33,6 +33,8 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
+      // Only the pages of the site map: the 404 pages stay out, the English one included.
+      filter: (page) => translations.has(page),
       serialize: (item) => ({ ...item, links: translations.get(item.url) }),
     }),
   ],

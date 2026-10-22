@@ -61,8 +61,14 @@ export function structuredData(site: URL, page: PageInfo) {
       alternateName: 'Mars',
       url: site.href,
       description: t.about.p1,
-      jobTitle: 'Head Frontend Developer',
-      worksFor: { '@type': 'Organization', name: 'Sngular' },
+      // Her profession; Head Frontend Developer is her position at Sngular, not her title.
+      jobTitle: 'Software Engineer',
+      worksFor: {
+        '@type': 'EmployeeRole',
+        roleName: 'Head Frontend Developer',
+        startDate: '2019',
+        worksFor: { '@type': 'Organization', name: 'Sngular' },
+      },
       homeLocation: {
         '@type': 'Place',
         address: { '@type': 'PostalAddress', addressLocality: 'Madrid', addressCountry: 'ES' },

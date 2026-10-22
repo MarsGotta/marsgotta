@@ -1,24 +1,27 @@
 ---
-import { getMessages } from '../../i18n';
+import { getMessages, otherLang, type Lang } from '../../i18n';
 import { localizedPath } from '../../i18n/routes';
+import PageHeader from './PageHeader.astro';
 
-const es = getMessages('es');
-const en = getMessages('en');
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = getMessages(lang);
+const other = otherLang(lang);
 ---
 
-<section class="sec sec--tight" aria-label="404">
-  <div class="wrap">
-    <p class="lead">[PENDIENTE: texto de la página 404]</p>
-    <div class="actions">
-      <a class="btn btn--primary" href={localizedPath('home', 'es')}>
-        {es.nav.inicio}
-      </a>
-      <a class="btn btn--ghost" href={localizedPath('home', 'en')} lang="en">
-        {en.nav.inicio}
-      </a>
-    </div>
+<PageHeader kicker="404" title={t.notFound.title} accent={t.notFound.accent} lead={t.notFound.lead}>
+  <div class="actions">
+    <a class="btn btn--primary" href={localizedPath('home', lang)}>
+      {t.nav.inicio}
+    </a>
+    <a class="btn btn--ghost" href={localizedPath('home', other)} lang={other}>
+      {getMessages(other).nav.inicio}
+    </a>
   </div>
-</section>
+</PageHeader>
 
 <style>
   .actions {

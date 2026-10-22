@@ -24,7 +24,10 @@ const { lang, route } = Astro.props;
 const t = getMessages(lang);
 const { title, description } = route
   ? pageMeta(route, lang)
-  : { title: '404 · Marcela Gotta', description: pageMeta('home', lang).description };
+  : {
+      title: `404 · ${t.notFound.accent} · Marcela Gotta`,
+      description: `${t.notFound.title} ${t.notFound.accent} ${t.notFound.lead}`,
+    };
 ---
 
 <!doctype html>

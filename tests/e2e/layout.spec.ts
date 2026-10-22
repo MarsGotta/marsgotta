@@ -13,6 +13,24 @@ test.describe('theme', () => {
     await expect(html).toHaveAttribute('data-theme', 'light');
   });
 
+  test.describe('on a light system', () => {
+    test.use({ colorScheme: 'light' });
+
+    test('follows the system until the visitor chooses', async ({ page }) => {
+      await page.emulateMedia({ reducedMotion: 'reduce' });
+      await page.goto('/');
+      const html = page.locator('html');
+      await expect(html).toHaveAttribute('data-theme', 'light');
+      await page.emulateMedia({ colorScheme: 'dark' });
+      await expect(html).toHaveAttribute('data-theme', 'dark');
+      await page.locator('.nav [data-theme-toggle]').click();
+      await expect(html).toHaveAttribute('data-theme', 'light');
+      await page.emulateMedia({ colorScheme: 'dark' });
+      await page.reload();
+      await expect(html).toHaveAttribute('data-theme', 'light');
+    });
+  });
+
   test('switches instantly with reduced motion', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.goto('/');

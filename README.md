@@ -9,18 +9,18 @@ Web personal de Marcela Gotta, versión 3. Astro 7 con salida estática, despleg
 
 ## Comandos
 
-| Comando              | Qué hace                                                          |
-| -------------------- | ----------------------------------------------------------------- |
-| `npm run dev`        | Servidor de desarrollo en `localhost:4321`.                       |
-| `npm run build`      | Genera el sitio estático en `dist/`.                              |
-| `npm run preview`    | Sirve `dist/` con Astro.                                          |
-| `npm run preview:cf` | Construye y sirve `dist/` con `wrangler dev`, como en producción. |
-| `npm run lint`       | ESLint y Prettier en modo comprobación.                           |
-| `npm run format`     | Formatea con Prettier.                                            |
-| `npm run typecheck`  | `astro check`.                                                    |
-| `npm run test`       | Tests unitarios con Vitest.                                       |
-| `npm run test:e2e`   | Tests e2e y de accesibilidad con Playwright sobre `dist/`.        |
-| `npm run deploy`     | Construye y despliega con `wrangler deploy`.                      |
+| Comando              | Qué hace                                                                                             |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `npm run dev`        | Servidor de desarrollo en `localhost:4321`.                                                          |
+| `npm run build`      | Genera el sitio estático en `dist/`.                                                                 |
+| `npm run preview`    | Sirve `dist/` con Astro.                                                                             |
+| `npm run preview:cf` | Construye y sirve `dist/` con `wrangler dev`, como en producción.                                    |
+| `npm run lint`       | ESLint y Prettier en modo comprobación.                                                              |
+| `npm run format`     | Formatea con Prettier.                                                                               |
+| `npm run typecheck`  | `astro check`.                                                                                       |
+| `npm run test`       | Tests unitarios con Vitest.                                                                          |
+| `npm run test:e2e`   | Tests e2e y de accesibilidad con Playwright sobre `dist/`, servido por el Worker con `wrangler dev`. |
+| `npm run deploy`     | Construye y despliega con `wrangler deploy`.                                                         |
 
 ## Diseño y contenido
 
@@ -28,7 +28,7 @@ La fuente de verdad está en `design/v3/`: el prototipo, el CSS y la lógica ext
 
 ## Despliegue en Cloudflare
 
-El sitio es un Worker con static assets (`wrangler.jsonc`, directorio `dist/`): Cloudflare sirve los ficheros directamente, con brotli y las cabeceras de `public/_headers`. Solo ejecuta código la ruta del formulario, `/api/contact` (`workers/site/`), y las rutas sin fichero, que reciben la página 404.
+El sitio es un Worker con static assets (`wrangler.jsonc`, directorio `dist/`): Cloudflare sirve los ficheros directamente, con brotli y las cabeceras de `public/_headers`. El código del Worker (`workers/site/`) solo corre en las páginas, para elegir el idioma; en la ruta del formulario, `/api/contact`; y en las rutas sin fichero, que reciben la página 404. Scripts, estilos, fuentes e imágenes se sirven sin pasar por él.
 
 | Worker                  | Dominios                                                 | Qué hace                                                  |
 | ----------------------- | -------------------------------------------------------- | --------------------------------------------------------- |
@@ -59,6 +59,14 @@ Los Custom Domains de Workers no pueden ocupar un nombre que ya tenga registros 
 Los MX (Google Workspace e iCloud) y los TXT (SPF y verificaciones) no se tocaron.
 
 Para volver a la web anterior: quita los Custom Domains de los dos Workers (panel → Workers → Settings → Domains & Routes) y recrea los registros de la tabla, sin proxy.
+
+### Idioma automático
+
+Cada idioma es una URL propia (español sin prefijo e inglés bajo `/en`). El Worker decide al llegar a la web, nunca mientras se navega por ella:
+
+- **Al llegar desde fuera** (un enlace externo, un buscador o la URL tecleada), si la página está en el otro idioma redirige (302) a la misma página en el suyo. El idioma es el que el visitante eligió antes, si lo hizo, o el de su navegador (`Accept-Language`). El catalán, el gallego y el euskera cuentan como español, y cualquier otro idioma, como inglés.
+- **Dentro de la web** no redirige nunca. Cambiar de idioma con el selector ES/EN guarda la elección en la cookie `lang` durante un año.
+- **Buscadores, agentes y previsualizaciones de enlaces** reciben siempre la URL que piden, igual que los navegadores que no indican idioma. Cada página enlaza su traducción con `hreflang`.
 
 ### Formulario de contacto
 

@@ -38,6 +38,8 @@ try {
     const page = await browser.newPage({
       viewport: { width: 1200, height: 630 },
       reducedMotion: 'reduce',
+      // The card is the dark hero, whatever the system theme of the machine running this.
+      colorScheme: 'dark',
     });
     await page.goto(`http://localhost:${PORT}${path}`, { waitUntil: 'networkidle' });
     await page.addStyleTag({ content: CARD_CSS });

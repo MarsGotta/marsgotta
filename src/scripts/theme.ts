@@ -20,12 +20,23 @@ function syncTitles(): void {
   });
 }
 
-function applyTheme(theme: Theme): void {
-  document.documentElement.dataset.theme = theme;
+function savedTheme(): string | null {
   try {
-    localStorage.setItem(STORAGE_KEY, theme);
+    return localStorage.getItem(STORAGE_KEY);
   } catch {
-    // Private mode or blocked storage: the theme still applies to this page.
+    return null;
+  }
+}
+
+/** Only the toggle remembers the theme: until then, the page follows the system. */
+function applyTheme(theme: Theme, { remember }: { remember: boolean }): void {
+  document.documentElement.dataset.theme = theme;
+  if (remember) {
+    try {
+      localStorage.setItem(STORAGE_KEY, theme);
+    } catch {
+      // Private mode or blocked storage: the theme still applies to this page.
+    }
   }
   syncTitles();
   document.dispatchEvent(new CustomEvent<Theme>('themechange', { detail: theme }));
@@ -37,7 +48,7 @@ function toggleTheme(): void {
   document.querySelectorAll('.dawn').forEach((dawn) => dawn.remove());
 
   if (prefersReducedMotion()) {
-    applyTheme(next);
+    applyTheme(next, { remember: true });
     return;
   }
 
@@ -47,7 +58,7 @@ function toggleTheme(): void {
   // An open modal menu lives in the top layer, so the sunrise has to go inside it to be seen.
   (document.querySelector('dialog[open]') ?? document.body).append(dawn);
   pending = [
-    window.setTimeout(() => applyTheme(next), DAWN_SWAP_MS),
+    window.setTimeout(() => applyTheme(next, { remember: true }), DAWN_SWAP_MS),
     window.setTimeout(() => dawn.remove(), DAWN_END_MS),
   ];
 }
@@ -57,4 +68,8 @@ export function initThemeToggles(): void {
     button.addEventListener('click', toggleTheme);
   });
   syncTitles();
+  // The system can switch while the page is open (automatic dark mode at sunset, for instance).
+  window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (event) => {
+    if (!savedTheme()) applyTheme(event.matches ? 'light' : 'dark', { remember: false });
+  });
 }

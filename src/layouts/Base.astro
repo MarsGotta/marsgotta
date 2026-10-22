@@ -38,17 +38,19 @@ const { title, description } = route
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preload" href={headlineFont} as="font" type="font/woff2" crossorigin />
     <script is:inline>
-      // Applies the saved theme and SIM pause before the first paint, so the page never flashes.
+      // Applies the theme and the SIM pause before the first paint, so the page never flashes. The
+      // theme is the visitor's choice if there is one, and otherwise the system's.
+      let saved = null;
       try {
-        if (localStorage.getItem('theme') === 'light') {
-          document.documentElement.dataset.theme = 'light';
-        }
+        saved = localStorage.getItem('theme');
         if (localStorage.getItem('motion') === 'off') {
           document.documentElement.dataset.motion = 'off';
         }
       } catch {
-        // Storage blocked: keep the defaults.
+        // Storage blocked: follow the system.
       }
+      const light = saved ? saved === 'light' : matchMedia('(prefers-color-scheme: light)').matches;
+      if (light) document.documentElement.dataset.theme = 'light';
     </script>
   </head>
   <body>

@@ -8,8 +8,18 @@
     "binding": "ASSETS",
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash",
-    // Only the contact endpoint runs code; every file is served without it.
-    "run_worker_first": ["/api/*"],
+    // The pages run code to pick the visitor's language (workers/site/language.ts), and /api/* is
+    // the contact endpoint. Scripts, styles, fonts and images are served without it.
+    "run_worker_first": [
+      "/api/*",
+      "/",
+      "/sobre-mi",
+      "/proyectos",
+      "/charlas",
+      "/contacto",
+      "/en",
+      "/en/*",
+    ],
   },
   // The binding can only write to Marcela from web@, so not even a bug can email anyone else.
   "send_email": [

@@ -24,3 +24,18 @@ export function localizedPath(route: RouteKey, lang: Lang, hash?: string): strin
   const path = paths[route][lang];
   return hash ? `${path}#${hash}` : path;
 }
+
+export interface Page {
+  route: RouteKey;
+  lang: Lang;
+}
+
+/** The page a path belongs to, or null for any other path (assets, the 404, the API). */
+export function findPage(pathname: string): Page | null {
+  for (const route of routeKeys) {
+    for (const [lang, path] of Object.entries(paths[route]) as [Lang, string][]) {
+      if (path === pathname) return { route, lang };
+    }
+  }
+  return null;
+}

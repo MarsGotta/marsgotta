@@ -19,6 +19,7 @@ Web personal de Marcela Gotta («Mars»): ingeniera de software en Madrid, Head 
 - **Idiomas:** i18n nativo de Astro, con es por defecto sin prefijo y en con `/en`. Rutas:
   - `/`, `/sobre-mi`, `/proyectos`, `/charlas`, `/contacto`
   - `/en`, `/en/about`, `/en/projects`, `/en/talks`, `/en/contact`
+  - El idioma se elige solo: al llegar, el Worker lleva al visitante a su idioma (el de su navegador o el que eligió antes en el selector, guardado en una cookie). El tema sigue al del sistema hasta que el visitante lo cambia.
 - **Estilos:** componentes `.astro` con estilos con scope y tokens globales en `src/styles/tokens.css`. Sin Tailwind ni frameworks de UI (nada de React, Vue o Svelte).
 - **Interactividad:** TypeScript de cliente pequeño en `src/scripts/`, sin framework.
   - Cubre el tema y el amanecer, el menú, las pestañas, las demos, la constelación, el formulario y la parallax.

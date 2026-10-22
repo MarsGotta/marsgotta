@@ -82,6 +82,10 @@ const t = getMessages(Astro.props.lang);
       margin: 0 var(--gutter) 40px;
       grid-template-columns: auto auto;
     }
+    /* In the light theme there is no planet between the buttons and the legend. */
+    .legend--surface {
+      margin-top: 40px;
+    }
     .legend__a {
       display: none;
     }

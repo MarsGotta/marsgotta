@@ -21,7 +21,7 @@ Web personal de Marcela Gotta («Mars»): ingeniera de software en Madrid, Head 
   - `/en`, `/en/about`, `/en/projects`, `/en/talks`, `/en/contact`
 - **Estilos:** componentes `.astro` con estilos con scope y tokens globales en `src/styles/tokens.css`. Sin Tailwind ni frameworks de UI (nada de React, Vue o Svelte).
 - **Interactividad:** TypeScript de cliente pequeño en `src/scripts/`, sin framework.
-  - Cubre el tema y el amanecer, el HUD, el menú, las pestañas, las demos, la constelación, el formulario y la parallax.
+  - Cubre el tema y el amanecer, el menú, las pestañas, las demos, la constelación, el formulario y la parallax.
   - El planeta WebGL va en `src/lib/planet/`, con carga diferida tras el primer pintado.
 - **Fuentes:** autoalojadas, con `font-display: swap`.
   - Open Sauce Two desde `public/fonts/`.
@@ -80,7 +80,7 @@ Los periodos de Fobos (7 h 39 min) y Deimos (30 h 18 min), la rotación de Marte
 
 - **Accesibilidad:**
   - WCAG 2.2 AA, HTML semántico, foco visible y navegación completa con teclado.
-  - El botón «SIM» del HUD pausa todas las animaciones.
+  - El botón «SIM» del pie pausa todas las animaciones.
   - `prefers-reduced-motion` muestra la versión estática completa.
   - Sin cursor personalizado, sin sonido y sin pantallas de carga.
 - **Rendimiento:**

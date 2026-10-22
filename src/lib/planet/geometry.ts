@@ -32,7 +32,7 @@ export function projectSurfacePoint(latitude: number, longitudeFromCenter: numbe
 /**
  * Local mean solar time, in hours, at `longitude` (degrees east) while the meridian `centralLongitude`
  * faces the camera and the sun shines from SUN_AZIMUTH_DEG. The planet starts with the real subsolar
- * longitude, so at page load this equals the real LMST shown in the HUD.
+ * longitude, so at page load this equals the real LMST from marsClock.
  */
 export function simulatedLocalTime(
   longitude: number,

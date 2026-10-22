@@ -12,7 +12,7 @@ const OUT = new URL('../public/', import.meta.url);
 
 // The hero recomposed for a 1200 × 630 card: headline on the left, planet on the right.
 const CARD_CSS = `
-  .nav__bar > :not(.brand), .hud, .legend, .hero__sub, .hero__ctas, .skip,
+  .nav__bar > :not(.brand), .legend, .hero__sub, .hero__ctas, .skip,
   main > :not(.hero), footer { display: none !important; }
   .nav__bg { display: none; }
   .hero { min-height: 630px; height: 630px; }

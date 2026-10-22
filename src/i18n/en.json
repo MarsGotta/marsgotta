@@ -38,10 +38,6 @@
     "phRise": "rises in the west",
     "deRise": "rises in the east"
   },
-  "hud": {
-    "aria": "Live telemetry",
-    "mad": "Madrid"
-  },
   "now": {
     "title": "Right now",
     "updated": "Updated"
@@ -392,6 +388,7 @@
     "email": "Your email",
     "msg": "Tell me",
     "send": "Send",
-    "sent": "Received. I'll get back to you in a few days."
+    "sent": "Received. I'll get back to you in a few days.",
+    "error": "Oops, there was some interference. Try again in a moment."
   }
 }

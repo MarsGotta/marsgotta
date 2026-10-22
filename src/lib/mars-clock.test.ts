@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatHoursMinutes, madridTime, marsClock } from './mars-clock';
+import { formatHoursMinutes, marsClock } from './mars-clock';
 
 // Perseverance touched down at 20:43:49 UTC spacecraft event time; Earth heard it 11 minutes later.
 const LANDING = Date.UTC(2021, 1, 18, 20, 43, 49);
@@ -37,12 +37,5 @@ describe('formatHoursMinutes', () => {
   it('pads and truncates', () => {
     expect(formatHoursMinutes(7.999)).toBe('07:59');
     expect(formatHoursMinutes(15.8906)).toBe('15:53');
-  });
-});
-
-describe('madridTime', () => {
-  it('follows Madrid summer and winter time', () => {
-    expect(madridTime(Date.UTC(2026, 6, 1, 10, 5, 9))).toBe('12:05:09');
-    expect(madridTime(Date.UTC(2026, 0, 1, 10, 5, 9))).toBe('11:05:09');
   });
 });

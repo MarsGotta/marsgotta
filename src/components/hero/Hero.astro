@@ -2,7 +2,6 @@
 import { getMessages, type Lang } from '../../i18n';
 import { localizedPath } from '../../i18n/routes';
 import Headline from './Headline.astro';
-import Hud from './Hud.astro';
 import Legend from './Legend.astro';
 import PlanetSystem from './PlanetSystem.astro';
 import SpaceBackdrop from './SpaceBackdrop.astro';
@@ -49,7 +48,6 @@ const t = getMessages(lang);
     </div>
   </div>
   <PlanetSystem lang={lang} />
-  <Hud lang={lang} />
   <Legend lang={lang} />
 </section>
 

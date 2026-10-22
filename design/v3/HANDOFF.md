@@ -43,7 +43,7 @@ El prototipo es un "Design Component" de Claude Design: HTML con un `<style>` de
 | `state.route` | rutas reales de `src/pages/` |
 | `/_blob/…` en `@font-face` y en `.mg-grain` | rutas de `public/` (`/fonts/…` y `/grain.png`) |
 
-Casi todo es HTML y CSS estático renderizado en build. Solo llevan script la interactividad y lo que depende de la hora: tema, idioma, HUD, menú, pestañas, demos, constelación, formulario y planeta.
+Casi todo es HTML y CSS estático renderizado en build. Solo llevan script la interactividad y lo que depende de la hora: tema, idioma, menú, pestañas, demos, constelación, formulario y planeta.
 
 El prefijo `mg-` existe solo para aislar estilos en el canvas. Con los estilos con scope de Astro puede desaparecer.
 
@@ -77,7 +77,7 @@ src/
   components/
     nav/        Nav, Brand (logo.svg + "marcela.gotta"), LangSwitch, ThemeToggle, MobileMenu
     hero/       Hero, Headline (palabra a palabra), Starfield, Warp, PlanetSystem, Moons, JezeroMarker,
-                Hud, Legend, SurfaceScene (tema claro)
+                Legend, SurfaceScene (tema claro)
     now/        NowBand (lee src/content/now.ts)
     system/     ProjectSystem, Orrery, ProjectTabs, DemoStage, KimenDemo, JezeroDemo, OrbitDemo
     trajectory/ TransferOrbit (inicio, 3 órbitas) y TransferTimeline (sobre mí, 6 órbitas)
@@ -87,7 +87,7 @@ src/
     contact/    Channels, ContactForm
     footer/     Footer
   scripts/                TypeScript de cliente, sin framework, importado desde los <script> de los componentes
-    theme.ts, menu.ts, hud.ts, project-tabs.ts, demos.ts, constellation.ts, contact-form.ts, parallax.ts
+    theme.ts, menu.ts, project-tabs.ts, demos.ts, constellation.ts, contact-form.ts, parallax.ts
   lib/
     mars-clock.ts         Mars24 (porta mgMarsClock tal cual) + tests en Vitest
     planet/               shaders.ts (MG_VS, MG_BAKE_FS, MG_FS) y planet.ts (mgPlanet como clase con dispose())
@@ -107,9 +107,7 @@ Notas de implementación:
 - **Idioma.**
   - i18n nativo de Astro: cada idioma son páginas estáticas propias, y el selector ES/EN enlaza a la ruta equivalente del otro idioma.
   - Los arrays (`now.items`, `about.roles`, `talks.items`…) se leen directamente del JSON tipado.
-- **HUD.**
-  - En el HTML estático pinta `--:--`.
-  - Un script arranca un intervalo de 1 s con la hora de Madrid, el sol y la hora de Jezero (`src/lib/mars-clock.ts`).
+- **HUD.** Decidido con Mars: la web no lleva el recuadro de telemetría del prototipo (coordenadas, hora de Madrid, sol y LMST de Jezero). No aportaba información y en móvil empujaba el hero hacia abajo. El botón SIM vive en el pie.
 - **Planeta.**
   - La esfera CSS (`.mg-orb`) va en el HTML como fallback.
   - `planet.ts` se importa de forma dinámica unos 140 ms después del primer pintado, para no competir con el LCP del titular, y se funde al canvas cuando WebGL está listo (`data-gl="on"`).
@@ -161,7 +159,7 @@ Copia los valores exactos de `.mg-app` y `.mg-app[data-theme="light"]` en `extra
 
 Contraste validado (WCAG 2.2 AA): fg 18.6:1 y 12.7:1, muted 7.75:1 y 6.73:1, subtle por encima de 5:1. El violeta claro y el degradado solo se usan en texto grande (3:1 como mínimo).
 
-**Tipografía.** Sora 700 para titulares (tracking −0.045em en display, `line-height` 0.93). «que piensa» va en cursiva sintetizada (Sora no tiene itálica), como en la web actual. Open Sauce Two 400/500/600 para texto e interfaz, a 17 px de base y 1.6 de interlineado. JetBrains Mono 500 a 10.5–11 px, en mayúsculas y con tracking 0.1–0.16em, para HUD, etiquetas y datos.
+**Tipografía.** Sora 700 para titulares (tracking −0.045em en display, `line-height` 0.93). «que piensa» va en cursiva sintetizada (Sora no tiene itálica), como en la web actual. Open Sauce Two 400/500/600 para texto e interfaz, a 17 px de base y 1.6 de interlineado. JetBrains Mono 500 a 10.5–11 px, en mayúsculas y con tracking 0.1–0.16em, para etiquetas y datos.
 
 **Escala.** Display `clamp(46px, 9cqi, 150px)`, H1 `clamp(48px, 8.4cqi, 132px)`, H2 `clamp(38px, 5.4cqi, 80px)`, H3 `clamp(26px, 2.7cqi, 40px)`. El prototipo usa unidades `cqi` sobre un contenedor raíz `.mg` (`container-type: inline-size`). En la web real puedes cambiarlas por `vw` y las container queries por media queries.
 
@@ -202,7 +200,7 @@ Todo lo espectacular es además correcto. Si algo se ajusta por estética, que s
 
 - Coordenadas: 18.4447°N, 77.4508°E.
 - Sol de la misión: `floor(MSD + 77.4508/360) − 52304`. Verificado: el sol 1000 cae el 13 de diciembre de 2023.
-- Hora: el HUD muestra la LMST real. El marcador sobre el planeta muestra la LMST simulada, que coincide con la real en el momento de cargar.
+- Hora: el marcador sobre el planeta muestra la LMST simulada, que coincide con la real (`marsClock`) en el momento de cargar.
 
 **Tema claro.** Es la vista desde Jezero mirando al sur:
 
@@ -226,12 +224,12 @@ Todo lo espectacular es además correcto. Si algo se ajusta por estética, que s
 - La intro dura menos de 3 s y nunca bloquea la lectura.
 - Titular: palabras desde 0.35 s, con 0.12 s entre una y otra.
 - Subtítulo a 1.25 s y botones a 1.45 s.
-- HUD a 1.1 s y leyenda a 2.0 s.
+- Leyenda a 2.0 s.
 - Llegada del sistema y de los campos de estrellas: 2.5–2.8 s.
 
 **Calma después.** Por debajo del hero no hay animaciones de entrada. Las demos se reproducen una sola vez, al entrar en pantalla.
 
-**Pausa (WCAG 2.2.2).** El botón «SIM ×3600» del HUD pausa todas las animaciones en bucle y el planeta, y pasa a «SIM ×0».
+**Pausa (WCAG 2.2.2).** El botón «SIM ×3600» del pie, en todas las páginas, pausa todas las animaciones en bucle y el planeta, y pasa a «SIM ×0».
 
 **`prefers-reduced-motion`.** Muestra la versión estática completa: lunas detenidas en su fase, titular visible, demos en su estado final y cambio de tema instantáneo.
 
@@ -297,7 +295,7 @@ Trabaja una fase cada vez y para al final de cada una para revisión.
    - Crea `wrangler.jsonc` sin dominios todavía. Comprueba que `npm run build` pasa y que `wrangler dev` sirve `dist/`.
 1. **Base.** Tokens en `src/styles/tokens.css`, fuentes autoalojadas, `Base.astro` con el script del tema y el overlay de amanecer, i18n y tabla de rutas, `Nav` (incluido el menú móvil) y `Footer`.
 2. **Inicio sin WebGL.**
-   - Hero: titular palabra a palabra, starfield, warp, esfera CSS, lunas y órbitas en CSS, HUD y leyenda.
+   - Hero: titular palabra a palabra, starfield, warp, esfera CSS, lunas y órbitas en CSS y leyenda.
    - Escena de superficie para el tema claro.
    - `NowBand`, `ProjectSystem` con las tres demos, `TransferOrbit` y el cierre.
 3. **Planeta WebGL.** `src/lib/planet/` (porta `mgPlanet`, `MG_BAKE_FS`, `MG_FS` y `mgMarsClock`), carga diferida, marcador de Jezero y fallback.
@@ -316,9 +314,9 @@ Trabaja una fase cada vez y para al final de cada una para revisión.
 
 - [ ] Las 5 páginas en ES y EN, en tema oscuro y claro, en escritorio y móvil, coinciden con el prototipo.
 - [ ] El cambio de tema reproduce el amanecer y se recuerda entre visitas.
-- [ ] El HUD muestra datos reales y el botón SIM pausa todo.
+- [ ] El botón SIM pausa todo.
 - [ ] Fobos da casi 4 vueltas por cada una de Deimos, pasa por delante y por detrás de Marte y se oscurece en su sombra.
-- [ ] El planeta carga con la iluminación real del momento y el marcador de Jezero coincide con la hora del HUD al cargar.
+- [ ] El planeta carga con la iluminación real del momento y el marcador de Jezero coincide con la LMST real al cargar.
 - [ ] Las demos arrancan al entrar en pantalla y su estado final es completo sin JS.
 - [ ] Con reduced-motion, todo es estático y completo.
 - [ ] Ninguna regla de la sección 6 se incumple.

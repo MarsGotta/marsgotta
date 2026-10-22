@@ -1,13 +1,6 @@
 import { expect, test } from '@playwright/test';
 
 test.describe('home', () => {
-  test('the HUD shows live Madrid time, Perseverance sol and Jezero LMST', async ({ page }) => {
-    await page.goto('/');
-    await expect(page.locator('[data-hud-madrid]')).toHaveText(/^\d{2}:\d{2}:\d{2}$/);
-    await expect(page.locator('[data-hud-sol]')).toHaveText(/^\d{4}$/);
-    await expect(page.locator('[data-hud-lmst]')).toHaveText(/^\d{2}:\d{2}$/);
-  });
-
   test('the headline reads as one sentence', async ({ page }) => {
     await page.goto('/');
     await expect(
@@ -19,7 +12,7 @@ test.describe('home', () => {
   test('SIM pauses every animation and is remembered', async ({ page }) => {
     await page.goto('/');
     const html = page.locator('html');
-    const sim = page.locator('.hud [data-motion-toggle]');
+    const sim = page.locator('footer [data-motion-toggle]');
     await expect(sim).toHaveAccessibleName(/Pausar animaciones: SIM ×3600/);
     await sim.click();
     await expect(html).toHaveAttribute('data-motion', 'off');

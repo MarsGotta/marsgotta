@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import { formatHoursMinutes, marsClock } from '../../src/lib/mars-clock';
 
 /** Software WebGL keeps the CSS sphere on purpose, so each test checks the branch that applies. */
 async function hasHardwareWebGL(page: Page): Promise<boolean> {
@@ -28,14 +29,18 @@ test.describe('WebGL planet', () => {
     }
   });
 
-  test('marks Jezero with the same local time as the HUD at load', async ({ page }) => {
+  test('marks Jezero with the real local time at load', async ({ page }) => {
+    const lmst = () => formatHoursMinutes(marsClock(Date.now()).lmst);
     // With SIM paused the planet draws a single frame at the moment of loading.
     await page.addInitScript(() => localStorage.setItem('motion', 'off'));
+    const before = lmst();
     await page.goto('/');
     test.skip(!(await hasHardwareWebGL(page)), 'Needs hardware WebGL');
     await expect(page.locator('[data-planet-system]')).toHaveAttribute('data-gl', 'on');
-    const hud = await page.locator('[data-hud-lmst]').textContent();
-    await expect(page.locator('[data-jezero-time]')).toHaveText(hud ?? '');
+    // A Martian minute may tick over while the page loads.
+    await expect(page.locator('[data-jezero-time]')).toHaveText(
+      new RegExp(`^(${before}|${lmst()})$`),
+    );
   });
 
   test('is not loaded in the light theme until the theme turns dark', async ({ page }) => {

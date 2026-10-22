@@ -97,16 +97,3 @@ export function formatHoursMinutes(hours: number): string {
   const m = Math.floor((hours - h) * 60);
   return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
 }
-
-const madridFormat = new Intl.DateTimeFormat('es-ES', {
-  timeZone: 'Europe/Madrid',
-  hour: '2-digit',
-  minute: '2-digit',
-  second: '2-digit',
-  hour12: false,
-});
-
-/** Wall-clock time in Madrid as HH:MM:SS. */
-export function madridTime(ms: number): string {
-  return madridFormat.format(new Date(ms));
-}

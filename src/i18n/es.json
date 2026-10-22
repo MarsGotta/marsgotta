@@ -38,10 +38,6 @@
     "phRise": "sale por el oeste",
     "deRise": "sale por el este"
   },
-  "hud": {
-    "aria": "Telemetría en vivo",
-    "mad": "Madrid"
-  },
   "now": {
     "title": "Ahora mismo",
     "updated": "Actualizado el"
@@ -392,6 +388,7 @@
     "email": "Tu email",
     "msg": "Cuéntame",
     "send": "Enviar",
-    "sent": "Recibido. Te contesto en unos días."
+    "sent": "Recibido. Te contesto en unos días.",
+    "error": "Ups, ha habido un problema de interferencias. Vuelve a intentarlo en un momento."
   }
 }

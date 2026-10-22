@@ -16,7 +16,8 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "og": "node scripts/og-image.ts",
-    "deploy": "npm run build && wrangler deploy",
+    "deploy": "npm run build && wrangler deploy && npm run indexnow",
+    "indexnow": "node scripts/indexnow.ts",
     "deploy:redirect": "wrangler deploy -c workers/redirect/wrangler.jsonc",
     "preview:cf": "npm run build && wrangler dev"
   },

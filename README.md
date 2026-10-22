@@ -40,7 +40,7 @@ Las redirecciones van en un Worker aparte (`workers/redirect/`) para que el siti
 ### Desplegar
 
 1. Comprueba la sesión: `npx wrangler whoami`.
-2. `npm run deploy` construye y publica el sitio.
+2. `npm run deploy` construye y publica el sitio, y avisa por IndexNow a Bing y a los demás buscadores que lo usan (`scripts/indexnow.ts`). La clave es pública por diseño y vive en `public/<clave>.txt`.
 3. `npm run deploy:redirect`, solo si cambia `workers/redirect/`.
 4. Verifica el despliegue con los tests e2e: `BASE_URL=https://marcelagotta.com npm run test:e2e`.
 

@@ -10,4 +10,7 @@
   // The canonical host. www.marcelagotta.com, marsgotta.com and www.marsgotta.com redirect here
   // from their own Worker (workers/redirect), so static assets are served without running code.
   "routes": [{ "pattern": "marcelagotta.com", "custom_domain": true }],
+  // wrangler turns workers.dev off when routes exist; it stays on as the place to test a build
+  // before it reaches the custom domain.
+  "workers_dev": true,
 }

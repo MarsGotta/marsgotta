@@ -53,7 +53,7 @@ Web personal de Marcela Gotta («Mars»): ingeniera de software en Madrid, Head 
   - Un commit, un resumen y para.
 - **Commits** pequeños, en español y en imperativo.
 - **Si el prototipo y la realidad chocan** (un límite de Astro o del navegador), pregunta en vez de improvisar.
-- **No inventes contenido.** Si falta algo, deja un marcador visible como `[PENDIENTE: …]`.
+- **No inventes contenido.** Si falta algo, no dejes un marcador: redáctame una propuesta con mi voz y enséñamela en el resumen, marcada como propuesta. Nada de eso se publica en producción sin mi OK.
 - **Despliegue:**
   - Nunca despliegues a producción ni toques DNS o dominios sin mi OK explícito. Primero, `*.workers.dev`.
   - Los secretos van con `wrangler secret put`, nunca en el repo.

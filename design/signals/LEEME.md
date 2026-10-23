@@ -46,7 +46,7 @@ Siguen mandando `CLAUDE.md` (código legible, accesibilidad, rendimiento, despli
   - Incluye las cabeceras de tema y archivo, «Ver archivo», la 404 y las páginas de suscripción confirmada y baja.
   - También los títulos y descripciones de cada página en los dos idiomas, la descripción del JSON-LD `Blog`, los errores del formulario sin copy, las etiquetas de compartir y el estado vacío.
   - Cada fase lista en su resumen los textos nuevos que ha redactado. Nada llega a producción sin que Mars los haya visto.
-  - No se usan marcadores `[PENDIENTE]` para estos textos.
+  - Es la regla general de `CLAUDE.md`: nunca marcadores `[PENDIENTE]`, siempre una propuesta.
 
 ### 1.1 Decisiones de Claude, revisables por Mars
 
@@ -117,7 +117,7 @@ z.object({
 - Los artículos del prototipo **son de ejemplo y no se publican**.
 - El 007, el tutorial de SQLite FTS5, está escrito entero en ES y EN y va con `draft: true` para que Mars lo revise. Cópialo a la colección como borrador.
 - Los demás títulos solo enseñan el diseño: no crees esos artículos.
-- Si la colección está vacía, la home muestra un estado vacío digno con la suscripción: «Las primeras señales están en camino.» Pide el copy definitivo a Mars; mientras tanto, deja `[PENDIENTE: copy estado vacío]`.
+- Si la colección está vacía, la home muestra un estado vacío digno con la suscripción: «Las primeras señales están en camino.» Si hace falta más copy, propónselo a Mars.
 
 ### 3.1 Escribir en Obsidian y publicar
 
@@ -255,7 +255,7 @@ export interface NewsletterProvider {
   - Nunca guarda el email en logs.
   - Responde JSON si lo pide `fetch` y, si no, redirige.
 - **Proveedor de desarrollo:** `DevProvider` responde siempre `ok` y no envía nada. Es el único que existe hasta que Mars decida.
-- **En producción, mientras no haya proveedor real,** los formularios no se muestran y la banda dice `[PENDIENTE: newsletter]`. Así nunca se promete un email que no va a llegar.
+- **En producción, mientras no haya proveedor real,** los formularios no se muestran y la banda enseña un texto que no prometa ningún email; Claude lo propone y Mars lo aprueba. Así nunca se promete un email que no va a llegar.
 - **Envío por artículo:** depende del proveedor elegido (RSS a email, webhook al desplegar…). Déjalo documentado en el README cuando se decida.
 - **Opciones que valorar con Mars:**
   - un servicio con RSS a email y doble confirmación ya resuelta, como Buttondown;

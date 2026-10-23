@@ -115,13 +115,10 @@ El blog vive en `signals/`, con su propio Worker. Comparte con el portfolio el `
 
 ### Desplegar el blog
 
-- **Prueba:** `npm run signals:deploy` publica el build de producción en https://signals.marcelagotta.workers.dev. `signals/wrangler.jsonc` no tiene rutas, así que no toca dominios ni DNS. Después, `npm run signals:test:deployed`.
-- **Versiones de revisión:** `npm run signals:deploy:preview` sube una versión con los formularios de la newsletter a https://preview-signals.marcelagotta.workers.dev, sin cambiar la que sirve el Worker.
-- **Producción**, solo con el OK de Mars:
-  1. En `signals/wrangler.jsonc`, añadir `"routes": [{ "pattern": "signals.marsgotta.com", "custom_domain": true }]`. Cloudflare crea el registro DNS en la zona marsgotta.com; hoy el subdominio no tiene ninguno.
-  2. `npm run signals:deploy`.
-  3. `BASE_URL=https://signals.marsgotta.com npm run signals:test:deployed`.
-  4. Comprobar que https://marsgotta.com sigue redirigiendo al portfolio: su Worker solo cubre el dominio raíz y `www`.
+- **Antes, una prueba:** `npm run signals:deploy:preview` sube una versión con los formularios de la newsletter a https://preview-signals.marcelagotta.workers.dev, sin cambiar la que sirve el Worker.
+- **Producción**, solo con el OK de Mars: `npm run signals:deploy` publica el build en https://signals.marsgotta.com, el dominio propio del Worker en la zona marsgotta.com. La misma versión sigue en https://signals.marcelagotta.workers.dev, sin indexar.
+- **Después:** `BASE_URL=https://signals.marsgotta.com npm run signals:test:deployed`. Sin `BASE_URL`, la prueba de humo va contra workers.dev.
+- **marsgotta.com** sigue redirigiendo al portfolio desde su propio Worker, que solo cubre el dominio raíz y `www`.
 
 ### SEO del blog
 

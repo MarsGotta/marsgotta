@@ -20,8 +20,9 @@
       "simple": { "limit": 5, "period": 60 },
     },
   ],
-  // No production route yet: signals.marsgotta.com is attached only with Mars's OK. Until then the
-  // blog lives on workers.dev, and each upload gets its own version URL to review.
+  "routes": [{ "pattern": "signals.marsgotta.com", "custom_domain": true }],
+  // wrangler turns workers.dev off when routes exist, so it is turned back on here: the smoke tests
+  // and the version URLs to review live there, and _headers keeps them out of search engines.
   "workers_dev": true,
   "preview_urls": true,
 }

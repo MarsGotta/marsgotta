@@ -31,6 +31,12 @@ test.describe('@smoke', () => {
     expect(response.headers()['x-robots-tag']).toBe('noindex');
   });
 
+  test('the canonical host can be indexed', async ({ request, baseURL }) => {
+    test.skip(!baseURL?.includes('signals.marsgotta.com'), 'only the canonical host');
+    const response = await request.get('/');
+    expect(response.headers()['x-robots-tag']).toBeUndefined();
+  });
+
   test('an English reader arriving from elsewhere lands on the English home', async ({
     request,
   }) => {

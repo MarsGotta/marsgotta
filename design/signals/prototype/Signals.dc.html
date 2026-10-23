@@ -1,0 +1,976 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Signals by Mars</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Open Sauce Two';font-style:normal;font-weight:400;font-display:swap;src:url(/_blob/4ff2fc9f091cdac0886b0e0a010028ac) format('woff2')}
+@font-face{font-family:'Open Sauce Two';font-style:normal;font-weight:500;font-display:swap;src:url(/_blob/21ca10de03da9f4906ce1015d40b9354) format('woff2')}
+@font-face{font-family:'Open Sauce Two';font-style:normal;font-weight:600;font-display:swap;src:url(/_blob/6815408c5f382cbcb9b2da96bfe88b0d) format('woff2')}
+@font-face{font-family:'Open Sauce Two';font-style:normal;font-weight:700;font-display:swap;src:url(/_blob/05e5c27b314c43f2f2d98709afc16065) format('woff2')}
+body{margin:0;background:#FBF8F4}
+
+/* ---------- Tokens: light = papel (por defecto) ---------- */
+.sg-app{
+  --bg:#FBF8F4;--bg-soft:#F4EDE5;--surface:#FFFFFF;
+  --ink:#1E1612;--ink-2:#3B2F29;--muted:#6E5F57;--faint:#A89990;
+  --line:rgba(30,22,18,.10);--line-2:rgba(30,22,18,.22);
+  --accent:#B4432A;--accent-hover:#963520;--accent-ink:#FFF8F2;--accent-soft:#F8E3D6;
+  --grad:linear-gradient(90deg,#E9603A 0%,#E64241 50%,#D11772 100%);
+  --t-ia:#B4432A;--t-practica:#6F46A4;--t-tutorial:#2F5E8C;
+  --code-bg:#1C1418;--code-ink:#F1E7E0;--code-line:rgba(241,231,224,.08);
+  --ok:#2E6B3A;--bad:#A1211B;
+  --shadow:0 18px 50px -28px rgba(58,26,14,.35);
+  --serif:'Newsreader',Georgia,'Times New Roman',serif;
+  --sans:'Open Sauce Two',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  background:var(--bg);color:var(--ink);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility
+}
+/* ---------- Tokens: dark = noche marciana ---------- */
+.sg-app[data-theme="dark"]{
+  --bg:#110C10;--bg-soft:#1A1317;--surface:#1D1519;
+  --ink:#F2EAE4;--ink-2:#DCD0C8;--muted:#A9998F;--faint:#6F625B;
+  --line:rgba(242,234,228,.10);--line-2:rgba(242,234,228,.22);
+  --accent:#FF7F4A;--accent-hover:#FF9A6E;--accent-ink:#1A0D07;--accent-soft:rgba(255,127,74,.14);
+  --t-ia:#FF8A5B;--t-practica:#BBA3EC;--t-tutorial:#86B7E8;
+  --code-bg:#0A0709;--code-line:rgba(241,231,224,.07);
+  --ok:#9CDA9B;--bad:#F19997;
+  --shadow:0 18px 50px -28px rgba(0,0,0,.8)
+}
+.sg-app,.sg-app *{box-sizing:border-box}
+.sg-app ::selection{background:var(--accent-soft);color:var(--ink)}
+:where(.sg-app) a{color:inherit}
+:where(.sg-app) button{font:inherit;color:inherit}
+.sg-app :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.sg-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.sg-skip{position:absolute;z-index:100;left:16px;top:-60px;padding:10px 16px;border-radius:999px;background:var(--ink);color:var(--bg);font-weight:600;text-decoration:none}
+.sg-skip:focus{top:12px}
+
+.sg{container:sg / inline-size;min-height:100%}
+.sg-wrap{width:100%;max-width:1192px;margin-inline:auto;padding-inline:clamp(20px,3.4cqi,40px)}
+.sg-col{width:100%;max-width:728px;margin-inline:auto;padding-inline:24px}
+
+/* ---------- Shared bits ---------- */
+.sg-over{display:inline-flex;align-items:center;gap:10px;margin:0;font:500 11px/1.4 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.sg-live{position:relative;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.sg-live::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--accent);animation:sgPing 2.4s ease-out 2 both}
+.sg-meta{margin:0;font:400 13px/1.5 var(--sans);color:var(--muted)}
+.sg-meta-top{display:flex;align-items:center;gap:12px;margin:0;font:500 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.sg-topic{display:inline-flex;align-items:center;gap:7px;color:var(--tc);text-decoration:none}
+.sg-topic::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--tc)}
+.t-ia{--tc:var(--t-ia)}.t-practica{--tc:var(--t-practica)}.t-tutorial{--tc:var(--t-tutorial)}
+.sg-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 22px;border:0;border-radius:999px;background:var(--accent);color:var(--accent-ink);font:600 15px/1 var(--sans);text-decoration:none;white-space:nowrap;cursor:pointer;transition:background-color .2s}
+.sg-btn:hover{background:var(--accent-hover)}
+.sg-btn--sm{height:36px;padding:0 16px;font-size:14px}
+.sg-btn--ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line-2)}
+.sg-btn--ghost:hover{background:var(--bg-soft)}
+.sg-ext{display:inline-flex;align-items:center;gap:6px;min-height:44px;color:var(--ink);font:600 14.5px/1 var(--sans);text-decoration:underline;text-decoration-color:var(--line-2);text-underline-offset:5px;transition:text-decoration-color .2s}
+.sg-ext:hover{text-decoration-color:var(--accent)}
+
+/* ---------- Reading progress (article) ---------- */
+.sg-progress{position:fixed;z-index:60;left:0;right:0;top:0;height:2px;pointer-events:none}
+.sg-progress i{display:block;height:100%;background:var(--grad);transform:scaleX(0);transform-origin:0 50%}
+@supports (animation-timeline: scroll()){.sg-progress i{animation:sgGrow linear both;animation-timeline:scroll(root)}}
+
+/* ---------- Top bar ---------- */
+.sg-top{position:sticky;z-index:50;top:0;background:color-mix(in srgb,var(--bg) 94%,transparent);border-bottom:1px solid var(--line)}
+.sg-top__in{display:flex;align-items:center;gap:28px;height:64px}
+.sg-brand{display:inline-flex;align-items:center;gap:10px;min-height:44px;color:var(--ink);text-decoration:none}
+.sg-brand svg{width:26px;height:26px;color:var(--accent)}
+.sg-brand__w{font:600 25px/1 var(--serif);letter-spacing:-.02em;font-variation-settings:'opsz' 48}
+.sg-brand__by{align-self:flex-end;margin:0 0 4px -2px;font:500 9.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.sg-nav{display:flex;align-items:center;gap:4px;margin-left:12px}
+.sg-nav a{display:inline-flex;align-items:center;height:36px;padding:0 12px;border-radius:999px;font-size:14px;color:var(--muted);text-decoration:none;transition:color .2s,background-color .2s}
+.sg-nav a:hover{color:var(--ink);background:var(--bg-soft)}
+.sg-nav a[aria-current="true"]{color:var(--ink);background:var(--bg-soft)}
+.sg-tools{display:flex;align-items:center;gap:10px;margin-left:auto}
+.sg-seg{display:inline-flex;padding:3px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--line)}
+.sg-seg button{min-width:36px;height:30px;padding:0 9px;border:0;border-radius:999px;background:none;font:500 11px/1 var(--mono);letter-spacing:.1em;color:var(--muted);cursor:pointer}
+.sg-seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.sg-icon{display:inline-grid;place-items:center;width:40px;height:40px;border:0;border-radius:50%;background:none;color:var(--ink);cursor:pointer;transition:background-color .2s}
+.sg-icon:hover{background:var(--bg-soft)}
+.sg-icon svg{width:18px;height:18px}
+@container sg (max-width: 900px){.sg-nav{display:none}}
+@container sg (max-width: 480px){.sg-top__in{gap:10px}.sg-seg{display:none}.sg-brand__w{font-size:22px}}
+
+/* ---------- Home: masthead ---------- */
+.sg-hero{padding-block:clamp(48px,6cqi,88px) clamp(40px,5cqi,72px)}
+.sg-hero__grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(36px,6cqi,96px);align-items:center}
+@container sg (max-width: 900px){.sg-hero__grid{grid-template-columns:1fr}}
+.sg-display{margin:26px 0 0;font:500 clamp(54px,8.6cqi,112px)/.92 var(--serif);letter-spacing:-.045em;font-variation-settings:'opsz' 72;text-wrap:balance}
+.sg-display em{display:block;font-style:italic;font-weight:400;color:var(--accent)}
+.sg-hero__sub{max-width:31em;margin:28px 0 0;font:400 clamp(18px,1.6cqi,21px)/1.55 var(--serif);color:var(--ink-2);text-wrap:pretty}
+.sg-hero .sg-form{margin-top:32px}
+.sg-hero .sg-fine{margin-top:14px}
+
+/* Featured story */
+.sg-feature{display:block;color:var(--ink);text-decoration:none}
+.sg-feature .sg-cover{aspect-ratio:16/10;border-radius:6px}
+.sg-feature .sg-meta-top{margin-top:22px}
+.sg-feature__t{margin:14px 0 0;font:600 clamp(26px,2.5cqi,34px)/1.14 var(--serif);letter-spacing:-.022em;font-variation-settings:'opsz' 48;text-wrap:balance;transition:color .2s}
+.sg-feature__x{margin:12px 0 0;font:400 17.5px/1.55 var(--serif);color:var(--muted);text-wrap:pretty}
+.sg-feature .sg-meta{margin-top:14px}
+.sg-feature:hover .sg-feature__t,.sg-row:hover .sg-row__t,.sg-pick:hover .sg-pick__t,.sg-card:hover .sg-card__t{color:var(--accent)}
+
+/* Covers: transmissions, generated from each signal's number */
+.sg-cover{position:relative;overflow:hidden;background:#1C1418}
+.sg-cover svg{display:block;width:100%;height:100%}
+.sg-cover::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);pointer-events:none}
+.sg-feature .sg-cover svg,.sg-row .sg-cover svg,.sg-card .sg-cover svg{transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.sg-feature:hover .sg-cover svg,.sg-row:hover .sg-cover svg,.sg-card:hover .sg-cover svg{transform:scale(1.03)}
+
+/* ---------- Light-time strip: the Mars touch ---------- */
+.sg-strip{border-block:1px solid var(--line)}
+.sg-strip__in{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:28px;min-height:64px}
+.sg-strip__k{font:500 10.5px/1.3 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.sg-strip__line{position:relative;display:flex;align-items:center;gap:12px;font:500 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.sg-strip__line .e,.sg-strip__line .m{flex:none;width:9px;height:9px;border-radius:50%}
+.sg-strip__line .e{background:#5C8FD6;box-shadow:0 0 8px rgba(92,143,214,.6)}
+.sg-strip__line .m{background:#E9603A;box-shadow:0 0 8px rgba(233,96,58,.6)}
+.sg-strip__track{position:relative;flex:1;height:5px;overflow:hidden;background:repeating-linear-gradient(90deg,var(--line-2) 0 4px,transparent 4px 9px) center / 100% 1px no-repeat}
+.sg-strip__track b{position:absolute;inset:0;background:linear-gradient(90deg,transparent calc(100% - 64px),var(--accent) calc(100% - 3px),transparent);transform:translateX(-100%);animation:sgTravel 4.6s cubic-bezier(.45,.05,.55,.95) .6s 1 both}
+.sg-strip__v{font:500 12px/1.3 var(--mono);letter-spacing:.06em;color:var(--muted);text-align:right;white-space:nowrap}
+.sg-strip__v b{font-weight:600;color:var(--ink)}
+@container sg (max-width: 760px){
+  .sg-strip__in{grid-template-columns:1fr;gap:12px;padding-block:18px}
+  .sg-strip__v{text-align:left;white-space:normal}
+}
+
+/* ---------- Feed + sidebar ---------- */
+.sg-feedsec{padding-block:clamp(40px,4.4cqi,64px) clamp(72px,8cqi,120px)}
+.sg-feedgrid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:clamp(40px,6cqi,96px);align-items:start}
+@container sg (max-width: 980px){.sg-feedgrid{grid-template-columns:1fr}}
+.sg-feedhead{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.sg-feedhead h2{margin:0;font:600 13px/1 var(--sans);letter-spacing:.01em}
+.sg-tabs{display:flex;flex-wrap:wrap;gap:6px}
+.sg-tab{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border:0;border-radius:999px;background:none;color:var(--muted);font:500 14px/1 var(--sans);cursor:pointer;box-shadow:inset 0 0 0 1px var(--line);transition:color .2s,background-color .2s,box-shadow .2s}
+.sg-tab:hover{color:var(--ink);box-shadow:inset 0 0 0 1px var(--line-2)}
+.sg-tab i{width:6px;height:6px;border-radius:50%;background:var(--tc,var(--faint))}
+.sg-tab[aria-pressed="true"]{background:var(--ink);color:var(--bg);box-shadow:none}
+.sg-list{margin:0;padding:0;list-style:none}
+.sg-list li{border-bottom:1px solid var(--line)}
+.sg-row{display:grid;grid-template-columns:minmax(0,1fr) 184px;gap:clamp(20px,3.2cqi,44px);align-items:center;padding-block:32px;color:var(--ink);text-decoration:none}
+.sg-row .sg-cover{aspect-ratio:3/2;border-radius:4px}
+.sg-row__t{margin:12px 0 0;font:600 clamp(21px,1.9cqi,25px)/1.2 var(--serif);letter-spacing:-.016em;font-variation-settings:'opsz' 36;text-wrap:balance;transition:color .2s}
+.sg-row__x{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:8px 0 0;font:400 16.5px/1.5 var(--serif);color:var(--muted)}
+.sg-row .sg-meta{margin-top:14px}
+@container sg (max-width: 560px){
+  .sg-row{grid-template-columns:minmax(0,1fr) 92px;gap:16px;padding-block:24px}
+  .sg-row .sg-cover{aspect-ratio:1}
+  .sg-row__x{display:none}
+}
+
+.sg-side{position:sticky;top:96px;display:flex;flex-direction:column;gap:40px}
+@container sg (max-width: 980px){.sg-side{position:static}}
+.sg-side__h{margin:0 0 18px;font:600 13px/1 var(--sans);letter-spacing:.01em}
+.sg-picks{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:18px}
+.sg-pick{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;color:var(--ink);text-decoration:none}
+.sg-pick__n{padding-top:3px;font:500 11px/1 var(--mono);letter-spacing:.1em;color:var(--accent)}
+.sg-pick__t{display:block;font:600 17px/1.3 var(--serif);letter-spacing:-.01em;font-variation-settings:'opsz' 24;transition:color .2s}
+.sg-pick .sg-meta{margin-top:6px;font-size:12.5px}
+.sg-chips{display:flex;flex-wrap:wrap;gap:8px}
+.sg-chip{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px;border:0;border-radius:999px;background:var(--bg-soft);color:var(--ink);font:500 13.5px/1 var(--sans);text-decoration:none;cursor:pointer;transition:background-color .2s}
+.sg-chip:hover{background:color-mix(in srgb,var(--tc,var(--ink)) 14%,var(--bg-soft))}
+.sg-chip i{width:6px;height:6px;border-radius:50%;background:var(--tc)}
+.sg-chip span{font:500 10.5px/1 var(--mono);color:var(--muted)}
+.sg-about{padding:24px;border-radius:12px;background:var(--bg-soft)}
+.sg-about__mark{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.sg-about__mark svg{width:40px;height:40px}
+.sg-about__mark .sg-side__h{margin:0}
+.sg-about p{margin:0;font:400 15.5px/1.55 var(--serif);color:var(--ink-2)}
+.sg-about .sg-ext{margin-top:8px}
+.sg-rss{display:flex;align-items:center;gap:12px;color:var(--ink);text-decoration:none}
+.sg-rss svg{flex:none;width:18px;height:18px;color:var(--accent)}
+.sg-rss b{display:block;font-size:14.5px;font-weight:600}
+.sg-rss span{font-size:13px;color:var(--muted)}
+
+/* ---------- Subscribe form ---------- */
+.sg-form{display:flex;flex-wrap:wrap;gap:10px;max-width:520px}
+.sg-input{flex:1 1 240px;min-width:0;height:48px;padding:0 20px;border:0;border-radius:999px;background:var(--surface);color:var(--ink);font:400 16px/1 var(--sans);box-shadow:inset 0 0 0 1px var(--line-2);transition:box-shadow .2s}
+.sg-input::placeholder{color:var(--faint)}
+.sg-input:hover{box-shadow:inset 0 0 0 1px var(--muted)}
+.sg-input:focus{outline:none;box-shadow:inset 0 0 0 2px var(--accent)}
+.sg-input[aria-invalid="true"]{box-shadow:inset 0 0 0 2px var(--bad)}
+.sg-form .sg-btn{height:48px}
+.sg-form__err{flex-basis:100%;margin:2px 0 0 20px;min-height:0;font-size:13.5px;color:var(--bad)}
+.sg-form__err:empty{display:none}
+.sg-ok{display:flex;align-items:flex-start;gap:14px;max-width:520px;margin:0;padding:16px 20px;border-radius:16px;background:color-mix(in srgb,var(--ok) 12%,transparent);font-size:15.5px;line-height:1.45;color:var(--ink)}
+.sg-ok svg{flex:none;width:20px;height:20px;margin-top:1px;color:var(--ok)}
+.sg-fine{margin:12px 0 0 20px;font-size:13px;color:var(--muted)}
+
+/* ---------- Newsletter band: always night, with the limb of Mars ---------- */
+.sg-nl{position:relative;isolation:isolate;overflow:clip;padding-block:clamp(88px,10cqi,150px) clamp(140px,15cqi,220px);background:#120B12;color:#F5ECE6;
+  --ink:#F5ECE6;--ink-2:#E2D6CE;--muted:#B3A39A;--faint:#7D6E66;--line:rgba(245,236,230,.12);--line-2:rgba(245,236,230,.26);--surface:rgba(255,255,255,.06);--accent:#FF7F4A;--accent-hover:#FF9A6E;--accent-ink:#1A0D07;--ok:#9CDA9B;--bad:#F6A19E}
+.sg-nl__limb{position:absolute;z-index:-1;left:50%;bottom:calc(-232cqi + 110px);width:250cqi;height:250cqi;transform:translateX(-50%);border-radius:50%;
+  background:radial-gradient(circle at 50% 8%,#3C1420 0%,#24101E 30%,#160B16 60%);
+  box-shadow:0 -1px 0 rgba(255,127,74,.7),0 -10px 40px rgba(233,96,58,.25),0 -60px 160px rgba(209,23,114,.14)}
+.sg-nl__stars{position:absolute;z-index:-2;inset:0;opacity:.55;background-image:radial-gradient(1px 1px at 12% 22%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 28% 68%,#fff 50%,transparent 51%),radial-gradient(1.4px 1.4px at 44% 14%,#ffd9c6 50%,transparent 51%),radial-gradient(1px 1px at 63% 40%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 77% 18%,#fff 50%,transparent 51%),radial-gradient(1.4px 1.4px at 88% 58%,#d9ccff 50%,transparent 51%),radial-gradient(1px 1px at 6% 76%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 54% 82%,#fff 50%,transparent 51%)}
+.sg-nl__in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(36px,6cqi,96px);align-items:end}
+@container sg (max-width: 900px){.sg-nl__in{grid-template-columns:1fr}}
+.sg-nl__t{margin:22px 0 0;font:500 clamp(44px,6cqi,80px)/.98 var(--serif);letter-spacing:-.04em;font-variation-settings:'opsz' 72;text-wrap:balance}
+.sg-nl__t em{font-style:italic;font-weight:400;color:#FF9A6E}
+.sg-nl__sub{margin:0 0 26px;font:400 19px/1.55 var(--serif);color:var(--ink-2);max-width:28em}
+.sg-nl .sg-over{color:var(--muted)}
+
+/* ---------- Footer ---------- */
+.sg-foot{border-top:1px solid var(--line);padding-block:56px 32px}
+.sg-foot__in{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(3,minmax(0,1fr));gap:40px}
+@container sg (max-width: 860px){.sg-foot__in{grid-template-columns:1fr 1fr}.sg-foot__brand{grid-column:1 / -1}}
+.sg-foot__brand p{max-width:24em;margin:16px 0 0;font:400 15.5px/1.55 var(--serif);color:var(--muted)}
+.sg-foot__h{margin:0 0 14px;font:500 10.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.sg-foot ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px}
+.sg-foot ul a{display:inline-flex;align-items:center;gap:6px;min-height:36px;font-size:14.5px;color:var(--ink);text-decoration:none}
+.sg-foot ul a:hover{color:var(--accent)}
+.sg-foot__base{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px;margin-top:48px;padding-top:22px;border-top:1px solid var(--line);font:500 10.5px/1.5 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- Article ---------- */
+.sg-post{padding-top:clamp(40px,5cqi,72px)}
+.sg-post__t{margin:18px 0 0;font:600 clamp(36px,4.2cqi,50px)/1.1 var(--serif);letter-spacing:-.028em;font-variation-settings:'opsz' 60;text-wrap:balance}
+.sg-post__deck{margin:16px 0 0;font:400 clamp(19px,1.7cqi,22px)/1.45 var(--serif);color:var(--muted);text-wrap:pretty}
+.sg-byline{display:flex;align-items:center;gap:14px;margin-top:32px}
+.sg-avatar{display:grid;place-items:center;flex:none;width:46px;height:46px;border-radius:50%;background:var(--bg-soft)}
+.sg-avatar svg{width:34px;height:34px}
+.sg-byline__n{display:flex;align-items:center;gap:12px;margin:0 0 3px;font-size:15px;font-weight:600}
+.sg-byline__n a{font-weight:500;font-size:14px;color:var(--accent);text-decoration:none}
+.sg-byline__n a:hover{text-decoration:underline;text-underline-offset:4px}
+.sg-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:28px;padding-block:6px;border-block:1px solid var(--line)}
+.sg-actions__l{font:500 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.sg-actions__r{display:flex;align-items:center;gap:2px}
+.sg-act{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 12px;border:0;border-radius:999px;background:none;color:var(--muted);font:500 13.5px/1 var(--sans);text-decoration:none;cursor:pointer;transition:color .2s,background-color .2s}
+.sg-act:hover{color:var(--ink);background:var(--bg-soft)}
+.sg-act svg{width:17px;height:17px}
+.sg-act.is-done{color:var(--ok)}
+.sg-post__cover{width:100%;max-width:1088px;margin:clamp(36px,4cqi,56px) auto 0;padding-inline:24px}
+.sg-post__cover .sg-cover{aspect-ratio:16/8;border-radius:6px}
+.sg-post__cover figcaption{margin-top:12px;text-align:center;font-size:13px;color:var(--muted)}
+.sg-post__grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,680px) minmax(0,1fr);gap:0 48px;padding-inline:24px;margin-top:clamp(40px,4.4cqi,64px)}
+.sg-toc{grid-column:1;justify-self:end;width:100%;max-width:220px;position:sticky;top:104px;align-self:start;padding-top:6px}
+.sg-toc__h{margin:0 0 14px;font:500 10.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.sg-toc ol{margin:0;padding:0;list-style:none;border-left:1px solid var(--line)}
+.sg-toc a{display:grid;grid-template-columns:24px 1fr;gap:4px;padding:7px 0 7px 14px;margin-left:-1px;border-left:1px solid transparent;font-size:13.5px;line-height:1.35;color:var(--muted);text-decoration:none;transition:color .2s,border-color .2s}
+.sg-toc a span{font:500 10px/1.7 var(--mono);color:var(--faint)}
+.sg-toc a:hover{color:var(--ink);border-color:var(--accent)}
+.sg-prose{grid-column:2;min-width:0}
+@container sg (max-width: 1180px){.sg-post__grid{grid-template-columns:minmax(0,680px);justify-content:center}.sg-toc{display:none}.sg-prose{grid-column:1}}
+
+/* Prose: Medium-like reading measure, Newsreader at text optical size */
+.sg-prose{font:400 20px/1.68 var(--serif);font-variation-settings:'opsz' 16;color:var(--ink-2);font-kerning:normal;hanging-punctuation:first}
+.sg-prose p{margin:1.35em 0 0;text-wrap:pretty}
+.sg-prose > :first-child{margin-top:0}
+.sg-prose .sg-lead::first-letter{float:left;margin:.08em .1em 0 0;font:500 4.1em/.8 var(--serif);font-variation-settings:'opsz' 72;color:var(--ink)}
+.sg-prose strong{font-weight:600;color:var(--ink)}
+.sg-prose a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:1px;text-underline-offset:4px}
+.sg-prose a:hover{color:var(--accent)}
+.sg-prose code{padding:.12em .36em;border-radius:5px;background:var(--bg-soft);font:500 .8em/1 var(--mono);color:var(--ink)}
+.sg-h2{margin:2.2em 0 0;font:600 29px/1.2 var(--serif);letter-spacing:-.02em;font-variation-settings:'opsz' 48;color:var(--ink);text-wrap:balance;scroll-margin-top:96px}
+.sg-h2 span{display:block;margin-bottom:10px;font:500 10.5px/1 var(--mono);letter-spacing:.16em;color:var(--accent)}
+.sg-h2 + p{margin-top:.6em}
+.sg-prose ul{margin:1.2em 0 0;padding:0;list-style:none}
+.sg-prose li{position:relative;padding-left:1.4em}
+.sg-prose li + li{margin-top:.55em}
+.sg-prose li::before{content:"";position:absolute;left:.3em;top:.72em;width:7px;height:6px;border-radius:50% 46% 52% 48%;background:var(--accent)}
+.sg-quote{margin:1.9em 0;padding:0 0 0 28px;border-left:2px solid var(--accent);font:400 italic 28px/1.4 var(--serif);font-variation-settings:'opsz' 48;letter-spacing:-.012em;color:var(--ink);text-wrap:balance}
+.sg-callout{margin:1.6em 0 0;padding:22px 24px;border-radius:12px;background:var(--bg-soft);font-size:18px;line-height:1.6}
+.sg-callout__k{display:flex;align-items:center;gap:10px;margin:0 0 8px;font:500 10.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.sg-callout__k svg{width:16px;height:16px}
+.sg-callout p{margin:0}
+.sg-code{margin:1.6em 0 0;border-radius:12px;background:var(--code-bg);color:var(--code-ink);overflow:hidden}
+.sg-code__bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 8px 6px 18px;border-bottom:1px solid var(--code-line);font:500 11px/1 var(--mono);letter-spacing:.08em;color:#A99A92}
+.sg-code__bar span{display:inline-flex;align-items:center;gap:10px}
+.sg-code__bar span i{width:7px;height:7px;border-radius:50%;background:#E9603A}
+.sg-code__bar button{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 10px;border:0;border-radius:8px;background:none;color:#C9BBB3;font:500 11.5px/1 var(--mono);cursor:pointer}
+.sg-code__bar button:hover{background:rgba(255,255,255,.06);color:#fff}
+.sg-code__bar button svg{width:14px;height:14px}
+.sg-code pre{margin:0;padding:18px 20px 20px;overflow-x:auto;font:400 14.5px/1.7 var(--mono);tab-size:2}
+.sg-code code{display:block;padding:0;background:none;font:inherit;color:inherit}
+.sg-code .ln{display:block;min-height:1.7em;white-space:pre}
+.sg-code .k{color:#FF9A6E}.sg-code .s{color:#B9E3A8}.sg-code .c{color:#857770;font-style:italic}.sg-code .n{color:#C9B3FF}.sg-code .f{color:#8EC5F0}
+
+/* Article end */
+.sg-post__end{margin-top:56px}
+.sg-tags{display:flex;flex-wrap:wrap;gap:8px}
+.sg-author{display:grid;grid-template-columns:64px minmax(0,1fr);gap:20px;margin-top:40px;padding-block:32px;border-block:1px solid var(--line)}
+.sg-author .sg-avatar{width:64px;height:64px}
+.sg-author .sg-avatar svg{width:46px;height:46px}
+.sg-author__k{margin:0;font:500 10.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.sg-author__n{margin:8px 0 0;font:600 22px/1.2 var(--serif);letter-spacing:-.01em}
+.sg-author__p{margin:8px 0 0;font:400 16.5px/1.55 var(--serif);color:var(--ink-2)}
+.sg-endnl{margin-top:40px;padding:32px;border-radius:16px;background:var(--bg-soft);position:relative;overflow:hidden;isolation:isolate}
+.sg-endnl::after{content:"";position:absolute;z-index:-1;right:-90px;bottom:-140px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle at 40% 30%,#E9603A,#8E2A2F 60%,#3A1420);opacity:.18}
+.sg-endnl h2{margin:0;font:600 26px/1.2 var(--serif);letter-spacing:-.018em}
+.sg-endnl > p{margin:8px 0 20px;font:400 16.5px/1.5 var(--serif);color:var(--muted)}
+.sg-next{padding-block:clamp(64px,7cqi,104px)}
+.sg-next__h{margin:0 0 28px;font:600 13px/1 var(--sans)}
+.sg-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,3.4cqi,48px)}
+@container sg (max-width: 720px){.sg-cards{grid-template-columns:1fr}}
+.sg-card{display:block;color:var(--ink);text-decoration:none}
+.sg-card .sg-cover{aspect-ratio:16/9;border-radius:6px;margin-bottom:18px}
+.sg-card__t{margin:12px 0 0;font:600 24px/1.2 var(--serif);letter-spacing:-.016em;font-variation-settings:'opsz' 36;transition:color .2s;text-wrap:balance}
+.sg-card .sg-meta{margin-top:10px}
+
+/* ---------- Motion: every loop ends before 5 s (WCAG 2.2.2), so no pause button is needed ---------- */
+@keyframes sgPing{0%{transform:scale(1);opacity:.55}70%,100%{transform:scale(3.2);opacity:0}}
+@keyframes sgTravel{0%{transform:translateX(-100%);opacity:0}12%{opacity:1}100%{transform:translateX(0);opacity:1}}
+@keyframes sgGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.sg-app[data-motion="off"] .sg-live::after,.sg-app[data-motion="off"] .sg-strip__track b{animation-play-state:paused}
+@media (prefers-reduced-motion: reduce){
+  .sg-app .sg-live::after{animation:none;opacity:0}
+  .sg-app .sg-strip__track b{animation:none;transform:none}
+  .sg-app .sg-cover svg{transition:none !important;transform:none !important}
+}
+
+</style>
+</helmet>
+<div class="sg-app" data-theme="{{ theme }}" data-motion="on" lang="{{ lang }}">
+<svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+<defs>
+<symbol id="sgMark" viewBox="120 120 560 560">
+<path d="M401.576 622C360.929 622.003 321.058 610.882 286.284 589.843C251.511 568.803 223.164 538.649 204.317 502.65H320.676C326.064 502.768 331.279 500.741 335.172 497.016C339.066 493.291 341.32 488.172 341.438 482.786C341.556 477.4 339.528 472.187 335.802 468.295C332.075 464.403 326.955 462.15 321.567 462.032H187.906C181.983 441.717 178.984 420.661 179.001 399.5C178.913 367.105 185.973 335.089 199.678 305.732H421.648C427.035 305.732 432.201 303.593 436.01 299.785C439.819 295.978 441.959 290.813 441.959 285.428C441.959 280.043 439.819 274.879 436.01 271.071C432.201 267.263 427.035 265.124 421.648 265.124H224.184C244.946 237.75 271.765 215.551 302.539 200.262C333.314 184.974 367.211 177.012 401.576 177C512.254 177 605.87 258.234 621.783 366.947H439.154C433.766 366.829 428.552 368.856 424.658 372.581C420.765 376.306 418.511 381.425 418.393 386.811C418.275 392.197 420.302 397.41 424.028 401.302C427.755 405.194 432.876 407.447 438.264 407.565H624C622.603 447.557 610.392 486.424 588.666 520.034H492.494C487.179 520.145 482.12 522.334 478.401 526.13C474.682 529.927 472.599 535.029 472.599 540.343C472.599 545.656 474.682 550.759 478.401 554.555C482.12 558.352 487.179 560.54 492.494 560.651H555.068C513.733 600.094 458.765 622.07 401.621 622H401.576ZM379.127 462.032C373.813 462.144 368.753 464.332 365.034 468.129C361.315 471.925 359.232 477.027 359.232 482.341C359.232 487.655 361.315 492.757 365.034 496.553C368.753 500.35 373.813 502.538 379.127 502.65H399.519C404.834 502.538 409.893 500.35 413.612 496.553C417.331 492.757 419.414 487.655 419.414 482.341C419.414 477.027 417.331 471.925 413.612 468.129C409.893 464.332 404.834 462.144 399.519 462.032H379.127ZM253.623 366.582C248.235 366.464 243.02 368.491 239.127 372.216C235.233 375.941 232.98 381.06 232.861 386.446C232.743 391.832 234.771 397.045 238.497 400.937C242.224 404.829 247.344 407.082 252.732 407.2H273.979C279.294 407.088 284.353 404.9 288.073 401.103C291.792 397.307 293.875 392.205 293.875 386.891C293.875 381.577 291.792 376.475 288.073 372.679C284.353 368.882 279.294 366.694 273.979 366.582H253.623Z" fill="url(#mgLogoG)"></path>
+<path d="M138 205.009C137.998 195.912 140.694 187.018 145.746 179.453C150.799 171.888 157.981 165.99 166.384 162.507C174.788 159.023 184.036 158.109 192.959 159.881C201.882 161.653 210.079 166.03 216.514 172.461C222.949 178.891 227.334 187.085 229.112 196.006C230.891 204.928 229.984 214.176 226.507 222.583C223.03 230.989 217.138 238.176 209.577 243.234C202.015 248.292 193.124 250.995 184.027 251C177.984 251.004 172.001 249.817 166.417 247.507C160.834 245.197 155.76 241.81 151.486 237.54C147.211 233.269 143.821 228.197 141.507 222.616C139.193 217.034 138.001 211.051 138 205.009Z" style="fill: var(--bg)"></path>
+<path d="M137.866 205H134C134 195.111 136.932 185.444 142.427 177.222C147.921 168.999 155.73 162.59 164.866 158.806C174.002 155.022 184.055 154.031 193.755 155.961C203.454 157.89 212.363 162.652 219.355 169.645C226.348 176.637 231.11 185.546 233.039 195.245C234.968 204.945 233.978 214.998 230.194 224.134C226.41 233.27 220.001 241.079 211.778 246.573C203.556 252.068 193.889 255 184 255C170.739 255 158.021 249.732 148.645 240.355C139.268 230.979 134 218.261 134 205H141.786C141.786 213.349 144.262 221.511 148.9 228.453C153.539 235.395 160.132 240.806 167.845 244.001C175.559 247.196 184.047 248.032 192.236 246.403C200.424 244.774 207.946 240.754 213.85 234.85C219.754 228.946 223.774 221.424 225.403 213.236C227.032 205.047 226.196 196.559 223.001 188.845C219.806 181.132 214.395 174.539 207.453 169.9C200.511 165.262 192.349 162.786 184 162.786C172.804 162.786 162.067 167.233 154.15 175.15C146.233 183.067 141.786 193.804 141.786 205H137.866Z" fill="#E9603A"></path>
+<path d="M513 567.509C512.998 552.774 517.337 538.37 525.466 526.117C533.596 513.865 545.152 504.315 558.673 498.674C572.194 493.034 587.073 491.557 601.428 494.43C615.783 497.303 628.969 504.397 639.32 514.814C649.67 525.232 656.719 538.506 659.576 552.957C662.433 567.408 660.97 582.388 655.37 596.002C649.771 609.615 640.288 621.252 628.12 629.44C615.951 637.627 601.645 641.998 587.009 642C567.385 642 548.565 634.152 534.689 620.182C520.813 606.212 513.018 587.265 513.018 567.509" style="fill: var(--bg)"></path>
+<path d="M512.571 567.5H509C509 552.172 513.575 537.188 522.145 524.443C530.716 511.699 542.898 501.765 557.151 495.899C571.403 490.034 587.087 488.499 602.217 491.489C617.348 494.48 631.246 501.861 642.154 512.699C653.063 523.538 660.492 537.347 663.501 552.381C666.511 567.414 664.966 582.997 659.063 597.158C653.159 611.319 643.161 623.423 630.334 631.939C617.507 640.455 602.427 645 587 645C566.314 644.998 546.476 636.832 531.848 622.298C517.221 607.765 509.002 588.054 509 567.5H516.071C516.071 581.44 520.232 595.067 528.027 606.658C535.821 618.249 546.9 627.283 559.862 632.618C572.824 637.952 587.088 639.348 600.848 636.628C614.609 633.909 627.249 627.196 637.169 617.339C647.09 607.482 653.846 594.923 656.583 581.251C659.321 567.578 657.916 553.406 652.547 540.527C647.178 527.648 638.085 516.641 626.42 508.896C614.754 501.151 601.039 497.017 587.009 497.017C568.205 497.045 550.179 504.481 536.883 517.693C523.587 530.905 516.106 548.816 516.08 567.5H512.571Z" fill="#E9603A"></path>
+</symbol>
+<symbol id="sgGlyph" viewBox="0 0 26 26"><circle cx="7.5" cy="18.5" r="4.3" fill="currentColor"></circle><path d="M7.5 11.2a7.3 7.3 0 0 1 7.3 7.3" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"></path><path d="M7.5 6.6a11.9 11.9 0 0 1 11.9 11.9" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" opacity=".65"></path><path d="M7.5 2a16.5 16.5 0 0 1 16.5 16.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" opacity=".35"></path></symbol>
+</defs>
+</svg>
+<a class="sg-skip" href="#sg-main">{{ t.ui.skip }}</a>
+<div class="sg">
+
+<sc-if value="{{ r.article }}" hint-placeholder-val="{{ false }}"><div class="sg-progress" aria-hidden="true"><i></i></div></sc-if>
+
+<header class="sg-top">
+<div class="sg-wrap sg-top__in">
+<a class="sg-brand" href="#inicio" onClick="{{ go.home }}" aria-label="{{ t.ui.homeAria }}"><svg aria-hidden="true"><use href="#sgGlyph"></use></svg><span class="sg-brand__w">Signals</span><span class="sg-brand__by">by Mars</span></a>
+<nav class="sg-nav" aria-label="{{ t.ui.topics }}">
+<sc-for list="{{ navTopics }}" as="n" hint-placeholder-count="3"><a href="#temas" onClick="{{ n.go }}" aria-current="{{ n.cur }}">{{ n.label }}</a></sc-for>
+<a href="https://marcelagotta.com" target="_blank" rel="noopener noreferrer">{{ t.ui.about }}<span aria-hidden="true"> ↗</span></a>
+</nav>
+<div class="sg-tools">
+<div class="sg-seg" role="group" aria-label="{{ t.ui.lang }}"><button type="button" aria-pressed="{{ isEs }}" onClick="{{ setEs }}" lang="es">ES</button><button type="button" aria-pressed="{{ isEn }}" onClick="{{ setEn }}" lang="en">EN</button></div>
+<button type="button" class="sg-icon" onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}">
+<sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.5 12.2A7 7 0 1 1 7.8 3.5a5.6 5.6 0 0 0 8.7 8.7Z"></path></svg></sc-if>
+<sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="3.6"></circle><path d="M10 1.8v2M10 16.2v2M1.8 10h2M16.2 10h2M4.2 4.2l1.4 1.4M14.4 14.4l1.4 1.4M4.2 15.8l1.4-1.4M14.4 5.6l1.4-1.4"></path></svg></sc-if>
+</button>
+<a class="sg-btn sg-btn--sm" href="#suscribirse" onClick="{{ go.subscribe }}">{{ t.ui.subscribe }}</a>
+</div>
+</div>
+</header>
+
+<main id="sg-main">
+
+<sc-if value="{{ r.home }}" hint-placeholder-val="{{ true }}">
+<section class="sg-hero" aria-labelledby="sg-h1">
+<div class="sg-wrap sg-hero__grid">
+<div>
+<p class="sg-over"><i class="sg-live" aria-hidden="true"></i>{{ t.home.over }}</p>
+<h1 class="sg-display" id="sg-h1">{{ t.home.h1a }} <em>{{ t.home.h1b }}</em></h1>
+<p class="sg-hero__sub">{{ t.home.sub }}</p>
+<sc-if value="{{ nl.idle }}" hint-placeholder-val="{{ true }}">
+<form class="sg-form" onSubmit="{{ sub.hero }}" novalidate="novalidate" aria-label="{{ t.nl.formLabel }}">
+<label class="sg-sr" for="sg-mail-hero">{{ t.nl.label }}</label>
+<input class="sg-input" id="sg-mail-hero" name="email" type="email" autocomplete="email" inputmode="email" placeholder="{{ t.nl.ph }}" aria-invalid="{{ nl.inv.hero }}" aria-describedby="sg-err-hero">
+<button class="sg-btn" type="submit">{{ t.nl.cta }}</button>
+<p class="sg-form__err" id="sg-err-hero" role="alert">{{ nl.err.hero }}</p>
+</form>
+<p class="sg-fine">{{ t.nl.fine }}</p>
+</sc-if>
+<sc-if value="{{ nl.sent }}" hint-placeholder-val="{{ false }}"><p class="sg-ok" role="status"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 10.5 4 4L16 6"></path></svg><span><b>{{ t.nl.okA }}</b> {{ t.nl.okB }}</span></p></sc-if>
+</div>
+<a class="sg-feature {{ feat.tcls }}" href="{{ feat.href }}" onClick="{{ feat.go }}">
+<div class="sg-cover"><svg viewBox="0 0 1200 750" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="1200" height="750" fill="{{ feat.cover.bg }}"></rect><sc-for list="{{ feat.cover.shapes }}" as="s" hint-placeholder-count="10"><path d="{{ s.d }}" fill="{{ s.fill }}" stroke="{{ s.stroke }}" stroke-width="{{ s.sw }}" opacity="{{ s.op }}"></path></sc-for></svg></div>
+<p class="sg-meta-top"><span class="sg-topic">{{ feat.topic }}</span><span>{{ t.ui.signal }} {{ feat.num }}</span></p>
+<h2 class="sg-feature__t">{{ feat.title }}</h2>
+<p class="sg-feature__x">{{ feat.excerpt }}</p>
+<p class="sg-meta">{{ feat.date }} · Sol {{ feat.sol }} · {{ feat.read }}</p>
+</a>
+</div>
+</section>
+
+<div class="sg-strip">
+<div class="sg-wrap sg-strip__in">
+<span class="sg-strip__k">{{ t.strip.k }}</span>
+<div class="sg-strip__line" aria-hidden="true"><span>{{ t.strip.earth }}</span><i class="e"></i><span class="sg-strip__track"><b></b></span><i class="m"></i><span>{{ t.strip.mars }}</span></div>
+<span class="sg-strip__v">{{ t.strip.a }} <b>{{ lt.time }}</b> · {{ lt.dist }} {{ t.strip.km }}</span>
+</div>
+</div>
+
+<section class="sg-feedsec" id="temas" aria-labelledby="sg-feed-h">
+<div class="sg-wrap sg-feedgrid">
+<div>
+<div class="sg-feedhead">
+<h2 id="sg-feed-h">{{ t.feed.h }}</h2>
+<div class="sg-tabs" role="group" aria-label="{{ t.ui.topics }}">
+<sc-for list="{{ tabs }}" as="b" hint-placeholder-count="4"><button type="button" class="sg-tab {{ b.tcls }}" aria-pressed="{{ b.on }}" onClick="{{ b.pick }}"><i aria-hidden="true"></i>{{ b.label }}</button></sc-for>
+</div>
+</div>
+<ol class="sg-list">
+<sc-for list="{{ feed }}" as="p" hint-placeholder-count="5">
+<li><a class="sg-row {{ p.tcls }}" href="{{ p.href }}" onClick="{{ p.go }}">
+<div>
+<p class="sg-meta-top"><span class="sg-topic">{{ p.topic }}</span><span>{{ t.ui.signal }} {{ p.num }}</span></p>
+<h3 class="sg-row__t">{{ p.title }}</h3>
+<p class="sg-row__x">{{ p.excerpt }}</p>
+<p class="sg-meta">{{ p.date }} · Sol {{ p.sol }} · {{ p.read }}</p>
+</div>
+<div class="sg-cover"><svg viewBox="0 0 1200 750" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="1200" height="750" fill="{{ p.cover.bg }}"></rect><sc-for list="{{ p.cover.shapes }}" as="s" hint-placeholder-count="10"><path d="{{ s.d }}" fill="{{ s.fill }}" stroke="{{ s.stroke }}" stroke-width="{{ s.sw }}" opacity="{{ s.op }}"></path></sc-for></svg></div>
+</a></li>
+</sc-for>
+</ol>
+</div>
+<aside class="sg-side" aria-label="{{ t.side.aria }}">
+<section>
+<h2 class="sg-side__h">{{ t.side.startH }}</h2>
+<ol class="sg-picks">
+<sc-for list="{{ picks }}" as="k" hint-placeholder-count="3"><li><a class="sg-pick" href="{{ k.href }}" onClick="{{ k.go }}"><span class="sg-pick__n">{{ k.n }}</span><span><span class="sg-pick__t">{{ k.title }}</span><p class="sg-meta">{{ k.topic }} · {{ k.read }}</p></span></a></li></sc-for>
+</ol>
+</section>
+<section>
+<h2 class="sg-side__h">{{ t.side.topicsH }}</h2>
+<div class="sg-chips"><sc-for list="{{ chips }}" as="c" hint-placeholder-count="3"><button type="button" class="sg-chip {{ c.tcls }}" onClick="{{ c.pick }}"><i aria-hidden="true"></i>{{ c.label }}<span>{{ c.count }}</span></button></sc-for></div>
+</section>
+<section class="sg-about">
+<div class="sg-about__mark"><svg viewBox="0 0 560 560" aria-hidden="true"><use href="#sgMark" width="560" height="560"></use></svg><h2 class="sg-side__h">{{ t.side.aboutH }}</h2></div>
+<p>{{ t.side.aboutP }}</p>
+<a class="sg-ext" href="https://marcelagotta.com" target="_blank" rel="noopener noreferrer">{{ t.side.aboutCta }}<span aria-hidden="true">↗</span></a>
+</section>
+<a class="sg-rss" href="https://signals.marcelagotta.com/rss.xml"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 9a7 7 0 0 1 7 7M4 4a12 12 0 0 1 12 12"></path><circle cx="4.8" cy="15.2" r="1.2" fill="currentColor" stroke="none"></circle></svg><span><b>{{ t.side.rss }}</b><span>{{ t.side.rssP }}</span></span></a>
+</aside>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{ r.article }}" hint-placeholder-val="{{ false }}">
+<article class="sg-post {{ a.tcls }}" aria-labelledby="sg-post-t">
+<header class="sg-col">
+<p class="sg-meta-top"><a class="sg-topic" href="#temas" onClick="{{ a.goTopic }}">{{ a.topic }}</a><span>{{ t.ui.signal }} {{ a.num }}</span></p>
+<h1 class="sg-post__t" id="sg-post-t">{{ a.title }}</h1>
+<p class="sg-post__deck">{{ a.deck }}</p>
+<div class="sg-byline">
+<span class="sg-avatar"><svg viewBox="0 0 560 560" aria-hidden="true"><use href="#sgMark" width="560" height="560"></use></svg></span>
+<div>
+<p class="sg-byline__n">Marcela Gotta <a href="#suscribirse" onClick="{{ go.subscribe }}">{{ t.post.follow }}</a></p>
+<p class="sg-meta"><time datetime="{{ a.iso }}">{{ a.date }}</time> · Sol {{ a.sol }} · {{ a.read }}</p>
+</div>
+</div>
+<div class="sg-actions">
+<span class="sg-actions__l">{{ t.post.share }}</span>
+<div class="sg-actions__r">
+<button type="button" class="sg-act {{ copyCls }}" onClick="{{ copyLink }}" aria-live="polite">
+<sc-if value="{{ copyIdle }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 11.5a3.5 3.5 0 0 0 5 0l2.5-2.5a3.5 3.5 0 0 0-5-5l-1 1"></path><path d="M11.5 8.5a3.5 3.5 0 0 0-5 0L4 11a3.5 3.5 0 0 0 5 5l1-1"></path></svg>{{ t.post.copy }}</sc-if>
+<sc-if value="{{ copyDone }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 10.5 4 4L16 6"></path></svg>{{ t.post.copied }}</sc-if>
+</button>
+<a class="sg-act" href="{{ a.shareLi }}" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M4.2 7.4h2.9V16H4.2zM5.65 3a1.7 1.7 0 1 1 0 3.4 1.7 1.7 0 0 1 0-3.4ZM8.9 7.4h2.8v1.2c.4-.7 1.4-1.4 2.8-1.4 3 0 3.5 1.9 3.5 4.4V16h-2.9v-3.9c0-.9 0-2.2-1.4-2.2s-1.6 1-1.6 2.1v4H8.9z"></path></svg>LinkedIn<span class="sg-sr"> {{ t.post.newTab }}</span></a>
+<a class="sg-act" href="{{ a.shareX }}" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M14.6 3h2.5l-5.5 6.3L18 17h-5l-3.9-5.1L4.6 17H2.1l5.9-6.7L1.8 3h5.1l3.5 4.7zm-.9 12.6h1.4L6.4 4.3H4.9z"></path></svg>X<span class="sg-sr"> {{ t.post.newTab }}</span></a>
+</div>
+</div>
+</header>
+<figure class="sg-post__cover">
+<div class="sg-cover"><svg viewBox="0 0 1200 750" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="1200" height="750" fill="{{ a.cover.bg }}"></rect><sc-for list="{{ a.cover.shapes }}" as="s" hint-placeholder-count="10"><path d="{{ s.d }}" fill="{{ s.fill }}" stroke="{{ s.stroke }}" stroke-width="{{ s.sw }}" opacity="{{ s.op }}"></path></sc-for></svg></div>
+<figcaption>{{ a.coverCap }}</figcaption>
+</figure>
+<div class="sg-post__grid">
+<nav class="sg-toc" aria-label="{{ t.post.toc }}">
+<p class="sg-toc__h" aria-hidden="true">{{ t.post.toc }}</p>
+<ol><sc-for list="{{ a.toc }}" as="x" hint-placeholder-count="5"><li><a href="#{{ x.id }}"><span>{{ x.n }}</span>{{ x.t }}</a></li></sc-for></ol>
+</nav>
+<div class="sg-prose">
+<sc-for list="{{ a.blocks }}" as="b" hint-placeholder-count="12">
+<sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}"><p class="{{ b.cls }}"><sc-for list="{{ b.parts }}" as="x" hint-placeholder-count="3"><sc-if value="{{ x.isT }}" hint-placeholder-val="{{ true }}">{{ x.t }}</sc-if><sc-if value="{{ x.isB }}" hint-placeholder-val="{{ false }}"><strong>{{ x.t }}</strong></sc-if><sc-if value="{{ x.isC }}" hint-placeholder-val="{{ false }}"><code>{{ x.t }}</code></sc-if><sc-if value="{{ x.isA }}" hint-placeholder-val="{{ false }}"><a href="{{ x.href }}" target="_blank" rel="noopener noreferrer">{{ x.t }}</a></sc-if></sc-for></p></sc-if>
+<sc-if value="{{ b.isH }}" hint-placeholder-val="{{ false }}"><h2 class="sg-h2" id="{{ b.id }}"><span aria-hidden="true">{{ b.n }}</span>{{ b.t }}</h2></sc-if>
+<sc-if value="{{ b.isQ }}" hint-placeholder-val="{{ false }}"><blockquote class="sg-quote"><p>{{ b.t }}</p></blockquote></sc-if>
+<sc-if value="{{ b.isTip }}" hint-placeholder-val="{{ false }}"><aside class="sg-callout" aria-label="{{ t.post.tip }}"><p class="sg-callout__k" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="2.4"></circle><path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2"></path></svg>{{ t.post.tip }}</p><p><sc-for list="{{ b.parts }}" as="x" hint-placeholder-count="2"><sc-if value="{{ x.isT }}" hint-placeholder-val="{{ true }}">{{ x.t }}</sc-if><sc-if value="{{ x.isB }}" hint-placeholder-val="{{ false }}"><strong>{{ x.t }}</strong></sc-if><sc-if value="{{ x.isC }}" hint-placeholder-val="{{ false }}"><code>{{ x.t }}</code></sc-if><sc-if value="{{ x.isA }}" hint-placeholder-val="{{ false }}"><a href="{{ x.href }}">{{ x.t }}</a></sc-if></sc-for></p></aside></sc-if>
+<sc-if value="{{ b.isUl }}" hint-placeholder-val="{{ false }}"><ul><sc-for list="{{ b.items }}" as="x" hint-placeholder-count="3"><li>{{ x.t }}</li></sc-for></ul></sc-if>
+<sc-if value="{{ b.isCode }}" hint-placeholder-val="{{ false }}"><figure class="sg-code"><figcaption class="sg-code__bar"><span><i aria-hidden="true"></i>{{ b.file }}</span><button type="button" onClick="{{ b.copy }}"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="5" y="5" width="8.5" height="8.5" rx="1.6"></rect><path d="M10.5 5V3.6A1.6 1.6 0 0 0 8.9 2H3.6A1.6 1.6 0 0 0 2 3.6v5.3a1.6 1.6 0 0 0 1.6 1.6H5"></path></svg>{{ b.copyLabel }}</button></figcaption><pre><code><sc-for list="{{ b.lines }}" as="l" hint-placeholder-count="6"><span class="ln"><sc-for list="{{ l.toks }}" as="x" hint-placeholder-count="3"><span class="{{ x.c }}">{{ x.t }}</span></sc-for></span></sc-for></code></pre></figure></sc-if>
+</sc-for>
+</div>
+</div>
+<footer class="sg-col sg-post__end">
+<div class="sg-tags"><sc-for list="{{ a.tags }}" as="g" hint-placeholder-count="4"><span class="sg-chip">{{ g }}</span></sc-for></div>
+<div class="sg-author">
+<span class="sg-avatar"><svg viewBox="0 0 560 560" aria-hidden="true"><use href="#sgMark" width="560" height="560"></use></svg></span>
+<div>
+<p class="sg-author__k">{{ t.post.byK }}</p>
+<p class="sg-author__n">Marcela Gotta</p>
+<p class="sg-author__p">{{ t.post.byP }}</p>
+<a class="sg-ext" href="https://marcelagotta.com" target="_blank" rel="noopener noreferrer">marcelagotta.com<span aria-hidden="true">↗</span></a>
+</div>
+</div>
+<section class="sg-endnl" aria-labelledby="sg-endnl-t">
+<h2 id="sg-endnl-t">{{ t.post.endH }}</h2>
+<p>{{ t.post.endP }}</p>
+<sc-if value="{{ nl.idle }}" hint-placeholder-val="{{ true }}">
+<form class="sg-form" onSubmit="{{ sub.post }}" novalidate="novalidate" aria-label="{{ t.nl.formLabel }}">
+<label class="sg-sr" for="sg-mail-post">{{ t.nl.label }}</label>
+<input class="sg-input" id="sg-mail-post" name="email" type="email" autocomplete="email" inputmode="email" placeholder="{{ t.nl.ph }}" aria-invalid="{{ nl.inv.post }}" aria-describedby="sg-err-post">
+<button class="sg-btn" type="submit">{{ t.nl.cta }}</button>
+<p class="sg-form__err" id="sg-err-post" role="alert">{{ nl.err.post }}</p>
+</form>
+</sc-if>
+<sc-if value="{{ nl.sent }}" hint-placeholder-val="{{ false }}"><p class="sg-ok" role="status"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 10.5 4 4L16 6"></path></svg><span><b>{{ t.nl.okA }}</b> {{ t.nl.okB }}</span></p></sc-if>
+</section>
+</footer>
+</article>
+<section class="sg-next" aria-labelledby="sg-next-h">
+<div class="sg-wrap">
+<h2 class="sg-next__h" id="sg-next-h">{{ t.post.nextH }}</h2>
+<div class="sg-cards">
+<sc-for list="{{ related }}" as="p" hint-placeholder-count="2">
+<a class="sg-card {{ p.tcls }}" href="{{ p.href }}" onClick="{{ p.go }}">
+<div class="sg-cover"><svg viewBox="0 0 1200 750" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="1200" height="750" fill="{{ p.cover.bg }}"></rect><sc-for list="{{ p.cover.shapes }}" as="s" hint-placeholder-count="10"><path d="{{ s.d }}" fill="{{ s.fill }}" stroke="{{ s.stroke }}" stroke-width="{{ s.sw }}" opacity="{{ s.op }}"></path></sc-for></svg></div>
+<p class="sg-meta-top"><span class="sg-topic">{{ p.topic }}</span><span>{{ t.ui.signal }} {{ p.num }}</span></p>
+<h3 class="sg-card__t">{{ p.title }}</h3>
+<p class="sg-meta">{{ p.date }} · {{ p.read }}</p>
+</a>
+</sc-for>
+</div>
+</div>
+</section>
+</sc-if>
+
+<section class="sg-nl" id="suscribirse" aria-labelledby="sg-nl-t">
+<div class="sg-nl__stars" aria-hidden="true"></div>
+<div class="sg-nl__limb" aria-hidden="true"></div>
+<div class="sg-wrap sg-nl__in">
+<div>
+<p class="sg-over"><i class="sg-live" aria-hidden="true"></i>{{ t.nl.over }}</p>
+<h2 class="sg-nl__t" id="sg-nl-t">{{ t.nl.h2a }} <em>{{ t.nl.h2b }}</em></h2>
+</div>
+<div>
+<p class="sg-nl__sub">{{ t.nl.sub }}</p>
+<sc-if value="{{ nl.idle }}" hint-placeholder-val="{{ true }}">
+<form class="sg-form" onSubmit="{{ sub.band }}" novalidate="novalidate" aria-label="{{ t.nl.formLabel }}">
+<label class="sg-sr" for="sg-mail-band">{{ t.nl.label }}</label>
+<input class="sg-input" id="sg-mail-band" name="email" type="email" autocomplete="email" inputmode="email" placeholder="{{ t.nl.ph }}" aria-invalid="{{ nl.inv.band }}" aria-describedby="sg-err-band">
+<button class="sg-btn" type="submit">{{ t.nl.cta }}</button>
+<p class="sg-form__err" id="sg-err-band" role="alert">{{ nl.err.band }}</p>
+</form>
+<p class="sg-fine">{{ t.nl.fine }}</p>
+</sc-if>
+<sc-if value="{{ nl.sent }}" hint-placeholder-val="{{ false }}"><p class="sg-ok" role="status"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 10.5 4 4L16 6"></path></svg><span><b>{{ t.nl.okA }}</b> {{ t.nl.okB }}</span></p></sc-if>
+</div>
+</div>
+</section>
+</main>
+
+<footer class="sg-foot">
+<div class="sg-wrap">
+<div class="sg-foot__in">
+<div class="sg-foot__brand">
+<a class="sg-brand" href="#inicio" onClick="{{ go.home }}" aria-label="{{ t.ui.homeAria }}"><svg aria-hidden="true"><use href="#sgGlyph"></use></svg><span class="sg-brand__w">Signals</span><span class="sg-brand__by">by Mars</span></a>
+<p>{{ t.foot.line }}</p>
+</div>
+<div><p class="sg-foot__h">{{ t.ui.topics }}</p><ul><sc-for list="{{ navTopics }}" as="n" hint-placeholder-count="3"><li><a href="#temas" onClick="{{ n.go }}">{{ n.label }}</a></li></sc-for></ul></div>
+<div><p class="sg-foot__h">Signals</p><ul><li><a href="#suscribirse" onClick="{{ go.subscribe }}">{{ t.ui.subscribe }}</a></li><li><a href="https://signals.marcelagotta.com/rss.xml">RSS</a></li><li><a href="#temas" onClick="{{ go.archive }}">{{ t.foot.archive }}</a></li></ul></div>
+<div><p class="sg-foot__h">Mars</p><ul><li><a href="https://marcelagotta.com" target="_blank" rel="noopener noreferrer">{{ t.foot.portfolio }}<span aria-hidden="true">↗</span></a></li><li><a href="https://github.com/MarsGotta" target="_blank" rel="noopener noreferrer">GitHub<span aria-hidden="true">↗</span></a></li></ul></div>
+</div>
+<div class="sg-foot__base"><span>© 2026 Marcela Gotta · {{ t.foot.made }}</span><span>Sol {{ mc.sol }} · {{ mc.lmst }} LMST {{ t.foot.inJezero }}</span></div>
+</div>
+</footer>
+
+</div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["light","dark"],"default":"light","section":"Vista"},"lang":{"editor":"enum","options":["es","en"],"default":"es","section":"Vista"},"route":{"editor":"enum","options":["inicio","articulo"],"default":"inicio","section":"Vista"},"$preview":{"width":1440,"height":3300}}'>
+/* ---------- Physics: real values, same as the portfolio ---------- */
+var SG_JEZ_LON = 77.4508; /* Perseverance landing site, Jezero crater (deg E) */
+function sgMarsClock(ms) {
+  var jdTT = 2440587.5 + ms / 86400000 + (37 + 32.184) / 86400;
+  var msd = (jdTT - 2451549.5) / 1.0274912517 + 44796.0 - 0.0009626;
+  var d = jdTT - 2451545.0, R = Math.PI / 180;
+  var M = ((19.3871 + 0.52402073 * d) % 360) * R;
+  var A = [0.0071, 0.0057, 0.0039, 0.0037, 0.0021, 0.0020, 0.0018];
+  var T = [2.2353, 2.7543, 1.1177, 15.7866, 2.1354, 2.4694, 32.8493];
+  var P = [49.409, 168.173, 191.837, 21.736, 15.704, 95.528, 49.095];
+  var pbs = 0;
+  for (var i = 0; i < 7; i++) pbs += A[i] * Math.cos((0.985626 * d / T[i] + P[i]) * R);
+  var nuM = (10.691 + 3.0e-7 * d) * Math.sin(M) + 0.623 * Math.sin(2 * M) + 0.050 * Math.sin(3 * M) + 0.005 * Math.sin(4 * M) + 0.0005 * Math.sin(5 * M) + pbs;
+  var ls = (((270.3871 + 0.524038496 * d) % 360 + nuM) % 360 + 360) % 360, L = ls * R;
+  var eot = 2.861 * Math.sin(2 * L) - 0.071 * Math.sin(4 * L) + 0.002 * Math.sin(6 * L) - nuM;
+  var mtc = ((24 * msd) % 24 + 24) % 24;
+  return { lmst: ((mtc + SG_JEZ_LON / 15) % 24 + 24) % 24, sol: Math.floor(msd + SG_JEZ_LON / 360) - 52304, eot: eot };
+}
+/* Earth and Mars from JPL's approximate Keplerian elements (Standish, valid 1800 to 2050):
+   a, da, e, de, I, dI, L, dL, long. perihelion, d, long. node, d. Rates per Julian century. */
+var SG_EL = {
+  earth: [1.00000261, 0.00000562, 0.01671123, -0.00004392, -0.00001531, -0.01294668, 100.46457166, 35999.37244981, 102.93768193, 0.32327364, 0, 0],
+  mars: [1.52371034, 0.00001847, 0.09339410, 0.00007882, 1.84969142, -0.00813131, -4.55343205, 19140.30268499, -23.94362959, 0.44441088, 49.55953891, -0.29257343]
+};
+function sgHelio(el, T) {
+  var R = Math.PI / 180;
+  var a = el[0] + el[1] * T, e = el[2] + el[3] * T, I = (el[4] + el[5] * T) * R, L = el[6] + el[7] * T, wb = el[8] + el[9] * T, O = el[10] + el[11] * T;
+  var M = (((L - wb) % 360) + 540) % 360 - 180, w = (wb - O) * R;
+  O *= R; M *= R;
+  var E = M + e * Math.sin(M);
+  for (var i = 0; i < 8; i++) E -= (E - e * Math.sin(E) - M) / (1 - e * Math.cos(E)); /* Kepler's equation */
+  var x = a * (Math.cos(E) - e), y = a * Math.sqrt(1 - e * e) * Math.sin(E);
+  var cw = Math.cos(w), sw = Math.sin(w), cO = Math.cos(O), sO = Math.sin(O), cI = Math.cos(I), sI = Math.sin(I);
+  return [(cw * cO - sw * sO * cI) * x + (-sw * cO - cw * sO * cI) * y, (cw * sO + sw * cO * cI) * x + (-sw * sO + cw * cO * cI) * y, sw * sI * x + cw * sI * y];
+}
+/* How long a signal takes from Earth to Mars right now: distance / c. */
+function sgLight(ms) {
+  var T = (ms / 86400000 + 2440587.5 - 2451545.0) / 36525;
+  var p = sgHelio(SG_EL.earth, T), q = sgHelio(SG_EL.mars, T);
+  var km = Math.hypot(q[0] - p[0], q[1] - p[1], q[2] - p[2]) * 149597870.7;
+  return { km: km, s: km / 299792.458 };
+}
+function sgPad(n) { return (n < 10 ? '0' : '') + n; }
+function sgHM(h) { var H = Math.floor(h), m = Math.floor((h - H) * 60); return sgPad(H) + ':' + sgPad(m); }
+
+/* ---------- Generated covers: each signal gets its own transmission ---------- */
+function sgRand(seed) { var s = seed >>> 0; return function () { s = (s + 0x6D2B79F5) >>> 0; var t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+var SG_PAL = {
+  ia: { bg: '#2A1218', c: ['#E9603A', '#D11772', '#FFB08A', '#5E1A2A'] },
+  practica: { bg: '#1C1530', c: ['#B29BE4', '#7C5CC4', '#FFE9DC', '#2E2350'] },
+  tutorial: { bg: '#10202F', c: ['#7FB2E5', '#E9A27A', '#FFF1E6', '#1C3550'] }
+};
+function sgF(n) { return Math.round(n * 10) / 10; }
+function sgCircle(cx, cy, r) { return 'M' + sgF(cx - r) + ' ' + sgF(cy) + 'a' + sgF(r) + ' ' + sgF(r) + ' 0 1 0 ' + sgF(2 * r) + ' 0a' + sgF(r) + ' ' + sgF(r) + ' 0 1 0 ' + sgF(-2 * r) + ' 0Z'; }
+function sgShape(d, fill, stroke, sw, op) { return { d: d, fill: fill || 'none', stroke: stroke || 'none', sw: sw || 0, op: op == null ? 1 : op }; }
+function sgCover(kind, topic, seed) {
+  var r = sgRand(seed * 7919 + 13), P = SG_PAL[topic], c = P.c, out = [], i, x, k;
+  if (kind === 'dunes') {
+    var sx = 300 + r() * 600, sy = 250 + r() * 120;
+    out.push(sgShape(sgCircle(sx, sy, 210), c[2], null, 0, 0.06));
+    out.push(sgShape(sgCircle(sx, sy, 120), c[2], null, 0, 0.1));
+    out.push(sgShape(sgCircle(sx, sy, 46), c[2], null, 0, 0.92));
+    for (k = 0; k < 4; k++) {
+      var base = 430 + k * 85, amp = 26 + r() * 30, f1 = 0.004 + r() * 0.004, ph = r() * 6.28, d = 'M0 750L0 ' + sgF(base);
+      for (x = 0; x <= 1200; x += 40) d += 'L' + x + ' ' + sgF(base + Math.sin(x * f1 + ph) * amp + Math.sin(x * f1 * 2.7 + ph) * amp * 0.35);
+      d += 'L1200 750Z';
+      out.push(sgShape(d, k === 0 ? c[3] : k === 1 ? c[1] : k === 2 ? c[0] : P.bg, null, 0, k === 3 ? 1 : 0.9 - k * 0.12));
+    }
+  } else if (kind === 'orbits') {
+    var cx = 600 + (r() - 0.5) * 200, cy = 375 + (r() - 0.5) * 80, tilt = (-14 + r() * 8) * Math.PI / 180;
+    for (k = 1; k <= 5; k++) {
+      var rx = 90 + k * 96, ry = rx * 0.3, d2 = '';
+      for (i = 0; i <= 72; i++) { var t = i / 72 * Math.PI * 2, ex = Math.cos(t) * rx, ey = Math.sin(t) * ry; d2 += (i ? 'L' : 'M') + sgF(cx + ex * Math.cos(tilt) - ey * Math.sin(tilt)) + ' ' + sgF(cy + ex * Math.sin(tilt) + ey * Math.cos(tilt)); }
+      out.push(sgShape(d2 + 'Z', null, k === 3 ? c[0] : c[2], k === 3 ? 2.6 : 1.4, k === 3 ? 0.95 : 0.22));
+      var a = r() * Math.PI * 2, px = Math.cos(a) * rx, py = Math.sin(a) * ry;
+      out.push(sgShape(sgCircle(cx + px * Math.cos(tilt) - py * Math.sin(tilt), cy + px * Math.sin(tilt) + py * Math.cos(tilt), k === 3 ? 11 : 5), k === 3 ? c[0] : c[2], null, 0, k === 3 ? 1 : 0.7));
+    }
+    out.push(sgShape(sgCircle(cx, cy, 64), c[1], null, 0, 0.95));
+    out.push(sgShape(sgCircle(cx - 18, cy - 20, 40), c[0], null, 0, 0.55));
+  } else if (kind === 'signal') {
+    var ox = 140 + r() * 160, oy = 600 - r() * 80;
+    for (k = 1; k <= 11; k++) {
+      var rr = k * 92;
+      out.push(sgShape('M' + sgF(ox) + ' ' + sgF(oy - rr) + 'A' + rr + ' ' + rr + ' 0 0 1 ' + sgF(ox + rr) + ' ' + sgF(oy), null, k % 4 === 2 ? c[0] : c[2], k % 4 === 2 ? 3 : 1.4, k % 4 === 2 ? 0.95 : 0.5 - k * 0.035));
+    }
+    out.push(sgShape(sgCircle(ox, oy, 34), c[1], null, 0, 1));
+    var wy = 210 + r() * 60, w = 'M0 ' + sgF(wy);
+    for (x = 0; x <= 1200; x += 8) { var env = Math.exp(-Math.pow((x - 820) / 240, 2)); w += 'L' + x + ' ' + sgF(wy + Math.sin(x * 0.09 + r() * 0.6) * (4 + 70 * env)); }
+    out.push(sgShape(w, null, c[2], 2, 0.85));
+  } else {
+    var y = 120, band = 0, hit = 2 + Math.floor(r() * 4);
+    while (y < 750) {
+      var h = 46 + r() * 52, amp2 = 6 + r() * 12, ph2 = r() * 6.28, top = 'M0 750L0 ' + sgF(y);
+      for (x = 0; x <= 1200; x += 60) top += 'L' + x + ' ' + sgF(y + Math.sin(x * 0.006 + ph2) * amp2);
+      top += 'L1200 750Z';
+      out.push(sgShape(top, band === hit ? c[0] : band % 2 ? c[3] : c[1], null, 0, band === hit ? 0.95 : 0.35 + (band % 3) * 0.12));
+      y += h; band++;
+    }
+    var scan = 140 + hit * 70;
+    out.push(sgShape('M0 ' + scan + 'L1200 ' + scan, null, c[2], 1.6, 0.8));
+    out.push(sgShape(sgCircle(900, scan, 7), c[2], null, 0, 1));
+  }
+  return { bg: P.bg, shapes: out };
+}
+
+/* ---------- Tiny syntax colouring for the code samples ---------- */
+var SG_KW = {
+  sql: ['CREATE', 'VIRTUAL', 'TABLE', 'USING', 'SELECT', 'FROM', 'WHERE', 'MATCH', 'ORDER', 'BY', 'LIMIT', 'AS', 'INSERT', 'INTO', 'VALUES', 'OR', 'AND', 'UNINDEXED'],
+  python: ['import', 'from', 'def', 'return', 'with', 'as', 'for', 'in', 'if', 'None', 'True', 'False']
+};
+function sgTok(line, lang) {
+  var out = [], re = /(--.*$|#.*$)|('(?:[^']*)'|"(?:[^"]*)")|(\b\d+(?:\.\d+)?\b)|([A-Za-z_][A-Za-z0-9_]*)(?=\()|([A-Za-z_][A-Za-z0-9_]*)|(\s+|.)/g, m, kw = SG_KW[lang] || [];
+  while ((m = re.exec(line))) {
+    if (m[1] && ((lang === 'sql' && m[1].charAt(0) === '-') || (lang === 'python' && m[1].charAt(0) === '#'))) out.push({ t: m[1], c: 'c' });
+    else if (m[1]) out.push({ t: m[1], c: '' });
+    else if (m[2]) out.push({ t: m[2], c: 's' });
+    else if (m[3]) out.push({ t: m[3], c: 'n' });
+    else if (m[4]) out.push({ t: m[4], c: kw.indexOf(m[4]) >= 0 ? 'k' : 'f' });
+    else if (m[5]) out.push({ t: m[5], c: kw.indexOf(m[5]) >= 0 ? 'k' : '' });
+    else out.push({ t: m[6], c: '' });
+  }
+  var merged = [];
+  out.forEach(function (x) { var l = merged[merged.length - 1]; if (l && l.c === x.c) l.t += x.t; else merged.push({ t: x.t, c: x.c }); });
+  if (!merged.length) merged.push({ t: ' ', c: '' });
+  return merged;
+}
+/* **bold**, `code` and [text](url) inside a paragraph */
+function sgParts(s) {
+  var out = [], re = /\*\*([^*]+)\*\*|`([^`]+)`|\[([^\]]+)\]\(([^)]+)\)/g, last = 0, m;
+  function push(o) { out.push({ t: o.t, href: o.href || '', isT: !!o.T, isB: !!o.B, isC: !!o.C, isA: !!o.A }); }
+  while ((m = re.exec(s))) {
+    if (m.index > last) push({ t: s.slice(last, m.index), T: 1 });
+    if (m[1]) push({ t: m[1], B: 1 }); else if (m[2]) push({ t: m[2], C: 1 }); else push({ t: m[3], href: m[4], A: 1 });
+    last = re.lastIndex;
+  }
+  if (last < s.length) push({ t: s.slice(last), T: 1 });
+  return out;
+}
+
+/* ---------- Content ---------- */
+var SG_POSTS = [
+  { n: '007', topic: 'tutorial', iso: '2026-10-21', min: 9, cover: 'strata', slug: { es: 'dale-memoria-a-tus-agentes-con-sqlite', en: 'give-your-agents-memory-with-sqlite' },
+    title: { es: 'Dale memoria a tus agentes con un solo fichero SQLite', en: 'Give your agents memory with a single SQLite file' },
+    excerpt: { es: 'Búsqueda de texto completo con FTS5, sin GPU ni servicios externos. El patrón que uso en Jezero, paso a paso.', en: 'Full-text search with FTS5, no GPU, no external services. The pattern I use in Jezero, step by step.' } },
+  { n: '006', topic: 'practica', iso: '2026-10-14', min: 6, cover: 'signal', slug: { es: 'cinco-preguntas-codigo-ia', en: 'five-questions-ai-code' },
+    title: { es: 'Cinco preguntas antes de aceptar código que ha escrito una IA', en: 'Five questions before you accept code an AI wrote' },
+    excerpt: { es: 'Compila y pasa los tests. Eso no significa que esté bien. La lista corta que repaso en cada revisión.', en: 'It compiles and the tests pass. That does not mean it is right. The short list I go through in every review.' } },
+  { n: '005', topic: 'ia', iso: '2026-10-07', min: 4, cover: 'orbits', slug: { es: 'senales-de-la-semana-12', en: 'signals-of-the-week-12' },
+    title: { es: 'Señales de la semana #12', en: 'Signals of the week #12' },
+    excerpt: { es: 'Lo que ha pasado esta semana en IA y en la web, filtrado: tres cosas que importan y por qué, y una que puedes ignorar.', en: 'What happened this week in AI and on the web, filtered: three things that matter and why, and one you can ignore.' } },
+  { n: '004', topic: 'practica', iso: '2026-09-30', min: 7, cover: 'dunes', slug: { es: 'accesibilidad-puerta-dura-ci', en: 'accessibility-hard-gate-ci' },
+    title: { es: 'La accesibilidad como puerta dura en CI', en: 'Accessibility as a hard gate in CI' },
+    excerpt: { es: 'Si axe encuentra una violación, no se fusiona. Cómo lo montamos en Kimen y qué aprendimos por el camino.', en: 'If axe finds a violation, it does not merge. How we set it up in Kimen and what we learned on the way.' } },
+  { n: '003', topic: 'tutorial', iso: '2026-09-23', min: 11, cover: 'orbits', slug: { es: 'web-components-para-agentes', en: 'web-components-for-agents' },
+    title: { es: 'Web Components que un agente puede usar sin romper nada', en: 'Web Components an agent can use without breaking anything' },
+    excerpt: { es: 'Un catálogo cerrado, un contrato claro y validación antes de pintar. El patrón detrás de Kimen, con código.', en: 'A closed catalogue, a clear contract and validation before rendering. The pattern behind Kimen, with code.' } },
+  { n: '002', topic: 'ia', iso: '2026-09-16', min: 4, cover: 'signal', slug: { es: 'senales-de-la-semana-11', en: 'signals-of-the-week-11' },
+    title: { es: 'Señales de la semana #11', en: 'Signals of the week #11' },
+    excerpt: { es: 'Tres noticias que importan, contadas sin prisa, y qué deberían cambiar en tu forma de trabajar.', en: 'Three news items that matter, told without hurry, and what they should change in the way you work.' } }
+];
+var SG_PICKS = ['003', '004', '006'];
+var SG_RELATED = ['003', '006'];
+
+var SG_ARTICLE = {
+  es: {
+    deck: 'Búsqueda de texto completo con FTS5, sin GPU ni servicios externos. El patrón que uso en Jezero, paso a paso.',
+    coverCap: 'Portada generada a partir de la señal 007: los estratos del cráter Jezero.',
+    tags: ['SQLite', 'Agentes', 'MCP', 'Python'],
+    blocks: [
+      ['lead', 'Tus agentes olvidan. Cada sesión empieza de cero: lo que decidimos ayer, el comando que por fin funcionó, el error exacto que ya resolvimos la semana pasada. Y tú acabas repitiendo contexto, como quien explica lo mismo a un compañero nuevo cada mañana.'],
+      ['p', 'La tentación es montar una base de datos vectorial, un servicio de embeddings y una GPU. Para la memoria de trabajo de un equipo, casi nunca hace falta. Empieza por algo más pequeño: **un único fichero SQLite con búsqueda de texto completo**.'],
+      ['h2', 'por-que-fts5', 'Por qué texto completo y no embeddings'],
+      ['p', 'Lo que más se busca en la memoria de un agente son cosas exactas: un mensaje de error, el nombre de un fichero, un flag, una decisión con sus palabras. Ahí la búsqueda léxica gana. Encuentra la coincidencia literal en milisegundos y puedes explicar por qué la ha encontrado.'],
+      ['p', '`FTS5` es la extensión de búsqueda de texto completo que viene con SQLite. Ordena por relevancia con `bm25`, resalta los fragmentos que coinciden y no necesita ningún servidor.'],
+      ['tip', 'Empieza con FTS5. Añade embeddings solo cuando tengas consultas reales que fallen por sinónimos, no antes.'],
+      ['h2', 'la-tabla', 'Una tabla virtual, cuatro columnas'],
+      ['p', 'La memoria vive en una tabla virtual. Solo se indexa lo que se busca; el origen y la fecha van en columnas sin indexar.'],
+      ['code', 'sql', 'schema.sql', "CREATE VIRTUAL TABLE atoms USING fts5(\n  kind,               -- decision, error, fix, command\n  body,\n  source UNINDEXED,   -- qué agente lo escribió\n  created_at UNINDEXED,\n  tokenize = 'unicode61 remove_diacritics 2'\n);"],
+      ['p', 'El tokenizador `unicode61` con `remove_diacritics 2` hace que «decisión» y «decision» encuentren lo mismo. En español, eso importa.'],
+      ['h2', 'atomos', 'Guarda átomos, no sesiones enteras'],
+      ['p', 'Una sesión completa es ruido: cientos de líneas para una sola decisión útil. Antes de guardar, resume cada sesión en **átomos**: una decisión, su porqué, un error exacto, el arreglo, el comando que funcionó. Un átomo, una fila.'],
+      ['code', 'python', 'save.py', 'import sqlite3\n\ndb = sqlite3.connect("memory.db")\ndb.execute(\n    "INSERT INTO atoms (kind, body, source, created_at) VALUES (?, ?, ?, ?)",\n    ("decision", "Usamos SQLite FTS5: milisegundos y sin GPU.", "claude-code", "2026-10-02"),\n)\ndb.commit()'],
+      ['quote', 'Una memoria que tú no puedes leer tampoco es una memoria en la que puedas confiar.'],
+      ['h2', 'buscar', 'Buscar con ranking'],
+      ['p', 'Para recuperar algo, `MATCH` filtra, `bm25()` ordena (cuanto más bajo, más relevante) y `snippet()` devuelve el trozo exacto que coincide, listo para meterlo en el contexto del agente.'],
+      ['code', 'sql', 'search.sql', "SELECT kind,\n       snippet(atoms, 1, '[', ']', '…', 12) AS hit,\n       source\nFROM atoms\nWHERE atoms MATCH 'sqlite OR fts5'\nORDER BY bm25(atoms)\nLIMIT 5;"],
+      ['p', 'Con unos miles de átomos, esta consulta tarda milisegundos en un portátil. Y el fichero entero se copia, se versiona y se borra como cualquier otro.'],
+      ['h2', 'solo-lectura', 'Que lean todos, que no escriba ninguno'],
+      ['p', 'El último paso es darles acceso. Yo lo expongo como un servidor MCP de **solo lectura**: cualquier agente puede preguntar qué se decidió o qué falló, pero ninguno puede reescribir la memoria. Escribe un proceso aparte, que además redacta los secretos antes de guardar nada.'],
+      ['ul', ['Un fichero, sin servicios: lo entiendes, lo copias y lo borras.', 'Átomos pequeños: el agente recibe un contexto corto y preciso.', 'Lectura para todos y escritura para uno: la memoria no se corrompe sola.']],
+      ['p', 'Este es el patrón que hay detrás de [Jezero](https://github.com/MarsGotta/jezero), la memoria compartida de mis agentes, que ya es open source.']
+    ]
+  },
+  en: {
+    deck: 'Full-text search with FTS5, no GPU, no external services. The pattern I use in Jezero, step by step.',
+    coverCap: 'Cover generated from signal 007: the strata of Jezero crater.',
+    tags: ['SQLite', 'Agents', 'MCP', 'Python'],
+    blocks: [
+      ['lead', 'Your agents forget. Every session starts from zero: what we decided yesterday, the command that finally worked, the exact error we fixed last week. And you end up repeating context, like explaining the same thing to a new teammate every morning.'],
+      ['p', 'The temptation is to set up a vector database, an embeddings service and a GPU. For a team’s working memory, you almost never need them. Start with something smaller: **a single SQLite file with full-text search**.'],
+      ['h2', 'why-fts5', 'Why full-text search and not embeddings'],
+      ['p', 'What you look up most in an agent’s memory is exact: an error message, a file name, a flag, a decision in its own words. That is where lexical search wins. It finds the literal match in milliseconds, and you can explain why it found it.'],
+      ['p', '`FTS5` is the full-text search extension that ships with SQLite. It ranks by relevance with `bm25`, highlights the matching fragments and needs no server at all.'],
+      ['tip', 'Start with FTS5. Add embeddings only when you have real queries that fail because of synonyms, not before.'],
+      ['h2', 'the-table', 'One virtual table, four columns'],
+      ['p', 'Memory lives in a virtual table. Only what you search is indexed; the source and the date go in unindexed columns.'],
+      ['code', 'sql', 'schema.sql', "CREATE VIRTUAL TABLE atoms USING fts5(\n  kind,               -- decision, error, fix, command\n  body,\n  source UNINDEXED,   -- which agent wrote it\n  created_at UNINDEXED,\n  tokenize = 'unicode61 remove_diacritics 2'\n);"],
+      ['p', 'The `unicode61` tokenizer with `remove_diacritics 2` makes «decisión» and «decision» match the same rows. In Spanish, that matters.'],
+      ['h2', 'atoms', 'Store atoms, not whole sessions'],
+      ['p', 'A full session is noise: hundreds of lines for a single useful decision. Before storing, summarise each session into **atoms**: a decision, its why, an exact error, the fix, the command that worked. One atom, one row.'],
+      ['code', 'python', 'save.py', 'import sqlite3\n\ndb = sqlite3.connect("memory.db")\ndb.execute(\n    "INSERT INTO atoms (kind, body, source, created_at) VALUES (?, ?, ?, ?)",\n    ("decision", "We use SQLite FTS5: milliseconds, no GPU.", "claude-code", "2026-10-02"),\n)\ndb.commit()'],
+      ['quote', 'A memory you cannot read yourself is not a memory you can trust.'],
+      ['h2', 'search', 'Search with ranking'],
+      ['p', 'To get something back, `MATCH` filters, `bm25()` ranks (lower means more relevant) and `snippet()` returns the exact matching fragment, ready to drop into the agent’s context.'],
+      ['code', 'sql', 'search.sql', "SELECT kind,\n       snippet(atoms, 1, '[', ']', '…', 12) AS hit,\n       source\nFROM atoms\nWHERE atoms MATCH 'sqlite OR fts5'\nORDER BY bm25(atoms)\nLIMIT 5;"],
+      ['p', 'With a few thousand atoms, this query takes milliseconds on a laptop. And the whole file is copied, versioned and deleted like any other.'],
+      ['h2', 'read-only', 'Everyone reads, nobody writes'],
+      ['p', 'The last step is giving them access. I expose it as a **read-only** MCP server: any agent can ask what was decided or what failed, but none of them can rewrite the memory. A separate process writes, and it redacts secrets before storing anything.'],
+      ['ul', ['One file, no services: you understand it, copy it and delete it.', 'Small atoms: the agent gets short, precise context.', 'Read for everyone, write for one: memory does not corrupt itself.']],
+      ['p', 'This is the pattern behind [Jezero](https://github.com/MarsGotta/jezero), the shared memory of my agents, which is now open source.']
+    ]
+  }
+};
+
+var SG_T = {
+  es: {
+    ui: { skip: 'Saltar al contenido', homeAria: 'Signals by Mars, inicio', topics: 'Temas', about: 'Sobre Mars', lang: 'Idioma', subscribe: 'Suscribirme', toLight: 'Cambiar al tema claro', toDark: 'Cambiar al tema oscuro', signal: 'Señal', read: 'min de lectura' },
+    topics: { ia: 'Noticias IA', practica: 'Práctica', tutorial: 'Tutoriales' },
+    topic1: { ia: 'Noticias IA', practica: 'Práctica', tutorial: 'Tutorial' },
+    home: { over: 'Transmitiendo desde Madrid', h1a: 'Señales', h1b: 'entre el ruido.', sub: 'Noticias de IA y tecnología que importan, consejos prácticos para hacer mejor software y algún tutorial. Lo escribe Mars, desde Madrid.' },
+    strip: { k: 'Señal Tierra → Marte', earth: 'Tierra', mars: 'Marte', a: 'Hoy tarda', km: 'millones de km' },
+    feed: { h: 'Últimas señales', all: 'Todo' },
+    side: { aria: 'Más de Signals', startH: 'Empieza por aquí', topicsH: 'Temas', aboutH: 'Quién escribe', aboutP: 'Soy Marcela Gotta, Mars para casi todo el mundo. Ingeniera de software en Madrid: lidero frontend en Sngular y construyo en abierto infraestructura para agentes de IA.', aboutCta: 'Mi portfolio', rss: 'También por RSS', rssP: 'Si prefieres tu lector de siempre.' },
+    nl: { over: 'Newsletter', h2a: 'Cada señal,', h2b: 'en tu correo.', sub: 'Un email cada vez que publico un artículo. Nada más: ni promociones ni resúmenes de relleno.', formLabel: 'Suscripción a la newsletter', label: 'Tu email', ph: 'tu@email.com', cta: 'Suscribirme', fine: 'Sin spam. Te das de baja con un clic.', okA: 'Casi está.', okB: 'Revisa tu correo y confirma la suscripción.', err: 'Ese email no parece válido. ¿Lo revisas?' },
+    post: { follow: 'Suscribirme', share: 'Compartir', copy: 'Copiar enlace', copied: 'Enlace copiado', newTab: '(se abre en otra pestaña)', toc: 'En esta señal', tip: 'Consejo práctico', copyCode: 'Copiar', copiedCode: 'Copiado', byK: 'Escrito por', byP: 'Ingeniera de software en Madrid y Head Frontend Developer en Sngular. Construye en abierto Kimen, Jezero y Orbit.', endH: 'Te aviso de la próxima señal.', endP: 'Un email por artículo. Sin spam y sin relleno.', nextH: 'Siguientes señales' },
+    foot: { line: 'Signals by Mars es el blog de Marcela Gotta: IA, tecnología y oficio, escrito con calma.', archive: 'Archivo', portfolio: 'Portfolio', made: 'Hecho en Madrid, pensado en Marte', inJezero: 'en Jezero' },
+    months: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sept', 'oct', 'nov', 'dic']
+  },
+  en: {
+    ui: { skip: 'Skip to content', homeAria: 'Signals by Mars, home', topics: 'Topics', about: 'About Mars', lang: 'Language', subscribe: 'Subscribe', toLight: 'Switch to the light theme', toDark: 'Switch to the dark theme', signal: 'Signal', read: 'min read' },
+    topics: { ia: 'AI news', practica: 'Practice', tutorial: 'Tutorials' },
+    topic1: { ia: 'AI news', practica: 'Practice', tutorial: 'Tutorial' },
+    home: { over: 'Transmitting from Madrid', h1a: 'Signals', h1b: 'through the noise.', sub: 'AI and tech news that matters, practical advice for building better software, and the odd tutorial. Written by Mars, from Madrid.' },
+    strip: { k: 'Earth → Mars signal', earth: 'Earth', mars: 'Mars', a: 'Today it takes', km: 'million km' },
+    feed: { h: 'Latest signals', all: 'All' },
+    side: { aria: 'More from Signals', startH: 'Start here', topicsH: 'Topics', aboutH: 'Who writes', aboutP: 'I am Marcela Gotta, Mars to almost everyone. A software engineer in Madrid: I lead frontend at Sngular and build agent infrastructure in the open.', aboutCta: 'My portfolio', rss: 'Also on RSS', rssP: 'If you prefer your usual reader.' },
+    nl: { over: 'Newsletter', h2a: 'Every signal,', h2b: 'in your inbox.', sub: 'One email each time I publish a post. Nothing else: no promotions, no filler digests.', formLabel: 'Newsletter subscription', label: 'Your email', ph: 'you@email.com', cta: 'Subscribe', fine: 'No spam. Unsubscribe in one click.', okA: 'Almost there.', okB: 'Check your inbox and confirm your subscription.', err: 'That email does not look right. Mind checking it?' },
+    post: { follow: 'Subscribe', share: 'Share', copy: 'Copy link', copied: 'Link copied', newTab: '(opens in a new tab)', toc: 'In this signal', tip: 'Practical tip', copyCode: 'Copy', copiedCode: 'Copied', byK: 'Written by', byP: 'Software engineer in Madrid and Head Frontend Developer at Sngular. Builds Kimen, Jezero and Orbit in the open.', endH: 'I will let you know about the next signal.', endP: 'One email per post. No spam, no filler.', nextH: 'Next signals' },
+    foot: { line: 'Signals by Mars is Marcela Gotta’s blog: AI, technology and craft, written calmly.', archive: 'Archive', portfolio: 'Portfolio', made: 'Made in Madrid, designed on Mars', inJezero: 'in Jezero' },
+    months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  }
+};
+var SG_TOPICS = ['ia', 'practica', 'tutorial'];
+
+function sgDate(iso, lang) {
+  var p = iso.split('-'), m = SG_T[lang].months[+p[1] - 1], d = +p[2];
+  return lang === 'en' ? m + ' ' + d + ', ' + p[0] : d + ' ' + m + ' ' + p[0];
+}
+function sgReduced() { try { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); } catch (e) { return false; } }
+var SG_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+var SG_COVERS = {};
+function sgCoverFor(p) { var k = p.n; if (!SG_COVERS[k]) SG_COVERS[k] = sgCover(p.cover, p.topic, +p.n); return SG_COVERS[k]; }
+
+class Component extends DCLogic {
+  componentDidMount() {
+    var self = this;
+    this._alive = true;
+    this._tick = setInterval(function () { if (self._alive) self.setState({ now: Date.now() }); }, 10000);
+  }
+  componentDidUpdate(prevProps) {
+    var p = this.props || {}, q = prevProps || {}, patch = null;
+    ['theme', 'lang', 'route'].forEach(function (k) { if (p[k] !== q[k]) { patch = patch || {}; patch[k] = undefined; } });
+    if (patch) this.setState(patch);
+  }
+  componentWillUnmount() { this._alive = false; clearInterval(this._tick); clearTimeout(this._ct); clearTimeout(this._cc); }
+  sgView() { var s = this.state || {}, p = this.props || {}; return { theme: s.theme || p.theme || 'light', lang: s.lang || p.lang || 'es', route: s.route || p.route || 'inicio' }; }
+  sgH() {
+    if (this._h) return this._h;
+    var self = this;
+    function scrollTo(id) {
+      try {
+        if (!id) { if (window.scrollY > 0) window.scrollTo(0, 0); return; }
+        var el = document.getElementById(id); if (el) el.scrollIntoView({ behavior: sgReduced() ? 'auto' : 'smooth', block: 'start' });
+      } catch (e) {}
+    }
+    function go(route, anchor, patch) {
+      return function (e) {
+        if (e && e.preventDefault) e.preventDefault();
+        var st = { route: route }; if (patch) for (var k in patch) st[k] = patch[k];
+        self.setState(st, function () { scrollTo(anchor); });
+      };
+    }
+    var h = { go: {}, topic: {}, sub: {}, code: {} };
+    h.go.home = go('inicio', null, { topic: 'all' });
+    h.go.article = go('articulo', null);
+    h.go.subscribe = function (e) { if (e && e.preventDefault) e.preventDefault(); scrollTo('suscribirse'); };
+    h.go.archive = go('inicio', 'temas', { topic: 'all' });
+    ['all'].concat(SG_TOPICS).forEach(function (k) { h.topic[k] = go('inicio', 'temas', { topic: k }); });
+    h.pickTab = {};
+    ['all'].concat(SG_TOPICS).forEach(function (k) { h.pickTab[k] = function () { self.setState({ topic: k }); }; });
+    ['hero', 'band', 'post'].forEach(function (where) {
+      h.sub[where] = function (e) {
+        if (e && e.preventDefault) e.preventDefault();
+        var f = e && (e.currentTarget || e.target), el = f && f.elements ? f.elements.email : null, v = el ? String(el.value || '').trim() : '';
+        if (!SG_EMAIL.test(v)) { self.setState({ nlErr: where }); try { if (el) el.focus(); } catch (x) {} return; }
+        self.setState({ nlSent: true, nlErr: null });
+      };
+    });
+    h.setEs = function () { self.setState({ lang: 'es' }); };
+    h.setEn = function () { self.setState({ lang: 'en' }); };
+    h.toggleTheme = function () { self.setState({ theme: self.sgView().theme === 'dark' ? 'light' : 'dark' }); };
+    h.copyText = function (text, key) {
+      try { if (navigator.clipboard) navigator.clipboard.writeText(text); } catch (e) {}
+      self.setState({ copied: key });
+      clearTimeout(self._ct);
+      self._ct = setTimeout(function () { if (self._alive !== false) self.setState({ copied: null }); }, 2200);
+    };
+    this._h = h;
+    return h;
+  }
+  renderVals() {
+    var h = this.sgH(), s = this.state || {}, v = this.sgView();
+    var lang = v.lang === 'en' ? 'en' : 'es', t = SG_T[lang], isDark = v.theme === 'dark';
+    var topic = s.topic || 'all', now = s.now || Date.now();
+    var r = { home: v.route !== 'articulo', article: v.route === 'articulo' };
+    var base = 'https://signals.marcelagotta.com' + (lang === 'en' ? '/en/' : '/');
+
+    function card(p) {
+      return {
+        num: p.n, title: p.title[lang], excerpt: p.excerpt[lang], topic: t.topic1[p.topic], tcls: 't-' + p.topic,
+        date: sgDate(p.iso, lang), sol: String(sgMarsClock(Date.parse(p.iso + 'T10:00:00Z')).sol), read: p.min + ' ' + t.ui.read,
+        href: base + p.slug[lang], go: h.go.article, cover: sgCoverFor(p)
+      };
+    }
+    var byNum = {}; SG_POSTS.forEach(function (p) { byNum[p.n] = p; });
+    var cards = SG_POSTS.map(card);
+    var feat = cards[0];
+    var feed = topic === 'all' ? cards.slice(1) : cards.filter(function (c, i) { return SG_POSTS[i].topic === topic; });
+
+    var tabs = ['all'].concat(SG_TOPICS).map(function (k) { return { label: k === 'all' ? t.feed.all : t.topics[k], tcls: k === 'all' ? '' : 't-' + k, on: topic === k, pick: h.pickTab[k] }; });
+    var navTopics = SG_TOPICS.map(function (k) { return { label: t.topics[k], go: h.topic[k], cur: r.home && topic === k ? 'true' : null }; });
+    var chips = SG_TOPICS.map(function (k) { return { label: t.topics[k], tcls: 't-' + k, count: String(SG_POSTS.filter(function (p) { return p.topic === k; }).length), pick: h.topic[k] }; });
+    var picks = SG_PICKS.map(function (n, i) { var c = card(byNum[n]); return { n: '0' + (i + 1), title: c.title, topic: c.topic, read: c.read, href: c.href, go: c.go }; });
+    var related = SG_RELATED.map(function (n) { return card(byNum[n]); });
+
+    /* the article */
+    var P = SG_POSTS[0], A = SG_ARTICLE[lang], self = this, hn = 0, toc = [];
+    var blocks = A.blocks.map(function (b, i) {
+      var o = { isP: false, isH: false, isQ: false, isTip: false, isUl: false, isCode: false, cls: '', parts: [], t: '', id: '', n: '', items: [], file: '', lines: [], copy: null, copyLabel: '' };
+      if (b[0] === 'p' || b[0] === 'lead') { o.isP = true; o.cls = b[0] === 'lead' ? 'sg-lead' : ''; o.parts = sgParts(b[1]); }
+      else if (b[0] === 'h2') { hn++; o.isH = true; o.id = b[1]; o.t = b[2]; o.n = '0' + hn; toc.push({ id: b[1], t: b[2], n: '0' + hn }); }
+      else if (b[0] === 'quote') { o.isQ = true; o.t = b[1]; }
+      else if (b[0] === 'tip') { o.isTip = true; o.parts = sgParts(b[1]); }
+      else if (b[0] === 'ul') { o.isUl = true; o.items = b[1].map(function (x) { return { t: x }; }); }
+      else if (b[0] === 'code') {
+        var key = 'code' + i;
+        o.isCode = true; o.file = b[2];
+        o.lines = b[3].split('\n').map(function (ln) { return { toks: sgTok(ln, b[1]) }; });
+        if (!h.code[key]) h.code[key] = function () { var cur = SG_ARTICLE[self.sgView().lang === 'en' ? 'en' : 'es'].blocks[i]; h.copyText(cur[3], key); };
+        o.copy = h.code[key]; o.copyLabel = s.copied === key ? t.post.copiedCode : t.post.copyCode;
+      }
+      return o;
+    });
+    var url = base + P.slug[lang];
+    if (!h.copyLink) h.copyLink = function () { var l = self.sgView().lang === 'en' ? 'en' : 'es'; h.copyText('https://signals.marcelagotta.com' + (l === 'en' ? '/en/' : '/') + SG_POSTS[0].slug[l], 'link'); };
+    var a = {
+      num: P.n, title: P.title[lang], deck: A.deck, topic: t.topic1[P.topic], tcls: 't-' + P.topic, goTopic: h.topic[P.topic],
+      iso: P.iso, date: sgDate(P.iso, lang), sol: feat.sol, read: feat.read, cover: sgCoverFor(P), coverCap: A.coverCap,
+      tags: A.tags, toc: toc, blocks: blocks,
+      shareLi: 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(url),
+      shareX: 'https://x.com/intent/post?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(P.title[lang])
+    };
+
+    var L = sgLight(now), mins = Math.floor(L.s / 60), secs = Math.floor(L.s % 60);
+    var dist = (L.km / 1e6).toFixed(1); if (lang === 'es') dist = dist.replace('.', ',');
+    var mc = sgMarsClock(now);
+    var nlSent = !!s.nlSent, err = s.nlErr;
+    function inv(w) { return !nlSent && err === w ? 'true' : 'false'; }
+    function emsg(w) { return !nlSent && err === w ? t.nl.err : ''; }
+
+    return {
+      t: t, r: r, theme: isDark ? 'dark' : 'light', lang: lang, isDark: isDark, isLight: !isDark, isEs: lang === 'es', isEn: lang === 'en',
+      themeLabel: isDark ? t.ui.toLight : t.ui.toDark, setEs: h.setEs, setEn: h.setEn, toggleTheme: h.toggleTheme, go: h.go,
+      navTopics: navTopics, tabs: tabs, chips: chips, picks: picks, feat: feat, feed: feed, related: related, a: a,
+      lt: { time: mins + ' min ' + secs + ' s', dist: dist }, mc: { sol: String(mc.sol), lmst: sgHM(mc.lmst) },
+      nl: { idle: !nlSent, sent: nlSent, inv: { hero: inv('hero'), band: inv('band'), post: inv('post') }, err: { hero: emsg('hero'), band: emsg('band'), post: emsg('post') } },
+      sub: h.sub, copyLink: h.copyLink, copyIdle: s.copied !== 'link', copyDone: s.copied === 'link', copyCls: s.copied === 'link' ? 'is-done' : ''
+    };
+  }
+}
+
+</script>
+</body>
+</html>

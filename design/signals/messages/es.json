@@ -1,0 +1,102 @@
+{
+  "ui": {
+    "skip": "Saltar al contenido",
+    "homeAria": "Signals by Mars, inicio",
+    "topics": "Temas",
+    "about": "Sobre Mars",
+    "lang": "Idioma",
+    "subscribe": "Suscribirme",
+    "toLight": "Cambiar al tema claro",
+    "toDark": "Cambiar al tema oscuro",
+    "signal": "Señal",
+    "read": "min de lectura"
+  },
+  "topics": {
+    "ia": "Noticias IA",
+    "practica": "Práctica",
+    "tutorial": "Tutoriales"
+  },
+  "topic1": {
+    "ia": "Noticias IA",
+    "practica": "Práctica",
+    "tutorial": "Tutorial"
+  },
+  "home": {
+    "over": "Transmitiendo desde Madrid",
+    "h1a": "Señales",
+    "h1b": "entre el ruido.",
+    "sub": "Noticias de IA y tecnología que importan, consejos prácticos para hacer mejor software y algún tutorial. Lo escribe Mars, desde Madrid."
+  },
+  "strip": {
+    "k": "Señal Tierra → Marte",
+    "earth": "Tierra",
+    "mars": "Marte",
+    "a": "Hoy tarda",
+    "km": "millones de km"
+  },
+  "feed": {
+    "h": "Últimas señales",
+    "all": "Todo"
+  },
+  "side": {
+    "aria": "Más de Signals",
+    "startH": "Empieza por aquí",
+    "topicsH": "Temas",
+    "aboutH": "Quién escribe",
+    "aboutP": "Soy Marcela Gotta, Mars para casi todo el mundo. Ingeniera de software en Madrid: lidero frontend en Sngular y construyo en abierto infraestructura para agentes de IA.",
+    "aboutCta": "Mi portfolio",
+    "rss": "También por RSS",
+    "rssP": "Si prefieres tu lector de siempre."
+  },
+  "nl": {
+    "over": "Newsletter",
+    "h2a": "Cada señal,",
+    "h2b": "en tu correo.",
+    "sub": "Un email cada vez que publico un artículo. Nada más: ni promociones ni resúmenes de relleno.",
+    "formLabel": "Suscripción a la newsletter",
+    "label": "Tu email",
+    "ph": "tu@email.com",
+    "cta": "Suscribirme",
+    "fine": "Sin spam. Te das de baja con un clic.",
+    "okA": "Casi está.",
+    "okB": "Revisa tu correo y confirma la suscripción.",
+    "err": "Ese email no parece válido. ¿Lo revisas?"
+  },
+  "post": {
+    "follow": "Suscribirme",
+    "share": "Compartir",
+    "copy": "Copiar enlace",
+    "copied": "Enlace copiado",
+    "newTab": "(se abre en otra pestaña)",
+    "toc": "En esta señal",
+    "tip": "Consejo práctico",
+    "copyCode": "Copiar",
+    "copiedCode": "Copiado",
+    "byK": "Escrito por",
+    "byP": "Ingeniera de software en Madrid y Head Frontend Developer en Sngular. Construye en abierto Kimen, Jezero y Orbit.",
+    "endH": "Te aviso de la próxima señal.",
+    "endP": "Un email por artículo. Sin spam y sin relleno.",
+    "nextH": "Siguientes señales"
+  },
+  "foot": {
+    "line": "Signals by Mars es el blog de Marcela Gotta: IA, tecnología y oficio, escrito con calma.",
+    "archive": "Archivo",
+    "portfolio": "Portfolio",
+    "made": "Hecho en Madrid, pensado en Marte",
+    "inJezero": "en Jezero"
+  },
+  "months": [
+    "ene",
+    "feb",
+    "mar",
+    "abr",
+    "may",
+    "jun",
+    "jul",
+    "ago",
+    "sept",
+    "oct",
+    "nov",
+    "dic"
+  ]
+}

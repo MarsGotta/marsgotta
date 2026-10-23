@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { archivePath, pagePath, rssPath, switchPath, topicPath } from './routes';
+import { archivePath, pagePath, pathLang, rssPath, switchPath, topicPath } from './routes';
 
 describe('routes', () => {
   it('follows the table of design/signals/LEEME.md §2 in both languages', () => {
@@ -13,6 +13,16 @@ describe('routes', () => {
     expect(pagePath({ kind: 'signal', slug: 'dale-memoria' }, 'es')).toBe('/dale-memoria');
     expect(pagePath({ kind: 'signal', slug: 'give-memory' }, 'en')).toBe('/en/give-memory');
     expect(rssPath('en')).toBe('/en/rss.xml');
+    expect(pagePath({ kind: 'subscribed' }, 'es')).toBe('/suscripcion/confirmada');
+    expect(pagePath({ kind: 'subscribed' }, 'en')).toBe('/en/subscription/confirmed');
+  });
+
+  it('reads the language from the path', () => {
+    expect(pathLang('/')).toBe('es');
+    expect(pathLang('/en')).toBe('en');
+    expect(pathLang('/en/archive')).toBe('en');
+    // A Spanish slug that happens to start with the letters «en».
+    expect(pathLang('/entre-el-ruido')).toBe('es');
   });
 
   it('switches to the same page in the other language', () => {

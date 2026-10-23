@@ -2,6 +2,7 @@
 import { getMessages, type Lang } from '../../i18n';
 import { newsletterReady } from '../../lib/newsletter';
 import { rssPath } from '../../lib/routes';
+import SubscribeForm from './SubscribeForm.astro';
 
 interface Props {
   lang: Lang;
@@ -30,7 +31,9 @@ const copy = newsletterReady
     </div>
     <div>
       <p class="sub">{copy.sub}</p>
-      {!newsletterReady && (
+      {newsletterReady ? (
+        <SubscribeForm lang={lang} source="band" fine titleId="band-title" />
+      ) : (
         <a class="ext" href={rssPath(lang)}>
           {t.nlSoon.rss}
           <span aria-hidden="true">→</span>

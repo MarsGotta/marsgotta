@@ -1,14 +1,25 @@
 {
   "$schema": "../node_modules/wrangler/config-schema.json",
   "name": "signals",
+  "main": "workers/index.ts",
   "compatibility_date": "2026-10-21",
-  // Static assets only for now: the Worker code arrives with the subscription endpoint and the
-  // language on arrival (design/signals/LEEME.md, phases 2 and 4).
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash",
+    // The pages run code to pick the visitor's language (workers/language.ts), and /api/subscribe
+    // starts a signup. Signals live at the root, so everything runs it except the build's files.
+    "run_worker_first": ["/*", "!/_astro/*", "!/fonts/*", "!/favicon.svg"],
   },
+  // Five signups a minute per visitor IP, as the portfolio's contact form: plenty for a person.
+  "ratelimits": [
+    {
+      "name": "SUBSCRIBE_LIMIT",
+      "namespace_id": "1002",
+      "simple": { "limit": 5, "period": 60 },
+    },
+  ],
   // No production route yet: signals.marsgotta.com is attached only with Mars's OK. Until then the
   // blog lives on workers.dev, and each upload gets its own version URL to review.
   "workers_dev": true,

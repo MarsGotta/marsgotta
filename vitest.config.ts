@@ -10,6 +10,7 @@ export default defineConfig({
       'workers/**/*.test.ts',
       'scripts/**/*.test.ts',
       'signals/src/**/*.test.ts',
+      'signals/workers/**/*.test.ts',
     ],
   },
 });

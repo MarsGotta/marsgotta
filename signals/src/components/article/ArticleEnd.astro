@@ -3,6 +3,7 @@ import type { Signal } from '../../data/signals';
 import { getMessages } from '../../i18n';
 import { newsletterReady } from '../../lib/newsletter';
 import NewTabHint from '../layout/NewTabHint.astro';
+import SubscribeForm from '../newsletter/SubscribeForm.astro';
 import Avatar from './Avatar.astro';
 
 interface Props {
@@ -33,15 +34,13 @@ const t = getMessages(signal.lang);
       </a>
     </div>
   </div>
-  {
-    /* «Te aviso de la próxima señal.» joins with the newsletter (design/signals/LEEME.md §6). */
-    newsletterReady && (
-      <section class="next-nl" aria-labelledby="end-nl-title">
-        <h2 id="end-nl-title">{t.post.endH}</h2>
-        <p>{t.post.endP}</p>
-      </section>
-    )
-  }
+  {newsletterReady && (
+    <section class="next-nl" aria-labelledby="end-nl-title">
+      <h2 id="end-nl-title">{t.post.endH}</h2>
+      <p>{t.post.endP}</p>
+      <SubscribeForm lang={signal.lang} source="post" titleId="end-nl-title" />
+    </section>
+  )}
 </footer>
 
 <style>

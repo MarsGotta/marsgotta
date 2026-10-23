@@ -1,0 +1,206 @@
+---
+import { honeypotField } from '@portfolio/lib/contact';
+import { getMessages, type Lang } from '../../i18n';
+import {
+  emailMaxLength,
+  outcomeFragment,
+  subscribeEndpoint,
+  type SubscribeSource,
+} from '../../lib/subscribe';
+
+interface Props {
+  lang: Lang;
+  /** Which of the three forms this is: it also keeps the ids on the page unique. */
+  source: SubscribeSource;
+  /** «Sin spam. Te das de baja con un clic.» under the form. */
+  fine?: boolean;
+  /**
+   * The heading that names the form. Two forms on a page with the same name would be two
+   * identical landmarks, so only one form can go by the generic «Suscripción a la newsletter».
+   */
+  titleId?: string;
+}
+
+const { lang, source, fine = false, titleId } = Astro.props;
+const t = getMessages(lang).nl;
+const field = `nl-email-${source}`;
+const error = `nl-error-${source}`;
+---
+
+<div
+  class="subscribe"
+  data-subscribe
+  data-source={source}
+  data-invalid={t.err}
+  data-failed={t.failed}
+>
+  {/* Without JavaScript the browser checks the address itself; the script turns that off for its own. */}
+  <form
+    class="form"
+    action={subscribeEndpoint}
+    method="post"
+    aria-label={titleId ? undefined : t.formLabel}
+    aria-labelledby={titleId}
+  >
+    <input type="hidden" name="lang" value={lang} />
+    <input type="hidden" name="source" value={source} />
+    <input type="hidden" name="page" value={Astro.url.pathname} />
+    <label class="sr-only" for={field}>
+      {t.label}
+    </label>
+    <input
+      class="input"
+      id={field}
+      name="email"
+      type="email"
+      autocomplete="email"
+      inputmode="email"
+      placeholder={t.ph}
+      maxlength={emailMaxLength}
+      required
+      aria-describedby={error}
+    />
+    <button class="btn" type="submit">
+      {t.cta}
+    </button>
+    <div hidden>
+      <input type="text" name={honeypotField} tabindex="-1" autocomplete="off" />
+    </div>
+    {/* The script writes its errors here; without it, the Worker's redirect lands on the two below. */}
+    <p class="err" id={error} role="alert" data-error></p>
+    <p class="err after-post" id={outcomeFragment('invalid', source)} tabindex="-1">
+      {t.err}
+    </p>
+    <p class="err after-post" id={outcomeFragment('failed', source)} tabindex="-1">
+      {t.failed}
+    </p>
+  </form>
+  {fine && <p class="fine">{t.fine}</p>}
+  <p class="ok" id={outcomeFragment('sent', source)} role="status" tabindex="-1" data-sent>
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.7"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="m4 10.5 4 4L16 6"></path>
+    </svg>
+    <span>
+      <b>{t.okA}</b>
+      {` ${t.okB}`}
+    </span>
+  </p>
+</div>
+
+<script>
+  import { initSubscribeForms } from '../../scripts/subscribe';
+
+  initSubscribeForms();
+</script>
+
+<style>
+  .form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 520px;
+  }
+  .input {
+    flex: 1 1 240px;
+    min-width: 0;
+    height: 48px;
+    padding: 0 20px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--ink);
+    font: 400 16px/1 var(--sans);
+    /* --muted rather than the prototype's --line-2: what shows where to type keeps 3:1 against
+       the page (WCAG 1.4.11). */
+    box-shadow: inset 0 0 0 1px var(--muted);
+    transition: box-shadow 0.2s;
+  }
+  .input::placeholder {
+    color: var(--faint);
+  }
+  .input:hover {
+    box-shadow: inset 0 0 0 1px var(--ink);
+  }
+  .input:focus {
+    outline: none;
+    box-shadow: inset 0 0 0 2px var(--accent);
+  }
+  .input[aria-invalid='true'] {
+    box-shadow: inset 0 0 0 2px var(--bad);
+  }
+  .form .btn {
+    height: 48px;
+  }
+  .err {
+    flex-basis: 100%;
+    margin: 2px 0 0 20px;
+    font-size: 13.5px;
+    color: var(--bad);
+  }
+  .err:empty,
+  .after-post {
+    display: none;
+  }
+  .after-post:target {
+    display: block;
+  }
+  /* The redirect scrolls to these: clear of the sticky bar, and an error with its field in view. */
+  .after-post {
+    scroll-margin-top: 220px;
+  }
+  .ok {
+    scroll-margin-top: 96px;
+  }
+  /* Focus lands on these so they are read, but they are messages, not controls: no ring. */
+  .after-post:focus,
+  .ok:focus {
+    outline: none;
+  }
+  .fine {
+    margin: 12px 0 0 20px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  [data-source='masthead'] .fine {
+    margin-top: 14px;
+  }
+  .ok {
+    display: none;
+    align-items: flex-start;
+    gap: 14px;
+    max-width: 520px;
+    margin: 0;
+    padding: 16px 20px;
+    border-radius: 16px;
+    background: color-mix(in srgb, var(--ok) 12%, transparent);
+    font-size: 15.5px;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+  .ok svg {
+    flex: none;
+    width: 20px;
+    height: 20px;
+    margin-top: 1px;
+    color: var(--ok);
+  }
+
+  /* One signup is enough: every form on the page turns to the confirmation, when the script says
+     so (data-state) or, without it, when the Worker's redirect lands on a confirmation. */
+  .subscribe[data-state='sent'] :is(.form, .fine),
+  :global(html:has([data-sent]:target)) :is(.form, .fine) {
+    display: none;
+  }
+  .subscribe[data-state='sent'] .ok,
+  :global(html:has([data-sent]:target)) .ok {
+    display: flex;
+  }
+</style>

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { translationOf } from './translations';
+import { translationOf, translationPaths } from './translations';
 
 const signals = [
   { number: 7, lang: 'es' as const, slug: 'dale-memoria' },
@@ -15,5 +15,23 @@ describe('translationOf', () => {
 
   it('finds nothing for a signal written in one language only', () => {
     expect(translationOf({ number: 8, lang: 'es' }, signals)).toBeUndefined();
+  });
+});
+
+describe('translationPaths', () => {
+  const paths = translationPaths(signals);
+
+  it('pairs every page with the same page in the other language', () => {
+    expect(paths['/']).toBe('/en');
+    expect(paths['/en']).toBe('/');
+    expect(paths['/temas/noticias-ia']).toBe('/en/topics/ai-news');
+    expect(paths['/en/archive']).toBe('/archivo');
+    expect(paths['/suscripcion/confirmada']).toBe('/en/subscription/confirmed');
+  });
+
+  it('pairs a signal with its translation, and leaves out one written in one language', () => {
+    expect(paths['/dale-memoria']).toBe('/en/give-memory');
+    expect(paths['/en/give-memory']).toBe('/dale-memoria');
+    expect(paths['/solo-en-espanol']).toBeUndefined();
   });
 });

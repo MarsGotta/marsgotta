@@ -1,0 +1,36 @@
+---
+import FeedSection from '../components/feed/FeedSection.astro';
+import PageHead from '../components/page/PageHead.astro';
+import { getSignalsIn } from '../data/signals';
+import { getMessages, type Lang } from '../i18n';
+import Base from '../layouts/Base.astro';
+import { byRecency } from '../lib/featured';
+import { HOME_FEED_SIZE } from '../lib/feed';
+import { archivePath, homePath } from '../lib/routes';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = getMessages(lang);
+const signals = await getSignalsIn(lang);
+---
+
+{/* Where Buttondown sends a reader after they confirm: the home's list, under a smaller header. */}
+<Base
+  lang={lang}
+  title={`${t.subscribed.h1} · Signals by Mars`}
+  description={t.subscribed.lead}
+  page={{ kind: 'subscribed' }}
+  noindex
+>
+  <PageHead kicker={t.nl.over} title={t.subscribed.h1} lead={t.subscribed.lead} />
+  <FeedSection
+    lang={lang}
+    listed={byRecency(signals).slice(0, HOME_FEED_SIZE)}
+    all={signals}
+    allLink={{ href: homePath(lang), current: false }}
+    archiveHref={archivePath(lang)}
+  />
+</Base>

@@ -8,7 +8,8 @@ export type Page =
   | { kind: 'home' }
   | { kind: 'topic'; topic: Topic }
   | { kind: 'archive' }
-  | { kind: 'signal'; slug: string };
+  | { kind: 'signal'; slug: string }
+  | { kind: 'subscribed' };
 
 const topicSlugs: Record<Topic, Record<Lang, string>> = {
   ia: { es: 'noticias-ia', en: 'ai-news' },
@@ -38,6 +39,11 @@ export function signalPath(slug: string, lang: Lang): string {
   return lang === 'en' ? `/en/${slug}` : `/${slug}`;
 }
 
+/** Where Buttondown sends a reader who has just confirmed the subscription. */
+export function subscribedPath(lang: Lang): string {
+  return lang === 'en' ? '/en/subscription/confirmed' : '/suscripcion/confirmada';
+}
+
 export function rssPath(lang: Lang): string {
   return lang === 'en' ? '/en/rss.xml' : '/rss.xml';
 }
@@ -52,7 +58,14 @@ export function pagePath(page: Page, lang: Lang): string {
       return archivePath(lang);
     case 'signal':
       return signalPath(page.slug, lang);
+    case 'subscribed':
+      return subscribedPath(lang);
   }
+}
+
+/** The language of a path on the blog: English under /en, Spanish everywhere else. */
+export function pathLang(path: string): Lang {
+  return path === '/en' || path.startsWith('/en/') ? 'en' : 'es';
 }
 
 /**

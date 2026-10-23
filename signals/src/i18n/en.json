@@ -61,7 +61,8 @@
     "fine": "No spam. Unsubscribe in one click.",
     "okA": "Almost there.",
     "okB": "Check your inbox and confirm your subscription.",
-    "err": "That email does not look right. Mind checking it?"
+    "err": "That email does not look right. Mind checking it?",
+    "failed": "I could not sign you up just now. Please try again in a little while."
   },
   "post": {
     "follow": "Subscribe",
@@ -109,5 +110,9 @@
     "h2b": "is on its way.",
     "sub": "Soon you will be able to get every signal by email. Until then, you can follow the blog by RSS.",
     "rss": "Follow by RSS"
+  },
+  "subscribed": {
+    "h1": "Subscription confirmed",
+    "lead": "All set. Every time I publish a new signal, it will land in your inbox."
   }
 }

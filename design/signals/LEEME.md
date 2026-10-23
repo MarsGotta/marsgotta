@@ -35,7 +35,7 @@ Siguen mandando `CLAUDE.md` (código legible, accesibilidad, rendimiento, despli
 - **Idiomas:** es por defecto sin prefijo y en con `/en`, como el portfolio.
   - Un artículo puede existir en un solo idioma: el `hreflang` solo se pone cuando hay traducción.
   - Si no la hay, el selector de idioma lleva a la home del otro idioma.
-- **Newsletter:** un email por cada artículo nuevo, con doble confirmación. **El proveedor está sin decidir** (ver §6).
+- **Newsletter:** un email por cada artículo nuevo, con doble confirmación, por **Buttondown** (ver §6). Lo decidió Mars el 23 oct 2026, tras comparar el mercado.
 - **Tema:** por defecto el del sistema, con un botón para cambiarlo y la preferencia guardada. Claro es «papel» y oscuro, «noche marciana». Reutiliza `src/scripts/theme.ts` si encaja. El subdominio es otro origen, así que la preferencia no se comparte con el portfolio, y está bien así.
 - **Dependencias:** ninguna nueva sin preguntar. Se puede todo sin ellas:
   - Markdown con content collections, Shiki y la sitemap ya incluidas en Astro.
@@ -64,7 +64,8 @@ Salieron de la revisión del documento. Mars puede cambiar cualquiera.
   - El copy de la interfaz y los componentes cumplen todas las prohibiciones del portfolio: `brand.test.ts` pasa a cubrir también `signals/src`.
   - En el texto de las señales solo se aplica la regla de la raya larga, fuera de los bloques de código. `signals:import` se detiene si encuentra una y dice en qué línea está.
   - Las demás prohibiciones (OpenClaw, «16 años», niveles MCER…) eran sobre el perfil de Mars y no se aplican a lo que escribe en el blog: una noticia puede nombrar OpenClaw.
-- **Dos ajustes de contraste para cumplir AA** (axe, fase 3): los comentarios del tema de código pasan de `#857770` a `#8E807A` (4,75:1 sobre el fondo de código claro, frente a 4,19:1). Los números del índice lateral usan `--muted` en vez de `--faint`. La copia del tema que usa el blog está en `signals/src/lib/markdown/signals-code.json`.
+- **Ajustes de contraste para cumplir AA** (axe, fase 3): los comentarios del tema de código pasan de `#857770` a `#8E807A` (4,75:1 sobre el fondo de código claro, frente a 4,19:1). Los números del índice lateral usan `--muted` en vez de `--faint`. La copia del tema que usa el blog está en `signals/src/lib/markdown/signals-code.json`.
+  - En la fase 4, el borde del campo de email usa `--muted` en vez de `--line-2`: lo que indica dónde escribir necesita 3:1 frente al fondo (WCAG 1.4.11), como en el formulario de contacto del portfolio.
 - **Páginas sin diseño propio:** tema, archivo, 404 y las de suscripción confirmada y baja se montan con las piezas y medidas de la home (cabecera más pequeña, la misma lista y la misma columna lateral). Que «coincidan con el prototipo» quiere decir eso.
 
 ## 2. Rutas
@@ -77,7 +78,7 @@ Salieron de la revisión del documento. Mars puede cambiar cualquiera.
 | Archivo (todo)       | `/archivo`                                           | `/en/archive`                                       |
 | RSS                  | `/rss.xml`                                           | `/en/rss.xml`                                       |
 | Suscripción (API)    | `POST /api/subscribe`                                | igual                                               |
-| Confirmación y baja  | `/suscripcion/confirmada`, `/suscripcion/baja`       | `/en/subscription/confirmed`, `/en/subscription/unsubscribed` |
+| Confirmación         | `/suscripcion/confirmada`                            | `/en/subscription/confirmed`                        |
 | 404                  | la del blog, con el mismo tono                       |                                                     |
 
 Las pestañas de temas de la home son **enlaces** a las páginas de tema, con `aria-current` en la página actual. En el prototipo son botones que filtran, pero así funcionan sin JS, se pueden indexar y se pueden compartir. El aspecto es el mismo.
@@ -238,15 +239,17 @@ Las páginas de **Tema** y **Archivo** usan la misma lista y la misma columna la
 
 Todo lo demás es HTML y CSS: las pestañas, el índice, la barra de progreso y las portadas.
 
-## 6. Newsletter: proveedor por decidir
+## 6. Newsletter: Buttondown
 
-Mars lo decidirá en la fase 4. Lo que ya está decidido: **cada señal publicada es un número de la newsletter**, y cada suscriptor recibe la versión de su idioma (el `lang` con el que se apuntó). Constrúyelo detrás de una interfaz para que cambiar de proveedor sea un solo fichero:
+Mars eligió Buttondown el 23 oct 2026, después de compararlo con Kit, EmailOctopus, MailerLite, beehiiv, Keila y Resend: es el único que envía cada señal sola desde el RSS de cada idioma a quien se apuntó en ese idioma, sin código propio de envío. **Cada señal publicada es un número de la newsletter**, y cada suscriptor recibe la versión de su idioma (el `lang` con el que se apuntó). Si una señal solo existe en un idioma, solo la reciben los suscriptores de ese idioma (decisión de Mars).
+
+El proveedor vive detrás de una interfaz, para que cambiarlo sea cambiar `signals/workers/newsletter/index.ts` y el fichero del nuevo:
 
 ```ts
 // signals/workers/newsletter/provider.ts
 export interface NewsletterProvider {
   /** Starts double opt-in: the provider emails a confirmation link. */
-  subscribe(input: { email: string; lang: 'es' | 'en'; source: 'masthead' | 'band' | 'post' }): Promise<
+  subscribe(input: { email: string; lang: 'es' | 'en'; source: 'masthead' | 'band' | 'post'; ip: string | null }): Promise<
     { ok: true } | { ok: false; reason: 'invalid' | 'rate-limited' | 'unavailable' }
   >;
 }
@@ -256,14 +259,14 @@ export interface NewsletterProvider {
   - Valida el email en el servidor.
   - Usa el campo trampa y un rate limit propio (`SUBSCRIBE_LIMIT`: 5 por minuto e IP, como en el contacto).
   - Nunca guarda el email en logs.
-  - Responde JSON si lo pide `fetch` y, si no, redirige.
-- **Proveedor de desarrollo:** `DevProvider` responde siempre `ok` y no envía nada. Es el único que existe hasta que Mars decida.
-- **En producción, mientras no haya proveedor real,** los formularios no se muestran y la banda enseña un texto que no prometa ningún email; Claude lo propone y Mars lo aprueba. Así nunca se promete un email que no va a llegar.
-- **Envío por artículo:** depende del proveedor elegido (RSS a email, webhook al desplegar…). Déjalo documentado en el README cuando se decida.
-- **Opciones que valorar con Mars:**
-  - un servicio con RSS a email y doble confirmación ya resuelta, como Buttondown;
-  - todo en Cloudflare, con D1 y Email Service: confirmación, bajas, rebotes y envío los construimos nosotros. Ojo: en octubre de 2026, Email Service solo admite correo transaccional (sin envíos masivos ni de marketing) y como máximo 50 destinatarios por mensaje.
-- **Queda por decidir con el proveedor:** si una señal solo existe en un idioma, ¿se envía también a quien se apuntó en el otro?
+  - Responde JSON si lo pide `fetch` y, si no, redirige a la misma página con el resultado en el fragmento.
+- **Buttondown:** da de alta con la etiqueta del idioma (`es` o `en`) y la IP del lector, que usa su filtro antispam. Sin la cabecera de colisión: su opción `add` volvería a suscribir sin confirmación a quien se dio de baja. Si el email ya está en la lista, el formulario responde como a un alta nueva, para no revelar quién está suscrito.
+- **Proveedor de desarrollo:** `DevProvider` responde siempre `ok` y no envía nada. Solo se usa con `npm run signals:preview:cf`.
+- **Sin clave de API,** el endpoint responde que no está disponible.
+- **En producción,** los formularios siguen ocultos hasta que Buttondown esté configurado (`SIGNALS_NEWSLETTER=on` en el build). Mientras tanto, la banda invita al RSS sin prometer ningún email.
+- **Envío por artículo:** dos automatizaciones de RSS a email, una por feed y etiqueta. Los pasos están en el README.
+- **Tras confirmar,** Buttondown redirige a `/suscripcion/confirmada`, y el Worker lleva a los lectores en inglés a `/en/subscription/confirmed`.
+- **Sin página de baja:** Buttondown ya no permite redirigir tras darse de baja, así que `/suscripcion/baja` no tendría quien llegara. No se construye mientras Mars no diga otra cosa.
 
 ## 7. SEO, RSS y rendimiento
 
@@ -308,7 +311,7 @@ Cada fase empieza con un plan breve y espera el OK. Termina con `lint`, `typeche
 1. **Contenido y lógica:** colección y esquema, la importación desde Obsidian (§3.1) con el ejemplo 007 como borrador, el comando `/signals-traducir`, y en `lib/`: `light-time`, `covers`, lectura, sol, fechas y destacados, todo con tests.
 2. **Home, temas y archivo:** `TopBar`, `Masthead`, `LightTimeStrip`, `SignalFeed`, `Sidebar`, `NewsletterBand` (todavía sin envío), `Footer` y el estado vacío.
 3. **Artículo:** prose, Shiki con su tema, `rehype-tip`, índice, compartir, progreso, autora y siguientes señales.
-4. **Newsletter:** `SubscribeForm`, `/api/subscribe`, la interfaz `NewsletterProvider` con `DevProvider`, el rate limit, el campo trampa y el funcionamiento sin JS. Pregunta por el proveedor.
+4. **Newsletter:** `SubscribeForm`, `/api/subscribe`, la interfaz `NewsletterProvider` con `DevProvider` y Buttondown, el rate limit, el campo trampa, el funcionamiento sin JS, el idioma al llegar y la página de suscripción confirmada.
 5. **SEO y calidad:** RSS, JSON-LD, sitemap, OG, 404, e2e con Playwright y axe, y revisión de rendimiento.
 6. **Despliegue de prueba** en `*.workers.dev`. Producción y el dominio `signals.marsgotta.com`, solo con el OK de Mars.
 

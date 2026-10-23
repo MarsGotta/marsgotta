@@ -61,7 +61,8 @@
     "fine": "Sin spam. Te das de baja con un clic.",
     "okA": "Casi está.",
     "okB": "Revisa tu correo y confirma la suscripción.",
-    "err": "Ese email no parece válido. ¿Lo revisas?"
+    "err": "Ese email no parece válido. ¿Lo revisas?",
+    "failed": "No he podido apuntarte ahora mismo. Prueba otra vez en un rato."
   },
   "post": {
     "follow": "Suscribirme",
@@ -109,5 +110,9 @@
     "h2b": "está en camino.",
     "sub": "Muy pronto podrás recibir cada señal en tu correo. Mientras tanto, puedes seguir el blog por RSS.",
     "rss": "Seguir por RSS"
+  },
+  "subscribed": {
+    "h1": "Suscripción confirmada",
+    "lead": "Ya está. Cada vez que publique una señal nueva, te llegará por email."
   }
 }

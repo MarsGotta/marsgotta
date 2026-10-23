@@ -102,13 +102,37 @@ El blog vive en `signals/`, con su propio Worker. Comparte con el portfolio el `
 | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | `npm run signals:dev`            | Servidor de desarrollo del blog.                                                                                                |
 | `npm run signals:build`          | Construye el blog en `signals/dist/`.                                                                                           |
+| `npm run signals:build:review`   | Construye el blog con los formularios de la newsletter, que en producción siguen ocultos.                                       |
 | `npm run signals:build:fixtures` | Construye el blog con las señales de ejemplo de `signals/tests/fixtures/content`, para revisar el diseño. Nunca para desplegar. |
-| `npm run signals:preview:cf`     | Construye y sirve el blog con `wrangler dev`, como en producción.                                                               |
-| `npm run signals:deploy:preview` | Sube una versión de prueba a workers.dev, con el alias `preview`, sin tocar producción.                                         |
+| `npm run signals:preview:cf`     | Construye la versión de revisión y la sirve con `wrangler dev`, como en producción. Las altas no salen de tu máquina.           |
+| `npm run signals:deploy:preview` | Sube una versión de revisión a workers.dev, con el alias `preview`, sin tocar producción.                                       |
 | `npm run signals:deploy`         | Construye y despliega el blog. Solo con el OK de Mars.                                                                          |
 | `npm run signals:import`         | Copia las señales del vault de Obsidian (`Signals/`) al blog. Con `-- --prune` borra las que ya no están.                       |
 
 `npm run lint`, `npm run typecheck` y `npm run test` cubren las dos apps.
+
+### Idioma al llegar
+
+Igual que en el portfolio: al llegar desde fuera, el Worker lleva a cada visitante a la misma página en su idioma (el que eligió antes o el de su navegador), y dentro del blog no redirige nunca. Un artículo va a su traducción; si no la tiene, se queda donde está. El build escribe el mapa de traducciones en `/translations.json`, que el Worker solo lee cuando tiene que redirigir.
+
+### Newsletter (Buttondown)
+
+Cada señal publicada es un número de la newsletter, y cada suscriptor recibe solo las de su idioma.
+
+- **Alta.** Los formularios envían a `POST /api/subscribe`. El Worker valida el email, aplica un campo trampa y un límite de 5 altas por minuto e IP (`SUBSCRIBE_LIMIT`), y da de alta en Buttondown con la etiqueta del idioma (`es` o `en`). Buttondown manda el correo de confirmación (doble opt-in). Si el email ya estaba en la lista, responde igual que a un alta nueva, para no revelar quién está suscrito. El email nunca llega a los logs.
+- **Sin JavaScript.** El navegador valida el campo, envía el formulario y el Worker vuelve a la misma página con `#nl-sent-…`, `#nl-invalid-…` o `#nl-failed-…`, que muestran el resultado con CSS.
+- **Cambiar de proveedor** es cambiar `signals/workers/newsletter/index.ts` y el fichero del proveedor.
+- **Interruptor.** Los formularios solo aparecen en desarrollo y en los builds de revisión (`SIGNALS_NEWSLETTER=on`). `npm run signals:build` los deja fuera hasta que Buttondown esté listo.
+
+Configuración pendiente, con el OK de Mars:
+
+1. En Buttondown, un plan que incluya etiquetas y RSS a email. Sin etiquetas, Buttondown rechaza el alta (`403 feature_disabled`) y el formulario dice que no se ha podido.
+2. Dos automatizaciones de RSS a email: `https://signals.marsgotta.com/rss.xml` para la etiqueta `es` y `https://signals.marsgotta.com/en/rss.xml` para `en`. Los feeds llegan en la fase 5.
+3. Redirección tras confirmar (`subscription_confirmation_redirect_url`): `https://signals.marsgotta.com/suscripcion/confirmada`. El Worker lleva a los lectores en inglés a `/en/subscription/confirmed`.
+4. La clave de la API: `npx wrangler secret put BUTTONDOWN_API_KEY -c signals/wrangler.jsonc`. Sin ella, el endpoint responde que no está disponible.
+5. Encender los formularios en producción: añadir `SIGNALS_NEWSLETTER=on` a `signals:build`.
+
+Para ver los errores: `npx wrangler tail signals`.
 
 ## Fuentes
 

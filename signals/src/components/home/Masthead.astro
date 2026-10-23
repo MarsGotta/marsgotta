@@ -1,6 +1,8 @@
 ---
 import type { Signal } from '../../data/signals';
 import { getMessages, type Lang } from '../../i18n';
+import { newsletterReady } from '../../lib/newsletter';
+import SubscribeForm from '../newsletter/SubscribeForm.astro';
 import FeaturedSignal from './FeaturedSignal.astro';
 
 interface Props {
@@ -24,7 +26,11 @@ const t = getMessages(lang);
         {t.home.h1a} <em>{t.home.h1b}</em>
       </h1>
       <p class="sub">{t.home.sub}</p>
-      {/* The subscription form joins here with the newsletter (design/signals/LEEME.md §6). */}
+      {newsletterReady && (
+        <div class="nl">
+          <SubscribeForm lang={lang} source="masthead" fine />
+        </div>
+      )}
     </div>
     {featured && <FeaturedSignal signal={featured} />}
   </div>
@@ -59,6 +65,9 @@ const t = getMessages(lang);
     font: 400 clamp(18px, 1.6vw, 21px) / 1.55 var(--serif);
     color: var(--ink-2);
     text-wrap: pretty;
+  }
+  .nl {
+    margin-top: 32px;
   }
   @media (max-width: 900px) {
     .grid {

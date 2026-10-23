@@ -38,16 +38,18 @@ export async function servePage(request: Request, env: Env, page: Page): Promise
   response.headers.append('Vary', 'Accept-Language, Cookie');
   const previous = from && findPage(from.pathname);
   if (previous && previous.lang !== page.lang) {
-    response.headers.append(
-      'Set-Cookie',
-      `lang=${page.lang}; Path=/; Max-Age=${ONE_YEAR_S}; SameSite=Lax; Secure`,
-    );
+    response.headers.append('Set-Cookie', languageCookie(page.lang));
   }
   return response;
 }
 
+/** Remembers the language the visitor switched to, for their next arrival. */
+export function languageCookie(lang: Lang): string {
+  return `lang=${lang}; Path=/; Max-Age=${ONE_YEAR_S}; SameSite=Lax; Secure`;
+}
+
 /** The page the visitor came from, when it was on this site. */
-function siteReferer(request: Request, origin: string): URL | null {
+export function siteReferer(request: Request, origin: string): URL | null {
   try {
     const referer = new URL(request.headers.get('Referer') ?? '');
     return referer.origin === origin ? referer : null;
@@ -56,7 +58,8 @@ function siteReferer(request: Request, origin: string): URL | null {
   }
 }
 
-function wantedLanguage(request: Request): Lang | null {
+/** The language a browser opening a page asks for: its earlier choice, or else its own language. */
+export function wantedLanguage(request: Request): Lang | null {
   // Browsers mark a page they open with these headers; crawlers and agents' fetchers, listed in
   // CRAWLER or not, do not send them.
   const opensPage =

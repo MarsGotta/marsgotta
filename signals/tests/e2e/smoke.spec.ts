@@ -72,8 +72,16 @@ test.describe('@smoke', () => {
     expect(await response.json()).toEqual({ ok: false });
   });
 
+  test('a topic page lists its signals or says it has none', async ({ page }) => {
+    await page.goto('/temas/practica');
+    const rows = page.getByRole('list', { name: 'Últimas señales' }).getByRole('listitem');
+    const none = page.getByText('Todavía no hay señales en este tema.');
+    await expect(rows.or(none).first()).toBeVisible();
+    expect((await rows.count()) > 0 !== (await none.count()) > 0).toBe(true);
+  });
+
   for (const theme of ['light', 'dark']) {
-    for (const path of ['/', '/en', '/archivo', '/no-existe']) {
+    for (const path of ['/', '/en', '/archivo', '/en/topics/practice', '/no-existe']) {
       test(`${path} has no axe violations in the ${theme} theme`, async ({ page }) => {
         await page.addInitScript((value) => localStorage.setItem('theme', value), theme);
         await page.emulateMedia({ reducedMotion: 'reduce' });

@@ -14,9 +14,11 @@ interface Props {
   allLink: { href: string; current: boolean };
   topic?: Topic | undefined;
   archiveHref?: string | undefined;
+  /** What a topic page says while it has no signals. */
+  empty?: string | undefined;
 }
 
-const { lang, listed, all, allLink, topic, archiveHref } = Astro.props;
+const { lang, listed, all, allLink, topic, archiveHref, empty } = Astro.props;
 ---
 
 <section class="feed" id="temas">
@@ -27,6 +29,7 @@ const { lang, listed, all, allLink, topic, archiveHref } = Astro.props;
       all={allLink}
       topic={topic}
       archiveHref={archiveHref}
+      empty={empty}
     />
     <Sidebar lang={lang} signals={all} />
   </div>

@@ -1,5 +1,6 @@
 ---
 import FeedSection from '../components/feed/FeedSection.astro';
+import EmptyState from '../components/home/EmptyState.astro';
 import PageHead from '../components/page/PageHead.astro';
 import { getSignalsIn } from '../data/signals';
 import { getMessages, type Lang } from '../i18n';
@@ -23,10 +24,14 @@ const signals = await getSignalsIn(lang);
   page={{ kind: 'archive' }}
 >
   <PageHead kicker={t.archive.kicker} title={t.archive.h1} lead={t.archive.lead} />
-  <FeedSection
-    lang={lang}
-    listed={byRecency(signals)}
-    all={signals}
-    allLink={{ href: archivePath(lang), current: true }}
-  />
+  {signals.length > 0 ? (
+    <FeedSection
+      lang={lang}
+      listed={byRecency(signals)}
+      all={signals}
+      allLink={{ href: archivePath(lang), current: true }}
+    />
+  ) : (
+    <EmptyState lang={lang} />
+  )}
 </Base>

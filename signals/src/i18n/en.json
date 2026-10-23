@@ -37,7 +37,8 @@
   "feed": {
     "h": "Latest signals",
     "all": "All",
-    "archive": "View the archive"
+    "archive": "View the archive",
+    "none": "There are no signals on this topic yet."
   },
   "side": {
     "aria": "More from Signals",

@@ -37,7 +37,8 @@
   "feed": {
     "h": "Últimas señales",
     "all": "Todo",
-    "archive": "Ver archivo"
+    "archive": "Ver archivo",
+    "none": "Todavía no hay señales en este tema."
   },
   "side": {
     "aria": "Más de Signals",

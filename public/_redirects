@@ -6,3 +6,9 @@
 /es/contact /contacto 301
 /es/lab /proyectos 301
 /en/lab /en/projects 301
+# Without a language it sent visitors to Spanish, its default; the Worker then picks theirs.
+/about /sobre-mi 301
+/projects /proyectos 301
+/talks /charlas 301
+/contact /contacto 301
+/lab /proyectos 301

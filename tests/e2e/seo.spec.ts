@@ -64,6 +64,11 @@ test.describe('seo', () => {
       ['/es/contact', '/contacto'],
       ['/es/lab', '/proyectos'],
       ['/en/lab', '/en/projects'],
+      ['/about', '/sobre-mi'],
+      ['/projects', '/proyectos'],
+      ['/talks', '/charlas'],
+      ['/contact', '/contacto'],
+      ['/lab', '/proyectos'],
     ]) {
       const response = await request.get(from, { maxRedirects: 0 });
       expect(response.status(), from).toBe(301);

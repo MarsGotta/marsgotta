@@ -274,7 +274,7 @@ Todo lo espectacular es además correcto. Si algo se ajusta por estética, que s
   - Clientes de Sngular, nivel de inglés en escala MCER ni datos personales.
   - Cifras para impresionar en el hero o en las tarjetas.
   - Enlaces a repos no públicos (Orbit, hasta que se publique) ni llamar open source a algo sin repo público.
-  - «Signals by Mars» ni el chat «habla con Deimos».
+  - El chat «habla con Deimos».
 
 ### Decisiones ya tomadas en el diseño
 

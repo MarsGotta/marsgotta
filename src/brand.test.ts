@@ -21,7 +21,6 @@ const forbidden: [string, RegExp][] = [
   ['the old job title', /Senior Product Engineer/i],
   ['"agent harnesses"', /agent harnesses/i],
   ['"16 años"', /16 (años|years)/i],
-  ['Signals by Mars', /Signals by Mars/i],
   ['the "talk to Deimos" chat', /habla con Deimos|talk to Deimos/i],
   ['CEFR English levels', /\b(MCER|CEFR)\b|\bB2\b|\bC1\b|\bC2\b/],
   ['a link to the private Orbit repo', /github\.com\/MarsGotta\/orbit/i],

@@ -70,7 +70,7 @@ Web personal de Marcela Gotta («Mars»): ingeniera de software en Madrid, Head 
 - **No puede aparecer:**
   - Deimos o Lunar como proyectos, el Orbit antiguo, OpenClaw ni «Senior Product Engineer».
   - «agent harnesses» en el titular, «16 años», clientes de Sngular, nivel de inglés en escala MCER ni datos personales.
-  - Ningún enlace al repo de Orbit (hasta que sea público), «Signals by Mars» ni el chat «habla con Deimos».
+  - Ningún enlace al repo de Orbit (hasta que sea público) ni el chat «habla con Deimos».
 - **Orbit:** no se llama open source hasta que tenga repo público.
 
 ## Física: no tocar (HANDOFF §4)

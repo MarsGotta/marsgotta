@@ -6,8 +6,8 @@
   "workers_dev": false,
   "preview_urls": false,
   "routes": [
+    { "pattern": "marcelagotta.com", "custom_domain": true },
     { "pattern": "www.marcelagotta.com", "custom_domain": true },
-    { "pattern": "marsgotta.com", "custom_domain": true },
     { "pattern": "www.marsgotta.com", "custom_domain": true },
   ],
 }

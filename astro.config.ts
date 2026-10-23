@@ -4,7 +4,7 @@ import { languages } from './src/i18n/index.ts';
 import { routeKeys } from './src/i18n/routes.ts';
 import { alternates, pageUrl } from './src/lib/seo.ts';
 
-const site = new URL('https://marcelagotta.com');
+const site = new URL('https://marsgotta.com');
 
 /** Each page with its translations, for the hreflang links in the sitemap. */
 const translations = new Map(

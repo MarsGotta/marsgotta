@@ -1,6 +1,6 @@
-# marcelagotta.com v3
+# marsgotta.com v3
 
-Web personal de Marcela Gotta («Mars»): ingeniera de software en Madrid, Head Frontend Developer en Sngular, autora de Kimen, Jezero y Orbit. Es un proyecto nuevo, construido desde cero en esta carpeta, con **Astro** y desplegado en **Cloudflare** con `wrangler` en marcelagotta.com (canónico) y marsgotta.com. La web actual (repo `MarsGotta/marsgotta`, en Next.js) solo sirve de referencia.
+Web personal de Marcela Gotta («Mars»): ingeniera de software en Madrid, Head Frontend Developer en Sngular, autora de Kimen, Jezero y Orbit. Es un proyecto nuevo, construido desde cero en esta carpeta, con **Astro** y desplegado en **Cloudflare** con `wrangler` en marsgotta.com (canónico) y marcelagotta.com, que redirige. El canónico pasó de marcelagotta.com a marsgotta.com el 23 oct 2026, por decisión de Mars: donde el HANDOFF diga lo contrario, manda esto. La web actual (repo `MarsGotta/marsgotta`, en Next.js) solo sirve de referencia.
 
 ## Fuentes de verdad
 
@@ -91,7 +91,7 @@ Los periodos de Fobos (7 h 39 min) y Deimos (30 h 18 min), la rotación de Marte
   - Sin `backdrop-filter` ni `mix-blend-mode`: cuestan pasadas de GPU en cada fotograma.
 - **SEO:**
   - Título y descripción por página e idioma.
-  - `hreflang`, `canonical` en marcelagotta.com, sitemap y `robots.txt`.
+  - `hreflang`, `canonical` en marsgotta.com, sitemap y `robots.txt`.
   - JSON-LD `Person` e imagen OG.
 
 ## Signals by Mars (blog)

@@ -35,7 +35,7 @@ test('a signal links its translation and describes itself as a BlogPosting', asy
   );
   expect(data['@type']).toBe('BlogPosting');
   expect(data.headline).toBe(await page.getByRole('heading', { level: 1 }).textContent());
-  expect(data.author['@id']).toBe('https://marcelagotta.com/#person');
+  expect(data.author['@id']).toBe('https://marsgotta.com/#person');
 });
 
 test('the home describes the blog', async ({ page }) => {

@@ -9,7 +9,7 @@ const env: Env = {
 };
 
 function visit(path: string, headers: Record<string, string> = {}) {
-  return site.fetch(new Request(`https://marcelagotta.com${path}`, { headers }), env);
+  return site.fetch(new Request(`https://marsgotta.com${path}`, { headers }), env);
 }
 
 // What a browser sends when it opens a page.
@@ -21,13 +21,13 @@ describe('language on arrival', () => {
   it('sends an English browser to the same page in English, keeping the query', async () => {
     const response = await visit('/proyectos?ref=x', ENGLISH);
     expect(response.status).toBe(302);
-    expect(response.headers.get('Location')).toBe('https://marcelagotta.com/en/projects?ref=x');
+    expect(response.headers.get('Location')).toBe('https://marsgotta.com/en/projects?ref=x');
     expect(response.headers.get('Vary')).toBe('Accept-Language, Cookie');
   });
 
   it('sends a Spanish browser to the Spanish page', async () => {
     const response = await visit('/en', SPANISH);
-    expect(response.headers.get('Location')).toBe('https://marcelagotta.com/');
+    expect(response.headers.get('Location')).toBe('https://marsgotta.com/');
   });
 
   it('serves the page when it is already in the wanted language', async () => {
@@ -39,7 +39,7 @@ describe('language on arrival', () => {
 
   it('prefers an earlier choice to the browser language', async () => {
     const response = await visit('/', { ...SPANISH, Cookie: 'theme=x; lang=en' });
-    expect(response.headers.get('Location')).toBe('https://marcelagotta.com/en');
+    expect(response.headers.get('Location')).toBe('https://marsgotta.com/en');
   });
 
   it('never redirects crawlers, fetchers or browsers that state no language', async () => {
@@ -58,7 +58,7 @@ describe('language inside the site', () => {
   it('does not redirect, and remembers a switch to the other language', async () => {
     const response = await visit('/en/about', {
       ...SPANISH,
-      Referer: 'https://marcelagotta.com/sobre-mi',
+      Referer: 'https://marsgotta.com/sobre-mi',
     });
     expect(response.status).toBe(200);
     expect(response.headers.get('Set-Cookie')).toBe(
@@ -67,12 +67,12 @@ describe('language inside the site', () => {
   });
 
   it('remembers nothing while the visitor stays in one language', async () => {
-    const response = await visit('/charlas', { ...SPANISH, Referer: 'https://marcelagotta.com/' });
+    const response = await visit('/charlas', { ...SPANISH, Referer: 'https://marsgotta.com/' });
     expect(response.headers.get('Set-Cookie')).toBeNull();
   });
 
   it('treats a link from another site as an arrival', async () => {
     const response = await visit('/', { ...ENGLISH, Referer: 'https://www.linkedin.com/' });
-    expect(response.headers.get('Location')).toBe('https://marcelagotta.com/en');
+    expect(response.headers.get('Location')).toBe('https://marsgotta.com/en');
   });
 });

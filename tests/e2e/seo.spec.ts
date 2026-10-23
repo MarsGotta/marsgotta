@@ -13,11 +13,11 @@ test.describe('seo', () => {
       const head = page.locator('head');
       await expect(head.locator('meta[name="description"]')).toHaveAttribute('content', /.{50,}/);
       const canonical = await head.locator('link[rel="canonical"]').getAttribute('href');
-      expect(canonical).toBe(new URL(route, 'https://marcelagotta.com').href);
+      expect(canonical).toBe(new URL(route, 'https://marsgotta.com').href);
       await expect(head.locator('link[rel="alternate"][hreflang]')).toHaveCount(3);
       await expect(head.locator('meta[property="og:image"]')).toHaveAttribute(
         'content',
-        /^https:\/\/marcelagotta\.com\/og\/marcela-gotta-(es|en)\.jpg$/,
+        /^https:\/\/marsgotta\.com\/og\/marcela-gotta-(es|en)\.jpg$/,
       );
       const jsonLd = await head.locator('script[type="application/ld+json"]').textContent();
       const { '@graph': graph } = JSON.parse(jsonLd ?? '{}') as {
@@ -42,12 +42,12 @@ test.describe('seo', () => {
     request,
   }) => {
     expect(await (await request.get('/robots.txt')).text()).toContain(
-      'Sitemap: https://marcelagotta.com/sitemap-index.xml',
+      'Sitemap: https://marsgotta.com/sitemap-index.xml',
     );
     const sitemap = await (await request.get('/sitemap-0.xml')).text();
     expect(sitemap.match(/<loc>/g)).toHaveLength(10);
     expect(sitemap).toContain(
-      '<xhtml:link rel="alternate" hreflang="en" href="https://marcelagotta.com/en/about"/>',
+      '<xhtml:link rel="alternate" hreflang="en" href="https://marsgotta.com/en/about"/>',
     );
   });
 

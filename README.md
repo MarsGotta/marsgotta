@@ -1,4 +1,4 @@
-# marcelagotta.com
+# marsgotta.com
 
 Web personal de Marcela Gotta, versión 3. Astro 7 con salida estática, desplegada como Worker de Cloudflare con static assets.
 
@@ -31,10 +31,10 @@ La fuente de verdad está en `design/v3/`: el prototipo, el CSS y la lógica ext
 
 El sitio es un Worker con static assets (`wrangler.jsonc`, directorio `dist/`): Cloudflare sirve los ficheros directamente, con brotli y las cabeceras de `public/_headers`. El código del Worker (`workers/site/`) solo corre en las páginas, para elegir el idioma; en la ruta del formulario, `/api/contact`; y en las rutas sin fichero, que reciben la página 404. Scripts, estilos, fuentes e imágenes se sirven sin pasar por él.
 
-| Worker                  | Dominios                                                 | Qué hace                                                  |
-| ----------------------- | -------------------------------------------------------- | --------------------------------------------------------- |
-| `marcelagotta`          | marcelagotta.com y marcelagotta.marcelagotta.workers.dev | Sirve la web.                                             |
-| `marcelagotta-redirect` | www.marcelagotta.com, marsgotta.com y www.marsgotta.com  | 301 a https://marcelagotta.com con la misma ruta y query. |
+| Worker                  | Dominios                                                   | Qué hace                                               |
+| ----------------------- | ---------------------------------------------------------- | ------------------------------------------------------ |
+| `marcelagotta`          | marsgotta.com y marcelagotta.marcelagotta.workers.dev      | Sirve la web.                                          |
+| `marcelagotta-redirect` | marcelagotta.com, www.marcelagotta.com y www.marsgotta.com | 301 a https://marsgotta.com con la misma ruta y query. |
 
 Las redirecciones van en un Worker aparte (`workers/redirect/`) para que el sitio principal no ejecute código en cada petición.
 
@@ -43,7 +43,7 @@ Las redirecciones van en un Worker aparte (`workers/redirect/`) para que el siti
 1. Comprueba la sesión: `npx wrangler whoami`.
 2. `npm run deploy` construye y publica el sitio, y avisa por IndexNow a Bing y a los demás buscadores que lo usan (`scripts/indexnow.ts`). La clave es pública por diseño y vive en `public/<clave>.txt`.
 3. `npm run deploy:redirect`, solo si cambia `workers/redirect/`.
-4. Verifica el despliegue con los tests e2e: `BASE_URL=https://marcelagotta.com npm run test:e2e`.
+4. Verifica el despliegue con los tests e2e: `BASE_URL=https://marsgotta.com npm run test:e2e`.
 
 Para probar antes de publicar:
 
@@ -65,6 +65,14 @@ Los Custom Domains de Workers no pueden ocupar un nombre que ya tenga registros 
 Los MX (Google Workspace e iCloud) y los TXT (SPF y verificaciones) no se tocaron.
 
 Para volver a la web anterior: quita los Custom Domains de los dos Workers (panel → Workers → Settings → Domains & Routes) y recrea los registros de la tabla, sin proxy.
+
+El 23 de octubre de 2026 el canónico pasó de marcelagotta.com a marsgotta.com. Un dominio solo puede estar en un Worker, y `wrangler deploy` se lo quita al que lo tenía sin soltarlo, así que el cambio se hizo sin cortes, en tres despliegues:
+
+1. La web, con el build nuevo y los dos dominios en `routes`. Durante unos segundos, los dos la sirven.
+2. `npm run deploy:redirect`: el Worker de redirecciones se queda marcelagotta.com.
+3. La web otra vez, ya solo con marsgotta.com.
+
+Para deshacerlo, se revierte el commit y se repiten los tres pasos con los dominios al revés.
 
 ### Idioma automático
 
@@ -118,7 +126,7 @@ El blog vive en `signals/`, con su propio Worker. Comparte con el portfolio el `
 - **Antes, una prueba:** `npm run signals:deploy:preview` sube una versión con los formularios de la newsletter a https://preview-signals.marcelagotta.workers.dev, sin cambiar la que sirve el Worker.
 - **Producción**, solo con el OK de Mars: `npm run signals:deploy` publica el build en https://signals.marsgotta.com, el dominio propio del Worker en la zona marsgotta.com. La misma versión sigue en https://signals.marcelagotta.workers.dev, sin indexar.
 - **Después:** `BASE_URL=https://signals.marsgotta.com npm run signals:test:deployed`. Sin `BASE_URL`, la prueba de humo va contra workers.dev.
-- **marsgotta.com** sigue redirigiendo al portfolio desde su propio Worker, que solo cubre el dominio raíz y `www`.
+- **El portfolio** ocupa marsgotta.com con su propio Worker, y las redirecciones solo cubren `www.marsgotta.com`, así que el subdominio del blog no choca con ninguno.
 
 ### SEO del blog
 

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://marcelagotta.com/sitemap-index.xml
+Sitemap: https://marsgotta.com/sitemap-index.xml

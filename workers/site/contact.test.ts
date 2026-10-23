@@ -21,7 +21,7 @@ const valid = { name: 'Ana', email: 'ana@example.com', message: 'Hola', lang: 'e
 function post(fields: Record<string, string>, { json = false } = {}): Request {
   const body = new FormData();
   for (const [name, value] of Object.entries(fields)) body.set(name, value);
-  return new Request('https://marcelagotta.com/api/contact', {
+  return new Request('https://marsgotta.com/api/contact', {
     method: 'POST',
     body,
     headers: json ? { Accept: 'application/json' } : {},
@@ -47,11 +47,9 @@ describe('contact endpoint', () => {
     const { env } = fakeEnv();
     const spanish = await handleContact(post(valid), env);
     expect(spanish.status).toBe(303);
-    expect(spanish.headers.get('Location')).toBe('https://marcelagotta.com/contacto#contact-sent');
+    expect(spanish.headers.get('Location')).toBe('https://marsgotta.com/contacto#contact-sent');
     const english = await handleContact(post({ ...valid, lang: 'en', email: 'nope' }), env);
-    expect(english.headers.get('Location')).toBe(
-      'https://marcelagotta.com/en/contact#contact-error',
-    );
+    expect(english.headers.get('Location')).toBe('https://marsgotta.com/en/contact#contact-error');
   });
 
   it('rejects invalid messages without sending them', async () => {
@@ -83,7 +81,7 @@ describe('contact endpoint', () => {
 
   it('only accepts POST', async () => {
     const { env } = fakeEnv();
-    const response = await handleContact(new Request('https://marcelagotta.com/api/contact'), env);
+    const response = await handleContact(new Request('https://marsgotta.com/api/contact'), env);
     expect(response.status).toBe(405);
     expect(response.headers.get('Allow')).toBe('POST');
   });
@@ -92,7 +90,7 @@ describe('contact endpoint', () => {
 describe('site worker', () => {
   it('hands everything but the contact endpoint to the static assets', async () => {
     const { env, send } = fakeEnv();
-    const page = await site.fetch(new Request('https://marcelagotta.com/api/other'), env);
+    const page = await site.fetch(new Request('https://marsgotta.com/api/other'), env);
     expect(await page.text()).toBe('asset');
     await site.fetch(post(valid, { json: true }), env);
     expect(send).toHaveBeenCalledOnce();

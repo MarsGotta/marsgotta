@@ -10,10 +10,10 @@ export const BLOG_NAME = 'Signals by Mars';
  */
 export const author = {
   '@type': 'Person',
-  '@id': 'https://marcelagotta.com/#person',
+  '@id': 'https://marsgotta.com/#person',
   name: 'Marcela Gotta',
   alternateName: 'Mars',
-  url: 'https://marcelagotta.com/',
+  url: 'https://marsgotta.com/',
 } as const;
 
 export interface Alternate {

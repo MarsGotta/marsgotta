@@ -37,9 +37,9 @@
       "simple": { "limit": 5, "period": 60 },
     },
   ],
-  // The canonical host. www.marcelagotta.com, marsgotta.com and www.marsgotta.com redirect here
+  // The canonical host. marcelagotta.com, www.marcelagotta.com and www.marsgotta.com redirect here
   // from their own Worker (workers/redirect).
-  "routes": [{ "pattern": "marcelagotta.com", "custom_domain": true }],
+  "routes": [{ "pattern": "marsgotta.com", "custom_domain": true }],
   // wrangler turns workers.dev off when routes exist, so it is turned back on here. Version URLs
   // preview a build on workers.dev without touching production (npm run deploy:preview).
   "workers_dev": true,

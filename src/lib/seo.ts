@@ -9,7 +9,7 @@ export interface Alternate {
   href: string;
 }
 
-/** Absolute URL of a page; the canonical host is always marcelagotta.com. */
+/** Absolute URL of a page; the canonical host is always marsgotta.com. */
 export function pageUrl(site: URL, route: RouteKey, lang: Lang): string {
   return new URL(localizedPath(route, lang), site).href;
 }

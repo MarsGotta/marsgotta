@@ -43,7 +43,7 @@ describe('structured data', () => {
       '@id': 'https://signals.marsgotta.com/en#blog',
       name: 'Signals by Mars',
       inLanguage: 'en',
-      author: { '@id': 'https://marcelagotta.com/#person' },
+      author: { '@id': 'https://marsgotta.com/#person' },
     });
   });
 

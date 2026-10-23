@@ -1,21 +1,21 @@
 import { describe, expect, it } from 'vitest';
 import { alternates, ogLocale, pageUrl, structuredData } from './seo';
 
-const site = new URL('https://marcelagotta.com');
+const site = new URL('https://marsgotta.com');
 
 describe('seo', () => {
-  it('builds canonical URLs on marcelagotta.com without a trailing slash', () => {
-    expect(pageUrl(site, 'home', 'es')).toBe('https://marcelagotta.com/');
-    expect(pageUrl(site, 'home', 'en')).toBe('https://marcelagotta.com/en');
-    expect(pageUrl(site, 'about', 'es')).toBe('https://marcelagotta.com/sobre-mi');
-    expect(pageUrl(site, 'talks', 'en')).toBe('https://marcelagotta.com/en/talks');
+  it('builds canonical URLs on marsgotta.com without a trailing slash', () => {
+    expect(pageUrl(site, 'home', 'es')).toBe('https://marsgotta.com/');
+    expect(pageUrl(site, 'home', 'en')).toBe('https://marsgotta.com/en');
+    expect(pageUrl(site, 'about', 'es')).toBe('https://marsgotta.com/sobre-mi');
+    expect(pageUrl(site, 'talks', 'en')).toBe('https://marsgotta.com/en/talks');
   });
 
   it('links each page to its translation and to the Spanish default', () => {
     expect(alternates(site, 'projects')).toEqual([
-      { hreflang: 'es', href: 'https://marcelagotta.com/proyectos' },
-      { hreflang: 'en', href: 'https://marcelagotta.com/en/projects' },
-      { hreflang: 'x-default', href: 'https://marcelagotta.com/proyectos' },
+      { hreflang: 'es', href: 'https://marsgotta.com/proyectos' },
+      { hreflang: 'en', href: 'https://marsgotta.com/en/projects' },
+      { hreflang: 'x-default', href: 'https://marsgotta.com/proyectos' },
     ]);
   });
 
@@ -46,9 +46,9 @@ describe('seo', () => {
     expect(person.knowsAbout).toContain('Web Components');
     expect(person.knowsAbout).not.toContain('Rust');
     expect(find(graph, 'WebPage')).toMatchObject({
-      url: 'https://marcelagotta.com/contacto',
+      url: 'https://marsgotta.com/contacto',
       description: '¿Quieres hablar?',
-      about: { '@id': 'https://marcelagotta.com/#person' },
+      about: { '@id': 'https://marsgotta.com/#person' },
     });
   });
 
@@ -60,7 +60,7 @@ describe('seo', () => {
       description: 'x',
     });
     expect(find(graph, 'ProfilePage').mainEntity).toEqual({
-      '@id': 'https://marcelagotta.com/#person',
+      '@id': 'https://marsgotta.com/#person',
     });
   });
 

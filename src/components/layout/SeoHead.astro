@@ -12,7 +12,7 @@ interface Props {
 }
 
 const { lang, route, title, description } = Astro.props;
-const site = Astro.site ?? new URL('https://marcelagotta.com');
+const site = Astro.site ?? new URL('https://marsgotta.com');
 const t = getMessages(lang);
 const image = new URL(`/og/marcela-gotta-${lang}.jpg`, site).href;
 const imageAlt = [...t.hero.l1, ...t.hero.l2, ...t.hero.l3].join(' ');

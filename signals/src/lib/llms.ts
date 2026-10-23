@@ -39,7 +39,7 @@ export function llmsTxt(site: URL, signals: readonly Listed[]): string {
     '## Optional',
     [
       `- [Español](${url(homePath('es'))})`,
-      `- [Marcela Gotta, portfolio](https://marcelagotta.com/llms.txt)`,
+      `- [Marcela Gotta, portfolio](https://marsgotta.com/llms.txt)`,
     ].join('\n'),
   ].join('\n\n')}\n`;
 }

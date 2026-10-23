@@ -1,0 +1,46 @@
+{/* 2 px of the brand gradient that fills as the page scrolls, in CSS alone. Without scroll-driven
+    animations it does not show; with reduced motion it is not needed either. */}
+<div class="progress" aria-hidden="true">
+  <i></i>
+</div>
+
+<style>
+  .progress {
+    display: none;
+  }
+  @supports (animation-timeline: scroll()) {
+    .progress {
+      display: block;
+      position: fixed;
+      z-index: 60;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 2px;
+      pointer-events: none;
+    }
+    .progress i {
+      display: block;
+      height: 100%;
+      background: var(--grad);
+      transform-origin: 0 50%;
+      animation-name: grow;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: scroll(root);
+    }
+  }
+  @keyframes grow {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .progress {
+      display: none;
+    }
+  }
+</style>

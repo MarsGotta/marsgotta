@@ -1,4 +1,4 @@
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import type { Lang } from '../i18n';
 import { readingMinutes } from '../lib/reading';
 import { signalPath } from '../lib/routes';
@@ -16,12 +16,13 @@ export interface Signal extends SignalData {
   minutes: number;
 }
 
-/** The published signals, both languages: drafts too while developing, never in the build. */
-export async function getSignals(): Promise<Signal[]> {
-  const entries = await getCollection('signals', ({ data }) =>
-    isPublished(data, import.meta.env.DEV),
-  );
-  return entries.map(({ id, data, body }) => ({
+/** The published entries, both languages: drafts too while developing, never in the build. */
+async function publishedEntries(): Promise<CollectionEntry<'signals'>[]> {
+  return getCollection('signals', ({ data }) => isPublished(data, import.meta.env.DEV));
+}
+
+function toSignal({ id, data, body }: CollectionEntry<'signals'>): Signal {
+  return {
     ...data,
     id,
     href: signalPath(data.slug, data.lang),
@@ -29,9 +30,22 @@ export async function getSignals(): Promise<Signal[]> {
     dateLabel: formatSignalDate(data.publishedAt, data.lang),
     sol: solOf(data.publishedAt),
     minutes: readingMinutes(body ?? ''),
-  }));
+  };
+}
+
+export async function getSignals(): Promise<Signal[]> {
+  return (await publishedEntries()).map(toSignal);
 }
 
 export async function getSignalsIn(lang: Lang): Promise<Signal[]> {
   return (await getSignals()).filter((signal) => signal.lang === lang);
+}
+
+/** Each signal of a language with its entry, which the article page renders. */
+export async function getArticles(
+  lang: Lang,
+): Promise<{ signal: Signal; entry: CollectionEntry<'signals'> }[]> {
+  return (await publishedEntries())
+    .filter((entry) => entry.data.lang === lang)
+    .map((entry) => ({ signal: toSignal(entry), entry }));
 }

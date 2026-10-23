@@ -1,0 +1,40 @@
+---
+interface Props {
+  size: 'byline' | 'card';
+}
+
+const { size } = Astro.props;
+---
+
+{/* Mars's logo as her avatar, from the portfolio's own definitions. */}
+<span class:list={['avatar', size]}>
+  <svg viewBox="0 0 560 560" aria-hidden="true">
+    <use href="#brand-mark" width="560" height="560"></use>
+  </svg>
+</span>
+
+<style>
+  .avatar {
+    display: grid;
+    place-items: center;
+    flex: none;
+    border-radius: 50%;
+    background: var(--bg-soft);
+  }
+  .byline {
+    width: 46px;
+    height: 46px;
+  }
+  .byline svg {
+    width: 34px;
+    height: 34px;
+  }
+  .card {
+    width: 64px;
+    height: 64px;
+  }
+  .card svg {
+    width: 46px;
+    height: 46px;
+  }
+</style>

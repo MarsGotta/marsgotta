@@ -98,14 +98,15 @@ Ahora no hay ninguno. Si algún día hacen falta, van con `npx wrangler secret p
 
 El blog vive en `signals/`, con su propio Worker. Comparte con el portfolio el `package.json` y las dependencias. La guía está en `design/signals/LEEME.md`.
 
-| Comando                          | Qué hace                                                                                                  |
-| -------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `npm run signals:dev`            | Servidor de desarrollo del blog.                                                                          |
-| `npm run signals:build`          | Construye el blog en `signals/dist/`.                                                                     |
-| `npm run signals:preview:cf`     | Construye y sirve el blog con `wrangler dev`, como en producción.                                         |
-| `npm run signals:deploy:preview` | Sube una versión de prueba a workers.dev, con el alias `preview`, sin tocar producción.                   |
-| `npm run signals:deploy`         | Construye y despliega el blog. Solo con el OK de Mars.                                                    |
-| `npm run signals:import`         | Copia las señales del vault de Obsidian (`Signals/`) al blog. Con `-- --prune` borra las que ya no están. |
+| Comando                          | Qué hace                                                                                                                        |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `npm run signals:dev`            | Servidor de desarrollo del blog.                                                                                                |
+| `npm run signals:build`          | Construye el blog en `signals/dist/`.                                                                                           |
+| `npm run signals:build:fixtures` | Construye el blog con las señales de ejemplo de `signals/tests/fixtures/content`, para revisar el diseño. Nunca para desplegar. |
+| `npm run signals:preview:cf`     | Construye y sirve el blog con `wrangler dev`, como en producción.                                                               |
+| `npm run signals:deploy:preview` | Sube una versión de prueba a workers.dev, con el alias `preview`, sin tocar producción.                                         |
+| `npm run signals:deploy`         | Construye y despliega el blog. Solo con el OK de Mars.                                                                          |
+| `npm run signals:import`         | Copia las señales del vault de Obsidian (`Signals/`) al blog. Con `-- --prune` borra las que ya no están.                       |
 
 `npm run lint`, `npm run typecheck` y `npm run test` cubren las dos apps.
 

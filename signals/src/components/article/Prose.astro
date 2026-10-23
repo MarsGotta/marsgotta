@@ -1,0 +1,255 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const t = getMessages(Astro.props.lang);
+---
+
+{/* The labels of the code blocks' «Copy» button: the Markdown does not know the page's language. */}
+<div
+  class="prose"
+  data-copy-label={t.post.copyCode}
+  data-copy-done={t.post.copiedCode}
+  data-copy-failed={t.post.copyFailed}
+>
+  <slot />
+</div>
+
+<style>
+  /* A reading measure like Medium's: Newsreader at its text optical size. */
+  .prose {
+    grid-column: 2;
+    min-width: 0;
+    font: 400 20px/1.68 var(--serif);
+    font-variation-settings: 'opsz' 16;
+    color: var(--ink-2);
+    font-kerning: normal;
+    hanging-punctuation: first;
+    counter-reset: section;
+  }
+  .prose :global(p) {
+    margin: 1.35em 0 0;
+    text-wrap: pretty;
+  }
+  .prose > :global(:first-child) {
+    margin-top: 0;
+  }
+  /* The opening of the signal, with a drop cap. */
+  .prose > :global(p:first-of-type)::first-letter {
+    float: left;
+    margin: 0.08em 0.1em 0 0;
+    font: 500 4.1em/0.8 var(--serif);
+    font-variation-settings: 'opsz' 72;
+    color: var(--ink);
+  }
+  .prose :global(strong) {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .prose :global(a) {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+  }
+  .prose :global(a:hover) {
+    color: var(--accent);
+  }
+  .prose :global(:not(pre) > code) {
+    padding: 0.12em 0.36em;
+    border-radius: 5px;
+    background: var(--bg-soft);
+    font: 500 0.8em/1 var(--mono);
+    color: var(--ink);
+  }
+  .prose :global(img) {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-inline: auto;
+    border-radius: 6px;
+  }
+
+  /* Sections number themselves («01», «02»…): the Markdown has no numbers. The number is not
+     read out, so the heading says only its own words. */
+  .prose :global(h2) {
+    margin: 2.2em 0 0;
+    font: 600 29px/1.2 var(--serif);
+    letter-spacing: -0.02em;
+    font-variation-settings: 'opsz' 48;
+    color: var(--ink);
+    text-wrap: balance;
+    scroll-margin-top: 96px;
+  }
+  .prose :global(h2)::before {
+    counter-increment: section;
+    content: counter(section, decimal-leading-zero);
+    content: counter(section, decimal-leading-zero) / '';
+    display: block;
+    margin-bottom: 10px;
+    font: 500 10.5px/1 var(--mono);
+    letter-spacing: 0.16em;
+    color: var(--accent);
+  }
+  .prose :global(h2 + p) {
+    margin-top: 0.6em;
+  }
+  .prose :global(h3) {
+    margin: 1.8em 0 0;
+    font: 600 22px/1.3 var(--serif);
+    color: var(--ink);
+    scroll-margin-top: 96px;
+  }
+
+  /* Bullets shaped like a Martian pebble. */
+  .prose :global(ul) {
+    margin: 1.2em 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .prose :global(ul > li) {
+    position: relative;
+    padding-left: 1.4em;
+  }
+  .prose :global(li + li) {
+    margin-top: 0.55em;
+  }
+  .prose :global(ul > li)::before {
+    content: '';
+    position: absolute;
+    left: 0.3em;
+    top: 0.72em;
+    width: 7px;
+    height: 6px;
+    border-radius: 50% 46% 52% 48%;
+    background: var(--accent);
+  }
+  .prose :global(ol) {
+    margin: 1.2em 0 0;
+    padding-left: 1.4em;
+  }
+  .prose :global(li > p) {
+    margin: 0;
+  }
+
+  .prose :global(blockquote) {
+    margin: 1.9em 0;
+    padding: 0 0 0 28px;
+    border-left: 2px solid var(--accent);
+    font: 400 italic 28px/1.4 var(--serif);
+    font-variation-settings: 'opsz' 48;
+    letter-spacing: -0.012em;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .prose :global(blockquote p) {
+    margin: 0;
+  }
+
+  /* «Consejo práctico», from Obsidian's > [!TIP] (lib/markdown/rehype-tip.ts). */
+  .prose :global(.callout) {
+    margin: 1.6em 0 0;
+    padding: 22px 24px;
+    border-radius: 12px;
+    background: var(--bg-soft);
+    font-size: 18px;
+    line-height: 1.6;
+  }
+  .prose :global(.callout-label) {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 8px;
+    font: 500 10.5px/1 var(--mono);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .prose :global(.callout-label svg) {
+    width: 16px;
+    height: 16px;
+  }
+  .prose :global(.callout p) {
+    margin: 0;
+  }
+  .prose :global(.callout p + p) {
+    margin-top: 0.6em;
+  }
+
+  /* Code blocks, from lib/markdown/code-figure.ts with the design's Shiki theme. */
+  .prose :global(.code) {
+    margin: 1.6em 0 0;
+    border-radius: 12px;
+    background: var(--code-bg);
+    color: var(--code-ink);
+    overflow: hidden;
+  }
+  .prose :global(.code-bar) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 44px;
+    padding: 6px 8px 6px 18px;
+    border-bottom: 1px solid var(--code-line);
+    font: 500 11px/1 var(--mono);
+    letter-spacing: 0.08em;
+    color: #a99a92;
+  }
+  .prose :global(.code-bar > span) {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .prose :global(.code-bar i) {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #e9603a;
+  }
+  .prose :global(.code-copy) {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 32px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: 8px;
+    background: none;
+    color: #c9bbb3;
+    font: 500 11.5px/1 var(--mono);
+    cursor: pointer;
+  }
+  .prose :global(.code-copy[hidden]) {
+    display: none;
+  }
+  .prose :global(.code-copy:hover) {
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+  }
+  .prose :global(.code-copy svg) {
+    width: 14px;
+    height: 14px;
+  }
+  .prose :global(.code pre) {
+    margin: 0;
+    padding: 18px 20px 20px;
+    overflow-x: auto;
+    font: 400 14.5px/1.7 var(--mono);
+    tab-size: 2;
+  }
+  .prose :global(.code pre:focus-visible) {
+    outline-offset: -3px;
+  }
+  .prose :global(.code code) {
+    display: block;
+    padding: 0;
+    background: none;
+    font: inherit;
+    color: inherit;
+  }
+</style>

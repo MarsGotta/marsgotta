@@ -1,0 +1,15 @@
+---
+import { getArticles } from '../../data/signals';
+import ArticleView from '../../views/ArticleView.astro';
+
+export async function getStaticPaths() {
+  return (await getArticles('en')).map(({ signal, entry }) => ({
+    params: { slug: signal.slug },
+    props: { signal, entry },
+  }));
+}
+
+const { signal, entry } = Astro.props;
+---
+
+<ArticleView signal={signal} entry={entry} />

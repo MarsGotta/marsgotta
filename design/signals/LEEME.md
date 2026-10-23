@@ -64,6 +64,7 @@ Salieron de la revisión del documento. Mars puede cambiar cualquiera.
   - El copy de la interfaz y los componentes cumplen todas las prohibiciones del portfolio: `brand.test.ts` pasa a cubrir también `signals/src`.
   - En el texto de las señales solo se aplica la regla de la raya larga, fuera de los bloques de código. `signals:import` se detiene si encuentra una y dice en qué línea está.
   - Las demás prohibiciones (OpenClaw, «16 años», niveles MCER…) eran sobre el perfil de Mars y no se aplican a lo que escribe en el blog: una noticia puede nombrar OpenClaw.
+- **Dos ajustes de contraste para cumplir AA** (axe, fase 3): los comentarios del tema de código pasan de `#857770` a `#8E807A` (4,75:1 sobre el fondo de código claro, frente a 4,19:1). Los números del índice lateral usan `--muted` en vez de `--faint`. La copia del tema que usa el blog está en `signals/src/lib/markdown/signals-code.json`.
 - **Páginas sin diseño propio:** tema, archivo, 404 y las de suscripción confirmada y baja se montan con las piezas y medidas de la home (cabecera más pequeña, la misma lista y la misma columna lateral). Que «coincidan con el prototipo» quiere decir eso.
 
 ## 2. Rutas

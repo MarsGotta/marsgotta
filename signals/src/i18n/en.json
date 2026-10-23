@@ -9,8 +9,7 @@
     "toLight": "Switch to the light theme",
     "toDark": "Switch to the dark theme",
     "signal": "Signal",
-    "read": "min read",
-    "newTab": "opens in a new tab"
+    "read": "min read"
   },
   "topics": {
     "ia": "AI news",
@@ -78,7 +77,8 @@
     "byP": "Software engineer in Madrid and Head Frontend Developer at Sngular. Builds Kimen, Jezero and Orbit in the open.",
     "endH": "I will let you know about the next signal.",
     "endP": "One email per post. No spam, no filler.",
-    "nextH": "Next signals"
+    "nextH": "Next signals",
+    "copyFailed": "Couldn't copy"
   },
   "foot": {
     "line": "Signals by Mars is Marcela Gotta’s blog: AI, technology and craft, written calmly.",

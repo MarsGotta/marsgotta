@@ -1,0 +1,112 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+  url: string;
+  title: string;
+}
+
+const { lang, url, title } = Astro.props;
+const t = getMessages(lang);
+const linkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+const x = `https://x.com/intent/post?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
+---
+
+<div class="actions">
+  <span class="label">{t.post.share}</span>
+  <div class="row">
+    {/* Hidden until the script can copy: without JS it would be a button that does nothing. */}
+    <button
+      type="button"
+      class="act"
+      data-copy-link={url}
+      data-label={t.post.copy}
+      data-done={t.post.copied}
+      data-failed={t.post.copyFailed}
+      aria-live="polite"
+      hidden
+    >
+      <svg
+        viewBox="0 0 20 20"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M8.5 11.5a3.5 3.5 0 0 0 5 0l2.5-2.5a3.5 3.5 0 0 0-5-5l-1 1"></path>
+        <path d="M11.5 8.5a3.5 3.5 0 0 0-5 0L4 11a3.5 3.5 0 0 0 5 5l1-1"></path>
+      </svg>
+      <span data-copy-text>{t.post.copy}</span>
+    </button>
+    <a class="act" href={linkedIn} target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path d="M4.2 7.4h2.9V16H4.2zM5.65 3a1.7 1.7 0 1 1 0 3.4 1.7 1.7 0 0 1 0-3.4ZM8.9 7.4h2.8v1.2c.4-.7 1.4-1.4 2.8-1.4 3 0 3.5 1.9 3.5 4.4V16h-2.9v-3.9c0-.9 0-2.2-1.4-2.2s-1.6 1-1.6 2.1v4H8.9z"></path>
+      </svg>
+      LinkedIn<span class="sr-only">{` ${t.post.newTab}`}</span>
+    </a>
+    <a class="act" href={x} target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path d="M14.6 3h2.5l-5.5 6.3L18 17h-5l-3.9-5.1L4.6 17H2.1l5.9-6.7L1.8 3h5.1l3.5 4.7zm-.9 12.6h1.4L6.4 4.3H4.9z"></path>
+      </svg>
+      X<span class="sr-only">{` ${t.post.newTab}`}</span>
+    </a>
+  </div>
+</div>
+
+<style>
+  .actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+    padding-block: 6px;
+    border-block: 1px solid var(--line);
+  }
+  .label {
+    font: 500 10.5px/1 var(--mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+  .act {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 999px;
+    background: none;
+    color: var(--muted);
+    font: 500 13.5px/1 var(--sans);
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      color 0.2s,
+      background-color 0.2s;
+  }
+  .act[hidden] {
+    display: none;
+  }
+  .act:hover {
+    color: var(--ink);
+    background: var(--bg-soft);
+  }
+  .act svg {
+    width: 17px;
+    height: 17px;
+  }
+  .act[data-state='done'] {
+    color: var(--ok);
+  }
+</style>

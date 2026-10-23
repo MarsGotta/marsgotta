@@ -99,4 +99,5 @@ Los periodos de Fobos (7 h 39 min) y Deimos (30 h 18 min), la rotación de Marte
 - **Dónde:** el blog y la newsletter, en signals.marsgotta.com. Es una app Astro aparte en `signals/`, con su propio Worker (`signals/wrangler.jsonc`).
 - **Guía:** `design/signals/LEEME.md`. Lánzalo por fases con `/signals <n>` y revísalo con `/signals-revisar`.
 - **Compartido:** el `package.json`, las dependencias y el código del portfolio. Se importa con el alias `@portfolio` (por ejemplo, `@portfolio/lib/mars-clock`), sin copiarlo. Si cambias algo compartido, las dos apps tienen que seguir en verde.
+- **Markdown:** lo procesa Sätteri, el procesador de Astro 7, con sus plugins en `signals/src/lib/markdown/`. `@astrojs/markdown-satteri` lo autorizó Mars el 23 oct 2026.
 - **Contenido:** Mars escribe en su vault de Obsidian. Las señales se importan al repo y Claude prepara la traducción para que ella la revise.

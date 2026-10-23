@@ -1,0 +1,81 @@
+---
+import type { Signal } from '../../data/signals';
+import { getMessages } from '../../i18n';
+import { newsletterReady } from '../../lib/newsletter';
+import { topicPath } from '../../lib/routes';
+import SignalLine from '../signal/SignalLine.astro';
+import Avatar from './Avatar.astro';
+import ShareBar from './ShareBar.astro';
+
+interface Props {
+  signal: Signal;
+  url: string;
+}
+
+const { signal, url } = Astro.props;
+const t = getMessages(signal.lang);
+---
+
+<header class="col">
+  <p class="meta-top">
+    <a class:list={['topic', `t-${signal.topic}`]} href={topicPath(signal.topic, signal.lang)}>
+      {t.topic1[signal.topic]}
+    </a>
+    <span>{`${t.ui.signal} ${signal.numberLabel}`}</span>
+  </p>
+  <h1 class="title" id="article-title">
+    {signal.title}
+  </h1>
+  <p class="deck">{signal.deck}</p>
+  <div class="byline">
+    <Avatar size="byline" />
+    <div>
+      <p class="name">
+        Marcela Gotta
+        {newsletterReady && <a href="#suscribirse">{t.post.follow}</a>}
+      </p>
+      <SignalLine signal={signal} />
+    </div>
+  </div>
+  <ShareBar lang={signal.lang} url={url} title={signal.title} />
+</header>
+
+<style>
+  .title {
+    margin: 18px 0 0;
+    font: 600 clamp(36px, 4.2vw, 50px) / 1.1 var(--serif);
+    letter-spacing: -0.028em;
+    font-variation-settings: 'opsz' 60;
+    text-wrap: balance;
+  }
+  .deck {
+    margin: 16px 0 0;
+    font: 400 clamp(19px, 1.7vw, 22px) / 1.45 var(--serif);
+    color: var(--muted);
+    text-wrap: pretty;
+  }
+  .byline {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 32px;
+  }
+  .name {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 3px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .name a {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .name a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+</style>

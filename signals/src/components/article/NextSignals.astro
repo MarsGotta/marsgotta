@@ -1,0 +1,81 @@
+---
+import type { Signal } from '../../data/signals';
+import { getMessages, type Lang } from '../../i18n';
+import Cover from '../signal/Cover.astro';
+import SignalLabel from '../signal/SignalLabel.astro';
+import SignalLine from '../signal/SignalLine.astro';
+
+interface Props {
+  lang: Lang;
+  signals: Signal[];
+}
+
+const { lang, signals } = Astro.props;
+const t = getMessages(lang);
+---
+
+{signals.length > 0 && (
+  <section class="next" aria-labelledby="next-title">
+    <div class="wrap">
+      <h2 class="h" id="next-title">
+        {t.post.nextH}
+      </h2>
+      <div class="cards">
+        {signals.map((signal) => (
+          <a class:list={['card', `t-${signal.topic}`]} href={signal.href}>
+            <Cover kind={signal.cover} topic={signal.topic} number={signal.number} shape="card" />
+            <div class="label">
+              <SignalLabel signal={signal} />
+            </div>
+            <h3 class="title">{signal.title}</h3>
+            <div class="line">
+              <SignalLine signal={signal} sol={false} />
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .next {
+    padding-block: clamp(64px, 7vw, 104px);
+  }
+  .h {
+    margin: 0 0 28px;
+    font: 600 13px/1 var(--sans);
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(24px, 3.4vw, 48px);
+  }
+  .card {
+    display: block;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .label {
+    margin-top: 18px;
+  }
+  .title {
+    margin: 12px 0 0;
+    font: 600 24px/1.2 var(--serif);
+    letter-spacing: -0.016em;
+    font-variation-settings: 'opsz' 36;
+    transition: color 0.2s;
+    text-wrap: balance;
+  }
+  .card:hover .title {
+    color: var(--accent);
+  }
+  .line {
+    margin-top: 10px;
+  }
+  @media (max-width: 720px) {
+    .cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

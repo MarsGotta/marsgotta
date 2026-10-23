@@ -9,8 +9,7 @@
     "toLight": "Cambiar al tema claro",
     "toDark": "Cambiar al tema oscuro",
     "signal": "Señal",
-    "read": "min de lectura",
-    "newTab": "se abre en otra pestaña"
+    "read": "min de lectura"
   },
   "topics": {
     "ia": "Noticias IA",
@@ -78,7 +77,8 @@
     "byP": "Ingeniera de software en Madrid y Head Frontend Developer en Sngular. Construye en abierto Kimen, Jezero y Orbit.",
     "endH": "Te aviso de la próxima señal.",
     "endP": "Un email por artículo. Sin spam y sin relleno.",
-    "nextH": "Siguientes señales"
+    "nextH": "Siguientes señales",
+    "copyFailed": "No se pudo copiar"
   },
   "foot": {
     "line": "Signals by Mars es el blog de Marcela Gotta: IA, tecnología y oficio, escrito con calma.",

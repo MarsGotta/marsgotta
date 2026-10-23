@@ -1,0 +1,76 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import ArticleCover from '../components/article/ArticleCover.astro';
+import ArticleEnd from '../components/article/ArticleEnd.astro';
+import ArticleHeader from '../components/article/ArticleHeader.astro';
+import NextSignals from '../components/article/NextSignals.astro';
+import Prose from '../components/article/Prose.astro';
+import ReadingProgress from '../components/article/ReadingProgress.astro';
+import Toc from '../components/article/Toc.astro';
+import { getSignals, type Signal } from '../data/signals';
+import Base from '../layouts/Base.astro';
+import { nextSignals } from '../lib/featured';
+import { translationOf } from '../lib/translations';
+
+interface Props {
+  signal: Signal;
+  entry: CollectionEntry<'signals'>;
+}
+
+const { signal, entry } = Astro.props;
+const { Content, headings } = await render(entry);
+const signals = await getSignals();
+const sections = headings.filter((heading) => heading.depth === 2);
+const url = new URL(signal.href, Astro.site).href;
+---
+
+<Base
+  lang={signal.lang}
+  title={`${signal.title} · Signals by Mars`}
+  description={signal.deck}
+  page={{ kind: 'signal', slug: signal.slug }}
+  translationSlug={translationOf(signal, signals)?.slug}
+>
+  <ReadingProgress />
+  <article class:list={['article', `t-${signal.topic}`]} aria-labelledby="article-title">
+    <ArticleHeader signal={signal} url={url} />
+    <ArticleCover signal={signal} />
+    <div class="grid">
+      {sections.length > 0 && <Toc lang={signal.lang} headings={sections} />}
+      <Prose lang={signal.lang}>
+        <Content />
+      </Prose>
+    </div>
+    <ArticleEnd signal={signal} />
+  </article>
+  <NextSignals lang={signal.lang} signals={nextSignals(signal, signals)} />
+</Base>
+
+<script>
+  import { initCopyButtons } from '../scripts/copy';
+
+  initCopyButtons();
+</script>
+
+<style>
+  .article {
+    padding-top: clamp(40px, 5vw, 72px);
+  }
+  /* The reading column in the middle, the index in the left margin. */
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 680px) minmax(0, 1fr);
+    gap: 0 48px;
+    padding-inline: 24px;
+    margin-top: clamp(40px, 4.4vw, 64px);
+  }
+  @media (max-width: 1180px) {
+    .grid {
+      grid-template-columns: minmax(0, 680px);
+      justify-content: center;
+    }
+    .grid > :global(.prose) {
+      grid-column: 1;
+    }
+  }
+</style>

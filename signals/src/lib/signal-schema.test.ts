@@ -30,6 +30,11 @@ describe('signalSchema', () => {
     expect(signalSchema.safeParse({ ...valid, slug: 'Dale memoria' }).success).toBe(false);
   });
 
+  it('keeps the slugs of the pages of the blog free', () => {
+    expect(signalSchema.safeParse({ ...valid, slug: 'archivo' }).success).toBe(false);
+    expect(signalSchema.safeParse({ ...valid, slug: 'topics' }).success).toBe(false);
+  });
+
   it('keeps «Empieza por aquí» to three places', () => {
     expect(signalSchema.safeParse({ ...valid, startHere: 4 }).success).toBe(false);
   });

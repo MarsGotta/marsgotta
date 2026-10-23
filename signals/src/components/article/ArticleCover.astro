@@ -1,0 +1,30 @@
+---
+import type { Signal } from '../../data/signals';
+import Cover from '../signal/Cover.astro';
+
+interface Props {
+  signal: Signal;
+}
+
+const { signal } = Astro.props;
+---
+
+<figure class="figure">
+  <Cover kind={signal.cover} topic={signal.topic} number={signal.number} shape="article" />
+  {signal.coverCaption && <figcaption>{signal.coverCaption}</figcaption>}
+</figure>
+
+<style>
+  .figure {
+    width: 100%;
+    max-width: 1088px;
+    margin: clamp(36px, 4vw, 56px) auto 0;
+    padding-inline: 24px;
+  }
+  figcaption {
+    margin-top: 12px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+  }
+</style>

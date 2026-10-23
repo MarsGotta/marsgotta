@@ -1,0 +1,12 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const t = getMessages(Astro.props.lang);
+---
+
+{/* The ↗ only shows it to sighted readers: screen readers hear it in words. */}
+<span class="sr-only"> ({t.ui.newTab})</span>

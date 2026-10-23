@@ -1,0 +1,157 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+import { newsletterReady } from '../../lib/newsletter';
+import { archivePath, rssPath, topicPath } from '../../lib/routes';
+import { topics } from '../../lib/signal-schema';
+import { jezeroTime } from '../../lib/sky';
+import Brand from './Brand.astro';
+import NewTabHint from './NewTabHint.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = getMessages(lang);
+// Built with the time of the build, so the line never jumps; the script brings it to now.
+const jezero = jezeroTime(Date.now());
+const year = new Date().getFullYear();
+---
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="in">
+      <div class="brand">
+        <Brand lang={lang} />
+        <p>{t.foot.line}</p>
+      </div>
+      <div>
+        <p class="h">{t.ui.topics}</p>
+        <ul>
+          {topics.map((topic) => (
+            <li>
+              <a href={topicPath(topic, lang)}>{t.topics[topic]}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <p class="h">Signals</p>
+        <ul>
+          {newsletterReady && (
+            <li>
+              <a href="#suscribirse">{t.ui.subscribe}</a>
+            </li>
+          )}
+          <li>
+            <a href={rssPath(lang)}>RSS</a>
+          </li>
+          <li>
+            <a href={archivePath(lang)}>{t.foot.archive}</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <p class="h">Mars</p>
+        <ul>
+          <li>
+            <a href="https://marcelagotta.com" target="_blank" rel="noopener noreferrer">
+              {t.foot.portfolio}
+              <span aria-hidden="true">↗</span>
+              <NewTabHint lang={lang} />
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/MarsGotta" target="_blank" rel="noopener noreferrer">
+              GitHub<span aria-hidden="true">↗</span>
+              <NewTabHint lang={lang} />
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="base">
+      <span>
+        © {year} Marcela Gotta · {t.foot.made}
+      </span>
+      <span data-jezero-clock>
+        Sol <span data-jezero-sol>{jezero.sol}</span> · <span data-jezero-lmst>{jezero.lmst}</span>
+        {` LMST ${t.foot.inJezero}`}
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  import { initJezeroClock } from '../../scripts/sky';
+
+  initJezeroClock();
+</script>
+
+<style>
+  .foot {
+    border-top: 1px solid var(--line);
+    padding-block: 56px 32px;
+  }
+  .in {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr));
+    gap: 40px;
+  }
+  .brand p {
+    max-width: 24em;
+    margin: 16px 0 0;
+    font: 400 15.5px/1.55 var(--serif);
+    color: var(--muted);
+  }
+  .h {
+    margin: 0 0 14px;
+    font: 500 10.5px/1 var(--mono);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  ul a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 36px;
+    font-size: 14.5px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  ul a:hover {
+    color: var(--accent);
+  }
+  .base {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px 24px;
+    margin-top: 48px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    font: 500 10.5px/1.5 var(--mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    /* Tabular figures: the line keeps its width as the minutes change. */
+    font-variant-numeric: tabular-nums;
+  }
+  @media (max-width: 860px) {
+    .in {
+      grid-template-columns: 1fr 1fr;
+    }
+    .brand {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

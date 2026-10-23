@@ -1,0 +1,70 @@
+---
+import type { Signal } from '../../data/signals';
+import Cover from '../signal/Cover.astro';
+import SignalLabel from '../signal/SignalLabel.astro';
+import SignalLine from '../signal/SignalLine.astro';
+
+interface Props {
+  signal: Signal;
+}
+
+const { signal } = Astro.props;
+---
+
+<a class:list={['row', `t-${signal.topic}`]} href={signal.href}>
+  <div>
+    <SignalLabel signal={signal} />
+    <h3 class="title">{signal.title}</h3>
+    <p class="deck">{signal.deck}</p>
+    <div class="line">
+      <SignalLine signal={signal} />
+    </div>
+  </div>
+  <Cover kind={signal.cover} topic={signal.topic} number={signal.number} shape="row" />
+</a>
+
+<style>
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 184px;
+    gap: clamp(20px, 3.2vw, 44px);
+    align-items: center;
+    padding-block: 32px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .title {
+    margin: 12px 0 0;
+    font: 600 clamp(21px, 1.9vw, 25px) / 1.2 var(--serif);
+    letter-spacing: -0.016em;
+    font-variation-settings: 'opsz' 36;
+    text-wrap: balance;
+    transition: color 0.2s;
+  }
+  .row:hover .title {
+    color: var(--accent);
+  }
+  /* Two lines of standfirst at most. */
+  .deck {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 8px 0 0;
+    font: 400 16.5px/1.5 var(--serif);
+    color: var(--muted);
+  }
+  .line {
+    margin-top: 14px;
+  }
+  @media (max-width: 560px) {
+    .row {
+      grid-template-columns: minmax(0, 1fr) 92px;
+      gap: 16px;
+      padding-block: 24px;
+    }
+    .deck {
+      display: none;
+    }
+  }
+</style>

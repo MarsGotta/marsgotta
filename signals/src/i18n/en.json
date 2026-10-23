@@ -9,7 +9,8 @@
     "toLight": "Switch to the light theme",
     "toDark": "Switch to the dark theme",
     "signal": "Signal",
-    "read": "min read"
+    "read": "min read",
+    "newTab": "opens in a new tab"
   },
   "topics": {
     "ia": "AI news",
@@ -36,7 +37,8 @@
   },
   "feed": {
     "h": "Latest signals",
-    "all": "All"
+    "all": "All",
+    "archive": "View the archive"
   },
   "side": {
     "aria": "More from Signals",
@@ -85,5 +87,27 @@
     "made": "Made in Madrid, designed on Mars",
     "inJezero": "in Jezero"
   },
-  "months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+  "months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  "topicPage": {
+    "kicker": "Topic",
+    "lead": {
+      "ia": "What happens in AI and on the web, filtered: what matters, why, and what you can ignore.",
+      "practica": "What I learn building software, with AI and without it: judgment calls, short checklists and mistakes I no longer make.",
+      "tutorial": "Step by step, with all the code: patterns I actually use in my projects."
+    }
+  },
+  "archive": {
+    "kicker": "Archive",
+    "h1": "Every signal",
+    "lead": "Everything published, newest first."
+  },
+  "empty": {
+    "h": "The first signals are on their way."
+  },
+  "nlSoon": {
+    "h2a": "The newsletter",
+    "h2b": "is on its way.",
+    "sub": "Soon you will be able to get every signal by email. Until then, you can follow the blog by RSS.",
+    "rss": "Follow by RSS"
+  }
 }

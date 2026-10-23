@@ -1,0 +1,220 @@
+---
+import type { Signal } from '../../data/signals';
+import { getMessages, type Lang } from '../../i18n';
+import { startHere } from '../../lib/featured';
+import { topicCounts } from '../../lib/feed';
+import { rssPath, topicPath } from '../../lib/routes';
+import { topics } from '../../lib/signal-schema';
+import NewTabHint from '../layout/NewTabHint.astro';
+
+interface Props {
+  lang: Lang;
+  signals: Signal[];
+}
+
+const { lang, signals } = Astro.props;
+const t = getMessages(lang);
+const picks = startHere(signals, lang);
+const counts = topicCounts(signals, lang);
+---
+
+<aside class="side" aria-label={t.side.aria}>
+  {picks.length > 0 && (
+    <section>
+      <h2 class="h">{t.side.startH}</h2>
+      <ol class="picks">
+        {picks.map((signal, index) => (
+          <li>
+            <a class="pick" href={signal.href}>
+              <span class="n">{String(index + 1).padStart(2, '0')}</span>
+              <span>
+                <span class="title">{signal.title}</span>
+                <span class="meta">
+                  {`${t.topic1[signal.topic]} · ${signal.minutes} ${t.ui.read}`}
+                </span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )}
+  <section>
+    <h2 class="h">{t.side.topicsH}</h2>
+    <div class="chips">
+      {topics.map((topic) => (
+        <a class:list={['chip', `t-${topic}`]} href={topicPath(topic, lang)}>
+          <i aria-hidden="true" />
+          {t.topics[topic]}
+          <span>{counts[topic]}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+  <section class="about">
+    <div class="mark">
+      <svg viewBox="0 0 560 560" aria-hidden="true">
+        <use href="#brand-mark" width="560" height="560"></use>
+      </svg>
+      <h2 class="h">{t.side.aboutH}</h2>
+    </div>
+    <p>{t.side.aboutP}</p>
+    <a class="ext" href="https://marcelagotta.com" target="_blank" rel="noopener noreferrer">
+      {t.side.aboutCta}
+      <span aria-hidden="true">↗</span>
+      <NewTabHint lang={lang} />
+    </a>
+  </section>
+  <a class="rss" href={rssPath(lang)}>
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.7"
+      stroke-linecap="round"
+      aria-hidden="true"
+    >
+      <path d="M4 9a7 7 0 0 1 7 7M4 4a12 12 0 0 1 12 12"></path>
+      <circle cx="4.8" cy="15.2" r="1.2" fill="currentColor" stroke="none"></circle>
+    </svg>
+    <span>
+      <b>{t.side.rss}</b>
+      <span>{t.side.rssP}</span>
+    </span>
+  </a>
+</aside>
+
+<style>
+  .side {
+    position: sticky;
+    top: 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  .h {
+    margin: 0 0 18px;
+    font: 600 13px/1 var(--sans);
+    letter-spacing: 0.01em;
+  }
+  .picks {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .pick {
+    display: grid;
+    grid-template-columns: 30px minmax(0, 1fr);
+    gap: 10px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .n {
+    padding-top: 3px;
+    font: 500 11px/1 var(--mono);
+    letter-spacing: 0.1em;
+    color: var(--accent);
+  }
+  .title {
+    display: block;
+    font: 600 17px/1.3 var(--serif);
+    letter-spacing: -0.01em;
+    font-variation-settings: 'opsz' 24;
+    transition: color 0.2s;
+  }
+  .pick:hover .title {
+    color: var(--accent);
+  }
+  .pick .meta {
+    display: block;
+    margin-top: 6px;
+    font-size: 12.5px;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 34px;
+    padding: 0 14px;
+    border-radius: 999px;
+    background: var(--bg-soft);
+    color: var(--ink);
+    font: 500 13.5px/1 var(--sans);
+    text-decoration: none;
+    transition: background-color 0.2s;
+  }
+  .chip:hover {
+    background: color-mix(in srgb, var(--tc, var(--ink)) 14%, var(--bg-soft));
+  }
+  .chip i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--tc);
+  }
+  .chip span {
+    font: 500 10.5px/1 var(--mono);
+    color: var(--muted);
+  }
+  .about {
+    padding: 24px;
+    border-radius: 12px;
+    background: var(--bg-soft);
+  }
+  .mark {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .mark svg {
+    width: 40px;
+    height: 40px;
+  }
+  .mark .h {
+    margin: 0;
+  }
+  .about p {
+    margin: 0;
+    font: 400 15.5px/1.55 var(--serif);
+    color: var(--ink-2);
+  }
+  .about .ext {
+    margin-top: 8px;
+  }
+  .rss {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .rss svg {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    color: var(--accent);
+  }
+  .rss b {
+    display: block;
+    font-size: 14.5px;
+    font-weight: 600;
+  }
+  .rss span span {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  @media (max-width: 980px) {
+    .side {
+      position: static;
+    }
+  }
+</style>

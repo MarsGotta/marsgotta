@@ -2,15 +2,23 @@
 import '@fontsource/jetbrains-mono/latin-400.css';
 import '@fontsource/jetbrains-mono/latin-500.css';
 import '../styles/global.css';
+import Footer from '../components/layout/Footer.astro';
+import SvgDefs from '../components/layout/SvgDefs.astro';
+import TopBar from '../components/layout/TopBar.astro';
+import NewsletterBand from '../components/newsletter/NewsletterBand.astro';
 import { getMessages, type Lang } from '../i18n';
+import type { Page } from '../lib/routes';
 
 interface Props {
   lang: Lang;
   title: string;
   description: string;
+  page: Page;
+  /** The slug of a signal's translation, for the language switch. */
+  translationSlug?: string | undefined;
 }
 
-const { lang, title, description } = Astro.props;
+const { lang, title, description, page, translationSlug } = Astro.props;
 const t = getMessages(lang);
 ---
 
@@ -44,11 +52,15 @@ const t = getMessages(lang);
     </script>
   </head>
   <body>
+    <SvgDefs />
     <a class="skip" href="#main">
       {t.ui.skip}
     </a>
+    <TopBar lang={lang} page={page} translationSlug={translationSlug} />
     <main id="main">
       <slot />
+      <NewsletterBand lang={lang} />
     </main>
+    <Footer lang={lang} />
   </body>
 </html>

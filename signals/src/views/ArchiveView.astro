@@ -1,0 +1,32 @@
+---
+import FeedSection from '../components/feed/FeedSection.astro';
+import PageHead from '../components/page/PageHead.astro';
+import { getSignalsIn } from '../data/signals';
+import { getMessages, type Lang } from '../i18n';
+import Base from '../layouts/Base.astro';
+import { byRecency } from '../lib/featured';
+import { archivePath } from '../lib/routes';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = getMessages(lang);
+const signals = await getSignalsIn(lang);
+---
+
+<Base
+  lang={lang}
+  title={`${t.archive.kicker} · Signals by Mars`}
+  description={t.archive.lead}
+  page={{ kind: 'archive' }}
+>
+  <PageHead kicker={t.archive.kicker} title={t.archive.h1} lead={t.archive.lead} />
+  <FeedSection
+    lang={lang}
+    listed={byRecency(signals)}
+    all={signals}
+    allLink={{ href: archivePath(lang), current: true }}
+  />
+</Base>

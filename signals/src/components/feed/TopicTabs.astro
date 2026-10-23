@@ -1,0 +1,73 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+import { topicPath, type Topic } from '../../lib/routes';
+import { topics } from '../../lib/signal-schema';
+
+interface Props {
+  lang: Lang;
+  /** Where «Todo» leads, and whether that is this page. */
+  all: { href: string; current: boolean };
+  current?: Topic | undefined;
+}
+
+const { lang, all, current } = Astro.props;
+const t = getMessages(lang);
+---
+
+{/* Links, not filters: they work without JS, and every topic has a page to share and index. A
+    group, not a nav: the top bar already holds the topics' navigation. */}
+<div class="tabs" role="group" aria-label={t.ui.topics}>
+  <a class="tab" href={all.href} aria-current={all.current ? 'page' : undefined}>
+    <i aria-hidden="true"></i>
+    {t.feed.all}
+  </a>
+  {topics.map((topic) => (
+    <a
+      class:list={['tab', `t-${topic}`]}
+      href={topicPath(topic, lang)}
+      aria-current={current === topic ? 'page' : undefined}
+    >
+      <i aria-hidden="true" />
+      {t.topics[topic]}
+    </a>
+  ))}
+</div>
+
+<style>
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 36px;
+    padding: 0 14px;
+    border-radius: 999px;
+    color: var(--muted);
+    font: 500 14px/1 var(--sans);
+    text-decoration: none;
+    box-shadow: inset 0 0 0 1px var(--line);
+    transition:
+      color 0.2s,
+      background-color 0.2s,
+      box-shadow 0.2s;
+  }
+  .tab:hover {
+    color: var(--ink);
+    box-shadow: inset 0 0 0 1px var(--line-2);
+  }
+  .tab i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--tc, var(--faint));
+  }
+  .tab[aria-current='page'] {
+    background: var(--ink);
+    color: var(--bg);
+    box-shadow: none;
+  }
+</style>

@@ -1,0 +1,68 @@
+---
+import type { Signal } from '../../data/signals';
+import { getMessages, type Lang } from '../../i18n';
+import FeaturedSignal from './FeaturedSignal.astro';
+
+interface Props {
+  lang: Lang;
+  /** The latest signal; the masthead stands alone while there is none. */
+  featured: Signal | undefined;
+}
+
+const { lang, featured } = Astro.props;
+const t = getMessages(lang);
+---
+
+<section class="hero" aria-labelledby="home-title">
+  <div class="wrap grid">
+    <div>
+      <p class="over">
+        <i class="live" aria-hidden="true"></i>
+        {t.home.over}
+      </p>
+      <h1 class="display" id="home-title">
+        {t.home.h1a} <em>{t.home.h1b}</em>
+      </h1>
+      <p class="sub">{t.home.sub}</p>
+      {/* The subscription form joins here with the newsletter (design/signals/LEEME.md §6). */}
+    </div>
+    {featured && <FeaturedSignal signal={featured} />}
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: clamp(48px, 6vw, 88px) clamp(40px, 5vw, 72px);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: clamp(36px, 6vw, 96px);
+    align-items: center;
+  }
+  .display {
+    margin: 26px 0 0;
+    font: 500 clamp(54px, 8.6vw, 112px) / 0.92 var(--serif);
+    letter-spacing: -0.045em;
+    font-variation-settings: 'opsz' 72;
+    text-wrap: balance;
+  }
+  .display em {
+    display: block;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+  .sub {
+    max-width: 31em;
+    margin: 28px 0 0;
+    font: 400 clamp(18px, 1.6vw, 21px) / 1.55 var(--serif);
+    color: var(--ink-2);
+    text-wrap: pretty;
+  }
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

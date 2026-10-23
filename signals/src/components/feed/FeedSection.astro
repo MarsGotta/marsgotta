@@ -1,0 +1,50 @@
+---
+import type { Signal } from '../../data/signals';
+import type { Lang } from '../../i18n';
+import type { Topic } from '../../lib/routes';
+import Sidebar from './Sidebar.astro';
+import SignalFeed from './SignalFeed.astro';
+
+interface Props {
+  lang: Lang;
+  /** The signals this page lists. */
+  listed: Signal[];
+  /** Every signal in the language, for the sidebar's picks and topic counts. */
+  all: Signal[];
+  allLink: { href: string; current: boolean };
+  topic?: Topic | undefined;
+  archiveHref?: string | undefined;
+}
+
+const { lang, listed, all, allLink, topic, archiveHref } = Astro.props;
+---
+
+<section class="feed" id="temas">
+  <div class="wrap grid">
+    <SignalFeed
+      lang={lang}
+      signals={listed}
+      all={allLink}
+      topic={topic}
+      archiveHref={archiveHref}
+    />
+    <Sidebar lang={lang} signals={all} />
+  </div>
+</section>
+
+<style>
+  .feed {
+    padding-block: clamp(40px, 4.4vw, 64px) clamp(72px, 8vw, 120px);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: clamp(40px, 6vw, 96px);
+    align-items: start;
+  }
+  @media (max-width: 980px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

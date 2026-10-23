@@ -1,0 +1,23 @@
+---
+import type { Signal } from '../../data/signals';
+import { getMessages } from '../../i18n';
+
+interface Props {
+  signal: Signal;
+  /** The sol of Jezero is left out where the prototype leaves it out (the cards). */
+  sol?: boolean;
+}
+
+const { signal, sol = true } = Astro.props;
+const t = getMessages(signal.lang);
+// The separators live inside the strings: Astro drops whitespace between expressions on new lines.
+const rest = [...(sol ? [`Sol ${signal.sol}`] : []), `${signal.minutes} ${t.ui.read}`]
+  .map((part) => ` · ${part}`)
+  .join('');
+---
+
+{/* «21 oct 2026 · Sol 2015 · 3 min de lectura» */}
+<p class="meta">
+  <time datetime={signal.publishedAt.toISOString().slice(0, 10)}>{signal.dateLabel}</time>
+  {rest}
+</p>

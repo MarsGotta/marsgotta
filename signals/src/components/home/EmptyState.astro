@@ -1,0 +1,33 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const t = getMessages(Astro.props.lang);
+---
+
+{/* Before the first signal: the home says what is coming, and the band below how to follow it. */}
+<section class="empty" aria-labelledby="empty-title">
+  <div class="wrap">
+    <h2 class="title" id="empty-title">
+      {t.empty.h}
+    </h2>
+  </div>
+</section>
+
+<style>
+  .empty {
+    padding-block: clamp(56px, 7vw, 104px);
+  }
+  .title {
+    max-width: 18em;
+    margin: 0;
+    font: 400 italic clamp(28px, 3vw, 40px) / 1.2 var(--serif);
+    letter-spacing: -0.02em;
+    font-variation-settings: 'opsz' 48;
+    color: var(--ink-2);
+    text-wrap: balance;
+  }
+</style>

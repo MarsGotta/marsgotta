@@ -1,0 +1,68 @@
+---
+import type { Signal } from '../../data/signals';
+import { getMessages, type Lang } from '../../i18n';
+import type { Topic } from '../../lib/routes';
+import SignalRow from './SignalRow.astro';
+import TopicTabs from './TopicTabs.astro';
+
+interface Props {
+  lang: Lang;
+  signals: Signal[];
+  /** Where «Todo» leads, and whether that is this page. */
+  all: { href: string; current: boolean };
+  topic?: Topic | undefined;
+  /** The home ends its list with a link to the archive. */
+  archiveHref?: string | undefined;
+}
+
+const { lang, signals, all, topic, archiveHref } = Astro.props;
+const t = getMessages(lang);
+---
+
+<div>
+  <div class="head">
+    <h2 id="feed-title">{t.feed.h}</h2>
+    <TopicTabs lang={lang} all={all} current={topic} />
+  </div>
+  <ol class="list" aria-labelledby="feed-title">
+    {signals.map((signal) => (
+      <li>
+        <SignalRow signal={signal} />
+      </li>
+    ))}
+  </ol>
+  {archiveHref && (
+    <a class="ext archive" href={archiveHref}>
+      {t.feed.archive}
+      <span aria-hidden="true">→</span>
+    </a>
+  )}
+</div>
+
+<style>
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+  }
+  .head h2 {
+    margin: 0;
+    font: 600 13px/1 var(--sans);
+    letter-spacing: 0.01em;
+  }
+  .list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .list li {
+    border-bottom: 1px solid var(--line);
+  }
+  .archive {
+    margin-top: 24px;
+  }
+</style>

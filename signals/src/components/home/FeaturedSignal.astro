@@ -1,0 +1,55 @@
+---
+import type { Signal } from '../../data/signals';
+import Cover from '../signal/Cover.astro';
+import SignalLabel from '../signal/SignalLabel.astro';
+import SignalLine from '../signal/SignalLine.astro';
+
+interface Props {
+  signal: Signal;
+}
+
+const { signal } = Astro.props;
+---
+
+<a class:list={['feature', `t-${signal.topic}`]} href={signal.href}>
+  <Cover kind={signal.cover} topic={signal.topic} number={signal.number} shape="feature" />
+  <div class="label">
+    <SignalLabel signal={signal} />
+  </div>
+  <h2 class="title">{signal.title}</h2>
+  <p class="deck">{signal.deck}</p>
+  <div class="line">
+    <SignalLine signal={signal} />
+  </div>
+</a>
+
+<style>
+  .feature {
+    display: block;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .label {
+    margin-top: 22px;
+  }
+  .title {
+    margin: 14px 0 0;
+    font: 600 clamp(26px, 2.5vw, 34px) / 1.14 var(--serif);
+    letter-spacing: -0.022em;
+    font-variation-settings: 'opsz' 48;
+    text-wrap: balance;
+    transition: color 0.2s;
+  }
+  .feature:hover .title {
+    color: var(--accent);
+  }
+  .deck {
+    margin: 12px 0 0;
+    font: 400 17.5px/1.55 var(--serif);
+    color: var(--muted);
+    text-wrap: pretty;
+  }
+  .line {
+    margin-top: 14px;
+  }
+</style>

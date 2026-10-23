@@ -1,6 +1,14 @@
 ---
+import FeedSection from '../components/feed/FeedSection.astro';
+import EmptyState from '../components/home/EmptyState.astro';
+import LightTimeStrip from '../components/home/LightTimeStrip.astro';
+import Masthead from '../components/home/Masthead.astro';
+import { getSignalsIn } from '../data/signals';
 import { getMessages, type Lang } from '../i18n';
 import Base from '../layouts/Base.astro';
+import { featuredSignal } from '../lib/featured';
+import { homeFeed } from '../lib/feed';
+import { archivePath, homePath } from '../lib/routes';
 
 interface Props {
   lang: Lang;
@@ -8,42 +16,22 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = getMessages(lang);
+const signals = await getSignalsIn(lang);
+const featured = featuredSignal(signals, lang);
 ---
 
-{/* Scaffolding only: the masthead's headline proves the build, the fonts and both themes until
-    phase 2 brings the real home (design/signals/LEEME.md §4). */}
-<Base lang={lang} title="Signals by Mars" description={t.home.sub}>
-  <section class="wrap hero" aria-labelledby="home-title">
-    <p class="over">{t.home.over}</p>
-    <h1 class="display" id="home-title">
-      {t.home.h1a} <em>{t.home.h1b}</em>
-    </h1>
-    <p class="sub">{t.home.sub}</p>
-  </section>
+<Base lang={lang} title="Signals by Mars" description={t.home.sub} page={{ kind: 'home' }}>
+  <Masthead lang={lang} featured={featured} />
+  <LightTimeStrip lang={lang} />
+  {featured ? (
+    <FeedSection
+      lang={lang}
+      listed={homeFeed(signals, lang)}
+      all={signals}
+      allLink={{ href: homePath(lang), current: true }}
+      archiveHref={archivePath(lang)}
+    />
+  ) : (
+    <EmptyState lang={lang} />
+  )}
 </Base>
-
-<style>
-  .hero {
-    padding-block: clamp(48px, 6vw, 88px) clamp(40px, 5vw, 72px);
-  }
-  .display {
-    margin: 26px 0 0;
-    font: 500 clamp(54px, 8.6vw, 112px) / 0.92 var(--serif);
-    letter-spacing: -0.045em;
-    font-variation-settings: 'opsz' 72;
-    text-wrap: balance;
-  }
-  .display em {
-    display: block;
-    font-style: italic;
-    font-weight: 400;
-    color: var(--accent);
-  }
-  .sub {
-    max-width: 31em;
-    margin: 28px 0 0;
-    font: 400 clamp(18px, 1.6vw, 21px) / 1.55 var(--serif);
-    color: var(--ink-2);
-    text-wrap: pretty;
-  }
-</style>

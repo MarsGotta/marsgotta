@@ -1,0 +1,13 @@
+---
+import { topicSlug } from '../../lib/routes';
+import { topics } from '../../lib/signal-schema';
+import TopicView from '../../views/TopicView.astro';
+
+export function getStaticPaths() {
+  return topics.map((topic) => ({ params: { topic: topicSlug(topic, 'es') }, props: { topic } }));
+}
+
+const { topic } = Astro.props;
+---
+
+<TopicView lang="es" topic={topic} />

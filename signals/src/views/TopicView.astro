@@ -1,0 +1,41 @@
+---
+import FeedSection from '../components/feed/FeedSection.astro';
+import PageHead from '../components/page/PageHead.astro';
+import { getSignalsIn } from '../data/signals';
+import { getMessages, type Lang } from '../i18n';
+import Base from '../layouts/Base.astro';
+import { byRecency } from '../lib/featured';
+import { homePath, type Topic } from '../lib/routes';
+
+interface Props {
+  lang: Lang;
+  topic: Topic;
+}
+
+const { lang, topic } = Astro.props;
+const t = getMessages(lang);
+const signals = await getSignalsIn(lang);
+const listed = byRecency(signals.filter((signal) => signal.topic === topic));
+const lead = t.topicPage.lead[topic];
+---
+
+<Base
+  lang={lang}
+  title={`${t.topics[topic]} · Signals by Mars`}
+  description={lead}
+  page={{ kind: 'topic', topic }}
+>
+  <PageHead
+    kicker={t.topicPage.kicker}
+    title={t.topics[topic]}
+    lead={lead}
+    topicClass={`t-${topic}`}
+  />
+  <FeedSection
+    lang={lang}
+    listed={listed}
+    all={signals}
+    allLink={{ href: homePath(lang), current: false }}
+    topic={topic}
+  />
+</Base>

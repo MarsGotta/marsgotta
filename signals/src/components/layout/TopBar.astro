@@ -1,0 +1,106 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+import { newsletterReady } from '../../lib/newsletter';
+import { topicPath, type Page } from '../../lib/routes';
+import { topics } from '../../lib/signal-schema';
+import Brand from './Brand.astro';
+import LangSwitch from './LangSwitch.astro';
+import NewTabHint from './NewTabHint.astro';
+import ThemeToggle from './ThemeToggle.astro';
+
+interface Props {
+  lang: Lang;
+  page: Page;
+  translationSlug?: string | undefined;
+}
+
+const { lang, page, translationSlug } = Astro.props;
+const t = getMessages(lang);
+---
+
+<header class="top">
+  <div class="wrap in">
+    <Brand lang={lang} />
+    <nav class="nav" aria-label={t.ui.topics}>
+      {topics.map((topic) => (
+        <a
+          href={topicPath(topic, lang)}
+          aria-current={page.kind === 'topic' && page.topic === topic ? 'page' : undefined}
+        >
+          {t.topics[topic]}
+        </a>
+      ))}
+      <a href="https://marcelagotta.com" target="_blank" rel="noopener noreferrer">
+        {t.ui.about}
+        <span aria-hidden="true"> ↗</span>
+        <NewTabHint lang={lang} />
+      </a>
+    </nav>
+    <div class="tools">
+      <LangSwitch lang={lang} page={page} translationSlug={translationSlug} />
+      <ThemeToggle lang={lang} />
+      {newsletterReady && (
+        <a class="btn btn--sm" href="#suscribirse">
+          {t.ui.subscribe}
+        </a>
+      )}
+    </div>
+  </div>
+</header>
+
+<style>
+  /* Almost opaque, no backdrop blur: blurring what scrolls under it costs the GPU every frame. */
+  .top {
+    position: sticky;
+    z-index: 50;
+    top: 0;
+    background: color-mix(in srgb, var(--bg) 94%, transparent);
+    border-bottom: 1px solid var(--line);
+  }
+  .in {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    height: 64px;
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 12px;
+  }
+  .nav a {
+    display: inline-flex;
+    align-items: center;
+    height: 36px;
+    padding: 0 12px;
+    border-radius: 999px;
+    font-size: 14px;
+    color: var(--muted);
+    text-decoration: none;
+    transition:
+      color 0.2s,
+      background-color 0.2s;
+  }
+  .nav a:hover,
+  .nav a[aria-current='page'] {
+    color: var(--ink);
+    background: var(--bg-soft);
+  }
+  .tools {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+  }
+  @media (max-width: 900px) {
+    .nav {
+      display: none;
+    }
+  }
+  @media (max-width: 480px) {
+    .in {
+      gap: 10px;
+    }
+  }
+</style>

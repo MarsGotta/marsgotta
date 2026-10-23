@@ -1,0 +1,19 @@
+---
+import type { Signal } from '../../data/signals';
+import { getMessages } from '../../i18n';
+
+interface Props {
+  signal: Signal;
+}
+
+const { signal } = Astro.props;
+const t = getMessages(signal.lang);
+---
+
+{/* «● TUTORIAL   SEÑAL 007» above a title. */}
+<p class="meta-top">
+  <span class:list={['topic', `t-${signal.topic}`]}>{t.topic1[signal.topic]}</span>
+  <span>
+    {t.ui.signal} {signal.numberLabel}
+  </span>
+</p>

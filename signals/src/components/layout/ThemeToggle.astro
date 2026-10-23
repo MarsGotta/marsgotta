@@ -1,0 +1,80 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const t = getMessages(Astro.props.lang);
+---
+
+{/* The label says what the button does next; the script keeps it in step with the theme. */}
+<button
+  type="button"
+  class="icon"
+  data-theme-toggle
+  data-label-light={t.ui.toDark}
+  data-label-dark={t.ui.toLight}
+  aria-label={t.ui.toDark}
+  title={t.ui.toDark}
+>
+  <svg
+    class="moon"
+    viewBox="0 0 20 20"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M16.5 12.2A7 7 0 1 1 7.8 3.5a5.6 5.6 0 0 0 8.7 8.7Z"></path>
+  </svg>
+  <svg
+    class="sun"
+    viewBox="0 0 20 20"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linecap="round"
+    aria-hidden="true"
+  >
+    <circle cx="10" cy="10" r="3.6"></circle>
+    <path d="M10 1.8v2M10 16.2v2M1.8 10h2M16.2 10h2M4.2 4.2l1.4 1.4M14.4 14.4l1.4 1.4M4.2 15.8l1.4-1.4M14.4 5.6l1.4-1.4"></path>
+  </svg>
+</button>
+
+<script>
+  import { initThemeToggles } from '../../scripts/theme';
+
+  initThemeToggles();
+</script>
+
+<style>
+  .icon {
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    color: var(--ink);
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  .icon:hover {
+    background: var(--bg-soft);
+  }
+  .icon svg {
+    width: 18px;
+    height: 18px;
+  }
+  .sun,
+  :global(:root[data-theme='dark']) .moon {
+    display: none;
+  }
+  :global(:root[data-theme='dark']) .sun {
+    display: block;
+  }
+</style>

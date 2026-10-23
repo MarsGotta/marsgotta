@@ -9,7 +9,8 @@
     "toLight": "Cambiar al tema claro",
     "toDark": "Cambiar al tema oscuro",
     "signal": "Señal",
-    "read": "min de lectura"
+    "read": "min de lectura",
+    "newTab": "se abre en otra pestaña"
   },
   "topics": {
     "ia": "Noticias IA",
@@ -36,7 +37,8 @@
   },
   "feed": {
     "h": "Últimas señales",
-    "all": "Todo"
+    "all": "Todo",
+    "archive": "Ver archivo"
   },
   "side": {
     "aria": "Más de Signals",
@@ -85,5 +87,27 @@
     "made": "Hecho en Madrid, pensado en Marte",
     "inJezero": "en Jezero"
   },
-  "months": ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sept", "oct", "nov", "dic"]
+  "months": ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sept", "oct", "nov", "dic"],
+  "topicPage": {
+    "kicker": "Tema",
+    "lead": {
+      "ia": "Lo que pasa en IA y en la web, filtrado: lo que importa, por qué, y lo que puedes ignorar.",
+      "practica": "Lo que aprendo haciendo software, con IA y sin ella: criterios, listas cortas y errores que ya no repito.",
+      "tutorial": "Paso a paso y con el código entero: patrones que uso de verdad en mis proyectos."
+    }
+  },
+  "archive": {
+    "kicker": "Archivo",
+    "h1": "Todas las señales",
+    "lead": "Todo lo publicado, de la más reciente a la primera."
+  },
+  "empty": {
+    "h": "Las primeras señales están en camino."
+  },
+  "nlSoon": {
+    "h2a": "La newsletter",
+    "h2b": "está en camino.",
+    "sub": "Muy pronto podrás recibir cada señal en tu correo. Mientras tanto, puedes seguir el blog por RSS.",
+    "rss": "Seguir por RSS"
+  }
 }

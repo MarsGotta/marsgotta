@@ -1,0 +1,53 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+import { homePath } from '../../lib/routes';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = getMessages(lang);
+---
+
+<a class="brand" href={homePath(lang)} aria-label={t.ui.homeAria}>
+  <svg aria-hidden="true">
+    <use href="#signals-glyph"></use>
+  </svg>
+  {/* The space keeps the visible name «Signals by Mars» inside the label (WCAG 2.5.3). */}
+  <span class="word">Signals</span> <span class="by">by Mars</span>
+</a>
+
+<style>
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .brand svg {
+    width: 26px;
+    height: 26px;
+    color: var(--accent);
+  }
+  .word {
+    font: 600 25px/1 var(--serif);
+    letter-spacing: -0.02em;
+    font-variation-settings: 'opsz' 48;
+  }
+  .by {
+    align-self: flex-end;
+    margin: 0 0 4px -2px;
+    font: 500 9.5px/1 var(--mono);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  @media (max-width: 480px) {
+    .word {
+      font-size: 22px;
+    }
+  }
+</style>

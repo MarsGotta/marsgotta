@@ -1,0 +1,44 @@
+---
+interface Props {
+  kicker: string;
+  title: string;
+  lead: string;
+  /** The topic's colour on the kicker, on a topic page. */
+  topicClass?: string | undefined;
+}
+
+const { kicker, title, lead, topicClass } = Astro.props;
+---
+
+{/* The smaller header of the topic and archive pages, built from the masthead's parts. */}
+<section class="head" aria-labelledby="page-title">
+  <div class="wrap">
+    <p class="over">
+      {topicClass ? <span class:list={['topic', topicClass]}>{kicker}</span> : kicker}
+    </p>
+    <h1 class="title" id="page-title">
+      {title}
+    </h1>
+    <p class="lead">{lead}</p>
+  </div>
+</section>
+
+<style>
+  .head {
+    padding-block: clamp(48px, 6vw, 88px) clamp(32px, 4vw, 56px);
+  }
+  .title {
+    margin: 22px 0 0;
+    font: 500 clamp(44px, 6vw, 80px) / 0.98 var(--serif);
+    letter-spacing: -0.04em;
+    font-variation-settings: 'opsz' 72;
+    text-wrap: balance;
+  }
+  .lead {
+    max-width: 31em;
+    margin: 22px 0 0;
+    font: 400 clamp(18px, 1.6vw, 21px) / 1.55 var(--serif);
+    color: var(--ink-2);
+    text-wrap: pretty;
+  }
+</style>

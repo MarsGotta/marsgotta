@@ -1,7 +1,9 @@
 ---
+import { now } from '../../content/now';
 import { projectKeys } from '../../content/projects';
 import { getMessages, type Lang } from '../../i18n';
 import { localizedPath } from '../../i18n/routes';
+import { formatShortDate } from '../../lib/dates';
 import DemoStage from './DemoStage.astro';
 import JezeroDemo from './JezeroDemo.astro';
 import KimenDemo from './KimenDemo.astro';
@@ -20,12 +22,18 @@ const active = 'kimen';
 
 <section class="sec" id="sistema" aria-labelledby="system-title" data-project-system>
   <div class="wrap">
+    <p class="label rule kick">
+      <span class="num">(02)</span>
+      {t.sys.kicker}
+    </p>
     <div class="head">
-      <p class="label rule">{t.sys.kicker}</p>
       <h2 class="h2" id="system-title">
         {t.sys.title}
       </h2>
-      <p class="lead">{t.sys.lead}</p>
+      <p class="lead">
+        {t.home.sysLead}{' '}
+        <time datetime={now.updatedAt}>{formatShortDate(now.updatedAt, lang)}</time>.
+      </p>
     </div>
     <div class="grid">
       <Orrery lang={lang} active={active} />

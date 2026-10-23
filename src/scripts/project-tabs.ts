@@ -33,5 +33,9 @@ export function initProjectSystems(): void {
       const pick = () => select(hit.dataset.orreryHit);
       hit.addEventListener('click', pick);
     });
+    // Other parts of the page (the manifesto pills) pick a project without knowing the system.
+    root.addEventListener('project:select', (event) => {
+      if (event instanceof CustomEvent && typeof event.detail === 'string') select(event.detail);
+    });
   });
 }

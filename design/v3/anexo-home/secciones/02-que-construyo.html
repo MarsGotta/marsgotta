@@ -1,0 +1,20 @@
+<!-- ProjectSystem.astro: solo cambia la cabecera. El orrery, el stage y el pie siguen igual. -->
+<section class="sec" id="sistema" aria-labelledby="system-title" data-project-system>
+  <div class="wrap">
+    <!-- 1. La etiqueta sale de .head y va encima, con clase kick -->
+    <p class="label rule kick"><span class="num">(02)</span>{sys.kicker}</p>
+    <div class="head">
+      <h2 class="h2" id="system-title">{sys.title}</h2>
+      <!-- 2. Entradilla nueva + fecha de now.updatedAt -->
+      <p class="lead">{home.sysLead} <time datetime={now.updatedAt}>{formatShortDate(now.updatedAt, lang)}</time>.</p>
+    </div>
+    <!-- … grid con Orrery, ProjectTabs, DemoStage y panel__foot, sin cambios … -->
+  </div>
+</section>
+
+<!-- ProjectTabs.astro: 3. una línea más dentro de cada botón, tras .tab__line -->
+<span>
+  <span class="tab__name"><i></i>{project.name}</span>
+  <span class="tab__line">{project.line}</span>
+  <span class="tab__now"><b>{home.nowK}</b>{now.items[key][lang]}</span>
+</span>

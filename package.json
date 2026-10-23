@@ -18,6 +18,7 @@
     "og": "node scripts/og-image.ts",
     "deploy": "npm run build && wrangler deploy && npm run indexnow",
     "indexnow": "node scripts/indexnow.ts",
+    "deploy:preview": "npm run build && wrangler versions upload --preview-alias preview",
     "deploy:redirect": "wrangler deploy -c workers/redirect/wrangler.jsonc",
     "preview:cf": "npm run build && wrangler dev"
   },

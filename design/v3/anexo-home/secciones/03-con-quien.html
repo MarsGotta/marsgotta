@@ -1,0 +1,33 @@
+<!-- People.astro (nuevo). Sustituye a TransferOrbit en la home. -->
+<section class="sec people" id="con-quien" aria-labelledby="people-title">
+  <div class="wrap">
+    <p class="label rule kick"><span class="num">(03)</span>{traj.kicker}</p>
+
+    <div class="people__top">
+      <div class="people__text">
+        <h2 class="h2" id="people-title">{about.motto1} <span class="it">{about.motto2}</span></h2>
+        <p class="lead">{traj.text}</p>
+      </div>
+      <!-- El mismo TransferDiagram que tenía TransferOrbit, con los mismos props y textos 2014 / 2019 / 2024 -->
+      <TransferDiagram width={560} height={380} radii={[56, 112, 180]} label={traj.alt}
+                       dotRadius={3.5} nowRadius={6} drivenBy="figure">…</TransferDiagram>
+    </div>
+
+    <ol class="index">
+      <!-- una por cada home.people; href = localizedPath(item.to, lang) -->
+      <li>
+        <a class="index__row" href="/sobre-mi">
+          <span class="index__k">Lidero</span>
+          <span class="index__t">Head Frontend Developer</span>
+          <span class="index__d">En Sngular desde 2019. Co-lidero el chapter de frontend: …</span>
+          <span class="index__y">2026 – hoy</span>
+          <span class="index__go" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"
+                 stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+          </span>
+        </a>
+      </li>
+      <!-- Enseño → /charlas · Comparto → /charlas -->
+    </ol>
+  </div>
+</section>

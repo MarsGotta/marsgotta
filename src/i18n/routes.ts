@@ -20,6 +20,16 @@ export const navLabelKeys: Record<RouteKey, keyof Messages['nav']> = {
   contact: 'contacto',
 };
 
+function isRouteKey(value: string): value is RouteKey {
+  return (routeKeys as readonly string[]).includes(value);
+}
+
+/** A route named in the copy, checked at build time so a typo fails the build instead of a link. */
+export function toRouteKey(value: string): RouteKey {
+  if (isRouteKey(value)) return value;
+  throw new Error(`The copy links to an unknown page: ${value}`);
+}
+
 export function localizedPath(route: RouteKey, lang: Lang, hash?: string): string {
   const path = paths[route][lang];
   return hash ? `${path}#${hash}` : path;

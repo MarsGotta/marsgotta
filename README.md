@@ -9,18 +9,19 @@ Web personal de Marcela Gotta, versión 3. Astro 7 con salida estática, despleg
 
 ## Comandos
 
-| Comando              | Qué hace                                                                                             |
-| -------------------- | ---------------------------------------------------------------------------------------------------- |
-| `npm run dev`        | Servidor de desarrollo en `localhost:4321`.                                                          |
-| `npm run build`      | Genera el sitio estático en `dist/`.                                                                 |
-| `npm run preview`    | Sirve `dist/` con Astro.                                                                             |
-| `npm run preview:cf` | Construye y sirve `dist/` con `wrangler dev`, como en producción.                                    |
-| `npm run lint`       | ESLint y Prettier en modo comprobación.                                                              |
-| `npm run format`     | Formatea con Prettier.                                                                               |
-| `npm run typecheck`  | `astro check`.                                                                                       |
-| `npm run test`       | Tests unitarios con Vitest.                                                                          |
-| `npm run test:e2e`   | Tests e2e y de accesibilidad con Playwright sobre `dist/`, servido por el Worker con `wrangler dev`. |
-| `npm run deploy`     | Construye y despliega con `wrangler deploy`.                                                         |
+| Comando                  | Qué hace                                                                                                              |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| `npm run dev`            | Servidor de desarrollo en `localhost:4321`.                                                                           |
+| `npm run build`          | Genera el sitio estático en `dist/`.                                                                                  |
+| `npm run preview`        | Sirve `dist/` con Astro.                                                                                              |
+| `npm run preview:cf`     | Construye y sirve `dist/` con `wrangler dev`, como en producción.                                                     |
+| `npm run lint`           | ESLint y Prettier en modo comprobación.                                                                               |
+| `npm run format`         | Formatea con Prettier.                                                                                                |
+| `npm run typecheck`      | `astro check`.                                                                                                        |
+| `npm run test`           | Tests unitarios con Vitest.                                                                                           |
+| `npm run test:e2e`       | Tests e2e y de accesibilidad con Playwright sobre `dist/`, servido por el Worker con `wrangler dev`.                  |
+| `npm run deploy`         | Construye y despliega con `wrangler deploy`.                                                                          |
+| `npm run deploy:preview` | Construye y sube una versión de prueba a https://preview-marcelagotta.marcelagotta.workers.dev, sin tocar producción. |
 
 ## Diseño y contenido
 
@@ -44,7 +45,12 @@ Las redirecciones van en un Worker aparte (`workers/redirect/`) para que el siti
 3. `npm run deploy:redirect`, solo si cambia `workers/redirect/`.
 4. Verifica el despliegue con los tests e2e: `BASE_URL=https://marcelagotta.com npm run test:e2e`.
 
-Para probar antes de publicar, `npm run preview:cf` sirve `dist/` con `wrangler dev`, y cada despliegue queda también en https://marcelagotta.marcelagotta.workers.dev.
+Para probar antes de publicar:
+
+- `npm run preview:cf` sirve `dist/` en local con `wrangler dev`.
+- `npm run deploy:preview` sube una versión sin activarla y la deja en https://preview-marcelagotta.marcelagotta.workers.dev. Producción sigue con la versión anterior hasta el siguiente `npm run deploy`.
+
+Cada despliegue a producción queda también en https://marcelagotta.marcelagotta.workers.dev. Todas las direcciones de workers.dev llevan `noindex`.
 
 ### Dominios
 

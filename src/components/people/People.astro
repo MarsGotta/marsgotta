@@ -1,0 +1,76 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+import TransferDiagram from '../trajectory/TransferDiagram.astro';
+import PeopleIndex from './PeopleIndex.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = getMessages(lang);
+---
+
+<section class="sec people" id="con-quien" aria-labelledby="people-title">
+  <div class="wrap">
+    <p class="label rule kick">
+      <span class="num">(03)</span>
+      {t.traj.kicker}
+    </p>
+    <div class="top">
+      <div>
+        <h2 class="h2" id="people-title">
+          {t.about.motto1} <span class="it">{t.about.motto2}</span>
+        </h2>
+        <p class="lead">{t.traj.text}</p>
+      </div>
+      <TransferDiagram
+        width={560}
+        height={380}
+        radii={[56, 112, 180]}
+        label={t.traj.alt}
+        dotRadius={3.5}
+        nowRadius={6}
+        drivenBy="figure"
+      >
+        <text class="y" x="232" y="216">
+          2014
+        </text>
+        <text x="232" y="232">
+          {t.traj.m1}
+        </text>
+        <text class="y" x="400" y="216">
+          2019
+        </text>
+        <text x="400" y="232">
+          {t.traj.m2}
+        </text>
+        <text class="y" x="110" y="216">
+          2024
+        </text>
+        <text x="110" y="232">
+          {t.traj.m3}
+        </text>
+      </TransferDiagram>
+    </div>
+    <PeopleIndex lang={lang} />
+  </div>
+</section>
+
+<style>
+  .top {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: clamp(36px, 6vw, 96px);
+    align-items: center;
+  }
+  .lead {
+    max-width: 30em;
+    margin-top: 28px;
+  }
+  @media (max-width: 980px) {
+    .top {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

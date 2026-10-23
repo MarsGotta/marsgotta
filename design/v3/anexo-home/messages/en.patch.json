@@ -1,0 +1,51 @@
+{
+  "$comentario": "Solo claves nuevas o cambiadas respecto a src/i18n/en.json. '$borrar' lista las claves que sobran si nada más las usa.",
+  "$borrar": ["now.title", "now.updated", "traj.cta"],
+  "home": {
+    "next": "Next stop",
+    "manifesto": {
+      "kicker": "Why",
+      "text": [
+        "I believe AI is the most powerful tool we've had, as long as people stay on the side that steers it.",
+        "That's why I build, in the open, the pieces it is missing:",
+        "@kimen",
+        "what it shows you,",
+        "@jezero",
+        "what it remembers and",
+        "@orbit",
+        "where it lives with you."
+      ],
+      "sign": "Marcela Gotta, from Madrid"
+    },
+    "sysLead": "They fit together as one system, each at its own pace. Status as of",
+    "nowK": "Now",
+    "people": [
+      {
+        "k": "I lead",
+        "t": "Head Frontend Developer",
+        "d": "At Sngular since 2019. I co-lead the frontend chapter: training, technical follow-up for each person, and technical interviews.",
+        "y": "2026 – today",
+        "to": "about"
+      },
+      {
+        "k": "I teach",
+        "t": "Natural Language Processing and AI Ethics",
+        "d": "Master's programme at Instituto Europeo de Posgrado.",
+        "y": "2025 – today",
+        "to": "talks"
+      },
+      {
+        "k": "I share",
+        "t": "Web Components, from talk to course",
+        "d": "Codemotion, Fictizia and Salmorejo Tech.",
+        "y": "2019 – 2022",
+        "to": "talks"
+      }
+    ],
+    "liveA": "In Madrid it is",
+    "liveB": "In Jezero, sol"
+  },
+  "sys": { "kicker": "What I build" },
+  "traj": { "kicker": "With whom" },
+  "close": { "kicker": "With you", "sub": "About agents, frontend or teams." }
+}

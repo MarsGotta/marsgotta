@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { findPage, localizedPath } from './routes';
+import { getMessages, languages } from './index';
+import { findPage, localizedPath, toRouteKey } from './routes';
 
 describe('routes', () => {
   it('finds the page and language of every route path', () => {
@@ -18,5 +19,14 @@ describe('routes', () => {
   it('builds localized paths with an optional fragment', () => {
     expect(localizedPath('projects', 'en')).toBe('/en/projects');
     expect(localizedPath('contact', 'es', 'contact-sent')).toBe('/contacto#contact-sent');
+  });
+
+  it('names a real page for every row of the home index', () => {
+    for (const lang of languages) {
+      for (const row of getMessages(lang).home.people) {
+        expect(() => toRouteKey(row.to)).not.toThrow();
+      }
+    }
+    expect(() => toRouteKey('lab')).toThrow(/lab/);
   });
 });

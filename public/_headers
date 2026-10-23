@@ -21,6 +21,6 @@
 /grain-*
   Cache-Control: public, max-age=604800
 
-# The workers.dev address serves a copy of the site for testing: keep it out of search results.
-https://marcelagotta.marcelagotta.workers.dev/*
+# workers.dev serves copies of the site for testing, the version previews included: keep them out of search results.
+https://:host.marcelagotta.workers.dev/*
   X-Robots-Tag: noindex

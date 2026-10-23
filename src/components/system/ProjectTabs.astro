@@ -1,4 +1,5 @@
 ---
+import { now } from '../../content/now';
 import { projectKeys, type ProjectKey } from '../../content/projects';
 import { getMessages, type Lang } from '../../i18n';
 
@@ -31,6 +32,10 @@ const t = getMessages(lang);
             {project.name}
           </span>
           <span class="tab__line">{project.line}</span>
+          <span class="tab__now">
+            <b>{t.home.nowK}</b>
+            {now.items[key][lang]}
+          </span>
         </span>
         <span class="tab__chips">
           {project.chips.map((chip) => (
@@ -93,6 +98,28 @@ const t = getMessages(lang);
     font-size: 15px;
     line-height: 1.4;
     color: var(--fg-muted);
+  }
+  .tab__now {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-top: 10px;
+    font-size: 13.5px;
+    line-height: 1.4;
+    color: var(--fg-subtle);
+    transition: color 0.3s;
+  }
+  .tab__now b {
+    font: 500 10px/1 var(--mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .tab[aria-pressed='true'] .tab__now {
+    color: var(--fg-muted);
+  }
+  .tab[aria-pressed='true'] .tab__now b {
+    color: var(--pc-text);
   }
   .tab__chips {
     display: flex;

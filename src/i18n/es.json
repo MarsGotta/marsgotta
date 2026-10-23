@@ -39,14 +39,53 @@
     "phRise": "sale por el oeste",
     "deRise": "sale por el este"
   },
-  "now": {
-    "title": "Ahora mismo",
-    "updated": "Actualizado el"
+  "home": {
+    "next": "Siguiente parada",
+    "manifesto": {
+      "kicker": "Por qué",
+      "text": [
+        "Creo que la IA es la herramienta más potente que hemos tenido, siempre que las personas sigamos del lado que la dirige.",
+        "Por eso construyo, en abierto, las piezas que le faltan:",
+        "@kimen",
+        "lo que te enseña,",
+        "@jezero",
+        "lo que recuerda y",
+        "@orbit",
+        "dónde vive contigo."
+      ],
+      "sign": "Marcela Gotta, desde Madrid"
+    },
+    "sysLead": "Encajan como un sistema, y cada una va a su ritmo. Estado del",
+    "nowK": "Ahora",
+    "people": [
+      {
+        "k": "Lidero",
+        "t": "Head Frontend Developer",
+        "d": "En Sngular desde 2019. Co-lidero el chapter de frontend: formaciones, seguimiento técnico de cada persona y entrevistas técnicas.",
+        "y": "2026 – hoy",
+        "to": "about"
+      },
+      {
+        "k": "Enseño",
+        "t": "Procesamiento de Lenguaje Natural y Ética de la IA",
+        "d": "Máster en el Instituto Europeo de Posgrado.",
+        "y": "2025 – hoy",
+        "to": "talks"
+      },
+      {
+        "k": "Comparto",
+        "t": "Web Components, de la charla al curso",
+        "d": "Codemotion, Fictizia y Salmorejo Tech.",
+        "y": "2019 – 2022",
+        "to": "talks"
+      }
+    ],
+    "liveA": "En Madrid son las",
+    "liveB": "En Jezero, sol"
   },
   "sys": {
-    "kicker": "El sistema",
+    "kicker": "Qué construyo",
     "title": "Tres piezas, una idea.",
-    "lead": "Lo que un agente te enseña, lo que recuerda y dónde vive contigo.",
     "ringK": "Kimen · lo que te enseña",
     "ringJ": "Jezero · lo que recuerda",
     "ringO": "Orbit · dónde vive contigo",
@@ -135,19 +174,19 @@
     }
   },
   "traj": {
-    "kicker": "Trayectoria",
+    "kicker": "Con quién",
     "text": "De full-stack a liderar frontend en Sngular, y de ahí a la infraestructura de agentes.",
-    "cta": "Conóceme",
     "m1": "Full-stack",
     "m2": "Sngular",
     "m3": "Agentes",
     "alt": "Diagrama de órbitas de transferencia: 2014, full-stack; 2019, Sngular; 2024, infraestructura de agentes."
   },
   "close": {
-    "kicker": "Contacto",
+    "kicker": "Contigo",
     "q1": "¿Hablamos",
     "q2": "un rato?",
-    "cta": "Escríbeme"
+    "cta": "Escríbeme",
+    "sub": "De agentes, de frontend o de equipos."
   },
   "foot": {
     "line": "Hecho en Madrid, pensado en Marte."

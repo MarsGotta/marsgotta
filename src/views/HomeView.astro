@@ -1,9 +1,9 @@
 ---
 import Closing from '../components/close/Closing.astro';
 import Hero from '../components/hero/Hero.astro';
-import NowBand from '../components/now/NowBand.astro';
+import Manifesto from '../components/manifesto/Manifesto.astro';
+import People from '../components/people/People.astro';
 import ProjectSystem from '../components/system/ProjectSystem.astro';
-import TransferOrbit from '../components/trajectory/TransferOrbit.astro';
 import type { Lang } from '../i18n';
 import Base from '../layouts/Base.astro';
 
@@ -14,10 +14,11 @@ interface Props {
 const { lang } = Astro.props;
 ---
 
+{/* The home as a story in four numbered acts: why, what I build, with whom, with you. */}
 <Base lang={lang} route="home">
   <Hero lang={lang} />
-  <NowBand lang={lang} />
+  <Manifesto lang={lang} />
   <ProjectSystem lang={lang} />
-  <TransferOrbit lang={lang} />
+  <People lang={lang} />
   <Closing lang={lang} />
 </Base>

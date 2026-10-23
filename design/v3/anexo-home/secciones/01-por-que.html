@@ -1,0 +1,31 @@
+<!-- Manifesto.astro (nuevo). Va justo después del hero. -->
+<section class="sec manifesto" id="por-que" aria-labelledby="why-title">
+  <div class="wrap">
+    <p class="label rule"><span class="num">(01)</span>{home.manifesto.kicker}</p>
+    <h2 class="sr-only" id="why-title">{home.manifesto.kicker}</h2>
+
+    <!--
+      Se genera en el build a partir de home.manifesto.text:
+      - cada palabra de una frase normal → <span class="w">palabra </span> (con el espacio dentro)
+      - cada ficha "@kimen" | "@jezero" | "@orbit" → <span class="w"><a class="pill p-…">…</a> </span>
+      Los nombres de las píldoras salen de sys.items[key].name.
+    -->
+    <p class="text">
+      <span class="w">Creo </span><span class="w">que </span><span class="w">la </span><span class="w">IA </span>
+      <!-- … resto de palabras … -->
+      <span class="w">faltan: </span>
+      <span class="w"><a class="pill p-kimen" href="#sistema" data-pick-project="kimen"><i aria-hidden="true"></i>Kimen</a> </span>
+      <span class="w">lo </span><span class="w">que </span><span class="w">te </span><span class="w">enseña, </span>
+      <span class="w"><a class="pill p-jezero" href="#sistema" data-pick-project="jezero"><i aria-hidden="true"></i>Jezero</a> </span>
+      <span class="w">lo </span><span class="w">que </span><span class="w">recuerda </span><span class="w">y </span>
+      <span class="w"><a class="pill p-orbit" href="#sistema" data-pick-project="orbit"><i aria-hidden="true"></i>Orbit</a> </span>
+      <span class="w">dónde </span><span class="w">vive </span><span class="w">contigo. </span>
+    </p>
+
+    <p class="sign">
+      <svg viewBox="0 0 560 560" aria-hidden="true"><use href="#mgMark" width="560" height="560"></use></svg>
+      <!-- usa el símbolo del logo que ya tengas en SvgDefs -->
+      <span>{home.manifesto.sign}</span>
+    </p>
+  </div>
+</section>

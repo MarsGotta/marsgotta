@@ -78,22 +78,24 @@ src/
     nav/        Nav, Brand (logo.svg + "marcela.gotta"), LangSwitch, ThemeToggle, MobileMenu
     hero/       Hero, Headline (palabra a palabra), Starfield, Warp, PlanetSystem, Moons, JezeroMarker,
                 Legend, SurfaceScene (tema claro)
-    now/        NowBand (lee src/content/now.ts)
-    system/     ProjectSystem, Orrery, ProjectTabs, DemoStage, KimenDemo, JezeroDemo, OrbitDemo
-    trajectory/ TransferOrbit (inicio, 3 órbitas) y TransferTimeline (sobre mí, 6 órbitas)
+    manifesto/  Manifesto: (01) Por qué, palabra a palabra con el scroll (anexo v3.1)
+    system/     ProjectSystem, Orrery, ProjectTabs (con la línea «Ahora»), DemoStage, KimenDemo, JezeroDemo, OrbitDemo
+    people/     People y PeopleIndex: (03) Con quién, con el TransferDiagram de 3 órbitas (anexo v3.1)
+    trajectory/ TransferDiagram y TransferTimeline (sobre mí, 6 órbitas)
     about/      Intro, QuickFacts, Leadership, Constellation (+ TechList en móvil)
     projects/   ProjectChapter, OnmarsBand
     talks/      TalkList
     contact/    Channels, ContactForm
     footer/     Footer
   scripts/                TypeScript de cliente, sin framework, importado desde los <script> de los componentes
-    theme.ts, menu.ts, project-tabs.ts, demos.ts, constellation.ts, contact-form.ts, parallax.ts
+    theme.ts, menu.ts, project-tabs.ts, demos.ts, constellation.ts, contact-form.ts, parallax.ts,
+    manifesto.ts (píldoras), live-clocks.ts (relojes del cierre)
   lib/
     mars-clock.ts         Mars24 (porta mgMarsClock tal cual) + tests en Vitest
     planet/               shaders.ts (MG_VS, MG_BAKE_FS, MG_FS) y planet.ts (mgPlanet como clase con dispose())
     motion.ts             prefersReducedMotion() y el estado de pausa compartido (botón SIM)
   content/
-    now.ts                "Ahora mismo": 4 líneas + updatedAt, fácil de editar
+    now.ts                «Ahora»: una línea por proyecto + updatedAt, fácil de editar
 worker/
   index.ts                Solo si hace falta: /api/contact y redirección de dominios (ver «Despliegue»)
 ```
@@ -261,7 +263,7 @@ Todo lo espectacular es además correcto. Si algo se ajusta por estética, que s
 ## 6. Contenido y reglas de marca
 
 - **Copy.** Todo el texto está en `messages/es.json` y `messages/en.json`. Úsalo tal cual.
-- **«Ahora mismo».** Debe salir de un fichero de datos fácil de editar (`content/now.ts`), con la fecha de actualización visible.
+- **«Ahora».** Sale de un fichero de datos fácil de editar (`content/now.ts`): una línea por proyecto en las pestañas del sistema, y la fecha de actualización en su entradilla. Desde el anexo v3.1 ya no hay banda «Ahora mismo».
 - **Reglas de estilo:**
   - Nada de rayas largas (—) en los textos: coma, dos puntos o punto.
   - Español con «tú», sin voseo.
@@ -277,8 +279,8 @@ Todo lo espectacular es además correcto. Si algo se ajusta por estética, que s
 ### Decisiones ya tomadas en el diseño
 
 1. **Entradilla de Proyectos.** Dice «Kimen y Jezero ya son open source; Orbit lo será al abrir su beta» en lugar de «Los tres son open source», porque Orbit aún no tiene repo público. Orbit muestra «Repo público al abrir la beta», sin enlace.
-2. **Iconos de «Ahora mismo».** Los emojis del brief son ahora iconos de línea propios (SVG en la plantilla).
-3. **Cuarta línea de «Ahora mismo».** Dice «Head Frontend Developer en Sngular».
+2. **«Ahora mismo».** Sustituido por el anexo v3.1: la banda, sus iconos y su cuarta línea (Sngular) salen de la home. El estado de cada proyecto va en sus pestañas y Sngular, en el índice de «Con quién».
+3. **La home como historia (anexo v3.1).** Hero, (01) Por qué, (02) Qué construyo, (03) Con quién y (04) Contigo. Detalle en `design/v3/anexo-home/LEEME.md`. Las animaciones de entrada del anexo rellenan con `backwards` y su animación de scroll va con longhands, como el resto.
 4. **Cierre del Inicio.** «¿Hablamos un rato?», con «un rato?» en lila cursiva; en inglés, «Shall we talk for a bit?».
 5. **Microcopy añadido.** Lo escribió el diseño, así que revísalo con Mars:
    - Leyenda de física y caption de Kepler.

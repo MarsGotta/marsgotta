@@ -26,28 +26,50 @@ const t = getMessages(lang);
     <path d="M0 196C260 182 520 192 780 180S1200 196 1440 186V220H0Z" fill="#B97A57"></path>
   </svg>
   <div class="wrap">
-    <p class="label rule">{t.close.kicker}</p>
+    <p class="label rule">
+      <span class="num">(04)</span>
+      {t.close.kicker}
+    </p>
     <h2 class="h1 question" id="close-title">
       {t.close.q1} <span class="it">{t.close.q2}</span>
     </h2>
-    <a class="btn btn--primary" href={localizedPath('contact', lang)}>
-      {t.close.cta}
-      <svg
-        width="18"
-        height="18"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
-      >
-        <path d="M4 12h15M13 6l6 6-6 6"></path>
-      </svg>
-    </a>
+    <p class="sub">{t.close.sub}</p>
+    <div class="row">
+      <a class="btn btn--primary" href={localizedPath('contact', lang)}>
+        {t.close.cta}
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M4 12h15M13 6l6 6-6 6"></path>
+        </svg>
+      </a>
+      {/* Hidden but in place until the script fills it: no layout shift, and nothing without JS. */}
+      <p class="live" data-live-clocks>
+        <i class="dot loop" aria-hidden="true"></i>
+        <span>
+          {t.home.liveA} <b data-clock-madrid>--:--</b>.
+        </span>{' '}
+        <span>
+          {t.home.liveB} <span data-clock-sol>----</span>, <b data-clock-lmst>--:--</b> LMST.
+        </span>
+      </p>
+    </div>
   </div>
 </section>
+
+<script>
+  import { initLiveClocks } from '../../scripts/live-clocks';
+
+  initLiveClocks();
+</script>
 
 <style>
   .close {
@@ -59,6 +81,46 @@ const t = getMessages(lang);
   .question {
     max-width: 12.5em;
     margin: 24px 0 44px;
+  }
+  .sub {
+    margin: -20px 0 40px;
+    font-size: clamp(18px, 1.5vw, 21px);
+    line-height: 1.5;
+    color: var(--fg-muted);
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 22px 36px;
+  }
+  .live {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 10px;
+    margin: 0;
+    font: 500 11px/1.6 var(--mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    /* Tabular figures: the line keeps its width as the minutes change. */
+    font-variant-numeric: tabular-nums;
+  }
+  .live:not([data-ready]) {
+    visibility: hidden;
+  }
+  .live b {
+    font-weight: 500;
+    color: var(--fg);
+  }
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--status);
+    box-shadow: 0 0 9px var(--status);
+    animation: pulse 2.4s ease-in-out infinite;
   }
   /* The rim of Mars rising at the bottom of the page. */
   .limb {

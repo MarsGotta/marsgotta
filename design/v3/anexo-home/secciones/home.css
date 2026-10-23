@@ -1,0 +1,255 @@
+/*
+ * Anexo v3.1 · estilos nuevos de la home.
+ * Ya en la convención del proyecto: sin prefijo mg-, vw en vez de cqi y @media en vez de @container.
+ * Cada bloque indica su componente. Lo compartido (.num, .kick, @keyframes bob) va a global.css.
+ */
+
+/* ===== global.css ===== */
+/* Número de sección: «(01)» delante de la etiqueta */
+.num {
+  margin-right: 4px;
+  color: var(--warm-text);
+}
+/* Etiqueta fuera de .head, encima del título */
+.kick {
+  margin-bottom: clamp(28px, 3vw, 48px);
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+@keyframes reveal {
+  from { opacity: 0.14; }
+  to { opacity: 1; }
+}
+
+/* ===== Hero.astro · enlace «Siguiente parada» ===== */
+.next {
+  position: absolute;
+  z-index: 6;
+  left: calc(max(0px, (100% - 1344px) / 2) + var(--gutter));
+  bottom: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  color: var(--fg-muted);
+  text-decoration: none;
+  font: 500 10.5px/1 var(--mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  animation: fade 1s ease 2.2s both; /* aparece cuando ya ha entrado el titular */
+  transition: color 0.25s;
+}
+.next b { font-weight: 500; color: var(--fg); }
+.next:hover { color: var(--fg); }
+.next svg { width: 16px; height: 16px; animation: bob 2.4s ease-in-out infinite; }
+@media (max-width: 980px) { .next { display: none; } }
+/* SIM en pausa y reduced-motion: la flecha deja de botar (comportamiento.md §4). */
+
+/* ===== Manifesto.astro · (01) Por qué ===== */
+.manifesto {
+  padding-block: clamp(110px, 12vw, 200px) clamp(72px, 8vw, 128px);
+}
+.text {
+  max-width: 22.5em;
+  margin: clamp(40px, 4.4vw, 72px) 0 0;
+  font: 600 clamp(30px, 4.35vw, 66px)/1.12 var(--display);
+  letter-spacing: -0.034em;
+  color: var(--fg);
+  text-wrap: pretty;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.26em;
+  margin-right: 0.22em;
+  padding: 0.06em 0.42em 0.1em 0.3em;
+  border: 1px solid color-mix(in srgb, var(--pc) 50%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--pc) 11%, transparent);
+  color: var(--pc); /* texto grande: --pc cumple AA en los dos temas */
+  font-size: 0.84em;
+  line-height: 1;
+  text-decoration: none;
+  vertical-align: 0.06em;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+.pill i {
+  width: 0.3em;
+  height: 0.3em;
+  border-radius: 50%;
+  background: var(--pc);
+  box-shadow: 0 0 0.4em var(--pc);
+}
+.pill:hover {
+  background: color-mix(in srgb, var(--pc) 22%, transparent);
+  border-color: var(--pc);
+}
+.sign {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: clamp(40px, 4.4vw, 64px) 0 0;
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.sign svg { flex: none; width: 34px; height: 34px; }
+/* Cada palabra se enciende al cruzar la pantalla. Solo CSS; sin soporte se ve entero. */
+@supports (animation-timeline: view()) {
+  .w {
+    animation: reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 70% cover 42%;
+  }
+}
+/* SIM en pausa y reduced-motion: ver comportamiento.md §4 (:root[data-motion='off']). */
+
+/* ===== ProjectSystem.astro / ProjectTabs.astro · (02) Qué construyo ===== */
+.tab__now {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 13.5px;
+  line-height: 1.4;
+  color: var(--fg-subtle);
+  transition: color 0.3s;
+}
+.tab__now b {
+  font: 500 10px/1 var(--mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.tab[aria-pressed='true'] .tab__now { color: var(--fg-muted); }
+.tab[aria-pressed='true'] .tab__now b { color: var(--pc-text); }
+
+/* ===== People.astro · (03) Con quién ===== */
+.people__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(36px, 6vw, 96px);
+  align-items: center;
+}
+.people__text .lead { max-width: 30em; margin-top: 28px; }
+@media (max-width: 980px) { .people__top { grid-template-columns: 1fr; } }
+
+.index {
+  margin: clamp(56px, 6vw, 96px) 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line-strong);
+}
+.index__row {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1.15fr) minmax(0, 1fr) 130px 44px;
+  align-items: center;
+  gap: 28px;
+  min-height: 116px;
+  padding: 24px 12px;
+  border-bottom: 1px solid var(--line-strong);
+  color: var(--fg);
+  text-decoration: none;
+}
+/* El fondo sube desde abajo: solo transform */
+.index__row::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: var(--card);
+  transform: scaleY(0);
+  transform-origin: 50% 100%;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.index__row:hover::before,
+.index__row:focus-visible::before { transform: none; }
+.index__k {
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--warm-text);
+}
+.index__t {
+  font: 600 clamp(22px, 2.2vw, 32px)/1.12 var(--display);
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+.index__d {
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--fg-muted);
+  text-wrap: pretty;
+}
+.index__y {
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-subtle);
+  text-align: right;
+}
+.index__go {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+.index__go svg { width: 16px; height: 16px; }
+.index__row:hover .index__go,
+.index__row:focus-visible .index__go {
+  transform: rotate(-45deg);
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+@media (max-width: 980px) {
+  .index__row { grid-template-columns: minmax(0, 1fr) 44px; gap: 12px 20px; padding: 26px 4px; }
+  .index__k, .index__t, .index__d, .index__y { grid-column: 1; }
+  .index__go { grid-column: 2; grid-row: 1 / span 4; }
+  .index__y { text-align: left; }
+}
+
+/* ===== Closing.astro · (04) Contigo ===== */
+.sub {
+  margin: -20px 0 40px;
+  font-size: clamp(18px, 1.5vw, 21px);
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 22px 36px;
+}
+.live {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  margin: 0;
+  font: 500 11px/1.6 var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  font-variant-numeric: tabular-nums; /* las cifras no cambian de ancho al actualizarse */
+}
+.live:not([data-ready]) { visibility: hidden; } /* reserva su sitio sin JS: CLS 0 */
+.live b { font-weight: 500; color: var(--fg); }
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--status);
+  box-shadow: 0 0 9px var(--status);
+  animation: pulse 2.4s ease-in-out infinite;
+}

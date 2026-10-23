@@ -1,0 +1,51 @@
+{
+  "$comentario": "Solo claves nuevas o cambiadas respecto a src/i18n/es.json. '$borrar' lista las claves que sobran si nada más las usa.",
+  "$borrar": ["now.title", "now.updated", "traj.cta"],
+  "home": {
+    "next": "Siguiente parada",
+    "manifesto": {
+      "kicker": "Por qué",
+      "text": [
+        "Creo que la IA es la herramienta más potente que hemos tenido, siempre que las personas sigamos del lado que la dirige.",
+        "Por eso construyo, en abierto, las piezas que le faltan:",
+        "@kimen",
+        "lo que te enseña,",
+        "@jezero",
+        "lo que recuerda y",
+        "@orbit",
+        "dónde vive contigo."
+      ],
+      "sign": "Marcela Gotta, desde Madrid"
+    },
+    "sysLead": "Encajan como un sistema, y cada una va a su ritmo. Estado del",
+    "nowK": "Ahora",
+    "people": [
+      {
+        "k": "Lidero",
+        "t": "Head Frontend Developer",
+        "d": "En Sngular desde 2019. Co-lidero el chapter de frontend: formaciones, seguimiento técnico de cada persona y entrevistas técnicas.",
+        "y": "2026 – hoy",
+        "to": "about"
+      },
+      {
+        "k": "Enseño",
+        "t": "Procesamiento de Lenguaje Natural y Ética de la IA",
+        "d": "Máster en el Instituto Europeo de Posgrado.",
+        "y": "2025 – hoy",
+        "to": "talks"
+      },
+      {
+        "k": "Comparto",
+        "t": "Web Components, de la charla al curso",
+        "d": "Codemotion, Fictizia y Salmorejo Tech.",
+        "y": "2019 – 2022",
+        "to": "talks"
+      }
+    ],
+    "liveA": "En Madrid son las",
+    "liveB": "En Jezero, sol"
+  },
+  "sys": { "kicker": "Qué construyo" },
+  "traj": { "kicker": "Con quién" },
+  "close": { "kicker": "Contigo", "sub": "De agentes, de frontend o de equipos." }
+}

@@ -39,14 +39,53 @@
     "phRise": "rises in the west",
     "deRise": "rises in the east"
   },
-  "now": {
-    "title": "Right now",
-    "updated": "Updated"
+  "home": {
+    "next": "Next stop",
+    "manifesto": {
+      "kicker": "Why",
+      "text": [
+        "I believe AI is the most powerful tool we've had, as long as people stay on the side that steers it.",
+        "That's why I build, in the open, the pieces it is missing:",
+        "@kimen",
+        "what it shows you,",
+        "@jezero",
+        "what it remembers and",
+        "@orbit",
+        "where it lives with you."
+      ],
+      "sign": "Marcela Gotta, from Madrid"
+    },
+    "sysLead": "They fit together as one system, each at its own pace. Status as of",
+    "nowK": "Now",
+    "people": [
+      {
+        "k": "I lead",
+        "t": "Head Frontend Developer",
+        "d": "At Sngular since 2019. I co-lead the frontend chapter: training, technical follow-up for each person, and technical interviews.",
+        "y": "2026 – today",
+        "to": "about"
+      },
+      {
+        "k": "I teach",
+        "t": "Natural Language Processing and AI Ethics",
+        "d": "Master's programme at Instituto Europeo de Posgrado.",
+        "y": "2025 – today",
+        "to": "talks"
+      },
+      {
+        "k": "I share",
+        "t": "Web Components, from talk to course",
+        "d": "Codemotion, Fictizia and Salmorejo Tech.",
+        "y": "2019 – 2022",
+        "to": "talks"
+      }
+    ],
+    "liveA": "In Madrid it is",
+    "liveB": "In Jezero, sol"
   },
   "sys": {
-    "kicker": "The system",
+    "kicker": "What I build",
     "title": "Three pieces, one idea.",
-    "lead": "What an agent shows you, what it remembers, and where it lives with you.",
     "ringK": "Kimen · what it shows you",
     "ringJ": "Jezero · what it remembers",
     "ringO": "Orbit · where it lives with you",
@@ -135,19 +174,19 @@
     }
   },
   "traj": {
-    "kicker": "Path",
+    "kicker": "With whom",
     "text": "From full-stack to leading frontend at Sngular, and from there to agent infrastructure.",
-    "cta": "Get to know me",
     "m1": "Full-stack",
     "m2": "Sngular",
     "m3": "Agents",
     "alt": "Transfer orbit diagram: 2014, full-stack; 2019, Sngular; 2024, agent infrastructure."
   },
   "close": {
-    "kicker": "Contact",
+    "kicker": "With you",
     "q1": "Shall we talk",
     "q2": "for a bit?",
-    "cta": "Write to me"
+    "cta": "Write to me",
+    "sub": "About agents, frontend or teams."
   },
   "foot": {
     "line": "Made in Madrid, designed on Mars."

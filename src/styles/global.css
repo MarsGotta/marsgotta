@@ -461,6 +461,15 @@ body {
   height: 1px;
   background: var(--line);
 }
+/* The home tells its story in numbered acts: «(01)» before the label. */
+.num {
+  margin-right: 4px;
+  color: var(--warm-text);
+}
+/* A label above the section header instead of inside it. */
+.kick {
+  margin-bottom: clamp(28px, 3vw, 48px);
+}
 
 /* Project colours: --pc for shapes and large text, --pc-text for small text. */
 .p-kimen {
@@ -538,6 +547,23 @@ body {
     opacity: 1;
     transform: none;
     filter: blur(0);
+  }
+}
+@keyframes reveal {
+  from {
+    opacity: 0.14;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
   }
 }
 @keyframes typeIn {

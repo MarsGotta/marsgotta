@@ -1,0 +1,20 @@
+<!-- Closing.astro: cambian la etiqueta, el subtítulo y la fila del botón. El limbo y las dunas siguen igual. -->
+<section class="close" id="contigo" aria-labelledby="close-title">
+  <!-- … .limb y .dunes sin cambios … -->
+  <div class="wrap">
+    <p class="label rule"><span class="num">(04)</span>{close.kicker}</p>
+    <h2 class="h1 question" id="close-title">{close.q1} <span class="it">{close.q2}</span></h2>
+    <p class="sub">{close.sub}</p>
+
+    <div class="row">
+      <a class="btn btn--primary" href={localizedPath('contact', lang)}>{close.cta} <!-- svg flecha igual que ahora --></a>
+
+      <!-- Relojes en vivo. Invisible (pero ocupando su sitio) hasta que el script pone data-ready. -->
+      <p class="live" data-live-clocks>
+        <i class="dot" aria-hidden="true"></i>
+        <span>{home.liveA} <b data-clock-madrid>--:--</b>.</span>
+        <span>{home.liveB} <span data-clock-sol>----</span>, <b data-clock-lmst>--:--</b> LMST.</span>
+      </p>
+    </div>
+  </div>
+</section>

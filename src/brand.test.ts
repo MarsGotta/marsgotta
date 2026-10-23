@@ -11,7 +11,10 @@ function sourceFiles(dir: string): string[] {
   });
 }
 
-const files = sourceFiles('src').map((path) => ({ path, text: readFileSync(path, 'utf8') }));
+// The blog's interface copy and components follow the same rules (design/signals/LEEME.md §1.1).
+const files = ['src', 'signals/src']
+  .flatMap((dir) => sourceFiles(dir))
+  .map((path) => ({ path, text: readFileSync(path, 'utf8') }));
 
 /* Brand limits from design/v3/HANDOFF.md §6 and the brief: what can never appear on the site. */
 const forbidden: [string, RegExp][] = [

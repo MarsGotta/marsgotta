@@ -1,0 +1,16 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "signals",
+  "compatibility_date": "2026-10-21",
+  // Static assets only for now: the Worker code arrives with the subscription endpoint and the
+  // language on arrival (design/signals/LEEME.md, phases 2 and 4).
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash",
+  },
+  // No production route yet: signals.marsgotta.com is attached only with Mars's OK. Until then the
+  // blog lives on workers.dev, and each upload gets its own version URL to review.
+  "workers_dev": true,
+  "preview_urls": true,
+}

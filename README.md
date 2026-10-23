@@ -94,6 +94,20 @@ En local, `npm run preview:cf` simula el envío: cada correo queda en `.wrangler
 
 Ahora no hay ninguno. Si algún día hacen falta, van con `npx wrangler secret put NOMBRE`, nunca en el repo.
 
+## Signals by Mars
+
+El blog vive en `signals/`, con su propio Worker. Comparte con el portfolio el `package.json` y las dependencias. La guía está en `design/signals/LEEME.md`.
+
+| Comando                          | Qué hace                                                                                |
+| -------------------------------- | --------------------------------------------------------------------------------------- |
+| `npm run signals:dev`            | Servidor de desarrollo del blog.                                                        |
+| `npm run signals:build`          | Construye el blog en `signals/dist/`.                                                   |
+| `npm run signals:preview:cf`     | Construye y sirve el blog con `wrangler dev`, como en producción.                       |
+| `npm run signals:deploy:preview` | Sube una versión de prueba a workers.dev, con el alias `preview`, sin tocar producción. |
+| `npm run signals:deploy`         | Construye y despliega el blog. Solo con el OK de Mars.                                  |
+
+`npm run lint`, `npm run typecheck` y `npm run test` cubren las dos apps.
+
 ## Fuentes
 
 Open Sauce Two (`public/fonts/`) está recortada a los caracteres latinos que usa la web, desde los originales de `design/v3/assets/fonts/`:

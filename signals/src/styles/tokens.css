@@ -1,0 +1,56 @@
+/* Signals by Mars: «papel» in the light theme (the default) and «noche marciana» in the dark one.
+   Values from design/signals/extracted/styles.css; the small-text colours meet AA in both themes. */
+:root {
+  --bg: #fbf8f4;
+  --bg-soft: #f4ede5;
+  --surface: #ffffff;
+  --ink: #1e1612;
+  --ink-2: #3b2f29;
+  --muted: #6e5f57;
+  --faint: #a89990;
+  --line: rgba(30, 22, 18, 0.1);
+  --line-2: rgba(30, 22, 18, 0.22);
+  --accent: #b4432a;
+  --accent-hover: #963520;
+  --accent-ink: #fff8f2;
+  --accent-soft: #f8e3d6;
+  --grad: linear-gradient(90deg, #e9603a 0%, #e64241 50%, #d11772 100%);
+  --t-ia: #b4432a;
+  --t-practica: #6f46a4;
+  --t-tutorial: #2f5e8c;
+  --code-bg: #1c1418;
+  --code-ink: #f1e7e0;
+  --code-line: rgba(241, 231, 224, 0.08);
+  --ok: #2e6b3a;
+  --bad: #a1211b;
+  --shadow: 0 18px 50px -28px rgba(58, 26, 14, 0.35);
+  --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --sans: 'Open Sauce Two', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --bg: #110c10;
+  --bg-soft: #1a1317;
+  --surface: #1d1519;
+  --ink: #f2eae4;
+  --ink-2: #dcd0c8;
+  --muted: #a9998f;
+  --faint: #6f625b;
+  --line: rgba(242, 234, 228, 0.1);
+  --line-2: rgba(242, 234, 228, 0.22);
+  --accent: #ff7f4a;
+  --accent-hover: #ff9a6e;
+  --accent-ink: #1a0d07;
+  --accent-soft: rgba(255, 127, 74, 0.14);
+  --t-ia: #ff8a5b;
+  --t-practica: #bba3ec;
+  --t-tutorial: #86b7e8;
+  --code-bg: #0a0709;
+  --code-line: rgba(241, 231, 224, 0.07);
+  --ok: #9cda9b;
+  --bad: #f19997;
+  --shadow: 0 18px 50px -28px rgba(0, 0, 0, 0.8);
+  color-scheme: dark;
+}

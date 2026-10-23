@@ -1,0 +1,89 @@
+{
+  "ui": {
+    "skip": "Skip to content",
+    "homeAria": "Signals by Mars, home",
+    "topics": "Topics",
+    "about": "About Mars",
+    "lang": "Language",
+    "subscribe": "Subscribe",
+    "toLight": "Switch to the light theme",
+    "toDark": "Switch to the dark theme",
+    "signal": "Signal",
+    "read": "min read"
+  },
+  "topics": {
+    "ia": "AI news",
+    "practica": "Practice",
+    "tutorial": "Tutorials"
+  },
+  "topic1": {
+    "ia": "AI news",
+    "practica": "Practice",
+    "tutorial": "Tutorial"
+  },
+  "home": {
+    "over": "Transmitting from Madrid",
+    "h1a": "Signals",
+    "h1b": "through the noise.",
+    "sub": "AI and tech news that matters, practical advice for building better software, and the odd tutorial. Written by Mars, from Madrid."
+  },
+  "strip": {
+    "k": "Earth → Mars signal",
+    "earth": "Earth",
+    "mars": "Mars",
+    "a": "Today it takes",
+    "km": "million km"
+  },
+  "feed": {
+    "h": "Latest signals",
+    "all": "All"
+  },
+  "side": {
+    "aria": "More from Signals",
+    "startH": "Start here",
+    "topicsH": "Topics",
+    "aboutH": "Who writes",
+    "aboutP": "I am Marcela Gotta, Mars to almost everyone. A software engineer in Madrid: I lead frontend at Sngular and build agent infrastructure in the open.",
+    "aboutCta": "My portfolio",
+    "rss": "Also on RSS",
+    "rssP": "If you prefer your usual reader."
+  },
+  "nl": {
+    "over": "Newsletter",
+    "h2a": "Every signal,",
+    "h2b": "in your inbox.",
+    "sub": "One email each time I publish a post. Nothing else: no promotions, no filler digests.",
+    "formLabel": "Newsletter subscription",
+    "label": "Your email",
+    "ph": "you@email.com",
+    "cta": "Subscribe",
+    "fine": "No spam. Unsubscribe in one click.",
+    "okA": "Almost there.",
+    "okB": "Check your inbox and confirm your subscription.",
+    "err": "That email does not look right. Mind checking it?"
+  },
+  "post": {
+    "follow": "Subscribe",
+    "share": "Share",
+    "copy": "Copy link",
+    "copied": "Link copied",
+    "newTab": "(opens in a new tab)",
+    "toc": "In this signal",
+    "tip": "Practical tip",
+    "copyCode": "Copy",
+    "copiedCode": "Copied",
+    "byK": "Written by",
+    "byP": "Software engineer in Madrid and Head Frontend Developer at Sngular. Builds Kimen, Jezero and Orbit in the open.",
+    "endH": "I will let you know about the next signal.",
+    "endP": "One email per post. No spam, no filler.",
+    "nextH": "Next signals"
+  },
+  "foot": {
+    "line": "Signals by Mars is Marcela Gotta’s blog: AI, technology and craft, written calmly.",
+    "archive": "Archive",
+    "portfolio": "Portfolio",
+    "made": "Made in Madrid, designed on Mars",
+    "inJezero": "in Jezero"
+  },
+  "months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+}

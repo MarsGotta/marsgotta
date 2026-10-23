@@ -7,6 +7,8 @@ export default defineConfig([
   globalIgnores([
     'dist/',
     '.astro/',
+    'signals/dist/',
+    'signals/.astro/',
     '.wrangler/',
     'design/',
     '.claude/',

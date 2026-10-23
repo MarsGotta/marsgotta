@@ -1,0 +1,49 @@
+---
+import { getMessages, type Lang } from '../i18n';
+import Base from '../layouts/Base.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = getMessages(lang);
+---
+
+{/* Scaffolding only: the masthead's headline proves the build, the fonts and both themes until
+    phase 2 brings the real home (design/signals/LEEME.md §4). */}
+<Base lang={lang} title="Signals by Mars" description={t.home.sub}>
+  <section class="wrap hero" aria-labelledby="home-title">
+    <p class="over">{t.home.over}</p>
+    <h1 class="display" id="home-title">
+      {t.home.h1a} <em>{t.home.h1b}</em>
+    </h1>
+    <p class="sub">{t.home.sub}</p>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding-block: clamp(48px, 6vw, 88px) clamp(40px, 5vw, 72px);
+  }
+  .display {
+    margin: 26px 0 0;
+    font: 500 clamp(54px, 8.6vw, 112px) / 0.92 var(--serif);
+    letter-spacing: -0.045em;
+    font-variation-settings: 'opsz' 72;
+    text-wrap: balance;
+  }
+  .display em {
+    display: block;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+  .sub {
+    max-width: 31em;
+    margin: 28px 0 0;
+    font: 400 clamp(18px, 1.6vw, 21px) / 1.55 var(--serif);
+    color: var(--ink-2);
+    text-wrap: pretty;
+  }
+</style>

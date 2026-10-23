@@ -12,7 +12,7 @@
     "preview": "astro preview",
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write .",
-    "typecheck": "astro check",
+    "typecheck": "astro check && astro check --root signals",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "og": "node scripts/og-image.ts",
@@ -20,7 +20,12 @@
     "indexnow": "node scripts/indexnow.ts",
     "deploy:preview": "npm run build && wrangler versions upload --preview-alias preview",
     "deploy:redirect": "wrangler deploy -c workers/redirect/wrangler.jsonc",
-    "preview:cf": "npm run build && wrangler dev"
+    "preview:cf": "npm run build && wrangler dev",
+    "signals:dev": "astro dev --root signals",
+    "signals:build": "astro build --root signals",
+    "signals:preview:cf": "npm run signals:build && wrangler dev -c signals/wrangler.jsonc",
+    "signals:deploy:preview": "npm run signals:build && wrangler versions upload -c signals/wrangler.jsonc --preview-alias preview",
+    "signals:deploy": "npm run signals:build && wrangler deploy -c signals/wrangler.jsonc"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.4",

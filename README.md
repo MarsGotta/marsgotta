@@ -105,12 +105,23 @@ El blog vive en `signals/`, con su propio Worker. Comparte con el portfolio el `
 | `npm run signals:build:review`   | Construye el blog con los formularios de la newsletter, que en producción siguen ocultos.                                       |
 | `npm run signals:build:fixtures` | Construye el blog con las señales de ejemplo de `signals/tests/fixtures/content`, para revisar el diseño. Nunca para desplegar. |
 | `npm run signals:test:e2e`       | Construye los ejemplos y pasa los e2e y axe del blog con Playwright, servidos por su Worker.                                    |
+| `npm run signals:test:deployed`  | Pasa la prueba de humo contra el blog desplegado: workers.dev por defecto, u otra URL con `BASE_URL`.                           |
 | `npm run signals:preview:cf`     | Construye la versión de revisión y la sirve con `wrangler dev`, como en producción. Las altas no salen de tu máquina.           |
 | `npm run signals:deploy:preview` | Sube una versión de revisión a workers.dev, con el alias `preview`, sin tocar producción.                                       |
 | `npm run signals:deploy`         | Construye y despliega el blog. Solo con el OK de Mars.                                                                          |
 | `npm run signals:import`         | Copia las señales del vault de Obsidian (`Signals/`) al blog. Con `-- --prune` borra las que ya no están.                       |
 
 `npm run lint`, `npm run typecheck` y `npm run test` cubren las dos apps.
+
+### Desplegar el blog
+
+- **Prueba:** `npm run signals:deploy` publica el build de producción en https://signals.marcelagotta.workers.dev. `signals/wrangler.jsonc` no tiene rutas, así que no toca dominios ni DNS. Después, `npm run signals:test:deployed`.
+- **Versiones de revisión:** `npm run signals:deploy:preview` sube una versión con los formularios de la newsletter a https://preview-signals.marcelagotta.workers.dev, sin cambiar la que sirve el Worker.
+- **Producción**, solo con el OK de Mars:
+  1. En `signals/wrangler.jsonc`, añadir `"routes": [{ "pattern": "signals.marsgotta.com", "custom_domain": true }]`. Cloudflare crea el registro DNS en la zona marsgotta.com; hoy el subdominio no tiene ninguno.
+  2. `npm run signals:deploy`.
+  3. `BASE_URL=https://signals.marsgotta.com npm run signals:test:deployed`.
+  4. Comprobar que https://marsgotta.com sigue redirigiendo al portfolio: su Worker solo cubre el dominio raíz y `www`.
 
 ### SEO del blog
 

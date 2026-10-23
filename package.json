@@ -26,6 +26,7 @@
     "signals:build:review": "SIGNALS_NEWSLETTER=on astro build --root signals --force && node scripts/signals-check-build.ts && node scripts/signals-og.ts",
     "signals:build:fixtures": "SIGNALS_NEWSLETTER=on SIGNALS_CONTENT=./tests/fixtures/content astro build --root signals --force && node scripts/signals-og.ts",
     "signals:test:e2e": "npm run signals:build:fixtures && playwright test -c signals/playwright.config.ts",
+    "signals:test:deployed": "BASE_URL=${BASE_URL:-https://signals.marcelagotta.workers.dev} playwright test -c signals/playwright.config.ts --grep @smoke",
     "signals:preview:cf": "npm run signals:build:review && wrangler dev -c signals/wrangler.jsonc --var NEWSLETTER_PROVIDER:dev",
     "signals:deploy:preview": "npm run signals:build:review && wrangler versions upload -c signals/wrangler.jsonc --preview-alias preview",
     "signals:deploy": "npm run signals:build && wrangler deploy -c signals/wrangler.jsonc",

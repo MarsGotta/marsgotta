@@ -127,6 +127,8 @@ Decidido con Mars el 23 oct 2026: las señales se escriben en su vault de Obsidi
   - La ruta del vault se lee de `SIGNALS_VAULT_DIR`, con esa ruta como valor por defecto.
 - **Formato:** un fichero por idioma, `NNN-slug.es.md` o `NNN-slug.en.md`, con el mismo frontmatter que el esquema de §3. Obsidian lo muestra como propiedades.
   - Deja en el vault una plantilla de Obsidian (`Signals/_plantilla.md`) con todos los campos.
+  - `Signals/_LEEME.md` explica la carpeta a cualquier agente que trabaje en el vault: es un sistema vivo de Mars, y un agente solo escribe ahí la plantilla y las traducciones que ella pida.
+  - El vault es un repo git con su propio protocolo (`AGENTS.md` del vault). Si tiene cambios locales sin commitear o va por detrás del remoto, no se sincroniza: se avisa a Mars.
 - **Importar:** `npm run signals:import` es un script de Node sin dependencias (`scripts/signals-import.ts`).
   - Copia todas las notas de `Signals/` a `signals/src/content/signals/`. Los borradores también se copian, para verlos con `signals:dev`; su campo `draft` decide si se publican.
   - Si una nota no cumple el esquema, el script se detiene antes de copiar nada y dice qué fichero falla y por qué.

@@ -8,3 +8,5 @@ test-results/
 playwright-report/
 package-lock.json
 CLAUDE.md
+# Signals are copies of Mars's Obsidian notes (npm run signals:import): the vault is their source.
+signals/src/content/

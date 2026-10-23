@@ -25,7 +25,8 @@
     "signals:build": "astro build --root signals",
     "signals:preview:cf": "npm run signals:build && wrangler dev -c signals/wrangler.jsonc",
     "signals:deploy:preview": "npm run signals:build && wrangler versions upload -c signals/wrangler.jsonc --preview-alias preview",
-    "signals:deploy": "npm run signals:build && wrangler deploy -c signals/wrangler.jsonc"
+    "signals:deploy": "npm run signals:build && wrangler deploy -c signals/wrangler.jsonc",
+    "signals:import": "node scripts/signals-import.ts"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.4",

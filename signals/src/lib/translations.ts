@@ -12,6 +12,13 @@ export function translationOf<T extends Paired>(
   return signals.find((other) => other.number === signal.number && other.lang !== signal.lang);
 }
 
+/** The pages of each language besides the signals, as the site map lists them. */
+export const listedPages: readonly Page[] = [
+  { kind: 'home' },
+  ...topics.map((topic) => ({ kind: 'topic', topic }) as const),
+  { kind: 'archive' },
+];
+
 /**
  * Every page of the blog with the same page in the other language, for the Worker's language on
  * arrival (signals/workers/language.ts). A signal written in one language only has none: a reader
@@ -20,12 +27,7 @@ export function translationOf<T extends Paired>(
 export function translationPaths(
   signals: readonly Pick<SignalData, 'number' | 'lang' | 'slug'>[],
 ): Record<string, string> {
-  const pages: Page[] = [
-    { kind: 'home' },
-    ...topics.map((topic) => ({ kind: 'topic', topic }) as const),
-    { kind: 'archive' },
-    { kind: 'subscribed' },
-  ];
+  const pages: Page[] = [...listedPages, { kind: 'subscribed' }];
   const paths: Record<string, string> = {};
   for (const lang of languages) {
     for (const page of pages) paths[pagePath(page, lang)] = switchPath(page, lang);

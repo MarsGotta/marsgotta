@@ -10,7 +10,7 @@ import ThemeToggle from './ThemeToggle.astro';
 
 interface Props {
   lang: Lang;
-  page: Page;
+  page: Page | null;
   translationSlug?: string | undefined;
 }
 
@@ -25,7 +25,7 @@ const t = getMessages(lang);
       {topics.map((topic) => (
         <a
           href={topicPath(topic, lang)}
-          aria-current={page.kind === 'topic' && page.topic === topic ? 'page' : undefined}
+          aria-current={page?.kind === 'topic' && page.topic === topic ? 'page' : undefined}
         >
           {t.topics[topic]}
         </a>

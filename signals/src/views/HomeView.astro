@@ -20,7 +20,7 @@ const signals = await getSignalsIn(lang);
 const featured = featuredSignal(signals, lang);
 ---
 
-<Base lang={lang} title="Signals by Mars" description={t.home.sub} page={{ kind: 'home' }}>
+<Base lang={lang} title={t.meta.homeTitle} description={t.home.sub} page={{ kind: 'home' }}>
   <Masthead lang={lang} featured={featured} />
   <LightTimeStrip lang={lang} />
   {featured ? (

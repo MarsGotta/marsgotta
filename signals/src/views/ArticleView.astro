@@ -30,6 +30,7 @@ const url = new URL(signal.href, Astro.site).href;
   description={signal.deck}
   page={{ kind: 'signal', slug: signal.slug }}
   translationSlug={translationOf(signal, signals)?.slug}
+  signal={signal}
 >
   <ReadingProgress />
   <article class:list={['article', `t-${signal.topic}`]} aria-labelledby="article-title">

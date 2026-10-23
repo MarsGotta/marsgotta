@@ -66,6 +66,13 @@ Salieron de la revisión del documento. Mars puede cambiar cualquiera.
   - Las demás prohibiciones (OpenClaw, «16 años», niveles MCER…) eran sobre el perfil de Mars y no se aplican a lo que escribe en el blog: una noticia puede nombrar OpenClaw.
 - **Ajustes de contraste para cumplir AA** (axe, fase 3): los comentarios del tema de código pasan de `#857770` a `#8E807A` (4,75:1 sobre el fondo de código claro, frente a 4,19:1). Los números del índice lateral usan `--muted` en vez de `--faint`. La copia del tema que usa el blog está en `signals/src/lib/markdown/signals-code.json`.
   - En la fase 4, el borde del campo de email usa `--muted` en vez de `--line-2`: lo que indica dónde escribir necesita 3:1 frente al fondo (WCAG 1.4.11), como en el formulario de contacto del portfolio.
+- **SEO y calidad (fase 5):**
+  - El sitemap es propio y no `@astrojs/sitemap`: el plugin empareja `/x` con `/en/x`, y aquí los slugs cambian con el idioma.
+  - Las imágenes OG se dibujan en el build con Playwright, desde cada página (`scripts/signals-og.ts`). No hay imágenes que guardar en el repo, y un build de prueba nunca mete sus tarjetas en el de producción.
+  - `llms.txt` en inglés, hecho con el copy aprobado y las señales publicadas.
+  - `scripts/signals-check-build.ts` para el build si `dist/` contiene una señal que solo existe entre los ejemplos.
+  - CLS 0 en móvil: Newsreader, JetBrains Mono y Open Sauce Two tienen fuentes de reserva ajustadas (`size-adjust` y métricas verticales), medidas con el copy del blog: Georgia en Apple y Windows, Noto Serif en Android. Las de Open Sauce Two se comparten con el portfolio (`src/styles/open-sauce-two-fallback.css`).
+  - «Copiar enlace» se ve desde el primer pintado donde hay JavaScript (`@media (scripting: enabled)`): aparecer con el script empujaba la fila a una segunda línea en el móvil.
 - **Páginas sin diseño propio:** tema, archivo, 404 y las de suscripción confirmada y baja se montan con las piezas y medidas de la home (cabecera más pequeña, la misma lista y la misma columna lateral). Que «coincidan con el prototipo» quiere decir eso.
 
 ## 2. Rutas

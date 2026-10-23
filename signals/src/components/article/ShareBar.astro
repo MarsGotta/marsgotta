@@ -16,7 +16,6 @@ const x = `https://x.com/intent/post?url=${encodeURIComponent(url)}&text=${encod
 <div class="actions">
   <span class="label">{t.post.share}</span>
   <div class="row">
-    {/* Hidden until the script can copy: without JS it would be a button that does nothing. */}
     <button
       type="button"
       class="act"
@@ -25,7 +24,6 @@ const x = `https://x.com/intent/post?url=${encodeURIComponent(url)}&text=${encod
       data-done={t.post.copied}
       data-failed={t.post.copyFailed}
       aria-live="polite"
-      hidden
     >
       <svg
         viewBox="0 0 20 20"
@@ -95,8 +93,16 @@ const x = `https://x.com/intent/post?url=${encodeURIComponent(url)}&text=${encod
       color 0.2s,
       background-color 0.2s;
   }
-  .act[hidden] {
+  /* Without scripts it would be a button that does nothing, so it stays hidden. Where they run, it
+     shows from the first paint: appearing with the script would push the row onto a second line
+     on a phone (CLS). */
+  .act[data-copy-link] {
     display: none;
+  }
+  @media (scripting: enabled) {
+    .act[data-copy-link] {
+      display: inline-flex;
+    }
   }
   .act:hover {
     color: var(--ink);

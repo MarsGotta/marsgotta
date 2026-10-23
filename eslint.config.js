@@ -10,6 +10,9 @@ export default defineConfig([
     'signals/dist/',
     'signals/.astro/',
     '.wrangler/',
+    // The blog's e2e run wrangler dev from signals/, which writes its bundles there.
+    'signals/.wrangler/',
+    'signals/test-results/',
     'design/',
     '.claude/',
     '.remember/',

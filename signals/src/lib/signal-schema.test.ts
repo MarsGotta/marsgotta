@@ -33,6 +33,8 @@ describe('signalSchema', () => {
   it('keeps the slugs of the pages of the blog free', () => {
     expect(signalSchema.safeParse({ ...valid, slug: 'archivo' }).success).toBe(false);
     expect(signalSchema.safeParse({ ...valid, slug: 'topics' }).success).toBe(false);
+    expect(signalSchema.safeParse({ ...valid, slug: 'og' }).success).toBe(false);
+    expect(signalSchema.safeParse({ ...valid, slug: '404' }).success).toBe(false);
   });
 
   it('keeps «Empieza por aquí» to three places', () => {

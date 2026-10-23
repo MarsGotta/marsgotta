@@ -14,6 +14,8 @@ const reservedSlugs = new Set([
   'topics',
   'suscripcion',
   'subscription',
+  'og',
+  '404',
 ]);
 
 /**

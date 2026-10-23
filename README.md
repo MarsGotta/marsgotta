@@ -101,15 +101,25 @@ El blog vive en `signals/`, con su propio Worker. Comparte con el portfolio el `
 | Comando                          | Qué hace                                                                                                                        |
 | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | `npm run signals:dev`            | Servidor de desarrollo del blog.                                                                                                |
-| `npm run signals:build`          | Construye el blog en `signals/dist/`.                                                                                           |
+| `npm run signals:build`          | Construye el blog en `signals/dist/`, comprueba que no lleva señales de ejemplo y dibuja las imágenes Open Graph.               |
 | `npm run signals:build:review`   | Construye el blog con los formularios de la newsletter, que en producción siguen ocultos.                                       |
 | `npm run signals:build:fixtures` | Construye el blog con las señales de ejemplo de `signals/tests/fixtures/content`, para revisar el diseño. Nunca para desplegar. |
+| `npm run signals:test:e2e`       | Construye los ejemplos y pasa los e2e y axe del blog con Playwright, servidos por su Worker.                                    |
 | `npm run signals:preview:cf`     | Construye la versión de revisión y la sirve con `wrangler dev`, como en producción. Las altas no salen de tu máquina.           |
 | `npm run signals:deploy:preview` | Sube una versión de revisión a workers.dev, con el alias `preview`, sin tocar producción.                                       |
 | `npm run signals:deploy`         | Construye y despliega el blog. Solo con el OK de Mars.                                                                          |
 | `npm run signals:import`         | Copia las señales del vault de Obsidian (`Signals/`) al blog. Con `-- --prune` borra las que ya no están.                       |
 
 `npm run lint`, `npm run typecheck` y `npm run test` cubren las dos apps.
+
+### SEO del blog
+
+- **Cada página** lleva título y descripción en su idioma y `canonical` en signals.marsgotta.com. El `hreflang` solo enlaza traducciones reales: una señal escrita en un solo idioma no lo lleva. La 404 y la confirmación de la suscripción no se indexan.
+- **JSON-LD:** `Blog` en cada home y `BlogPosting` en cada señal, con Mars como autora con el mismo `@id` que su `Person` del portfolio.
+- **RSS** (`/rss.xml` y `/en/rss.xml`): cada señal entera, con las URL absolutas y sin los botones «Copiar», porque es también el cuerpo de la newsletter.
+- **Sitemap propio** (`/sitemap.xml`), porque los slugs cambian con el idioma y `@astrojs/sitemap` no sabe emparejarlos. También hay `robots.txt` y `llms.txt`.
+- **Imágenes Open Graph:** `scripts/signals-og.ts` las dibuja al final del build con Playwright, a partir de cada página: una por señal (portada, tema, número y título) y una genérica por idioma. Necesita Chromium (`npx playwright install chromium`).
+- **workers.dev** responde con `X-Robots-Tag: noindex` (`signals/public/_headers`), así que las versiones de prueba no acaban en los buscadores.
 
 ### Idioma al llegar
 

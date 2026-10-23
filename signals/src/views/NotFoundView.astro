@@ -1,0 +1,40 @@
+---
+import FeedSection from '../components/feed/FeedSection.astro';
+import EmptyState from '../components/home/EmptyState.astro';
+import PageHead from '../components/page/PageHead.astro';
+import { getSignalsIn } from '../data/signals';
+import { getMessages, type Lang } from '../i18n';
+import Base from '../layouts/Base.astro';
+import { byRecency } from '../lib/featured';
+import { HOME_FEED_SIZE } from '../lib/feed';
+import { archivePath, homePath } from '../lib/routes';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = getMessages(lang);
+const signals = await getSignalsIn(lang);
+---
+
+{/* Cloudflare serves the nearest 404 page, so /en/anything gets this one in English. */}
+<Base
+  lang={lang}
+  title={`${t.notFound.h1} · Signals by Mars`}
+  description={t.notFound.lead}
+  page={null}
+>
+  <PageHead kicker={t.notFound.kicker} title={t.notFound.h1} lead={t.notFound.lead} />
+  {signals.length > 0 ? (
+    <FeedSection
+      lang={lang}
+      listed={byRecency(signals).slice(0, HOME_FEED_SIZE)}
+      all={signals}
+      allLink={{ href: homePath(lang), current: false }}
+      archiveHref={archivePath(lang)}
+    />
+  ) : (
+    <EmptyState lang={lang} />
+  )}
+</Base>

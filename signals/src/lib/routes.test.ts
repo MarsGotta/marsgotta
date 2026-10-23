@@ -1,5 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { archivePath, pagePath, pathLang, rssPath, switchPath, topicPath } from './routes';
+import {
+  archivePath,
+  pagePath,
+  pathLang,
+  rssPath,
+  switchPath,
+  topicPath,
+  translationPath,
+} from './routes';
 
 describe('routes', () => {
   it('follows the table of design/signals/LEEME.md §2 in both languages', () => {
@@ -35,5 +43,15 @@ describe('routes', () => {
     const page = { kind: 'signal', slug: 'dale-memoria' } as const;
     expect(switchPath(page, 'es', 'give-memory')).toBe('/en/give-memory');
     expect(switchPath(page, 'es')).toBe('/en');
+  });
+
+  it('switches from a page that does not exist to the other home', () => {
+    expect(switchPath(null, 'en')).toBe('/');
+  });
+
+  it('finds no translation for a signal written in one language only', () => {
+    const page = { kind: 'signal', slug: 'solo-en-espanol' } as const;
+    expect(translationPath(page, 'es')).toBeUndefined();
+    expect(translationPath({ kind: 'archive' }, 'en')).toBe('/archivo');
   });
 });

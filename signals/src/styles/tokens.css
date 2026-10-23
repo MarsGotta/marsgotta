@@ -24,9 +24,10 @@
   --ok: #2e6b3a;
   --bad: #a1211b;
   --shadow: 0 18px 50px -28px rgba(58, 26, 14, 0.35);
-  --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
-  --sans: 'Open Sauce Two', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --serif: 'Newsreader', 'Newsreader Fallback', 'Newsreader Fallback Android', Georgia, serif;
+  --sans:
+    'Open Sauce Two', 'Open Sauce Two Fallback', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', 'JetBrains Mono Fallback', ui-monospace, Menlo, monospace;
   color-scheme: light;
 }
 

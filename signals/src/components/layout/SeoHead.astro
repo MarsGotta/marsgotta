@@ -1,0 +1,77 @@
+---
+import type { Signal } from '../../data/signals';
+import { getMessages, type Lang } from '../../i18n';
+import { pagePath, rssPath, translationPath, type Page } from '../../lib/routes';
+import {
+  BLOG_NAME,
+  alternates,
+  blogData,
+  jsonLd,
+  ogImagePath,
+  ogLocale,
+  postingData,
+} from '../../lib/seo';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  /** Null for the 404, which is not a page of the site map. */
+  page: Page | null;
+  translationSlug?: string | undefined;
+  noindex: boolean;
+  /** On an article: its card, its dates and its BlogPosting. */
+  signal?: Signal | undefined;
+}
+
+const { lang, title, description, page, translationSlug, noindex, signal } = Astro.props;
+const site = Astro.site ?? new URL('https://signals.marsgotta.com');
+const t = getMessages(lang);
+const path = page ? pagePath(page, lang) : null;
+const translation = page ? translationPath(page, lang, translationSlug) : undefined;
+const url = path && new URL(path, site).href;
+const schema = signal ? postingData(site, signal) : page?.kind === 'home' && blogData(site, lang);
+---
+
+<meta name="description" content={description} />
+{path && !noindex ? (
+  <>
+    <link rel="canonical" href={url} />
+    {alternates(site, lang, path, translation).map((alternate) => (
+      <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />
+    ))}
+  </>
+) : (
+  <meta name="robots" content="noindex" />
+)}
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title={t.meta.rss}
+  href={new URL(rssPath(lang), site).href}
+/>
+{url && <meta property="og:url" content={url} />}
+<meta property="og:type" content={signal ? 'article' : 'website'} />
+<meta property="og:site_name" content={BLOG_NAME} />
+<meta property="og:title" content={signal?.title ?? title} />
+<meta property="og:description" content={description} />
+<meta property="og:locale" content={ogLocale(lang)} />
+{translation && (
+  <meta property="og:locale:alternate" content={ogLocale(lang === 'es' ? 'en' : 'es')} />
+)}
+<meta property="og:image" content={new URL(ogImagePath(lang, signal?.slug), site).href} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={signal?.title ?? t.meta.ogAlt} />
+{signal && (
+  <>
+    <meta property="article:published_time" content={signal.publishedAt.toISOString()} />
+    <meta property="article:section" content={t.topics[signal.topic]} />
+    {signal.tags.map((tag) => (
+      <meta property="article:tag" content={tag} />
+    ))}
+  </>
+)}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:creator" content="@marcelagotta" />
+{schema && <script type="application/ld+json" set:html={jsonLd(schema)} />}

@@ -69,11 +69,25 @@ export function pathLang(path: string): Lang {
 }
 
 /**
- * Where the ES/EN switch leads: the same page in the other language. A signal leads to its
- * translation, or to the other home when it has none (§1).
+ * The same page in the other language. Every page has one but a signal written in one language
+ * only (§1).
  */
-export function switchPath(page: Page, lang: Lang, translationSlug?: string): string {
+export function translationPath(
+  page: Page,
+  lang: Lang,
+  translationSlug?: string,
+): string | undefined {
   const other: Lang = lang === 'es' ? 'en' : 'es';
   if (page.kind !== 'signal') return pagePath(page, other);
-  return translationSlug ? signalPath(translationSlug, other) : homePath(other);
+  return translationSlug ? signalPath(translationSlug, other) : undefined;
+}
+
+/**
+ * Where the ES/EN switch leads: the translation, or the other home when there is none, as on a
+ * single-language signal or the 404 (no page).
+ */
+export function switchPath(page: Page | null, lang: Lang, translationSlug?: string): string {
+  return (
+    (page && translationPath(page, lang, translationSlug)) ?? homePath(lang === 'es' ? 'en' : 'es')
+  );
 }

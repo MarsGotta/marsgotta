@@ -4,7 +4,7 @@ import { switchPath, type Page } from '../../lib/routes';
 
 interface Props {
   lang: Lang;
-  page: Page;
+  page: Page | null;
   /** The slug of the signal's translation, when the page is a signal that has one. */
   translationSlug?: string | undefined;
 }

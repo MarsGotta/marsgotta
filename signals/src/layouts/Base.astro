@@ -4,8 +4,10 @@ import '@fontsource/jetbrains-mono/latin-500.css';
 import '../styles/global.css';
 import Footer from '../components/layout/Footer.astro';
 import SvgDefs from '../components/layout/SvgDefs.astro';
+import SeoHead from '../components/layout/SeoHead.astro';
 import TopBar from '../components/layout/TopBar.astro';
 import NewsletterBand from '../components/newsletter/NewsletterBand.astro';
+import type { Signal } from '../data/signals';
 import { getMessages, type Lang } from '../i18n';
 import type { Page } from '../lib/routes';
 
@@ -13,14 +15,17 @@ interface Props {
   lang: Lang;
   title: string;
   description: string;
-  page: Page;
+  /** Null for the 404, which is not a page of the site map. */
+  page: Page | null;
   /** The slug of a signal's translation, for the language switch. */
   translationSlug?: string | undefined;
   /** For pages that only make sense in a flow, such as the subscription's confirmation. */
   noindex?: boolean;
+  /** On an article, for its Open Graph card and its structured data. */
+  signal?: Signal | undefined;
 }
 
-const { lang, title, description, page, translationSlug, noindex = false } = Astro.props;
+const { lang, title, description, page, translationSlug, noindex = false, signal } = Astro.props;
 const t = getMessages(lang);
 ---
 
@@ -30,8 +35,15 @@ const t = getMessages(lang);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    <meta name="description" content={description} />
-    {noindex && <meta name="robots" content="noindex" />}
+    <SeoHead
+      lang={lang}
+      title={title}
+      description={description}
+      page={page}
+      translationSlug={translationSlug}
+      noindex={noindex}
+      signal={signal}
+    />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     {/* Only the body text's file is preloaded: italic and latin-ext load when a page uses them. */}
     <link

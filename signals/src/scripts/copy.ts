@@ -1,7 +1,8 @@
 /**
- * «Copiar enlace» and the «Copiar» of the code blocks, with the Clipboard API. The buttons stay
- * hidden until this runs, so without JS there is no button that does nothing. The result is said
- * in the button itself, an aria-live region, and the label comes back after a moment.
+ * «Copiar enlace» and the «Copiar» of the code blocks, with the Clipboard API. Without JS neither
+ * shows, so there is no button that does nothing. The result is said in the button itself, an
+ * aria-live region, and the label comes back after a moment; without the Clipboard API, it says
+ * «No se pudo copiar».
  */
 const RESET_MS = 2200;
 
@@ -34,8 +35,6 @@ function wire(button: HTMLButtonElement, text: HTMLElement, labels: Labels, read
 }
 
 export function initCopyButtons(): void {
-  if (!navigator.clipboard) return;
-
   document.querySelectorAll<HTMLButtonElement>('[data-copy-link]').forEach((button) => {
     const text = button.querySelector<HTMLElement>('[data-copy-text]');
     const { copyLink = '', label = '', done = '', failed = '' } = button.dataset;

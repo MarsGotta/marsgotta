@@ -1,3 +1,6 @@
+/* The portfolio's size-adjusted fallbacks for Open Sauce Two. */
+@import '@portfolio/styles/open-sauce-two-fallback.css';
+
 /* Newsreader, variable in weight and optical size, served from public/fonts. The italic and
    latin-ext files only download when a page uses those glyphs. */
 @font-face {
@@ -72,4 +75,103 @@
   font-weight: 700;
   font-display: swap;
   src: url('../../../public/fonts/open-sauce-two-latin-700-normal.woff2') format('woff2');
+}
+
+/* Size-adjusted fallbacks, as in the portfolio: while Newsreader and JetBrains Mono load
+   (font-display: swap), the system fonts take the same width and the same line metrics, so lines
+   wrap the same way and nothing shifts when the real fonts arrive (CLS 0). Georgia stands in on
+   Apple and Windows, Noto Serif on Android. size-adjust is the width ratio measured on the blog's
+   own copy, per weight and style; Georgia's italic is a little narrower still, so the English
+   headline's «through the noise.» stays on one line at 390 px as it does in Newsreader. The metric
+   overrides are Newsreader's (ascent 74 %, descent 26 %) divided by size-adjust, because the
+   browser scales them by it too. */
+@font-face {
+  font-family: 'Newsreader Fallback';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Georgia');
+  size-adjust: 90.67%;
+  ascent-override: 81.61%;
+  descent-override: 28.68%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Newsreader Fallback';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Georgia');
+  size-adjust: 103.09%;
+  ascent-override: 71.78%;
+  descent-override: 25.22%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Newsreader Fallback';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Georgia Bold'), local('Georgia-Bold');
+  size-adjust: 86.85%;
+  ascent-override: 85.2%;
+  descent-override: 29.94%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Newsreader Fallback';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Georgia Italic'), local('Georgia-Italic');
+  size-adjust: 89.4%;
+  ascent-override: 82.77%;
+  descent-override: 29.08%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Newsreader Fallback Android';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Noto Serif'), local('NotoSerif');
+  size-adjust: 83.99%;
+  ascent-override: 88.11%;
+  descent-override: 30.96%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Newsreader Fallback Android';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Noto Serif'), local('NotoSerif');
+  size-adjust: 95.58%;
+  ascent-override: 77.42%;
+  descent-override: 27.2%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Newsreader Fallback Android';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Noto Serif Bold'), local('NotoSerif-Bold');
+  size-adjust: 89.02%;
+  ascent-override: 83.13%;
+  descent-override: 29.21%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Newsreader Fallback Android';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Noto Serif Italic'), local('NotoSerif-Italic');
+  size-adjust: 87.66%;
+  ascent-override: 84.42%;
+  descent-override: 29.66%;
+  line-gap-override: 0%;
+}
+/* Every monospace font is 0.6 em wide; only JetBrains Mono's taller line metrics need copying. */
+@font-face {
+  font-family: 'JetBrains Mono Fallback';
+  src:
+    local('Menlo'), local('Consolas'), local('DejaVu Sans Mono'), local('Droid Sans Mono'),
+    local('Courier New');
+  ascent-override: 102%;
+  descent-override: 30%;
+  line-gap-override: 0%;
 }

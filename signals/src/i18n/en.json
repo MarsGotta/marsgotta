@@ -114,5 +114,15 @@
   "subscribed": {
     "h1": "Subscription confirmed",
     "lead": "All set. Every time I publish a new signal, it will land in your inbox."
+  },
+  "meta": {
+    "homeTitle": "Signals by Mars · Signals through the noise",
+    "ogAlt": "Signals by Mars: signals through the noise, by Marcela Gotta",
+    "rss": "Signals by Mars in English"
+  },
+  "notFound": {
+    "kicker": "Error 404",
+    "h1": "This signal never arrived",
+    "lead": "The address may be wrong, or the page may no longer exist."
   }
 }

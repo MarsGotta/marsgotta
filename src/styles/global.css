@@ -1,6 +1,8 @@
 /* Base styles shared by every page. Values come from design/v3/extracted/styles.css.
    The prototype's container units (cqi) and container queries become vw and media queries here. */
 
+@import './open-sauce-two-fallback.css';
+
 @font-face {
   font-family: 'Open Sauce Two';
   font-style: normal;
@@ -37,36 +39,9 @@
   src: url(/fonts/open-sauce-two-latin-700-normal.woff2) format('woff2');
 }
 
-/* Size-adjusted fallbacks: while the web fonts load (font-display: swap), Arial takes the same width,
-   so lines wrap the same way and nothing shifts when the real font arrives (CLS 0). The values are the
-   width ratios measured on the site's own copy; 400 is tuned so the leads above the fold break their
-   lines like Open Sauce Two does. */
-@font-face {
-  font-family: 'Open Sauce Two Fallback';
-  font-weight: 400;
-  src: local('Arial'), local('ArialMT'), local('Liberation Sans'), local('Roboto');
-  size-adjust: 109.75%;
-}
-@font-face {
-  font-family: 'Open Sauce Two Fallback';
-  font-weight: 500;
-  src: local('Arial'), local('ArialMT'), local('Liberation Sans'), local('Roboto');
-  size-adjust: 109.9%;
-}
-@font-face {
-  font-family: 'Open Sauce Two Fallback';
-  font-weight: 600;
-  src:
-    local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'), local('Roboto Bold');
-  size-adjust: 103.23%;
-}
-@font-face {
-  font-family: 'Open Sauce Two Fallback';
-  font-weight: 700;
-  src:
-    local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'), local('Roboto Bold');
-  size-adjust: 104.18%;
-}
+/* Size-adjusted fallbacks: while Sora loads (font-display: swap), Arial takes the same width, so
+   lines wrap the same way and nothing shifts when the real font arrives (CLS 0). Open Sauce Two's
+   are in open-sauce-two-fallback.css, which the blog shares. */
 @font-face {
   font-family: 'Sora Fallback';
   font-weight: 600;

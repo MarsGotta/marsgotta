@@ -1,0 +1,45 @@
+/* Size-adjusted fallbacks for Open Sauce Two, shared by the portfolio and the blog: while the web
+   font loads (font-display: swap), Arial takes the same width, so lines wrap the same way and nothing
+   shifts when the real font arrives (CLS 0). The widths are the ratios measured on the site's own
+   copy; 400 is tuned so the leads above the fold break their lines like Open Sauce Two does. The
+   line metrics are Open Sauce Two's (ascent 100 %, descent 24 %, no line gap) divided by the width
+   ratio, because the browser scales them by size-adjust too: a line keeps its height and its
+   baseline whichever font draws it. */
+@font-face {
+  font-family: 'Open Sauce Two Fallback';
+  font-weight: 400;
+  src: local('Arial'), local('ArialMT'), local('Liberation Sans'), local('Roboto');
+  size-adjust: 109.75%;
+  ascent-override: 91.12%;
+  descent-override: 21.87%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Open Sauce Two Fallback';
+  font-weight: 500;
+  src: local('Arial'), local('ArialMT'), local('Liberation Sans'), local('Roboto');
+  size-adjust: 109.9%;
+  ascent-override: 90.99%;
+  descent-override: 21.84%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Open Sauce Two Fallback';
+  font-weight: 600;
+  src:
+    local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'), local('Roboto Bold');
+  size-adjust: 103.23%;
+  ascent-override: 96.87%;
+  descent-override: 23.25%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Open Sauce Two Fallback';
+  font-weight: 700;
+  src:
+    local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'), local('Roboto Bold');
+  size-adjust: 104.18%;
+  ascent-override: 95.99%;
+  descent-override: 23.04%;
+  line-gap-override: 0%;
+}

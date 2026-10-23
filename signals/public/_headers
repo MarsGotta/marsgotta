@@ -1,0 +1,23 @@
+# Headers for Cloudflare Workers static assets, as in the portfolio's public/_headers.
+
+# HSTS leaves out includeSubDomains: other subdomains of marsgotta.com are served by third parties.
+/*
+  Strict-Transport-Security: max-age=31536000
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+
+# Built files carry a content hash in their name, so they never change.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/fonts/*
+  Cache-Control: public, max-age=604800
+
+/og/*
+  Cache-Control: public, max-age=604800
+
+# workers.dev serves copies of the blog for testing, the version previews included: keep them out of search results.
+https://:host.marcelagotta.workers.dev/*
+  X-Robots-Tag: noindex

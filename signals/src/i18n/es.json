@@ -114,5 +114,15 @@
   "subscribed": {
     "h1": "Suscripción confirmada",
     "lead": "Ya está. Cada vez que publique una señal nueva, te llegará por email."
+  },
+  "meta": {
+    "homeTitle": "Signals by Mars · Señales entre el ruido",
+    "ogAlt": "Signals by Mars: señales entre el ruido, por Marcela Gotta",
+    "rss": "Signals by Mars en español"
+  },
+  "notFound": {
+    "kicker": "Error 404",
+    "h1": "Esta señal no ha llegado",
+    "lead": "Puede que la dirección esté mal o que la página ya no exista."
   }
 }

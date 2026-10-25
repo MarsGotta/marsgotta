@@ -118,6 +118,7 @@ El blog vive en `signals/`, con su propio Worker. Comparte con el portfolio el `
 | `npm run signals:deploy:preview` | Sube una versión de revisión a workers.dev, con el alias `preview`, sin tocar producción.                                       |
 | `npm run signals:deploy`         | Construye y despliega el blog. Solo con el OK de Mars.                                                                          |
 | `npm run signals:import`         | Copia las señales del vault de Obsidian (`Signals/`) al blog. Con `-- --prune` borra las que ya no están.                       |
+| `npm run signals:send`           | Lista las señales publicadas que aún no han salido por la newsletter. Con `-- --send`, las envía.                               |
 
 `npm run lint`, `npm run typecheck` y `npm run test` cubren las dos apps.
 
@@ -143,20 +144,22 @@ Igual que en el portfolio: al llegar desde fuera, el Worker lleva a cada visitan
 
 ### Newsletter (Buttondown)
 
-Cada señal publicada es un número de la newsletter, y cada suscriptor recibe solo las de su idioma.
+Cada señal publicada es un número de la newsletter, y cada suscriptor recibe solo las de su idioma. Todo funciona con el plan gratuito de Buttondown, que llega hasta 100 suscriptores.
 
-- **Alta.** Los formularios envían a `POST /api/subscribe`. El Worker valida el email, aplica un campo trampa y un límite de 5 altas por minuto e IP (`SUBSCRIBE_LIMIT`), y da de alta en Buttondown con la etiqueta del idioma (`es` o `en`). Buttondown manda el correo de confirmación (doble opt-in). Si el email ya estaba en la lista, responde igual que a un alta nueva, para no revelar quién está suscrito. El email nunca llega a los logs.
+- **Alta.** Los formularios envían a `POST /api/subscribe`. El Worker valida el email, aplica un campo trampa y un límite de 5 altas por minuto e IP (`SUBSCRIBE_LIMIT`), y da de alta en Buttondown con el idioma en los metadatos del suscriptor (`metadata.lang`: `es` o `en`). Buttondown manda el correo de confirmación (doble opt-in). Si el email ya estaba en la lista, responde igual que a un alta nueva, para no revelar quién está suscrito. El email nunca llega a los logs.
+- **Envío.** Después de publicar una señal (`npm run signals:deploy`), `npm run signals:send` lee los feeds publicados (`/rss.xml` y `/en/rss.xml`) y lista las señales que Buttondown aún no tiene, sin enviar nada. `npm run signals:send -- --send` las envía, cada una solo a quien se apuntó en su idioma. Cada correo guarda en sus metadatos la URL de su señal, así que ninguna sale dos veces; para reenviar una, se borra su correo en Buttondown. La clave sale de `BUTTONDOWN_API_KEY` o, si no está, de `buttondown login`.
 - **Sin JavaScript.** El navegador valida el campo, envía el formulario y el Worker vuelve a la misma página con `#nl-sent-…`, `#nl-invalid-…` o `#nl-failed-…`, que muestran el resultado con CSS.
-- **Cambiar de proveedor** es cambiar `signals/workers/newsletter/index.ts` y el fichero del proveedor.
+- **Cambiar de proveedor** es cambiar `signals/workers/newsletter/index.ts`, el fichero del proveedor y `scripts/signals-send.ts`.
 - **Interruptor.** Los formularios solo aparecen en desarrollo y en los builds de revisión (`SIGNALS_NEWSLETTER=on`). `npm run signals:build` los deja fuera hasta que Buttondown esté listo.
 
-Configuración pendiente, con el OK de Mars:
+Configuración de Buttondown (23 y 25 de octubre de 2026):
 
-1. En Buttondown, un plan que incluya etiquetas y RSS a email. Sin etiquetas, Buttondown rechaza el alta (`403 feature_disabled`) y el formulario dice que no se ha podido.
-2. Dos automatizaciones de RSS a email: `https://signals.marsgotta.com/rss.xml` para la etiqueta `es` y `https://signals.marsgotta.com/en/rss.xml` para `en`. Los feeds llegan en la fase 5.
-3. Redirección tras confirmar (`subscription_confirmation_redirect_url`): `https://signals.marsgotta.com/suscripcion/confirmada`. El Worker lleva a los lectores en inglés a `/en/subscription/confirmed`.
-4. La clave de la API: `npx wrangler secret put BUTTONDOWN_API_KEY -c signals/wrangler.jsonc`. Sin ella, el endpoint responde que no está disponible.
-5. Encender los formularios en producción: añadir `SIGNALS_NEWSLETTER=on` a `signals:build`.
+1. Nombre y remitente: «Signals by Mars». Zona horaria: Europe/Madrid.
+2. Redirección tras confirmar (`subscription_confirmation_redirect_url`): `https://signals.marsgotta.com/suscripcion/confirmada`. El Worker lleva a los lectores en inglés a `/en/subscription/confirmed`.
+3. La clave de la API, como secreto del Worker: `npx wrangler secret put BUTTONDOWN_API_KEY -c signals/wrangler.jsonc`. Sin ella, el endpoint responde que no está disponible.
+4. Pendiente: encender los formularios en producción, añadiendo `SIGNALS_NEWSLETTER=on` a `signals:build`.
+
+El plan gratuito no incluye etiquetas, RSS a email ni un correo de confirmación propio (este pide el plan Standard), así que la confirmación es la de Buttondown, en el idioma de la cuenta.
 
 Para ver los errores: `npx wrangler tail signals`.
 

@@ -250,6 +250,8 @@ Todo lo demás es HTML y CSS: las pestañas, el índice, la barra de progreso y 
 
 Mars eligió Buttondown el 23 oct 2026, después de compararlo con Kit, EmailOctopus, MailerLite, beehiiv, Keila y Resend: es el único que envía cada señal sola desde el RSS de cada idioma a quien se apuntó en ese idioma, sin código propio de envío. **Cada señal publicada es un número de la newsletter**, y cada suscriptor recibe la versión de su idioma (el `lang` con el que se apuntó). Si una señal solo existe en un idioma, solo la reciben los suscriptores de ese idioma (decisión de Mars).
 
+El 25 oct 2026 Mars decidió quedarse en el plan gratuito de Buttondown, que llega hasta 100 suscriptores. Ese plan no incluye etiquetas ni RSS a email, así que el idioma va en los metadatos de cada suscriptor y el envío lo hace `scripts/signals-send.ts`.
+
 El proveedor vive detrás de una interfaz, para que cambiarlo sea cambiar `signals/workers/newsletter/index.ts` y el fichero del nuevo:
 
 ```ts
@@ -267,11 +269,11 @@ export interface NewsletterProvider {
   - Usa el campo trampa y un rate limit propio (`SUBSCRIBE_LIMIT`: 5 por minuto e IP, como en el contacto).
   - Nunca guarda el email en logs.
   - Responde JSON si lo pide `fetch` y, si no, redirige a la misma página con el resultado en el fragmento.
-- **Buttondown:** da de alta con la etiqueta del idioma (`es` o `en`) y la IP del lector, que usa su filtro antispam. Sin la cabecera de colisión: su opción `add` volvería a suscribir sin confirmación a quien se dio de baja. Si el email ya está en la lista, el formulario responde como a un alta nueva, para no revelar quién está suscrito.
+- **Buttondown:** da de alta con el idioma en los metadatos (`metadata.lang`: `es` o `en`) y la IP del lector, que usa su filtro antispam. Sin la cabecera de colisión: su opción `add` volvería a suscribir sin confirmación a quien se dio de baja. Si el email ya está en la lista, el formulario responde como a un alta nueva, para no revelar quién está suscrito.
 - **Proveedor de desarrollo:** `DevProvider` responde siempre `ok` y no envía nada. Solo se usa con `npm run signals:preview:cf`.
 - **Sin clave de API,** el endpoint responde que no está disponible.
 - **En producción,** los formularios siguen ocultos hasta que Buttondown esté configurado (`SIGNALS_NEWSLETTER=on` en el build). Mientras tanto, la banda invita al RSS sin prometer ningún email.
-- **Envío por artículo:** dos automatizaciones de RSS a email, una por feed y etiqueta. Los pasos están en el README.
+- **Envío por artículo:** `npm run signals:send` lee los dos feeds publicados y crea en Buttondown un correo por cada señal nueva, filtrado por `metadata.lang`. Sin `-- --send` solo lista lo que enviaría. Cada correo guarda la URL de su señal en sus metadatos, así que ninguna sale dos veces.
 - **Tras confirmar,** Buttondown redirige a `/suscripcion/confirmada`, y el Worker lleva a los lectores en inglés a `/en/subscription/confirmed`.
 - **Sin página de baja:** Buttondown ya no permite redirigir tras darse de baja, así que `/suscripcion/baja` no tendría quien llegara. No se construye mientras Mars no diga otra cosa.
 

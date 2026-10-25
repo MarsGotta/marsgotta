@@ -63,7 +63,8 @@
     "okA": "Almost there.",
     "okB": "Check your inbox and confirm your subscription.",
     "err": "That email does not look right. Mind checking it?",
-    "failed": "I could not sign you up just now. Please try again in a little while."
+    "failed": "I could not sign you up just now. Please try again in a little while.",
+    "readOnWeb": "Read this signal on the web"
   },
   "post": {
     "follow": "Subscribe",

@@ -21,7 +21,7 @@ afterEach(() => {
 });
 
 describe('Buttondown provider', () => {
-  it('creates the subscriber tagged with their language, keeping double opt-in', async () => {
+  it('creates the subscriber with their language, keeping double opt-in', async () => {
     const fetch = answers(201);
     expect(await buttondown('key').subscribe(input)).toEqual({ ok: true });
     const [url, init] = fetch.mock.calls[0];
@@ -33,8 +33,7 @@ describe('Buttondown provider', () => {
     });
     expect(JSON.parse(String(init.body))).toEqual({
       email_address: 'ana@example.com',
-      tags: ['en'],
-      metadata: { source: 'band' },
+      metadata: { lang: 'en', source: 'band' },
       ip_address: '203.0.113.10',
     });
   });
@@ -77,7 +76,7 @@ describe('Buttondown provider', () => {
     const errors = quietErrors();
     answers(401, { detail: 'Invalid token' });
     expect(await buttondown('bad').subscribe(input)).toEqual({ ok: false, reason: 'unavailable' });
-    // Tags need a plan that includes them.
+    // A feature the plan does not include.
     answers(403, { code: 'feature_disabled', detail: '' });
     expect(await buttondown('key').subscribe(input)).toEqual({ ok: false, reason: 'unavailable' });
     expect(errors).toHaveBeenLastCalledWith('Buttondown refused a signup', 403, 'feature_disabled');

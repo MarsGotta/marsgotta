@@ -14,8 +14,9 @@ const INVALID = new Set(['email_empty', 'email_invalid', 'email_blocked']);
 const TOO_MANY = new Set(['rate_limited', 'ip_address_spammy']);
 
 /**
- * Buttondown, with double opt-in on. Each subscriber is tagged with their language, and each
- * language's RSS-to-email automation sends to its tag only, so a signal reaches its own readers.
+ * Buttondown, with double opt-in on. Each subscriber keeps their language in its metadata, and
+ * each issue goes to that language only (scripts/signals-send.ts), so a signal reaches its own
+ * readers. Metadata, unlike tags, works on the free plan.
  */
 export function buttondown(apiKey: string): NewsletterProvider {
   return {
@@ -29,8 +30,7 @@ export function buttondown(apiKey: string): NewsletterProvider {
           headers: { Authorization: `Token ${apiKey}`, 'Content-Type': 'application/json' },
           body: JSON.stringify({
             email_address: email,
-            tags: [lang],
-            metadata: { source },
+            metadata: { lang, source },
             ...(ip ? { ip_address: ip } : {}),
           }),
         });

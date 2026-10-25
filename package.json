@@ -30,7 +30,8 @@
     "signals:preview:cf": "npm run signals:build:review && wrangler dev -c signals/wrangler.jsonc --var NEWSLETTER_PROVIDER:dev",
     "signals:deploy:preview": "npm run signals:build:review && wrangler versions upload -c signals/wrangler.jsonc --preview-alias preview",
     "signals:deploy": "npm run signals:build && wrangler deploy -c signals/wrangler.jsonc",
-    "signals:import": "node scripts/signals-import.ts"
+    "signals:import": "node scripts/signals-import.ts",
+    "signals:send": "node scripts/signals-send.ts"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "0.4.5",

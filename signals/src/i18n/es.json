@@ -63,7 +63,8 @@
     "okA": "Casi está.",
     "okB": "Revisa tu correo y confirma la suscripción.",
     "err": "Ese email no parece válido. ¿Lo revisas?",
-    "failed": "No he podido apuntarte ahora mismo. Prueba otra vez en un rato."
+    "failed": "No he podido apuntarte ahora mismo. Prueba otra vez en un rato.",
+    "readOnWeb": "Leer esta señal en la web"
   },
   "post": {
     "follow": "Suscribirme",

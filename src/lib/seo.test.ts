@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { alternates, ogLocale, pageUrl, structuredData } from './seo';
+import { alternates, ogLocale, pageUrl, sitemapXml, structuredData } from './seo';
 
 const site = new URL('https://marsgotta.com');
 
@@ -17,6 +17,19 @@ describe('seo', () => {
       { hreflang: 'en', href: 'https://marsgotta.com/en/projects' },
       { hreflang: 'x-default', href: 'https://marsgotta.com/proyectos' },
     ]);
+  });
+
+  it('lists every page in the sitemap, in both languages, each with its translations', () => {
+    const xml = sitemapXml(site);
+    expect(xml).toMatch(/^<\?xml version="1.0" encoding="UTF-8"\?>\n<urlset /);
+    expect(xml.match(/<loc>/g)).toHaveLength(10);
+    expect(xml).toContain(
+      '<url><loc>https://marsgotta.com/en/about</loc>' +
+        '<xhtml:link rel="alternate" hreflang="es" href="https://marsgotta.com/sobre-mi"/>' +
+        '<xhtml:link rel="alternate" hreflang="en" href="https://marsgotta.com/en/about"/>' +
+        '<xhtml:link rel="alternate" hreflang="x-default" href="https://marsgotta.com/sobre-mi"/>' +
+        '</url>',
+    );
   });
 
   it('uses Open Graph locales', () => {

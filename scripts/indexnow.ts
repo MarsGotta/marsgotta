@@ -7,7 +7,7 @@ import { readFile } from 'node:fs/promises';
 import { indexNowKey } from '../src/content/indexnow.ts';
 
 const site = new URL('https://marsgotta.com');
-const sitemap = await readFile(new URL('../dist/sitemap-0.xml', import.meta.url), 'utf8');
+const sitemap = await readFile(new URL('../dist/sitemap.xml', import.meta.url), 'utf8');
 const urlList = [
   ...[...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]),
   new URL('/llms.txt', site).href,

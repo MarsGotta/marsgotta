@@ -2,7 +2,7 @@ import { email, socialChannels } from '../content/profile';
 import { projectKeys } from '../content/projects';
 import { techStars } from '../content/tech';
 import { getMessages, languages, locales, type Lang } from '../i18n';
-import { localizedPath, type RouteKey } from '../i18n/routes';
+import { localizedPath, routeKeys, type RouteKey } from '../i18n/routes';
 
 export interface Alternate {
   hreflang: string;
@@ -20,6 +20,30 @@ export function alternates(site: URL, route: RouteKey): Alternate[] {
     ...languages.map((lang) => ({ hreflang: lang, href: pageUrl(site, route, lang) })),
     { hreflang: 'x-default', href: pageUrl(site, route, 'es') },
   ];
+}
+
+function escapeXml(text: string): string {
+  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+}
+
+/** The sitemap at /sitemap.xml: every page in both languages, each linked to its translations. */
+export function sitemapXml(site: URL): string {
+  const urls = routeKeys.flatMap((route) =>
+    languages.map((lang) => {
+      const links = alternates(site, route).map(
+        ({ hreflang, href }) =>
+          `<xhtml:link rel="alternate" hreflang="${hreflang}" href="${escapeXml(href)}"/>`,
+      );
+      return `<url><loc>${escapeXml(pageUrl(site, route, lang))}</loc>${links.join('')}</url>`;
+    }),
+  );
+  return [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
+    ...urls,
+    '</urlset>',
+    '',
+  ].join('\n');
 }
 
 /** Open Graph locale, such as es_ES. */

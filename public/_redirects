@@ -12,3 +12,6 @@
 /talks /charlas 301
 /contact /contacto 301
 /lab /proyectos 301
+# The sitemap's names under @astrojs/sitemap, already sent to Google and Bing.
+/sitemap-index.xml /sitemap.xml 301
+/sitemap-0.xml /sitemap.xml 301

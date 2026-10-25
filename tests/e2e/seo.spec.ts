@@ -42,9 +42,12 @@ test.describe('seo', () => {
     request,
   }) => {
     expect(await (await request.get('/robots.txt')).text()).toContain(
-      'Sitemap: https://marsgotta.com/sitemap-index.xml',
+      'Sitemap: https://marsgotta.com/sitemap.xml',
     );
-    const sitemap = await (await request.get('/sitemap-0.xml')).text();
+    const response = await request.get('/sitemap.xml');
+    expect(response.status()).toBe(200);
+    expect(response.headers()['content-type']).toContain('xml');
+    const sitemap = await response.text();
     expect(sitemap.match(/<loc>/g)).toHaveLength(10);
     expect(sitemap).toContain(
       '<xhtml:link rel="alternate" hreflang="en" href="https://marsgotta.com/en/about"/>',
@@ -69,6 +72,8 @@ test.describe('seo', () => {
       ['/talks', '/charlas'],
       ['/contact', '/contacto'],
       ['/lab', '/proyectos'],
+      ['/sitemap-index.xml', '/sitemap.xml'],
+      ['/sitemap-0.xml', '/sitemap.xml'],
     ]) {
       const response = await request.get(from, { maxRedirects: 0 });
       expect(response.status(), from).toBe(301);

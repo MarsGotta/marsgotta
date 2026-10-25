@@ -41,27 +41,13 @@
   },
   "home": {
     "next": "Next stop",
-    "manifesto": {
-      "kicker": "Why",
-      "text": [
-        "I believe AI is the most powerful tool we've had, as long as people stay on the side that steers it.",
-        "That's why I build, in the open, the pieces it is missing:",
-        "@kimen",
-        "what it shows you,",
-        "@jezero",
-        "what it remembers and",
-        "@orbit",
-        "where it lives with you."
-      ],
-      "sign": "Marcela Gotta, from Madrid"
-    },
     "sysLead": "They fit together as one system, each at its own pace. Status as of",
     "nowK": "Now",
     "people": [
       {
         "k": "I lead",
         "t": "Head Frontend Developer",
-        "d": "At Sngular since 2019. I co-lead the frontend chapter: training, technical follow-up for each person, and technical interviews.",
+        "d": "At Sngular since 2019. I'm part of the team that runs the frontend chapter: training, technical follow-up for each person, and technical interviews.",
         "y": "2026 – today",
         "to": "about"
       },
@@ -74,7 +60,7 @@
       },
       {
         "k": "I share",
-        "t": "Web Components, from talk to course",
+        "t": "Frontend, from talk to course",
         "d": "Codemotion, Fictizia and Salmorejo Tech.",
         "y": "2019 – 2022",
         "to": "talks"
@@ -85,7 +71,8 @@
   },
   "sys": {
     "kicker": "What I build",
-    "title": "Three pieces, one idea.",
+    "title": "I want AI to work with you, not instead of you.",
+    "sub": "Three pieces, one idea.",
     "ringK": "Kimen · what it shows you",
     "ringJ": "Jezero · what it remembers",
     "ringO": "Orbit · where it lives with you",
@@ -171,7 +158,8 @@
       "b2": "Open the beta once it is stable",
       "k2": "To do",
       "b3": "Prepare Thursday's demo"
-    }
+    },
+    "example": "example"
   },
   "traj": {
     "kicker": "With whom",
@@ -196,7 +184,7 @@
     "h1a": "Hi, I'm",
     "h1b": "Mars.",
     "p1": "I'm Marcela Gotta, a software engineer in Madrid. I've spent 12 years building software: I started full-stack, fell in love with frontend and ended up leading teams and architecture.",
-    "p2": "Since 2019 I've been at Sngular, where I'm Head Frontend Developer and co-lead the frontend chapter: training, technical follow-up for each person, and technical interviews. I've led product teams for large companies in banking, fashion, energy and sustainability.",
+    "p2": "Since 2019 I've been at Sngular, where I'm Head Frontend Developer and part of the team that runs the frontend chapter: training, technical follow-up for each person, and technical interviews. I've led product teams for large companies in banking, fashion, energy and sustainability.",
     "p3": "I believe AI is the most powerful tool we've had, as long as people stay on the side that steers it. My own work tries to build that part, in the open: Kimen, Jezero and Orbit.",
     "p4": "I live in Madrid with a small zoo. I love physics, video games, writing and turning odd ideas into things that work.",
     "factsT": "Quick facts",
@@ -271,7 +259,7 @@
       {
         "when": "Feb 2026 – today",
         "what": "Head Frontend Developer · Sngular",
-        "detail": "Co-leading the frontend chapter since December 2025."
+        "detail": "Part of the team that runs the frontend chapter since December 2025."
       }
     ],
     "eduT": "Education",
@@ -347,7 +335,7 @@
       },
       "jezero": {
         "role": "What it remembers",
-        "sub": "The shared memory of your agents.",
+        "sub": "The shared memory of your agents' work.",
         "links": [
           {
             "label": "github.com/MarsGotta/jezero",
@@ -373,8 +361,7 @@
         "desc": "A Mac app that gives your assistant a place in your day: it records and transcribes your meetings, writes the notes and lets you talk to the agent of your choice.",
         "bullets": [
           "Bring your own agent: through an API gateway or with your Claude or Codex session.",
-          "Includes its own self-hosted hub: you decide where your meetings live.",
-          "In beta, and labelled as such."
+          "Includes its own self-hosted hub: you decide where your meetings live."
         ],
         "stack": "Tauri 2 · React · Rust · Python"
       }

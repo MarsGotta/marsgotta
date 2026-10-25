@@ -41,27 +41,13 @@
   },
   "home": {
     "next": "Siguiente parada",
-    "manifesto": {
-      "kicker": "Por qué",
-      "text": [
-        "Creo que la IA es la herramienta más potente que hemos tenido, siempre que las personas sigamos del lado que la dirige.",
-        "Por eso construyo, en abierto, las piezas que le faltan:",
-        "@kimen",
-        "lo que te enseña,",
-        "@jezero",
-        "lo que recuerda y",
-        "@orbit",
-        "dónde vive contigo."
-      ],
-      "sign": "Marcela Gotta, desde Madrid"
-    },
     "sysLead": "Encajan como un sistema, y cada una va a su ritmo. Estado del",
     "nowK": "Ahora",
     "people": [
       {
         "k": "Lidero",
         "t": "Head Frontend Developer",
-        "d": "En Sngular desde 2019. Co-lidero el chapter de frontend: formaciones, seguimiento técnico de cada persona y entrevistas técnicas.",
+        "d": "En Sngular desde 2019. Participo en la dirección del chapter de frontend: formaciones, seguimiento técnico de cada persona y entrevistas técnicas.",
         "y": "2026 – hoy",
         "to": "about"
       },
@@ -74,7 +60,7 @@
       },
       {
         "k": "Comparto",
-        "t": "Web Components, de la charla al curso",
+        "t": "Frontend, de la charla al curso",
         "d": "Codemotion, Fictizia y Salmorejo Tech.",
         "y": "2019 – 2022",
         "to": "talks"
@@ -85,7 +71,8 @@
   },
   "sys": {
     "kicker": "Qué construyo",
-    "title": "Tres piezas, una idea.",
+    "title": "Quiero que la IA trabaje contigo, no en tu lugar.",
+    "sub": "Tres piezas, una idea.",
     "ringK": "Kimen · lo que te enseña",
     "ringJ": "Jezero · lo que recuerda",
     "ringO": "Orbit · dónde vive contigo",
@@ -171,7 +158,8 @@
       "b2": "Abrir la beta cuando esté estable",
       "k2": "Pendiente",
       "b3": "Preparar la demo del jueves"
-    }
+    },
+    "example": "ejemplo"
   },
   "traj": {
     "kicker": "Con quién",
@@ -196,7 +184,7 @@
     "h1a": "Hola, soy",
     "h1b": "Mars.",
     "p1": "Soy Marcela Gotta, ingeniera de software en Madrid. Llevo 12 años construyendo software: empecé full-stack, me enamoré del frontend y acabé liderando equipos y arquitectura.",
-    "p2": "Desde 2019 estoy en Sngular, donde hoy soy Head Frontend Developer y co-lidero el chapter de frontend: formaciones, seguimiento técnico de cada persona y entrevistas técnicas. He liderado equipos de producto para grandes empresas de banca, moda, energía y sostenibilidad.",
+    "p2": "Desde 2019 estoy en Sngular, donde hoy soy Head Frontend Developer y participo en la dirección del chapter de frontend: formaciones, seguimiento técnico de cada persona y entrevistas técnicas. He liderado equipos de producto para grandes empresas de banca, moda, energía y sostenibilidad.",
     "p3": "Creo que la IA es la herramienta más potente que hemos tenido, siempre que las personas sigamos del lado que la dirige. Mi trabajo propio intenta construir esa parte, en abierto: Kimen, Jezero y Orbit.",
     "p4": "Vivo en Madrid con un pequeño zoológico. Me gustan la física, los videojuegos, escribir y convertir ideas raras en algo que funciona.",
     "factsT": "Datos rápidos",
@@ -271,7 +259,7 @@
       {
         "when": "feb 2026 – hoy",
         "what": "Head Frontend Developer · Sngular",
-        "detail": "Co-lidera el chapter de frontend desde diciembre de 2025."
+        "detail": "Participa en la dirección del chapter de frontend desde diciembre de 2025."
       }
     ],
     "eduT": "Formación",
@@ -347,7 +335,7 @@
       },
       "jezero": {
         "role": "Lo que recuerda",
-        "sub": "La memoria compartida de tus agentes.",
+        "sub": "La memoria compartida del trabajo de tus agentes.",
         "links": [
           {
             "label": "github.com/MarsGotta/jezero",
@@ -373,8 +361,7 @@
         "desc": "Una app para el Mac que da a tu asistente un sitio en tu día: graba y transcribe tus reuniones, escribe las notas y te deja hablar con el agente que elijas.",
         "bullets": [
           "Trae tu propio agente: por un API gateway o con tu sesión de Claude o de Codex.",
-          "Incluye su propio hub autoalojado: tú decides dónde viven tus reuniones.",
-          "En beta, y dicho así."
+          "Incluye su propio hub autoalojado: tú decides dónde viven tus reuniones."
         ],
         "stack": "Tauri 2 · React · Rust · Python"
       }

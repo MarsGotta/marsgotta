@@ -203,7 +203,7 @@
     "h1a": "Hi, I'm",
     "h1b": "Mars.",
     "p1": "I'm Marcela Gotta, a software engineer in Madrid. I've spent 12 years building software: I started full-stack, fell in love with frontend and ended up leading teams and architecture.",
-    "p2": "Since 2019 I've been at Sngular, where I'm Head Frontend Developer and co-lead the frontend chapter: training, technical follow-up for each person, and technical interviews. I've led product teams for large companies in banking, fashion, energy and sustainability.",
+    "p2": "Since 2019 I've been at Sngular, where I'm Head Frontend Developer and part of the team that runs the frontend chapter: training, technical follow-up for each person, and technical interviews. I've led product teams for large companies in banking, fashion, energy and sustainability.",
     "p3": "I believe AI is the most powerful tool we've had, as long as people stay on the side that steers it. My own work tries to build that part, in the open: Kimen, Jezero and Orbit.",
     "p4": "I live in Madrid with a small zoo. I love physics, video games, writing and turning odd ideas into things that work.",
     "factsT": "Quick facts",
@@ -278,7 +278,7 @@
       {
         "when": "Feb 2026 – today",
         "what": "Head Frontend Developer · Sngular",
-        "detail": "Co-leading the frontend chapter since December 2025."
+        "detail": "Part of the team that runs the frontend chapter since December 2025."
       }
     ],
     "eduT": "Education",

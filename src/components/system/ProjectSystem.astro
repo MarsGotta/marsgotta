@@ -23,13 +23,16 @@ const active = 'kimen';
 <section class="sec" id="sistema" aria-labelledby="system-title" data-project-system>
   <div class="wrap">
     <p class="label rule kick">
-      <span class="num">(02)</span>
+      <span class="num">(01)</span>
       {t.sys.kicker}
     </p>
     <div class="head">
-      <h2 class="h2" id="system-title">
-        {t.sys.title}
-      </h2>
+      <div class="title">
+        <h2 class="h2" id="system-title">
+          {t.sys.title}
+        </h2>
+        <p class="sub">{t.sys.sub}</p>
+      </div>
       <p class="lead">
         {t.home.sysLead}{' '}
         <time datetime={now.updatedAt}>{formatShortDate(now.updatedAt, lang)}</time>.
@@ -74,6 +77,16 @@ const active = 'kimen';
 </script>
 
 <style>
+  /* The heading and its subtitle share the header's left column; the status line keeps the right. */
+  .title {
+    grid-column: 1 / 8;
+  }
+  .sub {
+    margin: 18px 0 0;
+    font: 600 clamp(20px, 2vw, 28px) / 1.2 var(--display);
+    letter-spacing: -0.02em;
+    color: var(--fg-muted);
+  }
   .grid {
     display: grid;
     grid-template-columns: minmax(0, 1.04fr) minmax(0, 1fr);
@@ -93,6 +106,9 @@ const active = 'kimen';
     flex-wrap: wrap;
   }
   @media (max-width: 980px) {
+    .title {
+      grid-column: 1 / -1;
+    }
     .grid {
       grid-template-columns: 1fr;
     }

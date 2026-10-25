@@ -1,7 +1,5 @@
-import { expect, test, type Locator } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { formatHoursMinutes, marsClock } from '../../src/lib/mars-clock';
-
-const opacity = (element: Locator) => element.evaluate((el) => getComputedStyle(el).opacity);
 
 test.describe('the home as a story', () => {
   for (const home of ['/', '/en']) {
@@ -12,43 +10,10 @@ test.describe('the home as a story', () => {
         .evaluateAll((sections) =>
           sections.map((section) => section.getAttribute('aria-labelledby')),
         );
-      expect(acts).toEqual([
-        'hero-title',
-        'why-title',
-        'system-title',
-        'people-title',
-        'close-title',
-      ]);
+      expect(acts).toEqual(['hero-title', 'system-title', 'people-title', 'close-title']);
       await expect(page.locator('section.now')).toHaveCount(0);
     });
   }
-
-  test('the Jezero pill picks Jezero in the system and takes you there', async ({ page }) => {
-    await page.goto('/');
-    await page.locator('[data-pick-project="jezero"]').click();
-    const system = page.locator('#sistema');
-    await expect(system.locator('[data-project-tab="jezero"]')).toHaveAttribute(
-      'aria-pressed',
-      'true',
-    );
-    await expect(system.locator('[data-orrery-ring="jezero"]')).toHaveClass(/is-on/);
-    await expect(system.locator('.demo.p-jezero')).toBeVisible();
-    await expect(system).toBeInViewport();
-    expect(new URL(page.url()).hash).toBe('#sistema');
-  });
-
-  test('the pills work from the keyboard', async ({ page }) => {
-    await page.goto('/en');
-    const pill = page.locator('[data-pick-project="orbit"]');
-    await pill.focus();
-    await page.keyboard.press('Enter');
-    await expect(page.locator('[data-project-tab="orbit"]')).toHaveAttribute(
-      'aria-pressed',
-      'true',
-    );
-    await expect(page.locator('#sistema')).toBeInViewport();
-    await expect(pill).toBeFocused();
-  });
 
   for (const [home, targets] of [
     ['/', ['/sobre-mi', '/charlas', '/charlas']],
@@ -98,37 +63,17 @@ test.describe('the home as a story', () => {
     test('the clocks keep their place but stay out of sight', async ({ page }) => {
       await page.goto('/');
       await expect(page.locator('[data-live-clocks]')).toBeHidden();
-      await expect(page.locator('#por-que .text')).toBeVisible();
+      await expect(page.locator('#system-title')).toBeVisible();
     });
   });
 
-  test('each word of the manifesto lights up as it crosses the screen', async ({ page }) => {
+  test('the next stop leads to the projects on wide screens only', async ({ page, viewport }) => {
     await page.goto('/');
-    const word = page.locator('#por-que .w').last();
-    expect(Number(await opacity(word))).toBeLessThan(1);
-    await word.evaluate((el) => el.scrollIntoView({ block: 'center' }));
-    await expect.poll(() => opacity(word)).toBe('1');
-  });
-
-  test('with reduced motion the manifesto reads whole from the start', async ({ page }) => {
-    await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.goto('/');
-    expect(await opacity(page.locator('#por-que .w').last())).toBe('1');
-  });
-
-  test('with SIM paused the manifesto reads whole from the start', async ({ page }) => {
-    await page.addInitScript(() => localStorage.setItem('motion', 'off'));
-    await page.goto('/');
-    expect(await opacity(page.locator('#por-que .w').last())).toBe('1');
-  });
-
-  test('the next stop leads to the manifesto on wide screens only', async ({ page, viewport }) => {
-    await page.goto('/');
-    const next = page.locator('.hero a[href="#por-que"]');
+    const next = page.locator('.hero a[href="#sistema"]');
     if ((viewport?.width ?? 0) > 980) {
-      await expect(next).toBeVisible();
+      await expect(next).toHaveText(/\(01\) Qué construyo/);
       await next.click();
-      await expect(page.locator('#por-que')).toBeInViewport();
+      await expect(page.locator('#sistema')).toBeInViewport();
     } else {
       await expect(next).toBeHidden();
     }

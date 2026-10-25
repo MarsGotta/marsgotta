@@ -1,7 +1,9 @@
 ---
 import type { ProjectKey } from '../../content/projects';
+import { getMessages, type Lang } from '../../i18n';
 
 interface Props {
+  lang: Lang;
   project: ProjectKey;
   /** Describes the animation for assistive tech: the demo itself is decorative. */
   alt: string;
@@ -10,7 +12,8 @@ interface Props {
   hidden?: boolean;
 }
 
-const { project, alt, title, meta, hidden = false } = Astro.props;
+const { lang, project, alt, title, meta, hidden = false } = Astro.props;
+const t = getMessages(lang);
 ---
 
 <div
@@ -23,7 +26,9 @@ const { project, alt, title, meta, hidden = false } = Astro.props;
   <div class="bar">
     <i></i>
     <span>{title}</span>
-    <span>{meta}</span>
+    <span class="meta">{meta}</span>
+    {/* The demos show made-up data: the label keeps anyone from reading it as real. */}
+    <span class="chip">{t.demo.example}</span>
   </div>
   <div class="body">
     <slot />
@@ -58,8 +63,26 @@ const { project, alt, title, meta, hidden = false } = Astro.props;
     background: var(--pc);
     box-shadow: 0 0 8px var(--pc);
   }
-  .bar span:last-child {
+  .bar span {
+    white-space: nowrap;
+  }
+  .bar .meta {
     margin-left: auto;
+  }
+  .bar .chip {
+    height: 20px;
+    padding: 0 8px;
+    font-size: 9.5px;
+    color: var(--pc-text);
+  }
+  /* On a phone the bar only fits the title and the label: the meta is decoration. */
+  @media (max-width: 480px) {
+    .bar .meta {
+      display: none;
+    }
+    .bar .chip {
+      margin-left: auto;
+    }
   }
   .body {
     position: absolute;

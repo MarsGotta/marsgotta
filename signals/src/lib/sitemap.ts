@@ -1,10 +1,26 @@
-import { languages } from '../i18n';
-import { pagePath, signalPath, translationPath } from './routes';
+import { languages, type Lang } from '../i18n';
+import { pagePath, signalPath, translationPath, type Page } from './routes';
 import { alternates } from './seo';
 import type { SignalData } from './signal-schema';
 import { listedPages, translationOf } from './translations';
 
-type Listed = Pick<SignalData, 'number' | 'lang' | 'slug' | 'publishedAt'>;
+type Listed = Pick<SignalData, 'number' | 'lang' | 'slug' | 'publishedAt' | 'topic'>;
+
+/**
+ * Whether a page should be in search results. A topic or the archive with nothing in its language
+ * is an empty page: it stays out until its first signal. The home is the blog itself, empty or not.
+ */
+export function isIndexable(
+  page: Page,
+  lang: Lang,
+  signals: readonly Pick<SignalData, 'lang' | 'topic'>[],
+): boolean {
+  if (page.kind === 'topic') {
+    return signals.some((signal) => signal.lang === lang && signal.topic === page.topic);
+  }
+  if (page.kind === 'archive') return signals.some((signal) => signal.lang === lang);
+  return true;
+}
 
 /**
  * The site map: every page that search engines should know, each with its translation as
@@ -13,12 +29,14 @@ type Listed = Pick<SignalData, 'number' | 'lang' | 'slug' | 'publishedAt'>;
  */
 export function sitemapXml(site: URL, signals: readonly Listed[]): string {
   const pages = languages.flatMap((lang) =>
-    listedPages.map((page) => ({
-      lang,
-      path: pagePath(page, lang),
-      translation: translationPath(page, lang),
-      lastmod: undefined as Date | undefined,
-    })),
+    listedPages
+      .filter((page) => isIndexable(page, lang, signals))
+      .map((page) => ({
+        lang,
+        path: pagePath(page, lang),
+        translation: translationPath(page, lang),
+        lastmod: undefined as Date | undefined,
+      })),
   );
   const posts = signals.map((signal) => {
     const translation = translationOf(signal, signals);

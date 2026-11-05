@@ -25,6 +25,11 @@ export function homePath(lang: Lang): string {
   return lang === 'en' ? '/en' : '/';
 }
 
+/** Marcela's portfolio, in the reader's language. */
+export function portfolioUrl(lang: Lang): string {
+  return new URL(homePath(lang), 'https://marsgotta.com').href;
+}
+
 export function topicPath(topic: Topic, lang: Lang): string {
   return lang === 'en'
     ? `/en/topics/${topicSlug(topic, 'en')}`

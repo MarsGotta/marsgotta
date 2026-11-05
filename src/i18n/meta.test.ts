@@ -24,9 +24,16 @@ describe('pageMeta', () => {
       expect(new Set(metas.map((meta) => meta.description)).size).toBe(routeKeys.length);
       for (const meta of metas) {
         expect(meta.description.length).toBeGreaterThan(50);
+        expect(meta.description.length).toBeLessThanOrEqual(160);
         expect(meta.description).not.toContain('—');
       }
     }
+  });
+
+  it('cuts a long description at a sentence, or at the colon that opens its detail', () => {
+    expect(pageMeta('about', 'es').description).toBe(
+      'Soy Marcela Gotta, ingeniera de software en Madrid. Llevo 12 años construyendo software.',
+    );
   });
 
   it('lists the talks that fit in a search result', () => {

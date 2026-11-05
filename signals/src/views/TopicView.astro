@@ -6,6 +6,7 @@ import { getMessages, type Lang } from '../i18n';
 import Base from '../layouts/Base.astro';
 import { byRecency } from '../lib/featured';
 import { homePath, type Topic } from '../lib/routes';
+import { isIndexable } from '../lib/sitemap';
 
 interface Props {
   lang: Lang;
@@ -24,6 +25,7 @@ const lead = t.topicPage.lead[topic];
   title={`${t.topics[topic]} · Signals by Mars`}
   description={lead}
   page={{ kind: 'topic', topic }}
+  noindex={!isIndexable({ kind: 'topic', topic }, lang, signals)}
 >
   <PageHead
     kicker={t.topicPage.kicker}

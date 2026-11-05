@@ -3,7 +3,7 @@ import type { Signal } from '../../data/signals';
 import { getMessages, type Lang } from '../../i18n';
 import { startHere } from '../../lib/featured';
 import { topicCounts } from '../../lib/feed';
-import { rssPath, topicPath } from '../../lib/routes';
+import { portfolioUrl, rssPath, topicPath } from '../../lib/routes';
 import { topics } from '../../lib/signal-schema';
 import NewTabHint from '../layout/NewTabHint.astro';
 
@@ -59,7 +59,7 @@ const counts = topicCounts(signals, lang);
       <h2 class="h">{t.side.aboutH}</h2>
     </div>
     <p>{t.side.aboutP}</p>
-    <a class="ext" href="https://marsgotta.com" target="_blank" rel="noopener noreferrer">
+    <a class="ext" href={portfolioUrl(lang)} target="_blank" rel="noopener noreferrer">
       {t.side.aboutCta}
       <span aria-hidden="true">↗</span>
       <NewTabHint lang={lang} />

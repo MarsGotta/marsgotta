@@ -2,7 +2,7 @@ import { email, socialChannels } from '../content/profile';
 import { projectKeys } from '../content/projects';
 import { techStars } from '../content/tech';
 import { getMessages, languages, locales, type Lang } from '../i18n';
-import { localizedPath, routeKeys, type RouteKey } from '../i18n/routes';
+import { localizedPath, navLabelKeys, routeKeys, type RouteKey } from '../i18n/routes';
 
 export interface Alternate {
   hreflang: string;
@@ -51,6 +51,16 @@ export function ogLocale(lang: Lang): string {
   return locales[lang].replace('-', '_');
 }
 
+/** The card a page shows when shared, one per language. */
+export function ogImage(site: URL, lang: Lang): string {
+  return new URL(`/og/marcela-gotta-${lang}.jpg`, site).href;
+}
+
+/** Where a project's chapter is: its id in the graph points at something that exists. */
+function chapterId(site: URL, key: string): string {
+  return new URL(localizedPath('projects', 'es', key), site).href;
+}
+
 const NAME = 'Marcela Gotta';
 const SPDX_LICENSES = new Set(['Apache-2.0', 'MIT']);
 
@@ -75,6 +85,8 @@ export function structuredData(site: URL, page: PageInfo) {
       '@id': id('website'),
       url: site.href,
       name: NAME,
+      // The domain as a second name: search results may show the site under either.
+      alternateName: site.host,
       inLanguage: [...languages],
       publisher: { '@id': id('person') },
     },
@@ -91,7 +103,7 @@ export function structuredData(site: URL, page: PageInfo) {
         '@type': 'EmployeeRole',
         roleName: 'Head Frontend Developer',
         startDate: '2019',
-        worksFor: { '@type': 'Organization', name: 'Sngular' },
+        worksFor: { '@type': 'Organization', name: 'Sngular', url: 'https://www.sngular.com' },
       },
       homeLocation: {
         '@type': 'Place',
@@ -117,8 +129,11 @@ export function structuredData(site: URL, page: PageInfo) {
       description: page.description,
       inLanguage: page.lang,
       isPartOf: { '@id': id('website') },
+      primaryImageOfPage: { '@type': 'ImageObject', url: ogImage(site, page.lang) },
       [isProfile ? 'mainEntity' : 'about']: { '@id': id('person') },
+      ...(page.route !== 'home' && { breadcrumb: { '@id': `${url}#breadcrumb` } }),
     });
+    if (page.route !== 'home') graph.push(breadcrumb(site, page.route, page.lang, url));
   }
   if (page.route === 'projects') {
     graph.push(
@@ -129,12 +144,25 @@ export function structuredData(site: URL, page: PageInfo) {
   return { '@context': 'https://schema.org', '@graph': graph };
 }
 
+/** Home, then the page: what search results show above the title. */
+function breadcrumb(site: URL, route: RouteKey, lang: Lang, url: string): object {
+  const t = getMessages(lang);
+  return {
+    '@type': 'BreadcrumbList',
+    '@id': `${url}#breadcrumb`,
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: t.nav.inicio, item: pageUrl(site, 'home', lang) },
+      { '@type': 'ListItem', position: 2, name: t.nav[navLabelKeys[route]], item: url },
+    ],
+  };
+}
+
 /** GDD, her method: a written work still in draft, not software. */
 function methodData(site: URL, lang: Lang, author: string): object {
   const method = getMessages(lang).pj.method;
   return {
     '@type': 'CreativeWork',
-    '@id': new URL('/#gdd', site).href,
+    '@id': chapterId(site, 'gdd'),
     name: `${method.full} (${method.name})`,
     alternateName: method.name,
     description: method.desc,
@@ -156,14 +184,14 @@ function projectsData(site: URL, lang: Lang, author: string): object[] {
     const license = repository && chips.find((chip) => SPDX_LICENSES.has(chip));
     return {
       '@type': repository ? 'SoftwareSourceCode' : 'SoftwareApplication',
-      '@id': new URL(`/#${key}`, site).href,
+      '@id': chapterId(site, key),
       name,
       description: t.pj.items[key].desc,
       url: website ?? new URL(localizedPath('projects', lang, key), site).href,
       ...(repository && { codeRepository: repository }),
       ...(license && { license: `https://spdx.org/licenses/${license}` }),
       ...(chips.includes('macOS') && { operatingSystem: 'macOS' }),
-      keywords: t.pj.items[key].stack,
+      keywords: t.pj.items[key].stack.split(' · '),
       author: { '@id': author },
     };
   });

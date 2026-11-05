@@ -17,6 +17,29 @@ export function headline(lang: Lang): string {
 /** Search results cut descriptions at about 160 characters. */
 const DESCRIPTION_MAX = 160;
 
+/**
+ * As many whole sentences as fit in a search result. A sentence that does not fit is kept up to its
+ * colon, where the rest only expands on it.
+ */
+function sentencesThatFit(text: string): string {
+  if (text.length <= DESCRIPTION_MAX) return text;
+  let description = '';
+  for (const sentence of text.split(/(?<=\.)\s+/)) {
+    const next = description ? `${description} ${sentence}` : sentence;
+    if (next.length <= DESCRIPTION_MAX) {
+      description = next;
+      continue;
+    }
+    const lead = sentence.split(':')[0];
+    if (lead && lead !== sentence) {
+      const shortened = `${description} ${lead}.`.trim();
+      if (shortened.length <= DESCRIPTION_MAX) description = shortened;
+    }
+    break;
+  }
+  return description || text;
+}
+
 /** "Label: a · b." with as many items as fit in a search result, and always the first one. */
 function listThatFits(label: string, items: string[]): string {
   const fitting = items.filter(
@@ -37,7 +60,7 @@ export function pageMeta(route: RouteKey, lang: Lang): PageMeta {
       };
     }
     case 'about':
-      return { title: `${t.nav.sobre} · ${NAME}`, description: t.about.p1 };
+      return { title: `${t.nav.sobre} · ${NAME}`, description: sentencesThatFit(t.about.p1) };
     case 'projects':
       return { title: `${t.nav.proyectos} · ${NAME}`, description: t.pj.lead };
     case 'talks':

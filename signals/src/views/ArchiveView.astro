@@ -7,6 +7,7 @@ import { getMessages, type Lang } from '../i18n';
 import Base from '../layouts/Base.astro';
 import { byRecency } from '../lib/featured';
 import { archivePath } from '../lib/routes';
+import { isIndexable } from '../lib/sitemap';
 
 interface Props {
   lang: Lang;
@@ -22,6 +23,7 @@ const signals = await getSignalsIn(lang);
   title={`${t.archive.kicker} · Signals by Mars`}
   description={t.archive.lead}
   page={{ kind: 'archive' }}
+  noindex={!isIndexable({ kind: 'archive' }, lang, signals)}
 >
   <PageHead kicker={t.archive.kicker} title={t.archive.h1} lead={t.archive.lead} />
   {signals.length > 0 ? (

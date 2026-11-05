@@ -1,7 +1,7 @@
 ---
 import { getMessages, type Lang } from '../../i18n';
 import { asksToSubscribe, newsletterReady } from '../../lib/newsletter';
-import { topicPath, type Page } from '../../lib/routes';
+import { type Page, portfolioUrl, topicPath } from '../../lib/routes';
 import { topics } from '../../lib/signal-schema';
 import Brand from './Brand.astro';
 import LangSwitch from './LangSwitch.astro';
@@ -30,7 +30,7 @@ const t = getMessages(lang);
           {t.topics[topic]}
         </a>
       ))}
-      <a href="https://marsgotta.com" target="_blank" rel="noopener noreferrer">
+      <a href={portfolioUrl(lang)} target="_blank" rel="noopener noreferrer">
         {t.ui.about}
         <span aria-hidden="true"> ↗</span>
         <NewTabHint lang={lang} />

@@ -1,7 +1,7 @@
 ---
 import { getMessages, otherLang, type Lang } from '../../i18n';
 import type { RouteKey } from '../../i18n/routes';
-import { alternates, ogLocale, pageUrl, structuredData } from '../../lib/seo';
+import { alternates, ogImage, ogLocale, pageUrl, structuredData } from '../../lib/seo';
 
 interface Props {
   lang: Lang;
@@ -14,7 +14,7 @@ interface Props {
 const { lang, route, title, description } = Astro.props;
 const site = Astro.site ?? new URL('https://marsgotta.com');
 const t = getMessages(lang);
-const image = new URL(`/og/marcela-gotta-${lang}.jpg`, site).href;
+const image = ogImage(site, lang);
 const imageAlt = [...t.hero.l1, ...t.hero.l2, ...t.hero.l3].join(' ');
 const schema = structuredData(site, { route, lang, title, description });
 ---
@@ -31,7 +31,16 @@ const schema = structuredData(site, { route, lang, title, description });
 ) : (
   <meta name="robots" content="noindex" />
 )}
-<meta property="og:type" content="website" />
+{/* About is her profile; the rest are pages of her site. */}
+{route === 'about' ? (
+  <>
+    <meta property="og:type" content="profile" />
+    <meta property="profile:first_name" content="Marcela" />
+    <meta property="profile:last_name" content="Gotta" />
+  </>
+) : (
+  <meta property="og:type" content="website" />
+)}
 <meta property="og:site_name" content="Marcela Gotta" />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
@@ -44,4 +53,5 @@ const schema = structuredData(site, { route, lang, title, description });
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@marcelagotta" />
 <meta name="twitter:creator" content="@marcelagotta" />
-<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+{/* Escaping < keeps any text in the data from closing the script element. */}
+<script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, '\\u003c')} />

@@ -1,7 +1,7 @@
 ---
 import { getMessages, type Lang } from '../../i18n';
 import { asksToSubscribe, newsletterReady } from '../../lib/newsletter';
-import { archivePath, rssPath, topicPath, type Page } from '../../lib/routes';
+import { archivePath, type Page, portfolioUrl, rssPath, topicPath } from '../../lib/routes';
 import { topics } from '../../lib/signal-schema';
 import { jezeroTime } from '../../lib/sky';
 import Brand from './Brand.astro';
@@ -56,7 +56,7 @@ const year = new Date().getFullYear();
         <p class="h">Mars</p>
         <ul>
           <li>
-            <a href="https://marsgotta.com" target="_blank" rel="noopener noreferrer">
+            <a href={portfolioUrl(lang)} target="_blank" rel="noopener noreferrer">
               {t.foot.portfolio}
               <span aria-hidden="true">↗</span>
               <NewTabHint lang={lang} />

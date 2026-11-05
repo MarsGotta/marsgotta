@@ -1,4 +1,5 @@
 ---
+import { portfolioUrl } from '../../lib/routes';
 import type { Signal } from '../../data/signals';
 import { getMessages } from '../../i18n';
 import { newsletterReady } from '../../lib/newsletter';
@@ -28,7 +29,7 @@ const t = getMessages(signal.lang);
       <p class="k">{t.post.byK}</p>
       <p class="n">Marcela Gotta</p>
       <p class="p">{t.post.byP}</p>
-      <a class="ext" href="https://marsgotta.com" target="_blank" rel="noopener noreferrer">
+      <a class="ext" href={portfolioUrl(signal.lang)} target="_blank" rel="noopener noreferrer">
         marsgotta.com<span aria-hidden="true">↗</span>
         <NewTabHint lang={signal.lang} />
       </a>

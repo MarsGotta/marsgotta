@@ -13,6 +13,7 @@ export function llmsTxt(site: URL): string {
   const url = (route: RouteKey, hash?: string) =>
     new URL(localizedPath(route, 'en', hash), site).href;
   const labels: Partial<Record<RouteKey, string>> = {
+    home: t.nav.inicio,
     about: t.nav.sobre,
     projects: t.nav.proyectos,
     talks: t.talks.kicker,

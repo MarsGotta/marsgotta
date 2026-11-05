@@ -55,7 +55,13 @@ const titleId = `project-${id}`;
       </p>
       <h2 class="name" id={titleId}>
         {name}
-        {full && <span class="full">{full}</span>}
+        {/* The space keeps «GDD Gate-Driven Development» two words for screen readers and search. */}
+        {full && (
+          <>
+            {' '}
+            <span class="full">{full}</span>
+          </>
+        )}
       </h2>
       <h3 class="sub">{sub}</h3>
       <div class="meta">

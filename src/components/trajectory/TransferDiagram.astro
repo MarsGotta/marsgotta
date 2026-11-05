@@ -25,25 +25,28 @@ const milestones = transferPoints(cx, cy, radii);
 
 <figure class:list={['xfer', drivenBy === 'roles' && 'xfer--roles']}>
   <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label={label}>
-    <circle class="sun" cx={cx} cy={cy} r={dotRadius}></circle>
-    {radii.map((radius) => (
-      <circle class="orb" cx={cx} cy={cy} r={radius} />
-    ))}
-    <path class="ghost" d={path}></path>
-    <path class="path" pathLength="1" d={path}></path>
-    {milestones.map((point, index) => {
-      const isNow = index === milestones.length - 1;
-      return (
-        <circle
-          class:list={['ms', isNow && 'now']}
-          cx={point.x}
-          cy={point.y}
-          r={isNow ? nowRadius : 5}
-        />
-      );
-    })}
-    <circle class="probe" r={dotRadius} style={`offset-path: path('${path}')`}></circle>
-    <slot />
+    {/* The label says what the drawing shows: its years and dots are not read on their own. */}
+    <g aria-hidden="true">
+      <circle class="sun" cx={cx} cy={cy} r={dotRadius}></circle>
+      {radii.map((radius) => (
+        <circle class="orb" cx={cx} cy={cy} r={radius} />
+      ))}
+      <path class="ghost" d={path}></path>
+      <path class="path" pathLength="1" d={path}></path>
+      {milestones.map((point, index) => {
+        const isNow = index === milestones.length - 1;
+        return (
+          <circle
+            class:list={['ms', isNow && 'now']}
+            cx={point.x}
+            cy={point.y}
+            r={isNow ? nowRadius : 5}
+          />
+        );
+      })}
+      <circle class="probe" r={dotRadius} style={`offset-path: path('${path}')`}></circle>
+      <slot />
+    </g>
   </svg>
   {caption && <figcaption class="label">{caption}</figcaption>}
 </figure>
@@ -134,6 +137,11 @@ const milestones = transferPoints(cx, cy, radii);
     .probe {
       animation-name: probe;
     }
+  }
+  /* SIM and reduced motion both show the trajectory already drawn, with the probe at its end. */
+  :global(:root[data-motion='off']) .path,
+  :global(:root[data-motion='off']) .probe {
+    animation: none;
   }
   @media (prefers-reduced-motion: reduce) {
     .path,

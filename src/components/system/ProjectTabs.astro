@@ -14,7 +14,7 @@ const { lang, active, controls } = Astro.props;
 const t = getMessages(lang);
 ---
 
-<div class="tabs">
+<div class="tabs" role="group" aria-label={t.sys.kicker}>
   {projectKeys.map((key, index) => {
     const project = t.sys.items[key];
     return (

@@ -10,11 +10,12 @@ test.describe('about', () => {
       .getByRole('group', { name: 'Filtrar por proyecto' })
       .getByRole('button', { name: 'Jezero' })
       .click();
-    await expect(list.locator('.item', { hasText: 'Next.js' })).toHaveAttribute(
-      'aria-hidden',
-      'true',
-    );
-    await expect(list.locator('.item', { hasText: 'SQLite' })).not.toHaveAttribute('aria-hidden');
+    await expect(list.locator('.item', { hasText: 'Next.js' })).toHaveAttribute('hidden', '');
+    await expect(list.locator('.item', { hasText: 'SQLite' })).not.toHaveAttribute('hidden');
+    // No group is left behind as an empty list.
+    for (const group of await list.locator('> div:not([hidden])').all()) {
+      await expect(group.getByRole('listitem')).not.toHaveCount(0);
+    }
   });
 
   test('the constellation lights up the technologies of a project', async ({ page, viewport }) => {

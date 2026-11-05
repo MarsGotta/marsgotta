@@ -23,14 +23,15 @@ const t = getMessages(lang);
   data-project={project}
   hidden={hidden}
 >
-  <div class="bar">
+  {/* The label describes the animation: what is drawn inside is not read on its own. */}
+  <div class="bar" aria-hidden="true">
     <i></i>
     <span>{title}</span>
     <span class="meta">{meta}</span>
     {/* The demos show made-up data: the label keeps anyone from reading it as real. */}
     <span class="chip">{t.demo.example}</span>
   </div>
-  <div class="body">
+  <div class="body" aria-hidden="true">
     <slot />
   </div>
 </div>

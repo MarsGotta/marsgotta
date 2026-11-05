@@ -23,6 +23,7 @@ const t = getMessages(lang).contact;
         type="text"
         autocomplete="name"
         maxlength={contactLimits.name}
+        pattern=".*\S.*"
         required
       />
     </div>
@@ -147,9 +148,9 @@ const t = getMessages(lang).contact;
   .input:hover {
     border-color: var(--fg-muted);
   }
-  /* The field keeps a visible focus ring: a warm border plus a soft glow. */
+  /* A warm border plus a soft glow, over the site's focus ring: the glow alone stays under the 3:1
+     contrast a focus indicator needs (WCAG 1.4.11), so the ring is kept. */
   .input:focus {
-    outline: none;
     border-color: var(--warm);
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--warm) 28%, transparent);
   }

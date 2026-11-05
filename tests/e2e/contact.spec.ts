@@ -40,6 +40,20 @@ test('the form has labelled, required fields and the email stays one click away'
   );
 });
 
+test('a field with only spaces is pointed out instead of sent', async ({ page }) => {
+  const bodies = await mockEndpoint(page, 200);
+  await page.goto('/contacto');
+  const form = await fillForm(page);
+  const name = form.getByLabel('Tu nombre');
+  await name.fill('   ');
+  await form.getByRole('button', { name: 'Enviar' }).click();
+  await expect(name).toBeFocused();
+  await expect(name).toHaveAttribute('aria-invalid', 'true');
+  expect(bodies).toHaveLength(0);
+  await name.fill('Ana');
+  await expect(name).not.toHaveAttribute('aria-invalid');
+});
+
 test('sending replaces the form with the confirmation and moves focus to it', async ({ page }) => {
   const bodies = await mockEndpoint(page, 200);
   await page.goto('/contacto');

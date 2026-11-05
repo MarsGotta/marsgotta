@@ -11,6 +11,8 @@ interface Props extends HTMLAttributes<'div'> {
 
 const { lang, route, class: className, ...rest } = Astro.props;
 const t = getMessages(lang);
+/** Each language by its own name: «ES» alone does not say where the link goes (WCAG 2.4.4). */
+const names: Record<Lang, string> = { es: 'Español', en: 'English' };
 ---
 
 <div class:list={['seg', className]} role="group" aria-label={t.ui.lang} {...rest}>
@@ -22,6 +24,7 @@ const t = getMessages(lang);
       aria-current={code === lang ? 'true' : undefined}
     >
       {code.toUpperCase()}
+      <span class="sr-only"> {names[code]}</span>
     </a>
   ))}
 </div>

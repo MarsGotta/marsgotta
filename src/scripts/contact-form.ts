@@ -10,8 +10,27 @@ export function initContactForms(): void {
     const submit = form?.querySelector('button');
     if (!form || !submit) return;
 
+    // A field the browser rejects is marked invalid for assistive tech until it is edited again.
+    form.addEventListener(
+      'invalid',
+      (event) => (event.target as HTMLElement).setAttribute('aria-invalid', 'true'),
+      true,
+    );
+    form.addEventListener('input', (event) =>
+      (event.target as HTMLElement).removeAttribute('aria-invalid'),
+    );
+
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
+      // Only spaces pass `required`, but the Worker trims them away: the browser points out the field
+      // instead of the message coming back as a generic error.
+      const fields = form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[required]');
+      const blank = [...fields].filter((field) => field.value.trim() === '');
+      if (blank.length > 0) {
+        blank.forEach((field) => (field.value = ''));
+        form.reportValidity();
+        return;
+      }
       submit.disabled = true;
       const outcome = await send(form);
       submit.disabled = false;

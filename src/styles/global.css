@@ -632,6 +632,10 @@ body {
 :root[data-motion='off'] .loop *::after {
   animation-play-state: paused !important;
 }
+/* With SIM paused the theme changes at once, without the sunrise that sweeps the screen. */
+:root[data-motion='off'] .dawn {
+  display: none;
+}
 @media (prefers-reduced-motion: reduce) {
   .loop,
   .loop *,

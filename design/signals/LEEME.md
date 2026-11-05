@@ -272,7 +272,7 @@ export interface NewsletterProvider {
 - **Buttondown:** da de alta con el idioma en los metadatos (`metadata.lang`: `es` o `en`) y la IP del lector, que usa su filtro antispam. Sin la cabecera de colisión: su opción `add` volvería a suscribir sin confirmación a quien se dio de baja. Si el email ya está en la lista, el formulario responde como a un alta nueva, para no revelar quién está suscrito.
 - **Proveedor de desarrollo:** `DevProvider` responde siempre `ok` y no envía nada. Solo se usa con `npm run signals:preview:cf`.
 - **Sin clave de API,** el endpoint responde que no está disponible.
-- **En producción,** los formularios siguen ocultos hasta que Buttondown esté configurado (`SIGNALS_NEWSLETTER=on` en el build). Mientras tanto, la banda invita al RSS sin prometer ningún email.
+- **En producción,** los formularios aparecen desde el 5 de noviembre de 2026, con `SIGNALS_NEWSLETTER=on` en el build. Sin él, la banda invita al RSS sin prometer ningún email.
 - **Envío por artículo:** `npm run signals:send` lee los dos feeds publicados y crea en Buttondown un correo por cada señal nueva, filtrado por `metadata.lang`. Sin `-- --send` solo lista lo que enviaría. Cada correo guarda la URL de su señal en sus metadatos, así que ninguna sale dos veces.
 - **Tras confirmar,** Buttondown redirige a `/suscripcion/confirmada`, y el Worker lleva a los lectores en inglés a `/en/subscription/confirmed`.
 - **Sin página de baja:** Buttondown ya no permite redirigir tras darse de baja, así que `/suscripcion/baja` no tendría quien llegara. No se construye mientras Mars no diga otra cosa.

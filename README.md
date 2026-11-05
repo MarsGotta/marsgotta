@@ -150,14 +150,15 @@ Cada señal publicada es un número de la newsletter, y cada suscriptor recibe s
 - **Envío.** Después de publicar una señal (`npm run signals:deploy`), `npm run signals:send` lee los feeds publicados (`/rss.xml` y `/en/rss.xml`) y lista las señales que Buttondown aún no tiene, sin enviar nada. `npm run signals:send -- --send` las envía, cada una solo a quien se apuntó en su idioma. Cada correo guarda en sus metadatos la URL de su señal, así que ninguna sale dos veces; para reenviar una, se borra su correo en Buttondown. La clave sale de `BUTTONDOWN_API_KEY` o, si no está, de `buttondown login`.
 - **Sin JavaScript.** El navegador valida el campo, envía el formulario y el Worker vuelve a la misma página con `#nl-sent-…`, `#nl-invalid-…` o `#nl-failed-…`, que muestran el resultado con CSS.
 - **Cambiar de proveedor** es cambiar `signals/workers/newsletter/index.ts`, el fichero del proveedor y `scripts/signals-send.ts`.
-- **Interruptor.** Los formularios solo aparecen en desarrollo y en los builds de revisión (`SIGNALS_NEWSLETTER=on`). `npm run signals:build` los deja fuera hasta que Buttondown esté listo.
+- **Interruptor.** Los formularios aparecen en desarrollo y en todo build con `SIGNALS_NEWSLETTER=on`, producción incluida. Quitándolo de `signals:build`, la banda vuelve a ofrecer solo el RSS.
 
 Configuración de Buttondown (23 y 25 de octubre de 2026):
 
 1. Nombre y remitente: «Signals by Mars». Zona horaria: Europe/Madrid.
 2. Redirección tras confirmar (`subscription_confirmation_redirect_url`): `https://signals.marsgotta.com/suscripcion/confirmada`. El Worker lleva a los lectores en inglés a `/en/subscription/confirmed`.
 3. La clave de la API, como secreto del Worker: `npx wrangler secret put BUTTONDOWN_API_KEY -c signals/wrangler.jsonc`. Sin ella, el endpoint responde que no está disponible.
-4. Pendiente: encender los formularios en producción, añadiendo `SIGNALS_NEWSLETTER=on` a `signals:build`.
+4. Formularios encendidos en producción el 5 de noviembre de 2026, después de comprobar que un correo filtrado por idioma solo llega a ese idioma.
+5. La primera vez que una clave de la API envía un correo, Buttondown pide la cabecera `X-Buttondown-Live-Dangerously: true`. La clave actual ya la pasó; con una clave nueva, el primer `signals:send -- --send` fallaría con `sending_requires_confirmation`.
 
 El plan gratuito no incluye etiquetas, RSS a email ni un correo de confirmación propio (este pide el plan Standard), así que la confirmación es la de Buttondown, en el idioma de la cuenta.
 

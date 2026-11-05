@@ -22,7 +22,7 @@
     "deploy:redirect": "wrangler deploy -c workers/redirect/wrangler.jsonc",
     "preview:cf": "npm run build && wrangler dev",
     "signals:dev": "astro dev --root signals",
-    "signals:build": "astro build --root signals --force && node scripts/signals-check-build.ts && node scripts/signals-og.ts",
+    "signals:build": "SIGNALS_NEWSLETTER=on astro build --root signals --force && node scripts/signals-check-build.ts && node scripts/signals-og.ts",
     "signals:build:review": "SIGNALS_NEWSLETTER=on astro build --root signals --force && node scripts/signals-check-build.ts && node scripts/signals-og.ts",
     "signals:build:fixtures": "SIGNALS_NEWSLETTER=on SIGNALS_CONTENT=./tests/fixtures/content astro build --root signals --force && node scripts/signals-og.ts",
     "signals:test:e2e": "npm run signals:build:fixtures && playwright test -c signals/playwright.config.ts",

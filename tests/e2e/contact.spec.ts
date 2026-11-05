@@ -34,9 +34,9 @@ test('the form has labelled, required fields and the email stays one click away'
     await expect(form.getByLabel(label)).toHaveAttribute('required', '');
   }
   await expect(form).toHaveAttribute('action', '/api/contact');
-  await expect(page.getByRole('link', { name: /me@marcelagotta.com/ }).first()).toHaveAttribute(
+  await expect(page.getByRole('link', { name: /me@marsgotta.com/ }).first()).toHaveAttribute(
     'href',
-    'mailto:me@marcelagotta.com',
+    'mailto:me@marsgotta.com',
   );
 });
 

@@ -1,5 +1,5 @@
 /** Public contact channels, shared by the footer, the contact page and the structured data. */
-export const email = 'me@marcelagotta.com';
+export const email = 'me@marsgotta.com';
 
 export interface Channel {
   name: string;

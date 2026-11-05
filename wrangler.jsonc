@@ -25,7 +25,7 @@
   "send_email": [
     {
       "name": "CONTACT_EMAIL",
-      "destination_address": "me@marcelagotta.com",
+      "destination_address": "me@marsgotta.com",
       "allowed_sender_addresses": ["web@mail.marcelagotta.com"],
     },
   ],

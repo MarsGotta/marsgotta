@@ -126,7 +126,7 @@ Notas de implementación:
   - `demos.ts` añade `is-play` cuando el escenario entra en pantalla (IntersectionObserver, umbral 0.3) y la animación se reproduce una vez.
   - Las pestañas de proyectos cambian el panel sin recargar. Decidido con Mars: solo al pulsarlas (clic, Enter o Espacio), no al pasar el ratón o el foco por encima como en el prototipo.
 - **Formulario.**
-  - Envía a `/api/contact` en el Worker (`workers/site/`, ver «Despliegue»), con el Email Service de Cloudflare: desde `web@mail.marcelagotta.com` a `me@marcelagotta.com`, con `Reply-To` a quien escribe.
+  - Envía a `/api/contact` en el Worker (`workers/site/`, ver «Despliegue»), con el Email Service de Cloudflare: desde `web@mail.marcelagotta.com` a `me@marsgotta.com`, con `Reply-To` a quien escribe.
   - Funciona como mejora progresiva: sin JS, el Worker redirige a `#contact-sent` o `#contact-error` y `:target` muestra el resultado; con JS, `fetch` y el resultado en el sitio.
   - Confirmación: «Recibido. Te contesto en unos días.», con la animación del paquete del prototipo. El mensaje de error está pendiente de copy.
 

@@ -86,7 +86,7 @@ Cada idioma es una URL propia (español sin prefijo e inglés bajo `/en`). El Wo
 
 `POST /api/contact` envía el mensaje con el Email Service de Cloudflare, a través del binding `send_email` de `wrangler.jsonc`: sin dependencias ni claves.
 
-- **Remitente y destino.** El binding solo puede escribir desde `web@mail.marcelagotta.com` a `me@marcelagotta.com`. Responder al correo contesta a quien escribió (`Reply-To`).
+- **Remitente y destino.** El binding solo puede escribir desde `web@mail.marcelagotta.com` a `me@marsgotta.com`. Responder al correo contesta a quien escribió (`Reply-To`).
 - **Subdominio de envío.** `mail.marcelagotta.com` lleva sus propios registros (MX y SPF en `cf-bounce.mail`, DKIM y DMARC), así que el correo del dominio principal no cambia.
 - **Antispam.** Validación en el Worker, un campo trampa oculto y un límite de 5 envíos por minuto e IP (binding `ratelimits`).
 - **Sin JavaScript.** El navegador envía el formulario y el Worker redirige a `/contacto#contact-sent` o `#contact-error`, que muestran el resultado con CSS. Con JavaScript, el envío va por `fetch` y la página no se recarga.
@@ -94,7 +94,7 @@ Cada idioma es una URL propia (español sin prefijo e inglés bajo `/en`). El Wo
 Configuración, hecha una sola vez:
 
 1. `npx wrangler email sending enable mail.marcelagotta.com` da de alta el subdominio y crea sus registros DNS.
-2. `npx wrangler email routing addresses create me@marcelagotta.com` añade el destino. Hay que confirmarlo desde el enlace del correo que llega. Los envíos a direcciones verificadas son gratis en cualquier plan de Workers.
+2. `npx wrangler email routing addresses create me@marsgotta.com` añade el destino. Hay que confirmarlo desde el enlace del correo que llega. Los envíos a direcciones verificadas son gratis en cualquier plan de Workers.
 
 En local, `npm run preview:cf` simula el envío: cada correo queda en `.wrangler/tmp/email/`. Para ver los errores en producción: `npx wrangler tail marcelagotta`.
 

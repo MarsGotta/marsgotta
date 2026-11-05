@@ -35,7 +35,7 @@ describe('contact endpoint', () => {
     expect(response.status).toBe(200);
     expect(await response.json()).toEqual({ ok: true });
     expect(send).toHaveBeenCalledWith({
-      to: 'me@marcelagotta.com',
+      to: 'me@marsgotta.com',
       from: SENDER,
       replyTo: 'ana@example.com',
       subject: 'Contacto web: Ana',

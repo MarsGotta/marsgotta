@@ -1,7 +1,7 @@
 ---
 import { getMessages, type Lang } from '../../i18n';
-import { newsletterReady } from '../../lib/newsletter';
-import { archivePath, rssPath, topicPath } from '../../lib/routes';
+import { asksToSubscribe, newsletterReady } from '../../lib/newsletter';
+import { archivePath, rssPath, topicPath, type Page } from '../../lib/routes';
 import { topics } from '../../lib/signal-schema';
 import { jezeroTime } from '../../lib/sky';
 import Brand from './Brand.astro';
@@ -9,9 +9,10 @@ import NewTabHint from './NewTabHint.astro';
 
 interface Props {
   lang: Lang;
+  page: Page | null;
 }
 
-const { lang } = Astro.props;
+const { lang, page } = Astro.props;
 const t = getMessages(lang);
 // Built with the time of the build, so the line never jumps; the script brings it to now.
 const jezero = jezeroTime(Date.now());
@@ -38,7 +39,7 @@ const year = new Date().getFullYear();
       <div>
         <p class="h">Signals</p>
         <ul>
-          {newsletterReady && (
+          {newsletterReady && asksToSubscribe(page) && (
             <li>
               <a href="#suscribirse">{t.ui.subscribe}</a>
             </li>

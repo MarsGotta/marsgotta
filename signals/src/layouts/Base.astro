@@ -9,6 +9,7 @@ import TopBar from '../components/layout/TopBar.astro';
 import NewsletterBand from '../components/newsletter/NewsletterBand.astro';
 import type { Signal } from '../data/signals';
 import { getMessages, type Lang } from '../i18n';
+import { asksToSubscribe } from '../lib/newsletter';
 import type { Page } from '../lib/routes';
 
 interface Props {
@@ -74,8 +75,8 @@ const t = getMessages(lang);
     <TopBar lang={lang} page={page} translationSlug={translationSlug} />
     <main id="main">
       <slot />
-      <NewsletterBand lang={lang} />
+      {asksToSubscribe(page) && <NewsletterBand lang={lang} />}
     </main>
-    <Footer lang={lang} />
+    <Footer lang={lang} page={page} />
   </body>
 </html>

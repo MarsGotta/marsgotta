@@ -76,3 +76,13 @@ test.describe('without JavaScript', () => {
     await expect(page.locator('form:visible')).toHaveCount(0);
   });
 });
+
+test('a reader who has just confirmed is not asked to subscribe again', async ({ page }) => {
+  for (const path of ['/suscripcion/confirmada', '/en/subscription/confirmed']) {
+    await page.goto(path);
+    await expect(page.locator('form'), path).toHaveCount(0);
+    await expect(page.locator('a[href="#suscribirse"]'), path).toHaveCount(0);
+  }
+  await page.goto('/');
+  await expect(page.locator('#suscribirse')).toHaveCount(1);
+});

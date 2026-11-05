@@ -1,6 +1,6 @@
 ---
 import { getMessages, type Lang } from '../../i18n';
-import { newsletterReady } from '../../lib/newsletter';
+import { asksToSubscribe, newsletterReady } from '../../lib/newsletter';
 import { topicPath, type Page } from '../../lib/routes';
 import { topics } from '../../lib/signal-schema';
 import Brand from './Brand.astro';
@@ -39,7 +39,7 @@ const t = getMessages(lang);
     <div class="tools">
       <LangSwitch lang={lang} page={page} translationSlug={translationSlug} />
       <ThemeToggle lang={lang} />
-      {newsletterReady && (
+      {newsletterReady && asksToSubscribe(page) && (
         <a class="btn btn--sm" href="#suscribirse">
           {t.ui.subscribe}
         </a>

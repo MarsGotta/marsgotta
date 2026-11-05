@@ -459,6 +459,11 @@ body {
   --pc: var(--orbit);
   --pc-text: var(--orbit);
 }
+/* GDD is the method, not a fourth project: it takes the muted text colour instead of a colour of its own. */
+.p-gdd {
+  --pc: var(--fg-muted);
+  --pc-text: var(--fg-muted);
+}
 
 /* ---------- Theme transition: a sunrise ---------- */
 .dawn {

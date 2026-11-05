@@ -80,6 +80,8 @@
   "sys": {
     "kicker": "El sistema",
     "title": "Tres piezas, una idea.",
+    "methodA": "La idea tiene nombre:",
+    "methodB": "Gate-Driven Development",
     "lead": "Lo que un agente te enseña, lo que recuerda y dónde vive contigo.",
     "ringK": "Kimen · lo que te enseña",
     "ringJ": "Jezero · lo que recuerda",
@@ -202,7 +204,7 @@
     "h1b": "Mars.",
     "p1": "Soy Marcela Gotta, ingeniera de software en Madrid. Llevo 12 años construyendo software: empecé full-stack, me enamoré del frontend y acabé liderando equipos y arquitectura.",
     "p2": "Desde 2019 estoy en Sngular, donde hoy soy Head Frontend Developer y participo en la dirección del chapter de frontend: formaciones, seguimiento técnico de cada persona y entrevistas técnicas. He liderado equipos de producto para grandes empresas de banca, moda, energía y sostenibilidad.",
-    "p3": "Creo que la IA es la herramienta más potente que hemos tenido, siempre que las personas sigamos del lado que la dirige. Mi trabajo propio intenta construir esa parte, en abierto: Kimen, Jezero y Orbit.",
+    "p3": "Creo que la IA es la herramienta más potente que hemos tenido, siempre que las personas sigamos del lado que la dirige. Mi trabajo propio intenta construir esa parte, en abierto: Kimen, Jezero y Orbit. Y un método para trabajar con agentes sin perder calidad: GDD.",
     "p4": "Vivo en Madrid con un pequeño zoológico. Me gustan la física, los videojuegos, escribir y convertir ideas raras en algo que funciona.",
     "factsT": "Datos rápidos",
     "facts": [
@@ -382,6 +384,51 @@
           "En beta, y dicho así."
         ],
         "stack": "Tauri 2 · React · Rust · Python"
+      }
+    },
+    "method": {
+      "role": "La idea que las une",
+      "name": "GDD",
+      "full": "Gate-Driven Development",
+      "sub": "Tu agente dice «hecho». La puerta comprueba si es verdad.",
+      "links": [
+        {
+          "label": "gate-driven.dev",
+          "href": "https://gate-driven.dev/"
+        },
+        {
+          "label": "Leer el manifiesto",
+          "href": "https://gate-driven.dev/manifiesto/"
+        }
+      ],
+      "desc": "Mi método para crear productos de calidad con agentes de IA sin supervisarlos paso a paso. Antes de que el agente empiece, decides qué tiene que demostrar: esas son las puertas. Cuanto más puede salir mal, más exigentes son, y lo que se cuela se convierte en una puerta nueva.",
+      "bullets": [
+        "Se pasa con hechos, no con palabras: tests, linters, un vigilante o tu aprobación.",
+        "El agente nunca toca las pruebas que lo juzgan.",
+        "El riesgo decide cuánto te toca: en verde, nada; en rojo, das tu aprobación donde haga falta.",
+        "De cada cambio responde su autor: la IA nunca responde por ti."
+      ],
+      "status": "v0.6, borrador para revisión. Todavía sin datos propios; su motor, T-minus, está en desarrollo.",
+      "risk": {
+        "title": "Qué te toca hacer",
+        "levels": [
+          {
+            "level": "Verde",
+            "example": "Cambiar un texto",
+            "you": "Nada: pides el cambio y, si pasa las puertas, sale."
+          },
+          {
+            "level": "Amarillo",
+            "example": "Un filtro nuevo en un listado",
+            "you": "Leer unos pocos escenarios."
+          },
+          {
+            "level": "Rojo",
+            "example": "Algo que toca el cobro",
+            "you": "Leer los escenarios y dar tu aprobación donde haga falta."
+          }
+        ],
+        "note": "Lo que no se puede deshacer nunca es verde."
       }
     }
   },

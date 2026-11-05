@@ -1,5 +1,6 @@
 ---
 import PageHeader from '../components/page/PageHeader.astro';
+import MethodChapter from '../components/projects/MethodChapter.astro';
 import OnmarsBand from '../components/projects/OnmarsBand.astro';
 import ProjectChapter from '../components/projects/ProjectChapter.astro';
 import ProjectNav from '../components/projects/ProjectNav.astro';
@@ -23,6 +24,7 @@ const t = getMessages(lang).pj;
     {projectKeys.map((project, index) => (
       <ProjectChapter lang={lang} project={project} index={index} />
     ))}
+    <MethodChapter lang={lang} />
     <OnmarsBand lang={lang} />
   </div>
 </Base>

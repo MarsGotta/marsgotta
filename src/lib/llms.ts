@@ -27,6 +27,10 @@ export function llmsTxt(site: URL): string {
     const code = repository ? ` Code: ${repository}` : '';
     return `- [${name}](${home ?? repository ?? url('projects', key)}): ${line} ${t.pj.items[key].desc}${code}`;
   });
+  const { method } = t.pj;
+  projects.push(
+    `- [${method.full} (${method.name})](${method.links[0]?.href}): ${method.sub} ${method.desc} ${method.status}`,
+  );
 
   return `${[
     '# Marcela Gotta',

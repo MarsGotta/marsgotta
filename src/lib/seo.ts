@@ -120,8 +120,28 @@ export function structuredData(site: URL, page: PageInfo) {
       [isProfile ? 'mainEntity' : 'about']: { '@id': id('person') },
     });
   }
-  if (page.route === 'projects') graph.push(...projectsData(site, page.lang, id('person')));
+  if (page.route === 'projects') {
+    graph.push(
+      ...projectsData(site, page.lang, id('person')),
+      methodData(site, page.lang, id('person')),
+    );
+  }
   return { '@context': 'https://schema.org', '@graph': graph };
+}
+
+/** GDD, her method: a written work still in draft, not software. */
+function methodData(site: URL, lang: Lang, author: string): object {
+  const method = getMessages(lang).pj.method;
+  return {
+    '@type': 'CreativeWork',
+    '@id': new URL('/#gdd', site).href,
+    name: `${method.full} (${method.name})`,
+    alternateName: method.name,
+    description: method.desc,
+    url: method.links[0]?.href,
+    creativeWorkStatus: 'Draft',
+    author: { '@id': author },
+  };
 }
 
 function projectsData(site: URL, lang: Lang, author: string): object[] {

@@ -56,6 +56,31 @@ test.describe('projects', () => {
     await expect(page.locator('a[href*="MarsGotta/orbit"]')).toHaveCount(0);
     await expect(page.getByText('Repo público al abrir la beta')).toBeVisible();
   });
+
+  test('closes with GDD, the method behind the three, linked to its site', async ({ page }) => {
+    for (const [path, site] of [
+      ['/proyectos', 'https://gate-driven.dev/'],
+      ['/en/projects', 'https://gate-driven.dev/en/'],
+    ]) {
+      await page.goto(path);
+      const method = page.locator('#gdd');
+      await expect(method.getByRole('heading', { level: 2 })).toContainText(
+        'Gate-Driven Development',
+      );
+      await expect(method.getByRole('link', { name: /gate-driven\.dev/ })).toHaveAttribute(
+        'href',
+        site,
+      );
+      // Four bullets and the three levels of risk.
+      await expect(method.getByRole('listitem')).toHaveCount(7);
+    }
+    await page.goto('/proyectos');
+    await page
+      .getByRole('navigation', { name: 'Proyectos de esta página' })
+      .getByRole('link', { name: 'GDD' })
+      .click();
+    await expect(page).toHaveURL(/#gdd$/);
+  });
 });
 
 test.describe('talks', () => {

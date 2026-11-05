@@ -47,6 +47,13 @@ test.describe('home', () => {
     );
   });
 
+  test('the idea behind the three projects is named and leads to its chapter', async ({ page }) => {
+    await page.goto('/');
+    await expect(
+      page.locator('#sistema').getByRole('link', { name: /Gate-Driven Development/ }),
+    ).toHaveAttribute('href', '/proyectos#gdd');
+  });
+
   test('demos play once when they scroll into view', async ({ page }) => {
     await page.goto('/');
     const stage = page.locator('[data-demo-stage]').first();

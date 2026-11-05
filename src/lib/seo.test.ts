@@ -97,6 +97,20 @@ describe('seo', () => {
     expect(orbit).not.toHaveProperty('license');
   });
 
+  it('presents GDD as her method, a work in draft, not as software', () => {
+    const { '@graph': graph } = structuredData(site, {
+      route: 'projects',
+      lang: 'es',
+      title: 'Proyectos · Marcela Gotta',
+      description: 'x',
+    });
+    expect(find(graph, 'CreativeWork', 'Gate-Driven Development (GDD)')).toMatchObject({
+      url: 'https://gate-driven.dev/',
+      creativeWorkStatus: 'Draft',
+      author: { '@id': 'https://marsgotta.com/#person' },
+    });
+  });
+
   it('adds no page node outside the site map', () => {
     const { '@graph': graph } = structuredData(site, {
       route: null,

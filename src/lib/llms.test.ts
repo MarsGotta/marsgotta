@@ -17,6 +17,7 @@ describe('llms.txt', () => {
     expect(text).toContain('Code: https://github.com/kimen-dev/kimen');
     expect(text).toContain('- [Jezero](https://github.com/MarsGotta/jezero): ');
     expect(text).toContain('- [Orbit](https://marsgotta.com/en/projects#orbit): ');
+    expect(text).toContain('- [Gate-Driven Development (GDD)](https://gate-driven.dev/en/): ');
   });
 
   it('keeps to the brand rules', () => {

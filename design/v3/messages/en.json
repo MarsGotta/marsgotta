@@ -82,6 +82,8 @@
   "sys": {
     "kicker": "The system",
     "title": "Three pieces, one idea.",
+    "methodA": "The idea has a name:",
+    "methodB": "Gate-Driven Development",
     "lead": "What an agent shows you, what it remembers, and where it lives with you.",
     "ringK": "Kimen · what it shows you",
     "ringJ": "Jezero · what it remembers",
@@ -204,7 +206,7 @@
     "h1b": "Mars.",
     "p1": "I'm Marcela Gotta, a software engineer in Madrid. I've spent 12 years building software: I started full-stack, fell in love with frontend and ended up leading teams and architecture.",
     "p2": "Since 2019 I've been at Sngular, where I'm Head Frontend Developer and part of the team that runs the frontend chapter: training, technical follow-up for each person, and technical interviews. I've led product teams for large companies in banking, fashion, energy and sustainability.",
-    "p3": "I believe AI is the most powerful tool we've had, as long as people stay on the side that steers it. My own work tries to build that part, in the open: Kimen, Jezero and Orbit.",
+    "p3": "I believe AI is the most powerful tool we've had, as long as people stay on the side that steers it. My own work tries to build that part, in the open: Kimen, Jezero and Orbit. And a method for working with agents without losing quality: GDD.",
     "p4": "I live in Madrid with a small zoo. I love physics, video games, writing and turning odd ideas into things that work.",
     "factsT": "Quick facts",
     "facts": [
@@ -384,6 +386,51 @@
           "In beta, and labelled as such."
         ],
         "stack": "Tauri 2 · React · Rust · Python"
+      }
+    },
+    "method": {
+      "role": "The idea behind them",
+      "name": "GDD",
+      "full": "Gate-Driven Development",
+      "sub": "Your agent says “done.” The gate checks if it's true.",
+      "links": [
+        {
+          "label": "gate-driven.dev/en",
+          "href": "https://gate-driven.dev/en/"
+        },
+        {
+          "label": "Read the manifesto",
+          "href": "https://gate-driven.dev/en/manifesto/"
+        }
+      ],
+      "desc": "My method for building quality products with AI agents without supervising them step by step. Before the agent starts, you decide what it has to prove: those are the gates. The more that can go wrong, the stricter they are, and whatever slips through becomes a new gate.",
+      "bullets": [
+        "It passes with facts, not words: tests, linters, a reviewer or your approval.",
+        "The agent never touches the checks that judge it.",
+        "Risk decides how much is on you: on green, nothing; on red, you approve where it matters.",
+        "Every change is owned by its author: AI never answers for you."
+      ],
+      "status": "v0.6, a draft for review. No data of its own yet; its engine, T-minus, is in development.",
+      "risk": {
+        "title": "What you have to do",
+        "levels": [
+          {
+            "level": "Green",
+            "example": "Changing some text",
+            "you": "Nothing: you ask for the change and, if it passes the gates, it ships."
+          },
+          {
+            "level": "Yellow",
+            "example": "A new filter on a list",
+            "you": "Read a few scenarios."
+          },
+          {
+            "level": "Red",
+            "example": "Something that touches payment",
+            "you": "Read the scenarios and give your approval where needed."
+          }
+        ],
+        "note": "What can't be undone is never green."
       }
     }
   },

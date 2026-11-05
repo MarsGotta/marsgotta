@@ -32,6 +32,13 @@ const active = 'kimen';
           {t.sys.title}
         </h2>
         <p class="sub">{t.sys.sub}</p>
+        <p class="method">
+          {t.sys.methodA}{' '}
+          <a class="arrow" href={localizedPath('projects', lang, 'gdd')}>
+            {t.sys.methodB}
+            <span aria-hidden="true">→</span>
+          </a>
+        </p>
       </div>
       <p class="lead">
         {t.home.sysLead}{' '}
@@ -85,6 +92,10 @@ const active = 'kimen';
     margin: 18px 0 0;
     font: 600 clamp(20px, 2vw, 28px) / 1.2 var(--display);
     letter-spacing: -0.02em;
+    color: var(--fg-muted);
+  }
+  .method {
+    margin: 18px 0 0;
     color: var(--fg-muted);
   }
   .grid {

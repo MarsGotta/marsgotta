@@ -1,0 +1,141 @@
+---
+import { getMessages, type Lang } from '../../i18n';
+import Chapter from './Chapter.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const method = getMessages(lang).pj.method;
+---
+
+{/* GDD is the method behind the three projects, not a fourth one: it has no number, no demo and no
+    place in the tabs or the orrery. Where the others show a demo, it shows what risk asks of you. */}
+<Chapter
+  lang={lang}
+  id="gdd"
+  tone="p-gdd"
+  role={method.role}
+  name={method.name}
+  full={method.full}
+  sub={method.sub}
+  links={method.links}
+  desc={method.desc}
+  bullets={method.bullets}
+  note={{ text: method.status }}
+>
+  <section class="risk" aria-labelledby="gdd-risk">
+    <h4 class="bar" id="gdd-risk">
+      <i></i>
+      {method.risk.title}
+    </h4>
+    <ol class="levels">
+      {method.risk.levels.map((row) => (
+        <li>
+          <span class="chip">
+            <i></i>
+            {row.level}
+          </span>
+          <p>
+            <strong>{row.example}</strong>
+            {row.you}
+          </p>
+        </li>
+      ))}
+    </ol>
+    <p class="foot">{method.risk.note}</p>
+  </section>
+</Chapter>
+
+<style>
+  .risk {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    background: var(--card);
+    box-shadow: var(--shadow);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 34px;
+    margin: 0;
+    padding: 0 14px;
+    border-bottom: 1px solid var(--line);
+    font: 500 10px/1 var(--mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg-subtle);
+  }
+  .bar i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--pc);
+  }
+  .levels {
+    margin: 0;
+    padding: 6px 22px;
+    list-style: none;
+  }
+  .levels li {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 16px;
+    align-items: start;
+    padding-block: 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  .levels li:last-child {
+    border-bottom: 0;
+  }
+  .chip {
+    gap: 8px;
+    justify-self: start;
+    color: var(--pc-text);
+  }
+  /* The colour is in the word: the dot only fills up as the risk grows, with no new colours. */
+  .chip i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1.4px solid currentColor;
+  }
+  li:nth-child(2) .chip i {
+    background: linear-gradient(to top, currentColor 50%, transparent 50%);
+  }
+  li:nth-child(3) .chip i {
+    background: currentColor;
+  }
+  .levels p {
+    margin: 0;
+    color: var(--fg-muted);
+    font-size: 15.5px;
+    line-height: 1.55;
+  }
+  .levels strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--fg);
+    font-weight: 600;
+  }
+  .foot {
+    margin: 0;
+    padding: 16px 22px;
+    border-top: 1px dashed var(--line-strong);
+    color: var(--fg);
+    font-size: 15.5px;
+    font-style: italic;
+  }
+  @media (max-width: 480px) {
+    .levels {
+      padding-inline: 18px;
+    }
+    .levels li {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+  }
+</style>

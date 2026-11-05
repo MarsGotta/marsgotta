@@ -18,6 +18,36 @@ test.describe('@smoke', () => {
     });
   }
 
+  test('pages run under the content security policy with nothing blocked', async ({ page }) => {
+    await page.addInitScript(() => {
+      const seen: string[] = [];
+      (window as unknown as { cspViolations: string[] }).cspViolations = seen;
+      document.addEventListener('securitypolicyviolation', (event) => {
+        seen.push(`${event.effectiveDirective} ${event.blockedURI}`);
+      });
+    });
+    for (const path of ['/', '/en', '/archivo']) {
+      const response = await page.goto(path);
+      const headers = response?.headers() ?? {};
+      expect(headers['content-security-policy'], path).toContain("frame-ancestors 'none'");
+      expect(headers['cross-origin-opener-policy'], path).toBe('same-origin');
+      await page.waitForLoadState('networkidle');
+      expect(
+        await page.evaluate(() => (window as unknown as { cspViolations: string[] }).cspViolations),
+        path,
+      ).toEqual([]);
+    }
+  });
+
+  test('the forms only take posts from the blog itself', async ({ request }) => {
+    const response = await request.post('/api/subscribe', {
+      form: { email: 'ana@example.com', lang: 'es', source: 'band', page: '/' },
+      headers: { Accept: 'application/json', Origin: 'https://evil.example' },
+    });
+    expect(response.status()).toBe(403);
+    expect(response.headers()['cache-control']).toBe('no-store');
+  });
+
   test('a missing page answers 404 in the language of its address', async ({ page }) => {
     expect((await page.goto('/no-existe'))?.status()).toBe(404);
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Esta señal no ha llegado');

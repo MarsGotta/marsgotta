@@ -1,3 +1,4 @@
+import { weakenEtag } from '../../src/lib/http';
 import { languageCookie, siteReferer, wantedLanguage } from '../../workers/site/language';
 import { pathLang } from '../src/lib/routes';
 import type { Env } from './env';
@@ -36,8 +37,11 @@ export async function servePage(request: Request, env: Env): Promise<Response> {
   // A copy, because the headers of a fetched response are immutable.
   const response = new Response(asset.body, asset);
   response.headers.append('Vary', 'Accept-Language, Cookie');
+  weakenEtag(response.headers);
   if (from && pathLang(from.pathname) !== lang) {
     response.headers.append('Set-Cookie', languageCookie(lang));
+    // A response that sets a cookie is this visitor's alone: no shared cache keeps it.
+    response.headers.set('Cache-Control', 'private, no-cache');
   }
   return response;
 }

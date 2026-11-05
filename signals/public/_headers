@@ -6,7 +6,9 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: DENY
-  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), hid=(), bluetooth=(), display-capture=()
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-site
 
 # Built files carry a content hash in their name, so they never change.
 /_astro/*
@@ -15,8 +17,19 @@
 /fonts/*
   Cache-Control: public, max-age=604800
 
+# Other sites may show the share cards and the icon: link previews, newsletters, feed readers.
 /og/*
   Cache-Control: public, max-age=604800
+  ! Cross-Origin-Resource-Policy
+  Cross-Origin-Resource-Policy: cross-origin
+
+/favicon.*
+  ! Cross-Origin-Resource-Policy
+  Cross-Origin-Resource-Policy: cross-origin
+
+# Readers and agents decode it as Latin-1 unless told otherwise.
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
 
 # workers.dev serves copies of the blog for testing, the version previews included: keep them out of search results.
 https://:host.marcelagotta.workers.dev/*

@@ -1,6 +1,7 @@
 import { fileURLToPath } from 'node:url';
 import { satteri } from '@astrojs/markdown-satteri';
 import { defineConfig } from 'astro/config';
+import { contentSecurityPolicyHeader } from '../src/integrations/content-security-policy';
 import { codeFigure } from './src/lib/markdown/code-figure';
 import { rehypeLinks } from './src/lib/markdown/rehype-links';
 import { rehypeTip } from './src/lib/markdown/rehype-tip';
@@ -32,6 +33,7 @@ export default defineConfig({
     defaultLocale: 'es',
     routing: { prefixDefaultLocale: false },
   },
+  integrations: [contentSecurityPolicyHeader()],
   vite: {
     resolve: { alias: { '@portfolio': portfolio } },
     // The dev server only serves files inside its root unless told otherwise.

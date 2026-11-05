@@ -22,10 +22,19 @@ describe('contact form', () => {
     );
   });
 
+  it('keeps invisible characters that could disguise the subject out of the name', () => {
+    expect(parseContactForm(form({ ...valid, name: 'Ana\u202Etxt.exe\u0085 Pérez' }))?.name).toBe(
+      'Anatxt.exe Pérez',
+    );
+  });
+
   it('rejects empty fields, malformed addresses and oversized text', () => {
     expect(parseContactForm(form({ ...valid, name: ' ' }))).toBeNull();
     expect(parseContactForm(form({ ...valid, email: 'ana@example' }))).toBeNull();
     expect(parseContactForm(form({ ...valid, email: 'ana @example.com' }))).toBeNull();
+    // The address becomes the Reply-To: nothing that could add a second recipient or a header.
+    expect(parseContactForm(form({ ...valid, email: 'a@b.co,evil@x.io' }))).toBeNull();
+    expect(parseContactForm(form({ ...valid, email: '"Ana" <ana@example.com>' }))).toBeNull();
     expect(parseContactForm(form({ ...valid, message: '' }))).toBeNull();
     expect(
       parseContactForm(form({ ...valid, message: 'x'.repeat(contactLimits.message + 1) })),

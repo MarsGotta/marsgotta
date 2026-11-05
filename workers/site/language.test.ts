@@ -51,6 +51,12 @@ describe('language on arrival', () => {
     expect((await visit('/', fetcher)).status).toBe(200);
     const crawler = { ...ENGLISH, 'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1)' };
     expect((await visit('/', crawler)).status).toBe(200);
+    // Search Console's live test sends the headers of a browser opening the page.
+    const inspection = {
+      ...ENGLISH,
+      'User-Agent': 'Mozilla/5.0 (compatible; Google-InspectionTool/1.0)',
+    };
+    expect((await visit('/', inspection)).status).toBe(200);
   });
 });
 
@@ -62,7 +68,7 @@ describe('language inside the site', () => {
     });
     expect(response.status).toBe(200);
     expect(response.headers.get('Set-Cookie')).toBe(
-      'lang=en; Path=/; Max-Age=31536000; SameSite=Lax; Secure',
+      'lang=en; Path=/; Max-Age=31536000; SameSite=Lax; Secure; HttpOnly',
     );
   });
 

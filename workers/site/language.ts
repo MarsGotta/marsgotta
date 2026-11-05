@@ -1,12 +1,13 @@
 import type { Lang } from '../../src/i18n';
 import { findPage, localizedPath, type Page } from '../../src/i18n/routes';
+import { weakenEtag } from '../../src/lib/http';
 import { negotiateLanguage } from '../../src/lib/language';
 import type { Env } from './env';
 
 const ONE_YEAR_S = 60 * 60 * 24 * 365;
 // Crawlers and link previews get the URL they ask for: each language is its own page, listed with
 // hreflang, and search engines advise against redirecting them by language.
-const CRAWLER = /bot|crawl|spider|slurp|facebookexternalhit|embedly|preview|lighthouse/i;
+const CRAWLER = /bot|crawl|spider|slurp|google|facebookexternalhit|embedly|preview|lighthouse/i;
 
 /**
  * Serves a page in the visitor's language. Arriving from outside the site, a visitor whose earlier
@@ -36,16 +37,19 @@ export async function servePage(request: Request, env: Env, page: Page): Promise
   // A copy, because the headers of a fetched response are immutable.
   const response = new Response(asset.body, asset);
   response.headers.append('Vary', 'Accept-Language, Cookie');
+  weakenEtag(response.headers);
   const previous = from && findPage(from.pathname);
   if (previous && previous.lang !== page.lang) {
     response.headers.append('Set-Cookie', languageCookie(page.lang));
+    // A response that sets a cookie is this visitor's alone: no shared cache keeps it.
+    response.headers.set('Cache-Control', 'private, no-cache');
   }
   return response;
 }
 
-/** Remembers the language the visitor switched to, for their next arrival. */
+/** Remembers the language the visitor switched to, for their next arrival. Only the Worker reads it. */
 export function languageCookie(lang: Lang): string {
-  return `lang=${lang}; Path=/; Max-Age=${ONE_YEAR_S}; SameSite=Lax; Secure`;
+  return `lang=${lang}; Path=/; Max-Age=${ONE_YEAR_S}; SameSite=Lax; Secure; HttpOnly`;
 }
 
 /** The page the visitor came from, when it was on this site. */

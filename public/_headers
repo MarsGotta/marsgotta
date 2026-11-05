@@ -6,7 +6,9 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: DENY
-  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), hid=(), bluetooth=(), display-capture=()
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-site
 
 # Built files carry a content hash in their name, so they never change.
 /_astro/*
@@ -15,8 +17,28 @@
 /fonts/*
   Cache-Control: public, max-age=604800
 
+# Other sites may show the share cards and the icons: link previews, newsletters, feed readers.
 /og/*
   Cache-Control: public, max-age=604800
+  ! Cross-Origin-Resource-Policy
+  Cross-Origin-Resource-Policy: cross-origin
+
+/favicon.*
+  Cache-Control: public, max-age=86400
+  ! Cross-Origin-Resource-Policy
+  Cross-Origin-Resource-Policy: cross-origin
+
+/apple-touch-icon.png
+  Cache-Control: public, max-age=86400
+  ! Cross-Origin-Resource-Policy
+  Cross-Origin-Resource-Policy: cross-origin
+
+/logo.svg
+  Cache-Control: public, max-age=86400
+
+# Readers and agents decode it as Latin-1 unless told otherwise.
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
 
 /grain-*
   Cache-Control: public, max-age=604800

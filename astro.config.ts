@@ -1,5 +1,6 @@
 import { writeFile } from 'node:fs/promises';
 import { defineConfig } from 'astro/config';
+import { contentSecurityPolicyHeader } from './src/integrations/content-security-policy';
 import { redirectsFile } from './src/lib/redirects';
 
 const site = new URL('https://marsgotta.com');
@@ -20,6 +21,7 @@ export default defineConfig({
     routing: { prefixDefaultLocale: false },
   },
   integrations: [
+    contentSecurityPolicyHeader(),
     {
       // _redirects comes from the table the redirect Worker uses too (src/lib/redirects.ts).
       name: 'redirects',

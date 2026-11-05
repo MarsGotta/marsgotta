@@ -73,7 +73,7 @@ describe('language inside the blog', () => {
     });
     expect(response.status).toBe(200);
     expect(response.headers.get('Set-Cookie')).toBe(
-      'lang=en; Path=/; Max-Age=31536000; SameSite=Lax; Secure',
+      'lang=en; Path=/; Max-Age=31536000; SameSite=Lax; Secure; HttpOnly',
     );
   });
 

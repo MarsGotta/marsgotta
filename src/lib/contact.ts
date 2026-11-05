@@ -20,7 +20,12 @@ export interface ContactMessage {
   lang: Lang;
 }
 
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+/**
+ * The browser's own rule for type=email (WHATWG HTML). The address becomes the email's Reply-To, so
+ * it admits no quotes, commas, angle brackets or control characters.
+ */
+const EMAIL_PATTERN =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
 
 function field(form: FormData, name: string): string {
   const value = form.get(name);
@@ -38,8 +43,13 @@ export function isSpam(form: FormData): boolean {
 
 /** The message, or null when a field is empty, too long or not an email address. */
 export function parseContactForm(form: FormData): ContactMessage | null {
-  // The name ends up in the subject line: collapsing whitespace keeps line breaks out of it.
-  const name = field(form, 'name').replace(/\s+/g, ' ');
+  // The name ends up in the subject line: control characters become spaces and invisible format
+  // characters (bidi overrides) go, so it cannot break or disguise the line.
+  const name = field(form, 'name')
+    .replace(/\p{Cc}/gu, ' ')
+    .replace(/\p{Cf}/gu, '')
+    .replace(/\s+/g, ' ')
+    .trim();
   const email = field(form, 'email');
   const message = field(form, 'message');
   const valid =

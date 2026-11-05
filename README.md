@@ -98,6 +98,14 @@ Configuración, hecha una sola vez:
 
 En local, `npm run preview:cf` simula el envío: cada correo queda en `.wrangler/tmp/email/`. Para ver los errores en producción: `npx wrangler tail marcelagotta`.
 
+### Seguridad y redirecciones
+
+- **Cabeceras.** `public/_headers` da a todo HSTS, `nosniff`, `Referrer-Policy`, `X-Frame-Options`, `Permissions-Policy` y las políticas de origen cruzado (COOP y CORP; las tarjetas OG y los iconos admiten otros sitios). Las respuestas que monta el Worker (formulario, redirecciones) reciben las suyas en código (`src/lib/http.ts`).
+- **Content-Security-Policy.** La escribe el build en `dist/_headers` (`src/integrations/content-security-policy.ts`), con un hash por cada script en línea de las páginas, porque cambian en cada build. Todo es del propio sitio: no se carga nada de fuera. `tests/e2e/csp.spec.ts` falla si la política bloquea algo. Signals usa la misma integración.
+- **Formularios.** `/api/contact` y el `/api/subscribe` de Signals rechazan los envíos desde otros sitios (403) y los cuerpos de más de 64 KB (413), y limitan por IP, o por su /64 en IPv6 (`src/lib/form-guard.ts`).
+- **Redirecciones.** El build escribe `dist/_redirects` desde `src/lib/redirects.ts`: las direcciones de la web anterior y las otras formas de escribir cada página (con barra final o `.html`). El Worker de los otros dominios usa la misma tabla, así que cualquier dirección antigua llega en un salto.
+- **security.txt.** `public/.well-known/security.txt` (y el de Signals) caduca el 5 de noviembre de 2027 (`Expires`): hay que renovar la fecha antes.
+
 ### Secretos
 
 Ahora no hay ninguno. Si algún día hacen falta, van con `npx wrangler secret put NOMBRE`, nunca en el repo.

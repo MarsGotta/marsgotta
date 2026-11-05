@@ -12,6 +12,15 @@ describe('canonicalLocation', () => {
       'https://marsgotta.com/sobre-mi',
     );
   });
+
+  it('takes an address of the previous site straight to its page', () => {
+    expect(canonicalLocation('https://marcelagotta.com/es/about?ref=cv')).toBe(
+      'https://marsgotta.com/sobre-mi?ref=cv',
+    );
+    expect(canonicalLocation('https://marcelagotta.com/sitemap-0.xml')).toBe(
+      'https://marsgotta.com/sitemap.xml',
+    );
+  });
 });
 
 describe('redirect worker', () => {

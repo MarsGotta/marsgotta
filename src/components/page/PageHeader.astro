@@ -21,8 +21,10 @@ const { kicker, title, accent, gradient = false, lead, caption } = Astro.props;
       <ellipse cx="520" cy="200" rx="230" ry="51" opacity=".7"></ellipse>
       <circle class="planet" cx="520" cy="200" r="58"></circle>
       <circle cx="520" cy="200" r="58" fill="url(#planet-shade)"></circle>
-      <circle class="moon" r="4"></circle>
     </svg>
+    <span class="orbit">
+      <span class="moon"></span>
+    </span>
   </div>
   <div class="wrap">
     <p class="label rule">{kicker}</p>
@@ -67,6 +69,8 @@ const { kicker, title, accent, gradient = false, lead, caption } = Astro.props;
     max-width: 820px;
     opacity: 0.9;
     pointer-events: none;
+    /* The moon's orbit is measured in widths of the drawing (cqw), so it scales with the SVG. */
+    container-type: inline-size;
   }
   .deco svg {
     display: block;
@@ -82,11 +86,40 @@ const { kicker, title, accent, gradient = false, lead, caption } = Astro.props;
   .planet {
     fill: url(#planet-gradient);
   }
+  /* The moon circles the outer ellipse (rx 380, ry 84 in the 1040-wide drawing) once every 54 s.
+     It moves with transforms only, which the compositor runs without the main thread: one span
+     swings across and the other up and down a quarter turn later, the way a circular orbit seen at
+     an angle traces its ellipse. The eased half swings follow a cosine closely. */
+  .orbit {
+    position: absolute;
+    left: 50%;
+    top: calc(200 / 420 * 100%);
+    animation: phead-orbit-x 27s cubic-bezier(0.37, 0, 0.63, 1) infinite alternate;
+  }
   .moon {
-    fill: var(--warm);
-    offset-path: path('M 140 200 A 380 84 0 1 0 900 200 A 380 84 0 1 0 140 200');
-    offset-rotate: 0deg;
-    animation: probe 54s linear infinite;
+    display: block;
+    width: calc(8 / 1040 * 100cqw);
+    height: calc(8 / 1040 * 100cqw);
+    margin: calc(-4 / 1040 * 100cqw) 0 0 calc(-4 / 1040 * 100cqw);
+    border-radius: 50%;
+    background: var(--warm);
+    animation: phead-orbit-y 27s cubic-bezier(0.37, 0, 0.63, 1) -13.5s infinite alternate;
+  }
+  @keyframes phead-orbit-x {
+    from {
+      transform: translateX(calc(-380 / 1040 * 100cqw));
+    }
+    to {
+      transform: translateX(calc(380 / 1040 * 100cqw));
+    }
+  }
+  @keyframes phead-orbit-y {
+    from {
+      transform: translateY(calc(-84 / 1040 * 100cqw));
+    }
+    to {
+      transform: translateY(calc(84 / 1040 * 100cqw));
+    }
   }
   .w {
     display: inline-block;

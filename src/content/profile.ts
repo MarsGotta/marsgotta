@@ -1,5 +1,14 @@
+import type { Lang } from '../i18n';
+
 /** Public contact channels, shared by the footer, the contact page and the structured data. */
 export const email = 'me@marsgotta.com';
+
+/** Her blog, Signals by Mars, on its own subdomain and in the reader's language. */
+export const blog = {
+  name: 'Signals',
+  host: 'signals.marsgotta.com',
+  url: (lang: Lang) => `https://signals.marsgotta.com${lang === 'en' ? '/en' : '/'}`,
+};
 
 export interface Channel {
   name: string;

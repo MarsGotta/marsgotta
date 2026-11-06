@@ -1,5 +1,5 @@
 ---
-import { email, socialChannels } from '../../content/profile';
+import { blog, email, socialChannels } from '../../content/profile';
 import { getMessages, type Lang } from '../../i18n';
 import MotionToggle from '../motion/MotionToggle.astro';
 import NewTabHint from './NewTabHint.astro';
@@ -26,6 +26,15 @@ const year = new Date().getFullYear();
           <a href={`mailto:${email}`}>
             {email}
             <span>Email</span>
+          </a>
+        </li>
+        <li>
+          <a href={blog.url(lang)} target="_blank" rel="noopener noreferrer">
+            {blog.name}
+            <span>
+              {blog.host} <span aria-hidden="true">↗</span>
+            </span>
+            <NewTabHint lang={lang} />
           </a>
         </li>
         {socialChannels.map((channel) => (

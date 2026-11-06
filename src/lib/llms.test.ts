@@ -10,12 +10,14 @@ describe('llms.txt', () => {
     );
     expect(text).toContain('- [About](https://marsgotta.com/en/about): ');
     expect(text).toContain('## Optional\n\n- [Español](https://marsgotta.com/)');
+    expect(text).toContain('## Blog\n\n- [Signals by Mars](https://signals.marsgotta.com/en): ');
   });
 
   it('links each project to its site or repository', () => {
     expect(text).toContain('- [Kimen](https://kimen.dev): ');
     expect(text).toContain('Code: https://github.com/kimen-dev/kimen');
-    expect(text).toContain('- [Jezero](https://github.com/MarsGotta/jezero): ');
+    expect(text).toContain('- [Jezero](https://jezero.marsgotta.com): ');
+    expect(text).toContain('Code: https://github.com/MarsGotta/jezero');
     expect(text).toContain('- [Orbit](https://marsgotta.com/en/projects#orbit): ');
     expect(text).toContain('- [Gate-Driven Development (GDD)](https://gate-driven.dev/en/): ');
   });

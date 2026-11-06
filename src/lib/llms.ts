@@ -1,4 +1,4 @@
-import { email, socialChannels } from '../content/profile';
+import { blog, email, socialChannels } from '../content/profile';
 import { projectKeys } from '../content/projects';
 import { getMessages } from '../i18n';
 import { pageMeta } from '../i18n/meta';
@@ -57,6 +57,8 @@ export function llmsTxt(site: URL): string {
       `- Email: ${email}`,
       ...socialChannels.map((channel) => `- ${channel.name}: ${channel.href}`),
     ].join('\n'),
+    '## Blog',
+    `- [Signals by Mars](${blog.url('en')}): Marcela's blog, with its own index at https://${blog.host}/llms.txt`,
     '## Optional',
     `- [Español](${new URL(localizedPath('home', 'es'), site).href})`,
   ].join('\n\n')}\n`;

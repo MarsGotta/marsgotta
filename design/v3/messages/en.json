@@ -359,6 +359,10 @@
         "sub": "The shared memory of your agents.",
         "links": [
           {
+            "label": "jezero.marsgotta.com",
+            "href": "https://jezero.marsgotta.com"
+          },
+          {
             "label": "github.com/MarsGotta/jezero",
             "href": "https://github.com/MarsGotta/jezero"
           }

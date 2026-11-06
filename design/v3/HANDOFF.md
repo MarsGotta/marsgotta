@@ -273,12 +273,12 @@ Todo lo espectacular es además correcto. Si algo se ajusta por estética, que s
   - «agent harnesses» en el titular, «16 años» ni «aprendiendo Rust de la mano de Lunar».
   - Clientes de Sngular, nivel de inglés en escala MCER ni datos personales.
   - Cifras para impresionar en el hero o en las tarjetas.
-  - Enlaces a repos no públicos (Orbit, hasta que se publique) ni llamar open source a algo sin repo público.
+  - Enlaces a repos no públicos ni llamar open source a algo sin repo público.
   - El chat «habla con Deimos».
 
 ### Decisiones ya tomadas en el diseño
 
-1. **Entradilla de Proyectos.** Dice «Kimen y Jezero ya son open source; Orbit lo será al abrir su beta» en lugar de «Los tres son open source», porque Orbit aún no tiene repo público. Orbit muestra «Repo público al abrir la beta», sin enlace.
+1. **Entradilla de Proyectos.** Dice «Los tres ya son open source.» Hasta el 6 nov 2026 decía «Kimen y Jezero ya son open source; Orbit lo será al abrir su beta», porque Orbit aún no tenía repo público. Ahora su capítulo enlaza `github.com/MarsGotta/orbit`, como Kimen y Jezero enlazan el suyo.
 2. **«Ahora mismo».** Sustituido por el anexo v3.1: la banda, sus iconos y su cuarta línea (Sngular) salen de la home. El estado de cada proyecto va en sus pestañas y Sngular, en el índice de «Con quién».
 3. **La home como historia (anexo v3.1).** Hero, (01) Por qué, (02) Qué construyo, (03) Con quién y (04) Contigo. Detalle en `design/v3/anexo-home/LEEME.md`. Las animaciones de entrada del anexo rellenan con `backwards` y su animación de scroll va con longhands, como el resto.
 4. **Cierre del Inicio.** «¿Hablamos un rato?», con «un rato?» en lila cursiva; en inglés, «Shall we talk for a bit?».

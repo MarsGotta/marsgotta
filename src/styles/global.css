@@ -517,16 +517,24 @@ body {
     transform: none;
   }
 }
+/* Headlines (the LCP) are there from the first paint and only settle into place: a fade from 0
+   would hold the LCP back until it ends, and a blur repaints the text on every frame. The drop is
+   short enough that a line never touches the one below while it settles. */
 @keyframes word {
   from {
-    opacity: 0;
-    transform: translateY(0.45em) rotate(1.4deg);
-    filter: blur(12px);
+    transform: translateY(0.2em) rotate(1.4deg);
   }
   to {
-    opacity: 1;
     transform: none;
-    filter: blur(0);
+  }
+}
+/* «rise» without the fade, for text that can be the LCP, such as the hero's subtitle on a phone. */
+@keyframes settle {
+  from {
+    transform: translateY(18px);
+  }
+  to {
+    transform: none;
   }
 }
 @keyframes reveal {

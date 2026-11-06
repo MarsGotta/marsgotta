@@ -10,16 +10,16 @@ const t = getMessages(Astro.props.lang);
 ---
 
 <nav class="pjnav" aria-label={t.pj.navLabel}>
+  <a class="p-gdd" href="#gdd">
+    <i />
+    {t.pj.method.name}
+  </a>
   {projectKeys.map((key) => (
     <a class={`p-${key}`} href={`#${key}`}>
       <i />
       {t.sys.items[key].name}
     </a>
   ))}
-  <a class="p-gdd" href="#gdd">
-    <i />
-    {t.pj.method.name}
-  </a>
 </nav>
 
 <style>

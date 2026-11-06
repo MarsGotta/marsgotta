@@ -49,9 +49,12 @@ test.describe('home', () => {
 
   test('the idea behind the three projects is named and leads to its chapter', async ({ page }) => {
     await page.goto('/');
-    await expect(
-      page.locator('#sistema').getByRole('link', { name: /Gate-Driven Development/ }),
-    ).toHaveAttribute('href', '/proyectos#gdd');
+    const system = page.locator('#sistema');
+    await expect(system.getByRole('link', { name: /Gate-Driven Development/ })).toHaveAttribute(
+      'href',
+      '/proyectos#gdd',
+    );
+    await expect(system.getByText('La puerta comprueba si es verdad.')).toBeVisible();
   });
 
   test('demos play once when they scroll into view', async ({ page }) => {

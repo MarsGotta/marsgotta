@@ -73,8 +73,6 @@
     "kicker": "What I build",
     "title": "I want AI to work with you, not instead of you.",
     "sub": "Three pieces, one idea.",
-    "methodA": "The idea has a name:",
-    "methodB": "Gate-Driven Development",
     "ringK": "Kimen · what it shows you",
     "ringJ": "Jezero · what it remembers",
     "ringO": "Orbit · where it lives with you",
@@ -385,16 +383,20 @@
         {
           "label": "Read the manifesto",
           "href": "https://gate-driven.dev/en/manifesto/"
+        },
+        {
+          "label": "T-minus on GitHub",
+          "href": "https://github.com/MarsGotta/gdd"
         }
       ],
-      "desc": "My method for building quality products with AI agents without supervising them step by step. Before the agent starts, you decide what it has to prove: those are the gates. The more that can go wrong, the stricter they are, and whatever slips through becomes a new gate.",
+      "desc": "My method for building quality products with AI agents without supervising them step by step. Before the agent starts, you decide what it has to prove: those are the gates. The more that can go wrong, the stricter they are, and when something slips through, you harden the gate so it doesn't happen again.",
       "bullets": [
         "It passes with facts, not words: tests, linters, a reviewer or your approval.",
         "The agent never touches the checks that judge it.",
         "Risk decides how much is on you: on green, nothing; on red, you approve where it matters.",
         "Every change is owned by its author: AI never answers for you."
       ],
-      "status": "v0.6, a draft for review. No data of its own yet; its engine, T-minus, is in development.",
+      "status": "v0.7, a draft for review. No data of its own yet; its engine, T-minus, is in development.",
       "risk": {
         "title": "What you have to do",
         "levels": [

@@ -21,10 +21,10 @@ const t = getMessages(lang).pj;
     <ProjectNav lang={lang} />
   </PageHeader>
   <div class="wrap">
+    <MethodChapter lang={lang} />
     {projectKeys.map((project, index) => (
       <ProjectChapter lang={lang} project={project} index={index} />
     ))}
-    <MethodChapter lang={lang} />
     <OnmarsBand lang={lang} />
   </div>
 </Base>

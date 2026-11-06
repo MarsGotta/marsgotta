@@ -58,12 +58,13 @@ test.describe('projects', () => {
     await expect(page.getByText('Repo público al abrir la beta')).toBeVisible();
   });
 
-  test('closes with GDD, the method behind the three, linked to its site', async ({ page }) => {
+  test('opens with GDD, the method behind the three, linked to its site', async ({ page }) => {
     for (const [path, site] of [
       ['/proyectos', 'https://gate-driven.dev/'],
       ['/en/projects', 'https://gate-driven.dev/en/'],
     ]) {
       await page.goto(path);
+      await expect(page.locator('article').first()).toHaveAttribute('id', 'gdd');
       const method = page.locator('#gdd');
       await expect(method.getByRole('heading', { level: 2 })).toContainText(
         'Gate-Driven Development',
@@ -71,6 +72,10 @@ test.describe('projects', () => {
       await expect(method.getByRole('link', { name: /gate-driven\.dev/ })).toHaveAttribute(
         'href',
         site,
+      );
+      await expect(method.getByRole('link', { name: /T-minus/ })).toHaveAttribute(
+        'href',
+        'https://github.com/MarsGotta/gdd',
       );
       // Four bullets and the three levels of risk.
       await expect(method.getByRole('listitem')).toHaveCount(7);

@@ -80,8 +80,6 @@
   "sys": {
     "kicker": "El sistema",
     "title": "Tres piezas, una idea.",
-    "methodA": "La idea tiene nombre:",
-    "methodB": "Gate-Driven Development",
     "lead": "Lo que un agente te enseña, lo que recuerda y dónde vive contigo.",
     "ringK": "Kimen · lo que te enseña",
     "ringJ": "Jezero · lo que recuerda",
@@ -403,16 +401,20 @@
         {
           "label": "Leer el manifiesto",
           "href": "https://gate-driven.dev/manifiesto/"
+        },
+        {
+          "label": "T-minus en GitHub",
+          "href": "https://github.com/MarsGotta/gdd"
         }
       ],
-      "desc": "Mi método para crear productos de calidad con agentes de IA sin supervisarlos paso a paso. Antes de que el agente empiece, decides qué tiene que demostrar: esas son las puertas. Cuanto más puede salir mal, más exigentes son, y lo que se cuela se convierte en una puerta nueva.",
+      "desc": "Mi método para crear productos de calidad con agentes de IA sin supervisarlos paso a paso. Antes de que el agente empiece, decides qué tiene que demostrar: esas son las puertas. Cuanto más puede salir mal, más exigentes son, y cuando algo se cuela, blindas la puerta para que no vuelva a pasar.",
       "bullets": [
         "Se pasa con hechos, no con palabras: tests, linters, un vigilante o tu aprobación.",
         "El agente nunca toca las pruebas que lo juzgan.",
         "El riesgo decide cuánto te toca: en verde, nada; en rojo, das tu aprobación donde haga falta.",
         "De cada cambio responde su autor: la IA nunca responde por ti."
       ],
-      "status": "v0.6, borrador para revisión. Todavía sin datos propios; su motor, T-minus, está en desarrollo.",
+      "status": "v0.7, borrador para revisión. Todavía sin datos propios; su motor, T-minus, está en desarrollo.",
       "risk": {
         "title": "Qué te toca hacer",
         "levels": [

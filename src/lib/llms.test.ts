@@ -19,13 +19,11 @@ describe('llms.txt', () => {
     expect(text).toContain('- [Jezero](https://jezero.marsgotta.com): ');
     expect(text).toContain('Code: https://github.com/MarsGotta/jezero');
     expect(text).toContain('- [Orbit](https://marsgotta.com/en/projects#orbit): ');
+    expect(text).toContain('Code: https://github.com/MarsGotta/orbit');
     expect(text).toContain('- [Gate-Driven Development (GDD)](https://gate-driven.dev/en/): ');
   });
 
   it('keeps to the brand rules', () => {
     expect(text).not.toContain('—');
-    expect(text).not.toContain('github.com/MarsGotta/orbit');
-    const orbit = text.split('\n').find((line) => line.startsWith('- [Orbit]'));
-    expect(orbit?.toLowerCase()).not.toContain('open source');
   });
 });

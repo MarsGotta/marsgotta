@@ -322,9 +322,8 @@
     "kicker": "Proyectos",
     "h1a": "Tres piezas,",
     "h1b": "una idea.",
-    "lead": "Lo que un agente te enseña, lo que recuerda y dónde vive contigo. Kimen y Jezero ya son open source; Orbit lo será al abrir su beta.",
+    "lead": "Lo que un agente te enseña, lo que recuerda y dónde vive contigo. Los tres ya son open source.",
     "navLabel": "Proyectos de esta página",
-    "soon": "Repo público al abrir la beta",
     "onmarsA": "También hago productos pequeños y honestos en",
     "onmarsB": ", mi estudio independiente: KitGestor, That Day y Sapphik.",
     "items": {
@@ -377,8 +376,12 @@
       "orbit": {
         "role": "Dónde vive contigo",
         "sub": "Tu asistente, en tu Mac.",
-        "links": [],
-        "soon": true,
+        "links": [
+          {
+            "label": "github.com/MarsGotta/orbit",
+            "href": "https://github.com/MarsGotta/orbit"
+          }
+        ],
         "desc": "Una app para el Mac que da a tu asistente un sitio en tu día: graba y transcribe tus reuniones, escribe las notas y te deja hablar con el agente que elijas.",
         "bullets": [
           "Trae tu propio agente: por un API gateway o con tu sesión de Claude o de Codex.",

@@ -26,7 +26,6 @@ const forbidden: [string, RegExp][] = [
   ['"16 años"', /16 (años|years)/i],
   ['the "talk to Deimos" chat', /habla con Deimos|talk to Deimos/i],
   ['CEFR English levels', /\b(MCER|CEFR)\b|\bB2\b|\bC1\b|\bC2\b/],
-  ['a link to the private Orbit repo', /github\.com\/MarsGotta\/orbit/i],
 ];
 
 describe('brand rules', () => {
@@ -36,11 +35,4 @@ describe('brand rules', () => {
       expect(hits).toEqual([]);
     });
   }
-
-  it('does not call Orbit open source', () => {
-    for (const lang of ['es', 'en']) {
-      const copy = readFileSync(`src/i18n/${lang}.json`, 'utf8');
-      expect(copy).not.toMatch(/Orbit[^.]*\b(es|is) open source/i);
-    }
-  });
 });

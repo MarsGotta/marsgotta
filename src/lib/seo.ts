@@ -179,8 +179,8 @@ function projectsData(site: URL, lang: Lang, author: string): object[] {
     const { name, chips } = t.sys.items[key];
     const repository = links.find((link) => link.href.startsWith('https://github.com/'))?.href;
     const website = links.find((link) => link.href !== repository)?.href;
-    // Only a project with a public repository is shown with its licence: Orbit is not called open
-    // source until its repository is public.
+    // Only a project with a public repository is shown with its licence: the chips name it even
+    // before the code is open.
     const license = repository && chips.find((chip) => SPDX_LICENSES.has(chip));
     return {
       '@type': repository ? 'SoftwareSourceCode' : 'SoftwareApplication',

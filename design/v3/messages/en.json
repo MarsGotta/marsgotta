@@ -324,9 +324,8 @@
     "kicker": "Projects",
     "h1a": "Three pieces,",
     "h1b": "one idea.",
-    "lead": "What an agent shows you, what it remembers, and where it lives with you. Kimen and Jezero are already open source; Orbit will be once its beta opens.",
+    "lead": "What an agent shows you, what it remembers, and where it lives with you. All three are already open source.",
     "navLabel": "Projects on this page",
-    "soon": "Public repo when the beta opens",
     "onmarsA": "I also make small, honest products at",
     "onmarsB": ", my independent studio: KitGestor, That Day and Sapphik.",
     "items": {
@@ -379,8 +378,12 @@
       "orbit": {
         "role": "Where it lives with you",
         "sub": "Your assistant, on your Mac.",
-        "links": [],
-        "soon": true,
+        "links": [
+          {
+            "label": "github.com/MarsGotta/orbit",
+            "href": "https://github.com/MarsGotta/orbit"
+          }
+        ],
         "desc": "A Mac app that gives your assistant a place in your day: it records and transcribes your meetings, writes the notes and lets you talk to the agent of your choice.",
         "bullets": [
           "Bring your own agent: through an API gateway or with your Claude or Codex session.",

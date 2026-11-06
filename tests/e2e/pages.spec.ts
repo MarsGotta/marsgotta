@@ -49,13 +49,17 @@ test.describe('about', () => {
 });
 
 test.describe('projects', () => {
-  test('links to each chapter and never to the Orbit repository', async ({ page }) => {
+  test('shows each chapter with a link to its code', async ({ page }) => {
     await page.goto('/proyectos');
-    for (const project of ['kimen', 'jezero', 'orbit']) {
-      await expect(page.locator(`#${project}`)).toBeVisible();
+    for (const [project, repository] of [
+      ['kimen', 'https://github.com/kimen-dev/kimen'],
+      ['jezero', 'https://github.com/MarsGotta/jezero'],
+      ['orbit', 'https://github.com/MarsGotta/orbit'],
+    ]) {
+      const chapter = page.locator(`#${project}`);
+      await expect(chapter).toBeVisible();
+      await expect(chapter.locator(`a[href="${repository}"]`)).toHaveCount(1);
     }
-    await expect(page.locator('a[href*="MarsGotta/orbit"]')).toHaveCount(0);
-    await expect(page.getByText('Repo público al abrir la beta')).toBeVisible();
   });
 
   test('opens with GDD, the method behind the three, linked to its site', async ({ page }) => {

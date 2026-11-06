@@ -26,7 +26,8 @@ export function llmsTxt(site: URL): string {
     const repository = links.find((link) => link.href.startsWith('https://github.com/'))?.href;
     const home = links.find((link) => link.href !== repository)?.href;
     const code = repository ? ` Code: ${repository}` : '';
-    return `- [${name}](${home ?? repository ?? url('projects', key)}): ${line} ${t.pj.items[key].desc}${code}`;
+    // A project without a site of its own (Orbit) links to its chapter here, and gives its code apart.
+    return `- [${name}](${home ?? url('projects', key)}): ${line} ${t.pj.items[key].desc}${code}`;
   });
   const { method } = t.pj;
   projects.push(

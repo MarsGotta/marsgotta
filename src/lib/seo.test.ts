@@ -92,9 +92,12 @@ describe('seo', () => {
     expect(find(graph, 'SoftwareSourceCode', 'Jezero').codeRepository).toBe(
       'https://github.com/MarsGotta/jezero',
     );
-    const orbit = find(graph, 'SoftwareApplication', 'Orbit');
-    expect(orbit).toMatchObject({ operatingSystem: 'macOS' });
-    expect(orbit).not.toHaveProperty('license');
+    expect(find(graph, 'SoftwareSourceCode', 'Orbit')).toMatchObject({
+      url: 'https://marsgotta.com/en/projects#orbit',
+      codeRepository: 'https://github.com/MarsGotta/orbit',
+      license: 'https://spdx.org/licenses/MIT',
+      operatingSystem: 'macOS',
+    });
   });
 
   it('presents GDD as her method, a work in draft, not as software', () => {

@@ -17,8 +17,6 @@ interface Props {
   sub: string;
   chips?: string[];
   links: { label: string; href: string }[];
-  /** Instead of a link that does not exist yet. */
-  soon?: string;
   desc: string;
   bullets: string[];
   note?: { lead?: string; text: string };
@@ -36,7 +34,6 @@ const {
   sub,
   chips = [],
   links,
-  soon,
   desc,
   bullets,
   note,
@@ -75,7 +72,6 @@ const titleId = `project-${id}`;
             <NewTabHint lang={lang} />
           </a>
         ))}
-        {soon && <span class="ext">{soon}</span>}
       </div>
       <p class="desc">{desc}</p>
       <ul class="bullets">

@@ -78,6 +78,8 @@ El 5 de noviembre de 2026 los MX de marcelagotta.com pasaron de Google (sin cuen
 
 El mismo día se activó DNSSEC en las dos zonas: Cloudflare firma y GoDaddy publica el registro DS de cada dominio (key tag 2371, algoritmo 13, digest SHA-256). marsgotta.com quedó verificado en GitHub Pages con el TXT `_github-pages-challenge-MarsGotta`, que hay que conservar: GitHub lo comprueba de vez en cuando. En Search Console, el sitemap enviado es `https://marsgotta.com/sitemap.xml`.
 
+También el 6 de noviembre, en el panel de Cloudflare: HSTS de zona en las dos (un año, con subdominios, sin preload) y «Always Use HTTPS» apagado en marcelagotta.com, porque el Worker de redirecciones ya lleva a https://marsgotta.com en un salto. Limitar los cifrados TLS 1.2 pide Advanced Certificate Manager, de pago, y no se hizo.
+
 ### Idioma automático
 
 Cada idioma es una URL propia (español sin prefijo e inglés bajo `/en`). El Worker decide al llegar a la web, nunca mientras se navega por ella:
@@ -104,7 +106,7 @@ En local, `npm run preview:cf` simula el envío: cada correo queda en `.wrangler
 
 ### Seguridad y redirecciones
 
-- **Cabeceras.** `public/_headers` da a todo HSTS, `nosniff`, `Referrer-Policy`, `X-Frame-Options`, `Permissions-Policy` y las políticas de origen cruzado (COOP y CORP; las tarjetas OG y los iconos admiten otros sitios). Las respuestas que monta el Worker (formulario, redirecciones) reciben las suyas en código (`src/lib/http.ts`).
+- **Cabeceras.** `public/_headers` da a todo HSTS (con los subdominios, como el ajuste de HSTS de las dos zonas en Cloudflare, que manda en el borde), `nosniff`, `Referrer-Policy`, `X-Frame-Options`, `Permissions-Policy` y las políticas de origen cruzado (COOP y CORP; las tarjetas OG y los iconos admiten otros sitios). Las respuestas que monta el Worker (formulario, redirecciones) reciben las suyas en código (`src/lib/http.ts`).
 - **Content-Security-Policy.** La escribe el build en `dist/_headers` (`src/integrations/content-security-policy.ts`), con un hash por cada script en línea de las páginas, porque cambian en cada build. Todo es del propio sitio: no se carga nada de fuera. `tests/e2e/csp.spec.ts` falla si la política bloquea algo. Signals usa la misma integración.
 - **Formularios.** `/api/contact` y el `/api/subscribe` de Signals rechazan los envíos desde otros sitios (403) y los cuerpos de más de 64 KB (413), y limitan por IP, o por su /64 en IPv6 (`src/lib/form-guard.ts`).
 - **Redirecciones.** El build escribe `dist/_redirects` desde `src/lib/redirects.ts`: las direcciones de la web anterior y las otras formas de escribir cada página (con barra final o `.html`). El Worker de los otros dominios usa la misma tabla, así que cualquier dirección antigua llega en un salto.

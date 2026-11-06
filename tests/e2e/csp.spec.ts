@@ -49,7 +49,9 @@ test.describe('content security policy', () => {
   test('pages, files and the API all carry the security headers', async ({ request }) => {
     for (const path of ['/', '/en/about', '/robots.txt', '/no-existe', '/api/contact']) {
       const headers = (await request.get(path, { maxRedirects: 0 })).headers();
-      expect(headers['strict-transport-security'], path).toBe('max-age=31536000');
+      expect(headers['strict-transport-security'], path).toBe(
+        'max-age=31536000; includeSubDomains',
+      );
       expect(headers['x-content-type-options'], path).toBe('nosniff');
     }
     for (const path of ['/', '/robots.txt', '/no-existe']) {

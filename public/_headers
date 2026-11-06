@@ -1,8 +1,8 @@
 # Headers for Cloudflare Workers static assets.
 
-# HSTS leaves out includeSubDomains: other subdomains are served by third parties.
+# HSTS covers the subdomains: every one serves HTTPS. The zone setting sends the same value at the edge.
 /*
-  Strict-Transport-Security: max-age=31536000
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: DENY

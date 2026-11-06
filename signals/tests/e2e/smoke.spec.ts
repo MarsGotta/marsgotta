@@ -14,7 +14,9 @@ test.describe('@smoke', () => {
       expect(response.status()).toBe(200);
       expect(response.headers()['x-content-type-options']).toBe('nosniff');
       expect(response.headers()['x-frame-options']).toBe('DENY');
-      expect(response.headers()['strict-transport-security']).toBe('max-age=31536000');
+      expect(response.headers()['strict-transport-security']).toBe(
+        'max-age=31536000; includeSubDomains',
+      );
     });
   }
 

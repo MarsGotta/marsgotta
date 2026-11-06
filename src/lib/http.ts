@@ -1,8 +1,9 @@
 /**
- * HSTS without includeSubDomains: some subdomains are served by third parties. public/_headers
- * sends the same value with every file and page.
+ * HSTS for the domain and its subdomains, all of which serve HTTPS (GitHub Pages and Netlify
+ * included). Cloudflare's zone setting sends this same header at the edge, over whatever the
+ * Worker or public/_headers say, so the values are kept equal.
  */
-export const HSTS = 'max-age=31536000';
+export const HSTS = 'max-age=31536000; includeSubDomains';
 
 /**
  * The headers that public/_headers gives files and pages, for the responses a Worker builds itself

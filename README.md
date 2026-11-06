@@ -76,6 +76,8 @@ Para deshacerlo, se revierte el commit y se repiten los tres pasos con los domin
 
 El 5 de noviembre de 2026 los MX de marcelagotta.com pasaron de Google (sin cuenta detrás) a iCloud, y gdd.marsgotta.com volvió a engancharse al Worker `gate-driven-dev`. El 6 de noviembre, tras la auditoría, se borraron en marsgotta.com `nuevowevo` y `nw-backend`, que apuntaban a proyectos de Vercel y Railway que ya no existen y cualquiera podía reclamar. También se quitó Zoho del SPF y su clave DKIM, y se añadieron DMARC (`p=none`, informes a me@marsgotta.com) y CAA (Let's Encrypt y Google; Cloudflare suma las suyas sola).
 
+El mismo día se activó DNSSEC en las dos zonas: Cloudflare firma y GoDaddy publica el registro DS de cada dominio (key tag 2371, algoritmo 13, digest SHA-256). marsgotta.com quedó verificado en GitHub Pages con el TXT `_github-pages-challenge-MarsGotta`, que hay que conservar: GitHub lo comprueba de vez en cuando. En Search Console, el sitemap enviado es `https://marsgotta.com/sitemap.xml`.
+
 ### Idioma automático
 
 Cada idioma es una URL propia (español sin prefijo e inglés bajo `/en`). El Worker decide al llegar a la web, nunca mientras se navega por ella:

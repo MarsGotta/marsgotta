@@ -10,3 +10,5 @@ package-lock.json
 CLAUDE.md
 # Signals are copies of Mars's Obsidian notes (npm run signals:import): the vault is their source.
 signals/src/content/
+# README.md is Mars's GitHub profile (this repo is MarsGotta/marsgotta): it stays as she wrote it.
+README.md

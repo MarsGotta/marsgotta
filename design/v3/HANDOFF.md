@@ -108,7 +108,7 @@ Notas de implementación:
   - El cambio de tema reproduce el amanecer: overlay a pantalla completa, cambio a los 560 ms y retirada a los 1300 ms (ver `.mg-dawn` y `toggleTheme`). Con reduced-motion, cambio instantáneo.
 - **Idioma.**
   - i18n nativo de Astro: cada idioma son páginas estáticas propias, y el selector ES/EN enlaza a la ruta equivalente del otro idioma.
-  - Decidido con Mars: el idioma se elige solo según el navegador. Lo decide el Worker al llegar a la web (`workers/site/language.ts`), con la elección del selector guardada en una cookie. Detalle en el README.
+  - Decidido con Mars: el idioma se elige solo según el navegador. Lo decide el Worker al llegar a la web (`workers/site/language.ts`), con la elección del selector guardada en una cookie. Detalle en DEVELOPMENT.md.
   - Los arrays (`now.items`, `about.roles`, `talks.items`…) se leen directamente del JSON tipado.
 - **HUD.** Decidido con Mars: la web no lleva el recuadro de telemetría del prototipo (coordenadas, hora de Madrid, sol y LMST de Jezero). No aportaba información y en móvil empujaba el hero hacia abajo. El botón SIM vive en el pie.
 - **Hero en escritorio.** Decidido con Mars: el titular y el planeta suben entre 40 y 56 px respecto al prototipo (`--hero-lift`). El hero mide lo mismo: ese espacio pasa a quedar bajo los botones.
@@ -141,7 +141,7 @@ Notas de implementación:
   - Decidido: un Worker aparte (`workers/redirect/`) con los tres dominios secundarios. El sitio principal sigue sin ejecutar código y la redirección queda versionada y con tests. Las Redirect Rules no eran viables: el token de wrangler no tiene permisos de reglas ni de DNS.
 - **Secretos.** Con `wrangler secret put`, nunca en el repo.
 - **Scripts.** `npm run deploy` (build + `wrangler deploy`) y `npm run preview:cf` (`wrangler dev` sobre `dist/`).
-- **Producción.** No se despliega sin el OK explícito de Mars. Antes, prueba en la URL `*.workers.dev`. Documenta el despliegue en el README.
+- **Producción.** No se despliega sin el OK explícito de Mars. Antes, prueba en la URL `*.workers.dev`. Documenta el despliegue en DEVELOPMENT.md.
 
 ---
 
